@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="580.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.UpdateEmployerController">
+   <children>
+      <Label fx:id="image" focusTraversable="false" layoutX="23.0" layoutY="109.0" prefHeight="220.0" prefWidth="250.0" style="-fx-alignment: center; -fx-background-color: #ddd;">
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect></Label>
+      <Button id="rich-blue" fx:id="update" focusTraversable="false" layoutX="23.0" layoutY="332.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="250.0" text="تعديل الصورة">
+          
+          <graphic>
+              
+            <ImageView fitHeight="21.0" fitWidth="20.0" layoutX="256.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/update-file.png" />
+               </image>
+            </ImageView>              
+              
+          </graphic>
+          
+      </Button>
+      <Button id="green" fx:id="save" contentDisplay="RIGHT" defaultButton="true" layoutX="190.0" layoutY="491.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="حفظ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+          <graphic>
+              
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="256.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/icons8_save_60px_1.png" />
+               </image>
+            </ImageView>              
+              
+          </graphic>         
+      </Button>
+      <TextField fx:id="fullname" alignment="CENTER_RIGHT" layoutX="306.0" layoutY="109.0" prefHeight="40.0" prefWidth="250.0" promptText="الإسم كامل" style="-fx-padding: 0 40 0 0;">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </TextField>
+      <TextField fx:id="phone" alignment="CENTER_RIGHT" layoutX="306.0" layoutY="178.0" prefHeight="40.0" prefWidth="250.0" promptText="رقم الهاتف" style="-fx-padding: 0 40 0 0;">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </TextField>
+      <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="527.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/name.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="527.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/phone.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="fullnameStatus" focusTraversable="false" layoutX="306.0" layoutY="149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="250.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال إسم مناسب" textFill="WHITE" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="phoneStatus" focusTraversable="false" layoutX="306.0" layoutY="218.0" prefHeight="17.0" prefWidth="250.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال رقم هاتف صالح" textFill="WHITE" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <BorderPane layoutX="-1.0" prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #ddd;">
+         <center>
+            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="تعديل معلومات الحساب" textAlignment="CENTER" wrappingWidth="203.27734375" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+         </center>
+         <right>
+            <Label id="options" fx:id="min" focusTraversable="false" prefHeight="40.0" prefWidth="40.0" BorderPane.alignment="CENTER">
+                
+                <graphic>
+                    
+                        <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="115.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_minus_48px_1.png" />
+                     </image>
+                  </ImageView>                
+                    
+                </graphic>            
+                
+            </Label>
+         </right>
+         <left>
+            <Button id="menu-btn" fx:id="cancel" cancelButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+                <graphic>
+                    
+                  <ImageView fitHeight="21.0" fitWidth="34.0" layoutX="256.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_left_128px.png" />
+                     </image>
+                  </ImageView>              
+                    
+                </graphic>         
+            </Button>
+         </left>
+      </BorderPane>
+      <Text fill="#dddddd" layoutX="397.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="الصلاحيات">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <VBox alignment="CENTER" layoutX="330.0" layoutY="275.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="175.0" prefWidth="202.0" style="-fx-background-color: #ddd;">
+         <children>
+            <CheckBox fx:id="admin" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="مستخدم أدمن" textFill="#3d4956">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </CheckBox>
+            <Separator prefHeight="20.0" prefWidth="207.0" />
+            <CheckBox fx:id="products" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة المنتوجات" textAlignment="RIGHT" textFill="#3d4956">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </CheckBox>
+            <Separator prefHeight="10.0" prefWidth="198.0" />
+            <CheckBox fx:id="users" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة الحسابات" textAlignment="RIGHT" textFill="#3d4956">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </CheckBox>
+            <Separator prefHeight="10.0" prefWidth="198.0" />
+            <CheckBox fx:id="buys" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة المشتريات" textAlignment="RIGHT" textFill="#3d4956">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </CheckBox>
+            <Separator prefHeight="10.0" prefWidth="199.0" />
+            <CheckBox fx:id="sells" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة المبيعات" textAlignment="RIGHT" textFill="#3d4956">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </CheckBox>
+         </children>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@Layout/buttons.css" />
+      <URL value="@Layout/custom.css" />
+   </stylesheets>
+   <effect>
+      <InnerShadow height="15.0" radius="7.0" width="15.0" />
+   </effect>
+</AnchorPane>
