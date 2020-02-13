@@ -24,6 +24,8 @@ public interface Init {
     
     String UPLOADED_FILE_PATH = "C:/gdp-uploads/";
     
+    String FXMLS_PATH = "/sANDb/FXMLs/" ;
+    
     String CONNECTION_ERROR = "خطأ خلال محاولة الإتصال بقاعدة البيانات";
     
     String CONNECTION_ERROR_MESSAGE = "تعذر الإتصال بقاعدة البيانات، تأكد من أن السرفر يعمل وحاول مجددا";

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.SellStatsController">
+   <children>
+      <Text fill="#dddddd" layoutX="549.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إحصائيات البيع" wrappingWidth="156.228515625">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="495.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/buy2.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="74.0" layoutY="79.0" prefHeight="150.0" prefWidth="1060.0">
+         <children>
+            <Pane prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: tomato;">
+               <children>
+                  <Label contentDisplay="TOP" layoutX="50.0" prefHeight="104.0" prefWidth="150.0" style="-fx-alignment: center;" text="مبيعات الأسبوع" textAlignment="CENTER" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        
+                        <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_week_view_48px.png" />
+                           </image>
+                        </ImageView>                          
+                         
+                     </graphic>
+                  </Label>
+                  <Label fx:id="weekSells" layoutY="104.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="weekSum" layoutX="130.0" layoutY="104.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="20.0" style="-fx-background-color: #3D4956;" />
+            <Pane layoutX="200.0" layoutY="10.0" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: tomato;">
+               <children>
+                  <Label contentDisplay="TOP" layoutX="45.0" prefHeight="104.0" prefWidth="150.0" style="-fx-alignment: center;" text="مبيعات الشهر" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        
+                        <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_month_view_64px.png" />
+                           </image>
+                        </ImageView>                          
+                         
+                     </graphic>                     
+                  </Label>
+                  <Label fx:id="monthSells" layoutY="104.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="monthSum" layoutX="125.0" layoutY="104.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect>
+            </Pane>
+            <Pane layoutX="390.0" layoutY="10.0" prefHeight="100.0" prefWidth="20.0" style="-fx-background-color: #3D4956;" />
+            <Pane layoutX="220.0" layoutY="10.0" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: tomato;">
+               <children>
+                  <Label contentDisplay="TOP" layoutX="45.0" prefHeight="104.0" prefWidth="150.0" style="-fx-alignment: center;" text="مبيعات السنة" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        
+                        <ImageView fitHeight="46.0" fitWidth="61.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_year_view_48px.png" />
+                           </image>
+                        </ImageView>                          
+                         
+                     </graphic>                     
+                  </Label>
+                  <Label fx:id="yearSells" layoutY="102.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="yearSum" layoutX="129.0" layoutY="102.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect>
+            </Pane>
+            <Pane layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="20.0" style="-fx-background-color: #3D4956;" />
+            <Pane layoutX="430.0" layoutY="10.0" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: tomato;">
+               <children>
+                  <Label contentDisplay="TOP" layoutX="51.0" prefHeight="104.0" prefWidth="150.0" style="-fx-alignment: center;" text="مجمل المبيعات" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        
+                        <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_total_sales_1_60px.png" />
+                           </image>
+                        </ImageView>                          
+                         
+                     </graphic>                     
+                  </Label>
+                  <Label fx:id="totalSells" layoutY="102.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalSum" layoutX="126.0" layoutY="102.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect>
+            </Pane>
+         </children>
+      </HBox>
+      <LineChart id="myChart" fx:id="sellLineChart" layoutY="391.0" prefHeight="300.0" prefWidth="600.0">
+        <xAxis>
+          <CategoryAxis label="اليوم" side="BOTTOM" tickLabelFill="#dddddd">
+               <tickLabelFont>
+                  <Font size="6.0" />
+               </tickLabelFont></CategoryAxis>
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="المبيعات" side="LEFT">
+               <tickLabelFont>
+                  <Font name="System Bold" size="10.0" />
+               </tickLabelFont></NumberAxis>
+        </yAxis>
+      </LineChart>
+      <Text fill="WHITE" layoutX="201.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="عدد المبيعات حسب اليوم">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="852.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="المبلغ الإجمالي">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <LineChart id="myChart" fx:id="sumLineChart" layoutX="607.0" layoutY="391.0" prefHeight="300.0" prefWidth="600.0">
+         <xAxis>
+            <CategoryAxis label="اليوم" side="BOTTOM" tickLabelFill="#dddddd">
+               <tickLabelFont>
+                  <Font size="6.0" />
+               </tickLabelFont></CategoryAxis>
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="المبلغ الإجمالي" side="LEFT" tickLabelFill="#dddddd">
+               <tickLabelFont>
+                  <Font size="10.0" />
+               </tickLabelFont></NumberAxis>
+         </yAxis>
+      </LineChart>
+      <ToolBar layoutX="207.0" layoutY="253.0" prefHeight="70.0" prefWidth="800.0" style="-fx-background-color: white;">
+         <items>
+            <DatePicker fx:id="startDate" editable="false" prefHeight="40.0" prefWidth="170.0">
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect></DatePicker>
+            <ImageView fitHeight="20.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_filled_sent_32px.png" />
+               </image>
+            </ImageView>
+            <DatePicker fx:id="endDate" editable="false" prefHeight="40.0" prefWidth="170.0">
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect></DatePicker>
+            <Separator orientation="VERTICAL" prefHeight="43.0" prefWidth="30.0" />
+            <ChoiceBox fx:id="productBox" prefHeight="44.0" prefWidth="175.0" style="-fx-background-color: #ddd;">
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect></ChoiceBox>
+            <Separator orientation="VERTICAL" prefHeight="60.0" prefWidth="35.0" />
+            <Button id="green" fx:id="filter" mnemonicParsing="false" prefHeight="40.0" prefWidth="151.0" text="تخصيص">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </items>
+      </ToolBar>
+   </children>
+   <stylesheets>
+      <URL value="@../Layout/buttons.css" />
+      <URL value="@../Layout/custom.css" />
+   </stylesheets>
+</AnchorPane>

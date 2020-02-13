@@ -34,10 +34,10 @@ public class Main extends Application implements Init {
         if(!directory.exists()){
             directory.mkdir();
         }
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sANDb/FXMLs/Login.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("Layout/custom.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("Layout/buttons.css").toExternalForm());          
+        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());          
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);

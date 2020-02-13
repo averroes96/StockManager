@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="330.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
+   <children>
+      <TextField fx:id="username" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="112.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0;">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </TextField>
+      <PasswordField fx:id="password" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="166.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة السر" style="-fx-padding: 0 40 0 0;">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </PasswordField>
+      <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="319.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/username.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="319.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/password2.png" />
+         </image>
+      </ImageView>
+      <Button id="green" fx:id="loginButton" contentDisplay="RIGHT" defaultButton="true" layoutX="103.0" layoutY="248.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="250.0" style="-fx-alignment: center;" stylesheets="@../Layout/buttons.css" text="تسجيل الدخول" textAlignment="CENTER">
+         <font>
+            <Font name="Ebrima Bold" size="18.0" />
+         </font>
+         <graphic>
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="109.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8_login_rounded_right_64px_2.png" />
+         </image>
+      </ImageView>             
+             
+         </graphic>
+      </Button>
+      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #ddd;">
+         <center>
+            <Label text="GDP" textFill="#3d4956" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="24.0" />
+               </font>
+            </Label>
+         </center>
+         <left>
+            <Label id="options" fx:id="reduceButton" onMouseClicked="#minimize" prefHeight="40.0" prefWidth="40.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
+            
+                <graphic>
+                   
+                  <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="428.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_minus_48px_1.png" />
+                     </image>
+                  </ImageView>          
+                               
+                    
+                </graphic>        
+      
+                
+            </Label>
+         </left>
+         <right>
+            <Label id="options" fx:id="closeButton" onMouseClicked="#close" prefHeight="40.0" prefWidth="40.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
+                
+                <graphic>
+                   
+                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="428.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_delete_sign_64px_1.png" />
+                     </image>
+                  </ImageView>          
+                               
+                    
+                </graphic>        
+                
+            </Label>
+         </right>
+      </BorderPane>
+        
+
+   </children>
+   <effect>
+      <InnerShadow height="15.0" radius="7.0" width="15.0" />
+   </effect>
+   <stylesheets>
+      <URL value="@../Layout/custom.css" />
+      <URL value="@../Layout/buttons.css" />
+   </stylesheets>
+</AnchorPane>

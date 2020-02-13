@@ -3,17 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/LoginController.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/JR/JasperReporter.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/Layout/custom.css</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/NewSellController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/DBRoutines.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/RemovedProductsController.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/NewProductController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Data/ProdStats.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/MainController.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/Common.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/ProductStats.fxml</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/ProductStatsController.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/UpdateSellController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/ProdStatController.java</file>
         </group>
     </open-files>
 </project-private>
