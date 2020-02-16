@@ -10,6 +10,7 @@ import Data.Employer;
 import Data.Product;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
+import static Include.Common.getDate;
 import static Include.Common.getProductByName;
 import static Include.Common.minimize;
 import Include.Init;
@@ -115,7 +116,7 @@ public class UpdateBuyController implements Initializable,Init {
         nameBox.getSelectionModel().select(buy.getProduct()); 
         quantity.setText(String.valueOf(buy.getBuyQte()));
         price.setText(String.valueOf(buy.getBuyPrice()));
-        date.getEditor().setText(buy.getBuyDate());
+        date.getEditor().setText(getDate(buy.getBuyID(), "buy"));
 
     }
 
@@ -168,14 +169,14 @@ public class UpdateBuyController implements Initializable,Init {
                     Product oldProduct = getProductByName(this.buy.getProduct());
                     Product newProduct = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
                     
-                    ps = con.prepareStatement("UPDATE buy SET buy_qte = ?, buy_unit_price = ?, buy_price = ?, buy_date = ?, user_id = ?, prod_id = ? WHERE buy_id = ?");
+                    ps = con.prepareStatement("UPDATE buy SET buy_qte = ?, buy_unit_price = ?, buy_price = ?, buy_date = concat(?,time(buy_date)), user_id = ?, prod_id = ? WHERE buy_id = ?");
                     
                     ps.setInt(5, employer.getUserID());
                     ps.setInt(1, Integer.parseInt(quantity.getText()));
                     ps.setInt(2, Integer.parseInt(price.getText()));
                     ps.setInt(3, Integer.parseInt(price.getText()) * Integer.parseInt(quantity.getText()));
                     ps.setInt(6, newProduct.getProdID());
-                    ps.setDate(4, Date.valueOf(date.getEditor().getText()));
+                    ps.setString(4, date.getEditor().getText() + " ");
                     ps.setInt(7, this.buy.getBuyID());
                     ps.executeUpdate();
                     

@@ -5,6 +5,7 @@
  */
 package Include;
 
+import Data.Buy;
 import Data.Employer;
 import Data.ProdStats;
 import Data.Product;
@@ -33,8 +34,6 @@ import javafx.util.StringConverter;
  */
 public class Common implements Init {
     
-    private static double  xOffset;
-    private static double yOffset;
     
     private static final SpecialAlert alert = new SpecialAlert();
     
@@ -126,7 +125,7 @@ public class Common implements Init {
             }
         };
         return converter;
-    }
+    }   
     
     public static int adminsCount(){
     
@@ -392,7 +391,7 @@ public class Common implements Init {
         }               
     }
     
-    public Sell getSell(int sellID){
+    public  Sell getSell(int sellID){
         
         Connection con = getConnection();
         String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON user.user_id = sell.user_id WHERE sell.sell_id = ? ORDER BY sell.sell_date";
@@ -435,27 +434,54 @@ public class Common implements Init {
         
     }
     
+        public static String getDate(int ID, String type){
+        
+        Connection con = getConnection();
+        String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
+
+        PreparedStatement st;
+        ResultSet rs;  
+
+        try {
+            st = con.prepareStatement(query);
+            st.setInt(1,ID);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                return rs.getString("date("+ type + "_date)");
+
+            }
+
+            con.close();
+        }
+        catch (SQLException e){ 
+            
+            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            return null;
+        }       
+        return null;
+    }
+    
     public static void updateLastLogged(String username){
         
         try {
             String query = "UPDATE user SET last_logged_in = ? WHERE username = ?" ;
             
-            Connection con = getConnection() ;
-            
-            PreparedStatement ps = con.prepareStatement(query);
-            
-            java.util.Date date = new java.util.Date();
-            
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(datetimeFormat);
-            
-            String sqlDate = sdf.format(date);
-                    
-            ps.setString(1, sqlDate);
-            ps.setString(2, username);
-                    
-            ps.executeUpdate();
-            
-            con.close();
+            try (Connection con = getConnection()) {
+                PreparedStatement ps = con.prepareStatement(query);
+                
+                java.util.Date date = new java.util.Date();
+                
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(datetimeFormat);
+                
+                String sqlDate = sdf.format(date);
+                
+                ps.setString(1, sqlDate);
+                ps.setString(2, username);
+                
+                ps.executeUpdate();
+            }
             
         } catch (SQLException ex) {
              alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);

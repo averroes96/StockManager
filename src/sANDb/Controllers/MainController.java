@@ -70,11 +70,11 @@ public class MainController implements Initializable,Init {
     @FXML private TableView<Sell> sellsTable ;
     @FXML private TableView<Buy> buysTable ;
     @FXML private TableColumn<Buy, Integer> buyIDCol,buyQteCol,buyPriceCol,buyTotalCol ;
-    @FXML private TableColumn<Buy, String> buyProdCol,buyUserCol ;
+    @FXML private TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
     @FXML private TableColumn<Product, String> prodName,addDate ;
     @FXML private TableColumn<Product, Integer> sellProd,prodQuantity,id,nbrSellsCol,nbrBuysCol ; 
     @FXML private TableColumn<Sell, Integer> sellID,sellQuantity,sellTotalCol,sellPrice ;
-    @FXML private TableColumn<Sell, String> sellRef,seller ;
+    @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
     @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
     @FXML public ChoiceBox<String> usersCB ;
     @FXML private TextField searchField,searchBuy,sellSearch,refField,priceField2,quantityField;
@@ -165,7 +165,7 @@ public class MainController implements Initializable,Init {
     {
         Connection con = getConnection();
         
-        String query = "SELECT * FROM product WHERE on_hold = 0 ORDER BY prod_id DESC";
+        String query = "SELECT * FROM product WHERE on_hold = 0 ORDER BY add_date DESC";
 
         Statement st;
         ResultSet rs;
@@ -567,7 +567,7 @@ public class MainController implements Initializable,Init {
     private void getAllSells(String selectedDate)
     {
         Connection con = getConnection();
-        String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY sell.sell_id DESC";
+        String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
 
         PreparedStatement st;
         ResultSet rs;
@@ -582,7 +582,7 @@ public class MainController implements Initializable,Init {
                 sell.setSellID(rs.getInt("sell_id"));
                 sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
                 sell.setTotalPrice(rs.getInt("sell.sell_price"));
-                sell.setSellDate(rs.getDate("sell_date").toString());
+                sell.setSellDate(rs.getTime("sell_date").toString());
                 sell.setSellQuantity(rs.getInt("sell_quantity"));
                 sell.setSeller(rs.getString("username"));
                 
@@ -612,7 +612,7 @@ public class MainController implements Initializable,Init {
     private void getAllBuys(String selectedDate)
     {
         Connection con = getConnection();
-        String query = "SELECT * FROM buy INNER JOIN product ON buy.prod_id = product.prod_id INNER JOIN user ON buy.user_id = user.user_id WHERE date(buy_date) = ? ORDER BY buy.buy_id DESC";
+        String query = "SELECT * FROM buy INNER JOIN product ON buy.prod_id = product.prod_id INNER JOIN user ON buy.user_id = user.user_id WHERE date(buy_date) = ? ORDER BY time(buy_date) ASC";
 
         PreparedStatement st;
         ResultSet rs;
@@ -627,10 +627,10 @@ public class MainController implements Initializable,Init {
                 buy.setBuyID(rs.getInt("buy_id"));
                 buy.setBuyPrice(rs.getInt("buy.buy_unit_price"));
                 buy.setBuyTotalPrice(rs.getInt("buy.buy_price"));
-                buy.setBuyDate(rs.getDate("buy_date").toString());
+                buy.setBuyDate(rs.getTime("buy_date").toString());
                 buy.setBuyQte(rs.getInt("buy_qte"));
                 buy.setProduct(rs.getString("name"));
-                buy.setUser(rs.getString("username"));
+                buy.setUser(rs.getString("username"));  
 
                 buysList.add(buy);
             }
@@ -653,7 +653,7 @@ public class MainController implements Initializable,Init {
                 query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell";
         }
         else{
-            query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell WHERE sell_date = ? ";
+            query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell WHERE date(sell_date) = ? ";
         }
 
         try {
@@ -698,7 +698,7 @@ public class MainController implements Initializable,Init {
                 query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
         }
         else{
-            query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE buy_date = ? ";
+            query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
         }
 
         try {
@@ -1076,6 +1076,7 @@ public class MainController implements Initializable,Init {
         sellRef.setCellValueFactory(new PropertyValueFactory<>("sellName"));
         sellPrice.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
         seller.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        sellDateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
         sellTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         sellActions.setCellValueFactory(new PropertyValueFactory<>("sellActions"));
         Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory
@@ -1376,6 +1377,7 @@ public class MainController implements Initializable,Init {
         buyUserCol.setCellValueFactory(new PropertyValueFactory<>("user"));
         buyPriceCol.setCellValueFactory(new PropertyValueFactory<>("buyPrice"));
         buyProdCol.setCellValueFactory(new PropertyValueFactory<>("product"));
+        buyDateCol.setCellValueFactory(new PropertyValueFactory<>("buyDate"));
         buyAction1.setCellValueFactory(new PropertyValueFactory<>("buyAction1"));
         nbrBuysCol.setCellValueFactory(new PropertyValueFactory<>("nbrBuys"));
         nbrSellsCol.setCellValueFactory(new PropertyValueFactory<>("nbrSells"));

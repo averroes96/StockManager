@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="700.0" maxWidth="900.0" minHeight="700.0" minWidth="900.0" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.MainController">
+<AnchorPane id="AnchorPane" maxHeight="700.0" maxWidth="950.0" minHeight="700.0" minWidth="900.0" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.MainController">
    <children>
       <AnchorPane fx:id="products" layoutY="84.0" prefHeight="616.0" prefWidth="900.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
          <children>
@@ -31,28 +31,28 @@
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <TableView fx:id="productsTable" layoutX="25.0" layoutY="68.0" prefHeight="310.0" prefWidth="850.0" style="-fx-background-color: white;">
+            <TableView fx:id="productsTable" layoutX="50.0" layoutY="68.0" prefHeight="310.0" prefWidth="850.0" style="-fx-background-color: white;">
               <columns>
-                <TableColumn fx:id="id" maxWidth="100.0" prefWidth="100.0" text="ID" />
-                <TableColumn fx:id="prodName" maxWidth="208.0" prefWidth="200.0" text="إسم المنتوج" />
-                  <TableColumn fx:id="prodQuantity" maxWidth="147.0" prefWidth="100.0" text="الكمية المتوفرة" />
-                  <TableColumn fx:id="sellProd" maxWidth="251.0" prefWidth="100.0" text="سعر البيع" />
-                  <TableColumn fx:id="addDate" maxWidth="299.0" prefWidth="150.0" text="تاريخ الإضافة" />
-                  <TableColumn fx:id="nbrBuysCol" prefWidth="95.0" text="عدد المشتريات" />
-                  <TableColumn fx:id="nbrSellsCol" prefWidth="95.0" text="عدد المبيعات" />
+                <TableColumn fx:id="id" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="ID" />
+                <TableColumn fx:id="prodName" maxWidth="208.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="إسم المنتوج" />
+                  <TableColumn fx:id="prodQuantity" maxWidth="147.0" prefWidth="100.0" resizable="false" text="الكمية المتوفرة" />
+                  <TableColumn fx:id="sellProd" maxWidth="251.0" prefWidth="100.0" resizable="false" text="سعر البيع" />
+                  <TableColumn fx:id="addDate" maxWidth="299.0" prefWidth="150.0" resizable="false" text="تاريخ الإضافة" />
+                  <TableColumn fx:id="nbrBuysCol" prefWidth="97.0" resizable="false" text="عدد المشتريات" />
+                  <TableColumn fx:id="nbrSellsCol" prefWidth="98.0" resizable="false" text="عدد المبيعات" />
               </columns>
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </TableView>
-            <TextField fx:id="searchField" layoutX="25.0" layoutY="16.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+            <TextField fx:id="searchField" layoutX="51.0" layoutY="13.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect></TextField>
-            <Button id="rich-blue" fx:id="updateImage" contentDisplay="RIGHT" layoutX="25.0" layoutY="564.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="230.0" text="تعديل الصورة" textFill="#3c4854">
+            <Button id="rich-blue" fx:id="updateImage" contentDisplay="RIGHT" layoutX="51.0" layoutY="565.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="230.0" text="تعديل الصورة" textFill="#3c4854">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -66,17 +66,17 @@
              
          </graphic>               
             </Button>
-            <Label fx:id="productImg" focusTraversable="false" layoutX="25.0" layoutY="383.0" prefHeight="175.0" prefWidth="230.0" style="-fx-alignment: center; -fx-background-color: white;">
+            <Label fx:id="productImg" focusTraversable="false" layoutX="51.0" layoutY="384.0" prefHeight="175.0" prefWidth="230.0" style="-fx-alignment: center; -fx-background-color: white;">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect></Label>
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="245.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="271.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/search.png" />
                </image>
             </ImageView>
-            <HBox layoutX="324.0" layoutY="3.0" prefHeight="65.0" prefWidth="550.0">
+            <HBox layoutX="350.0" prefHeight="65.0" prefWidth="550.0">
                <children>
                   <Button id="menu-btn" fx:id="removedProduct" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="200.0" text="المنتوجات المحذوفة" textFill="#dddddd">
                      <graphic>
@@ -120,7 +120,7 @@
                   </Button>
                </children>
             </HBox>
-            <Pane layoutX="260.0" layoutY="383.0" prefHeight="224.0" prefWidth="614.0" style="-fx-background-color: darkgrey;">
+            <Pane layoutX="286.0" layoutY="384.0" prefHeight="224.0" prefWidth="614.0" style="-fx-background-color: darkgrey;">
                <children>
                   <TextField fx:id="refField" layoutX="299.0" layoutY="16.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المنتوج" style="-fx-background-color: white; -fx-alignment: center;">
                      <font>
@@ -230,9 +230,9 @@
             <URL value="@../Layout/custom.css" />
          </stylesheets>
       </AnchorPane>
-      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="900.0" style="-fx-background-color: #3D4956;">
+      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="950.0" style="-fx-background-color: #3D4956;">
          <children>
-            <Label fx:id="btn_close" layoutX="848.0" layoutY="34.0" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="50.0" prefWidth="52.0" style="-fx-alignment: center; -fx-background-radius: 50;" styleClass="topbar" stylesheets="@../Layout/custom.css">
+            <Label fx:id="btn_close" layoutX="898.0" layoutY="35.0" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="50.0" prefWidth="52.0" style="-fx-alignment: center; -fx-background-radius: 50;" styleClass="topbar" stylesheets="@../Layout/custom.css">
                 
          <graphic>
              
@@ -246,7 +246,7 @@
                 
                 
             </Label>
-            <Label fx:id="btn_close1" layoutX="872.0" layoutY="8.0" onDragDetected="#selectMenu" onMouseClicked="#close" prefHeight="27.0" prefWidth="27.0" style="-fx-alignment: center; -fx-background-radius: 50;" styleClass="topbar" stylesheets="@../Layout/custom.css">
+            <Label fx:id="btn_close1" layoutX="923.0" layoutY="6.0" onDragDetected="#selectMenu" onMouseClicked="#close" prefHeight="27.0" prefWidth="27.0" style="-fx-alignment: center; -fx-background-radius: 50;" styleClass="topbar" stylesheets="@../Layout/custom.css">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -255,7 +255,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label fx:id="btn_close11" layoutX="843.0" layoutY="9.0" onMouseClicked="#minimize" prefHeight="27.0" prefWidth="27.0" style="-fx-alignment: center; -fx-background-radius: 50;" styleClass="topbar" stylesheets="@../Layout/custom.css">
+            <Label fx:id="btn_close11" layoutX="894.0" layoutY="7.0" onMouseClicked="#minimize" prefHeight="27.0" prefWidth="27.0" style="-fx-alignment: center; -fx-background-radius: 50;" styleClass="topbar" stylesheets="@../Layout/custom.css">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -264,7 +264,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <ButtonBar focusTraversable="false" layoutY="6.0" prefHeight="74.0" prefWidth="820.0">
+            <ButtonBar focusTraversable="false" layoutY="6.0" prefHeight="74.0" prefWidth="870.0">
                <buttons>
                   <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" style="-fx-background-color: transparent;" text="المبيعات" textFill="#dddddd">
                      <font>
@@ -274,7 +274,7 @@
 
                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/buy2.png" />
+                             <Image url="@../images/payment.png" />
                           </image>
                        </ImageView>             
 
@@ -287,7 +287,7 @@
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/payment.png" />
+                              <Image url="@../images/buy2.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -329,14 +329,14 @@
          <effect>
             <InnerShadow />
          </effect></AnchorPane>
-      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="616.0" prefWidth="900.0" style="-fx-background-color: #3D4956;" visible="false">
+      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="616.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="542.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <Pane layoutX="40.0" layoutY="87.0" prefHeight="500.0" prefWidth="820.0" style="-fx-background-color: white;" stylesheets="@../Layout/buttons.css">
+            <Pane layoutX="65.0" layoutY="86.0" prefHeight="500.0" prefWidth="820.0" style="-fx-background-color: white;" stylesheets="@../Layout/buttons.css">
                <children>
                   <VBox alignment="CENTER" layoutX="32.0" layoutY="83.0" prefHeight="276.0" prefWidth="175.0">
                      <children>
@@ -491,7 +491,7 @@
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </Pane>
-            <ButtonBar layoutX="286.0" layoutY="26.0" prefHeight="53.0" prefWidth="566.0">
+            <ButtonBar layoutX="315.0" layoutY="23.0" prefHeight="53.0" prefWidth="566.0">
                <buttons>
                   <Button id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" stylesheets="@../Layout/buttons.css" text="طباعة الحسابات" textFill="#dddddd">
                       
@@ -537,7 +537,7 @@
                   </Button>
                </buttons>
             </ButtonBar>
-            <ChoiceBox fx:id="usersCB" focusTraversable="false" layoutX="40.0" layoutY="33.0" prefHeight="40.0" prefWidth="210.0" style="-fx-cursor: hand;">
+            <ChoiceBox fx:id="usersCB" focusTraversable="false" layoutX="69.0" layoutY="30.0" prefHeight="40.0" prefWidth="210.0" style="-fx-cursor: hand;">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
@@ -547,50 +547,54 @@
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="616.0" prefWidth="900.0" style="-fx-background-color: #3D4956;" visible="false">
+      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="616.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
-            <TableView fx:id="sellsTable" focusTraversable="false" layoutX="6.0" layoutY="75.0" prefHeight="375.0" prefWidth="886.0" style="-fx-background-color: white; -fx-border-color: #000;" stylesheets="@../Layout/custom.css">
+            <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="75.0" prefHeight="375.0" prefWidth="920.0" style="-fx-background-color: white; -fx-border-color: #000;" stylesheets="@../Layout/custom.css">
               <columns>
-                <TableColumn fx:id="sellID" minWidth="64.0" prefWidth="64.0" text="ID" />
-                <TableColumn fx:id="sellRef" minWidth="168.0" prefWidth="176.0" text="المنتوج" />
-                  <TableColumn fx:id="sellPrice" minWidth="100.0" prefWidth="100.0" text="سعر البيع" />
-                  <TableColumn fx:id="sellQuantity" minWidth="87.0" prefWidth="87.0" text="الكمية" />
-                  <TableColumn fx:id="sellTotalCol" minWidth="109.0" prefWidth="109.0" text="السعر الإجمالي" />
-                  <TableColumn fx:id="seller" minWidth="133.0" prefWidth="154.0" text="المستخدم" />
-                  <TableColumn fx:id="sellActions" maxWidth="237.0" minWidth="67.0" prefWidth="97.0" text="تعديل البيع" />
-                  <TableColumn fx:id="sellActions2" maxWidth="157.0" minWidth="56.0" prefWidth="96.0" text="حذف البيع" />
+                <TableColumn fx:id="sellID" minWidth="64.0" prefWidth="64.0" resizable="false" text="ID" />
+                <TableColumn fx:id="sellRef" minWidth="168.0" prefWidth="176.0" resizable="false" text="المنتوج" />
+                  <TableColumn fx:id="sellDateCol" resizable="false" text="التوقيت" />
+                  <TableColumn fx:id="sellPrice" minWidth="86.0" prefWidth="86.0" resizable="false" text="سعر البيع" />
+                  <TableColumn fx:id="sellQuantity" minWidth="72.0" prefWidth="72.0" resizable="false" text="الكمية" />
+                  <TableColumn fx:id="sellTotalCol" minWidth="101.0" prefWidth="102.0" resizable="false" text="السعر الإجمالي" />
+                  <TableColumn fx:id="seller" minWidth="133.0" prefWidth="155.0" resizable="false" text="المستخدم" />
+                  <TableColumn fx:id="sellActions" maxWidth="237.0" minWidth="67.0" prefWidth="90.0" resizable="false" text="تعديل" />
+                  <TableColumn fx:id="sellActions2" maxWidth="157.0" minWidth="56.0" prefWidth="90.0" resizable="false" text="حذف" />
               </columns>
                <cursor>
                </cursor>
             </TableView>
-            <TextField fx:id="sellSearch" alignment="CENTER_RIGHT" layoutX="643.0" layoutY="18.0" prefHeight="41.0" prefWidth="200.0" promptText="بحث" style="-fx-padding: 0 40 0 0;" stylesheets="@../Layout/custom.css">
+            <TextField fx:id="sellSearch" alignment="CENTER_RIGHT" layoutX="705.0" layoutY="18.0" prefHeight="41.0" prefWidth="230.0" promptText="بحث" style="-fx-padding: 0 40 0 0;" stylesheets="@../Layout/custom.css">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect></TextField>
-            <DatePicker fx:id="sellDateField" editable="false" layoutX="58.0" layoutY="532.0" prefHeight="40.0" prefWidth="200.0" style="-fx-cursor: hand;" />
+            <DatePicker fx:id="sellDateField" editable="false" layoutX="95.0" layoutY="528.0" prefHeight="40.0" prefWidth="200.0" style="-fx-cursor: hand;">
+               <effect>
+                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+               </effect></DatePicker>
             <ImageView fitHeight="40.0" fitWidth="27.0" layoutX="146.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="811.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="905.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/search.png" />
                </image>
             </ImageView>
-            <BorderPane layoutX="306.0" layoutY="459.0" prefHeight="150.0" prefWidth="550.0">
+            <BorderPane layoutX="385.0" layoutY="457.0" prefHeight="150.0" prefWidth="550.0">
                <center>
-                  <Pane prefHeight="120.0" prefWidth="522.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="120.0" prefWidth="550.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="revTotal" layoutX="193.0" layoutY="59.0" prefHeight="50.0" prefWidth="167.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="revTotal" layoutX="193.0" layoutY="62.0" prefHeight="50.0" prefWidth="167.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="revSum" layoutX="369.0" layoutY="59.0" prefHeight="50.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="revSum" layoutX="369.0" layoutY="62.0" prefHeight="50.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
@@ -607,12 +611,15 @@
                         </ImageView>
                         <Separator layoutX="14.0" layoutY="25.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
                         <Separator layoutX="376.0" layoutY="23.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
-                        <Label fx:id="revQte" layoutX="7.0" layoutY="59.0" prefHeight="50.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="revQte" layoutX="7.0" layoutY="62.0" prefHeight="50.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
+                     <effect>
+                        <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                     </effect>
                   </Pane>
                </center>
             </BorderPane>
@@ -676,7 +683,7 @@
                   </Button>
                </items>
             </ToolBar>
-            <Text fill="#dddddd" layoutX="126.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="يوم البيع">
+            <Text fill="#dddddd" layoutX="160.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0" text="يوم البيع">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -690,9 +697,9 @@
             <InnerShadow />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="616.0" prefWidth="900.0" style="-fx-background-color: #3D4956;" visible="false">
+      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="616.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
-            <HBox layoutX="14.0" layoutY="4.0" prefHeight="68.0" prefWidth="520.0">
+            <HBox layoutX="15.0" layoutY="6.0" prefHeight="68.0" prefWidth="520.0">
                <children>
                   <Button id="menu-btn" fx:id="printBuy" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="فاتورة جديدة" textFill="#dddddd">
                      <font>
@@ -723,61 +730,62 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/product.png" />
+                              <Image url="@../images/buy2.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
                </children>
             </HBox>
-            <TableView fx:id="buysTable" focusTraversable="false" layoutX="25.0" layoutY="72.0" prefHeight="360.0" prefWidth="850.0" style="-fx-background-color: white;">
+            <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="72.0" prefHeight="375.0" prefWidth="920.0" style="-fx-background-color: white;">
               <columns>
-                <TableColumn fx:id="buyIDCol" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="buyProdCol" prefWidth="178.0" text="المنتوج" />
-                  <TableColumn fx:id="buyPriceCol" prefWidth="101.0" text=" سعر الشراء" />
-                  <TableColumn fx:id="buyQteCol" prefWidth="74.0" text="الكمية" />
-                  <TableColumn fx:id="buyTotalCol" prefWidth="105.0" text="السعر الإجمالي" />
-                  <TableColumn fx:id="buyUserCol" prefWidth="154.0" text="المستخدم" />
-                  <TableColumn fx:id="buyAction1" minWidth="2.0" prefWidth="82.0" text="تعديل" />
-                  <TableColumn fx:id="buyAction2" prefWidth="77.0" text="حذف" />
+                <TableColumn fx:id="buyIDCol" prefWidth="69.0" resizable="false" text="ID" />
+                <TableColumn fx:id="buyProdCol" prefWidth="172.0" resizable="false" text="المنتوج" />
+                  <TableColumn fx:id="buyDateCol" prefWidth="106.0" resizable="false" text="التوقيت" />
+                  <TableColumn fx:id="buyPriceCol" prefWidth="85.0" resizable="false" text=" سعر الشراء" />
+                  <TableColumn fx:id="buyQteCol" prefWidth="75.0" resizable="false" text="الكمية" />
+                  <TableColumn fx:id="buyTotalCol" prefWidth="104.0" resizable="false" text="السعر الإجمالي" />
+                  <TableColumn fx:id="buyUserCol" prefWidth="137.0" resizable="false" text="المستخدم" />
+                  <TableColumn fx:id="buyAction1" minWidth="2.0" prefWidth="86.0" resizable="false" text="تعديل" />
+                  <TableColumn fx:id="buyAction2" prefWidth="84.0" resizable="false" text="حذف" />
               </columns>
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </TableView>
-            <BorderPane layoutX="330.0" layoutY="446.0" prefHeight="160.0" prefWidth="530.0">
+            <BorderPane layoutX="385.0" layoutY="456.0" prefHeight="150.0" prefWidth="550.0">
                <center>
                   <Pane prefHeight="138.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="buyDayQte" layoutX="188.0" layoutY="63.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="buyDayQte" layoutX="188.0" layoutY="69.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="buyDaySum" layoutX="356.0" layoutY="63.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="buyDaySum" layoutX="356.0" layoutY="69.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Text fill="#3d4956" layoutX="214.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="اليوم المختار">
+                        <Text fill="#3d4956" layoutX="224.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="اليوم المختار">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="301.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="311.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons8_today_filled_100px_1.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="buyDayTotal" layoutX="14.0" layoutY="63.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="buyDayTotal" layoutX="14.0" layoutY="69.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Separator layoutX="14.0" layoutY="23.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
-                        <Separator layoutX="356.0" layoutY="22.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
+                        <Separator layoutX="24.0" layoutY="24.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
+                        <Separator layoutX="366.0" layoutY="23.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
                      </children>
                      <effect>
                         <InnerShadow height="15.0" radius="7.0" width="15.0" />
@@ -785,11 +793,11 @@
                   </Pane>
                </center>
             </BorderPane>
-            <DatePicker fx:id="buyDateField" editable="false" layoutX="79.0" layoutY="519.0" prefHeight="40.0" prefWidth="174.0" style="-fx-cursor: hand;">
+            <DatePicker fx:id="buyDateField" editable="false" layoutX="95.0" layoutY="525.0" prefHeight="40.0" prefWidth="200.0" style="-fx-cursor: hand;">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect></DatePicker>
-            <Text fill="#dddddd" layoutX="116.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ الشراء">
+            <Text fill="#dddddd" layoutX="153.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ الشراء">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -799,7 +807,7 @@
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchBuy" layoutX="608.0" layoutY="15.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+            <TextField fx:id="searchBuy" layoutX="685.0" layoutY="20.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -807,7 +815,7 @@
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </TextField>
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="829.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="906.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/search.png" />
                </image>

@@ -69,7 +69,6 @@ public class NewSellController implements Initializable,Init,CommonMethods {
     @FXML private TextField priceField,qteField;
     @FXML private Label minimize,priceStatus;
     @FXML private Button addSell,deleteAll,printBtn;
-    @FXML private DatePicker dateField;
     @FXML private ChoiceBox nameBox;
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
@@ -143,7 +142,12 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                     ps.setInt(2, Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
                     ps.setInt(3, Integer.parseInt(qteField.getText()) );
                     ps.setInt(5, product.getProdID());
-                    ps.setDate(4, Date.valueOf(dateField.getEditor().getText()));
+                    java.util.Date date = new java.util.Date();
+
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                    String sqlDate = sdf.format(date);                    
+                    ps.setString(4, sqlDate); 
                     ps.executeUpdate();
                     try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
@@ -286,9 +290,6 @@ public class NewSellController implements Initializable,Init,CommonMethods {
         actionCol.setCellFactory(cellFactory);
         
         sellsTable.setItems(sellsList);       
-     
-        dateField.setConverter(dateFormatter());
-        dateField.getEditor().setText(LocalDate.now().toString());
         
         addSell.setOnAction(Action -> {
             insertSell();
@@ -301,6 +302,8 @@ public class NewSellController implements Initializable,Init,CommonMethods {
         });
         
         getAllProducts();
+        
+        sellsTable.getSelectionModel().selectAll();
         
         nameBox.setItems(nameList);
         

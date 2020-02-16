@@ -131,9 +131,7 @@ public class ChangePassController implements Initializable,Init {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         
-        // TODO
     }    
     
 }

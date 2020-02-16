@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM sell,product WHERE sell.prod_id = product.prod_id AND sell_id IN ($P!{selectedSells})]]>
+		<![CDATA[SELECT * FROM sell,product WHERE sell.prod_id = product.prod_id AND sell_id IN ($P!{selectedSells}) ORDER BY sell.sell_id]]>
 	</queryString>
 	<field name="sell_id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -21,7 +21,7 @@
 	<field name="sell_quantity" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="sell_date" class="java.sql.Date">
+	<field name="sell_date" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="prod_id" class="java.lang.Integer">
@@ -46,6 +46,9 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nbrBuys" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="on_hold" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="sell_price_1" class="java.lang.Integer" calculation="Count">
@@ -81,42 +84,42 @@
 	<columnHeader>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="93" height="26" uuid="68a23c8c-9dcc-4477-8423-ec101abeb106"/>
+				<reportElement x="0" y="0" width="68" height="33" uuid="68a23c8c-9dcc-4477-8423-ec101abeb106"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Schoolbook" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="188" y="0" width="93" height="26" uuid="c7e98238-1fe5-4626-b695-33c08ca173c4"/>
+				<reportElement x="176" y="0" width="66" height="33" uuid="c7e98238-1fe5-4626-b695-33c08ca173c4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Schoolbook" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRIX U.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="281" y="0" width="93" height="26" uuid="cc6b586f-a82b-44c1-8d71-3605ab5db8a3"/>
+				<reportElement x="242" y="0" width="93" height="33" uuid="cc6b586f-a82b-44c1-8d71-3605ab5db8a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Schoolbook" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRIX]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="374" y="0" width="93" height="26" uuid="f1689810-df58-45c7-a3c7-0f52360c56e4"/>
+				<reportElement x="335" y="0" width="84" height="33" uuid="f1689810-df58-45c7-a3c7-0f52360c56e4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Schoolbook" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[QUANTITE]]></text>
+				<text><![CDATA[QTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="467" y="0" width="93" height="26" uuid="b0911fb6-c456-4780-9792-e18528bcbc16"/>
+				<reportElement x="419" y="0" width="141" height="33" uuid="b0911fb6-c456-4780-9792-e18528bcbc16"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Schoolbook" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DATE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="0" width="98" height="26" uuid="49d19b36-9ca2-45f8-a82e-834a2d593d2d"/>
+				<reportElement x="68" y="0" width="108" height="33" uuid="49d19b36-9ca2-45f8-a82e-834a2d593d2d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Schoolbook" size="12" isBold="true"/>
 				</textElement>
@@ -127,42 +130,42 @@
 	<detail>
 		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="93" height="22" uuid="24537052-b653-4a7b-aa8d-24736fc8538b"/>
+				<reportElement x="0" y="0" width="68" height="30" uuid="24537052-b653-4a7b-aa8d-24736fc8538b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sell_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="188" y="0" width="93" height="22" uuid="593a2b8b-3958-4017-9580-4a5bf4bc6386"/>
+				<reportElement x="176" y="0" width="66" height="30" uuid="593a2b8b-3958-4017-9580-4a5bf4bc6386"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sell_price_unit} + ".00 da"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="281" y="0" width="93" height="22" uuid="4d6cc53f-a52a-4b1b-8067-b1077eebddb5"/>
+				<reportElement x="242" y="0" width="93" height="30" uuid="4d6cc53f-a52a-4b1b-8067-b1077eebddb5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sell_price} + ".00 da"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="374" y="0" width="93" height="22" uuid="6850b194-f620-4b2d-a67e-c516408be16c"/>
+				<reportElement x="335" y="0" width="84" height="30" uuid="6850b194-f620-4b2d-a67e-c516408be16c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sell_quantity}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="467" y="0" width="93" height="22" uuid="5a1cc190-aa32-404b-a4a2-bd9a3daa29dc"/>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="419" y="0" width="141" height="30" uuid="5a1cc190-aa32-404b-a4a2-bd9a3daa29dc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sell_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="1" width="98" height="22" uuid="49acb08e-42a7-484c-936c-3f44df33e791"/>
+				<reportElement x="68" y="0" width="108" height="30" uuid="49acb08e-42a7-484c-936c-3f44df33e791"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>
 				</textElement>
@@ -174,10 +177,10 @@
 		<band height="94" splitType="Stretch">
 			<staticText>
 				<reportElement x="154" y="42" width="139" height="26" uuid="ad3a7c6a-3e26-4438-af75-ffd390db7a5f"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="16" isBold="true" isUnderline="false"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Schoolbook" size="16" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Prix totale :]]></text>
+				<text><![CDATA[Prix totale]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="154" y="68" width="139" height="26" uuid="83eb4b67-d027-4d59-ba31-ead8de1c0b2d"/>
@@ -187,14 +190,14 @@
 				<textFieldExpression><![CDATA[$V{sell_price_2} + ".00 da "]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="293" y="42" width="139" height="26" uuid="48f25d83-2dae-49e2-a259-5fc45f1e4f17"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="16" isBold="true" isUnderline="false"/>
+				<reportElement x="374" y="42" width="139" height="26" uuid="48f25d83-2dae-49e2-a259-5fc45f1e4f17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Schoolbook" size="16" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Quantité totale :]]></text>
+				<text><![CDATA[Quantité totale]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="293" y="68" width="139" height="26" uuid="1d086216-624c-45cc-8562-1c96d80cd400"/>
+				<reportElement x="374" y="68" width="139" height="26" uuid="1d086216-624c-45cc-8562-1c96d80cd400"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="12"/>
 				</textElement>

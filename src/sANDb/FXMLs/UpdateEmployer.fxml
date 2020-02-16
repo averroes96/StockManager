@@ -131,7 +131,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <VBox alignment="CENTER" layoutX="330.0" layoutY="294.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="220.0" prefWidth="202.0" style="-fx-background-color: #ddd;">
+      <VBox fx:id="privs" alignment="CENTER" layoutX="330.0" layoutY="294.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="220.0" prefWidth="202.0" style="-fx-background-color: #ddd;">
          <children>
             <CheckBox fx:id="admin" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="مستخدم أدمن" textFill="#3d4956">
                <font>

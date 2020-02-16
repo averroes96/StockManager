@@ -7,6 +7,7 @@ import Data.Product;
 import Data.Sell;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
+import static Include.Common.getDate;
 import static Include.Common.getProductByName;
 import static Include.Common.getQuantity;
 import static Include.Common.minimize;
@@ -107,7 +108,7 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
         nameBox.getSelectionModel().select(selectedSell.getProduct().getName()); 
         quantity.setText(String.valueOf(selectedSell.getSellQuantity()));
         price.setText(String.valueOf(selectedSell.getTotalPrice() / selectedSell.getSellQuantity()));
-        date.getEditor().setText(selectedSell.getSellDate());
+        date.getEditor().setText(getDate(selectedSell.getSellID(),"sell"));
 
     }
     
@@ -124,8 +125,8 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource("Layout/custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource("Layout/buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();            
             
@@ -203,14 +204,14 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
                     Product newProduct = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
                     PreparedStatement ps;
                     
-                    ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = ?, user_id = ?, prod_id = ? WHERE sell_id = ?");
+                    ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = concat(?,time(sell_date)), user_id = ?, prod_id = ? WHERE sell_id = ?");
                     
                     ps.setInt(5, employer.getUserID());
                     ps.setInt(1, Integer.parseInt(quantity.getText()));
                     ps.setInt(2, Integer.parseInt(price.getText()));
                     ps.setInt(3, Integer.parseInt(price.getText()) * Integer.parseInt(quantity.getText()));
                     ps.setInt(6, newProduct.getProdID());
-                    ps.setDate(4, Date.valueOf(date.getEditor().getText()));
+                    ps.setString(4, date.getEditor().getText() + " ");
                     ps.setInt(7, this.sell.getSellID());
                     ps.executeUpdate();
                     

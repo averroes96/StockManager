@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -31,7 +32,7 @@
             <Image url="@../images/buy2.png" />
          </image>
       </ImageView>
-      <HBox layoutX="74.0" layoutY="79.0" prefHeight="150.0" prefWidth="1060.0">
+      <HBox layoutX="231.0" layoutY="82.0" prefHeight="150.0" prefWidth="792.0">
          <children>
             <Pane prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: tomato;">
                <children>
@@ -128,38 +129,6 @@
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </Pane>
-            <Pane layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="20.0" style="-fx-background-color: #3D4956;" />
-            <Pane layoutX="430.0" layoutY="10.0" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: tomato;">
-               <children>
-                  <Label contentDisplay="TOP" layoutX="51.0" prefHeight="104.0" prefWidth="150.0" style="-fx-alignment: center;" text="مجمل المبيعات" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <graphic>
-                        
-                        <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_total_sales_1_60px.png" />
-                           </image>
-                        </ImageView>                          
-                         
-                     </graphic>                     
-                  </Label>
-                  <Label fx:id="totalSells" layoutY="102.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="totalSum" layoutX="126.0" layoutY="102.0" prefHeight="32.0" prefWidth="120.0" style="-fx-alignment: center;" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect>
-            </Pane>
          </children>
       </HBox>
       <LineChart id="myChart" fx:id="sellLineChart" layoutY="391.0" prefHeight="300.0" prefWidth="600.0">
@@ -176,14 +145,14 @@
                </tickLabelFont></NumberAxis>
         </yAxis>
       </LineChart>
-      <Text fill="WHITE" layoutX="201.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="عدد المبيعات حسب اليوم">
+      <Text fill="WHITE" layoutX="228.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="عدد المبيعات حسب اليوم">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="852.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="المبلغ الإجمالي">
+      <Text fill="WHITE" layoutX="864.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="المبلغ الإجمالي">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
       </Text>
       <LineChart id="myChart" fx:id="sumLineChart" layoutX="607.0" layoutY="391.0" prefHeight="300.0" prefWidth="600.0">
@@ -200,12 +169,15 @@
                </tickLabelFont></NumberAxis>
          </yAxis>
       </LineChart>
-      <ToolBar layoutX="207.0" layoutY="253.0" prefHeight="70.0" prefWidth="800.0" style="-fx-background-color: white;">
+      <ToolBar layoutX="227.0" layoutY="252.0" prefHeight="70.0" prefWidth="800.0" style="-fx-background-color: white;">
          <items>
             <DatePicker fx:id="startDate" editable="false" prefHeight="40.0" prefWidth="170.0">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect></DatePicker>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
             <ImageView fitHeight="20.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/icons8_filled_sent_32px.png" />
@@ -214,7 +186,10 @@
             <DatePicker fx:id="endDate" editable="false" prefHeight="40.0" prefWidth="170.0">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect></DatePicker>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
             <Separator orientation="VERTICAL" prefHeight="43.0" prefWidth="30.0" />
             <ChoiceBox fx:id="productBox" prefHeight="44.0" prefWidth="175.0" style="-fx-background-color: #ddd;">
                <effect>

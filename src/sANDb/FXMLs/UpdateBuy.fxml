@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="380.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.UpdateBuyController">
+<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="380.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.UpdateBuyController">
    <stylesheets>
       <URL value="@../Layout/buttons.css" />
       <URL value="@../Layout/custom.css" />
@@ -61,7 +61,7 @@
       </Pane>
       <TextField fx:id="quantity" alignment="CENTER" layoutX="90.0" layoutY="271.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Consolas Bold" size="18.0" />
          </font>
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
@@ -69,13 +69,13 @@
       </TextField>
       <TextField fx:id="price" alignment="CENTER" layoutX="91.0" layoutY="188.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر الشراء">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Consolas Bold" size="18.0" />
          </font>
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </TextField>
-      <DatePicker fx:id="date" layoutX="90.0" layoutY="353.0" prefHeight="50.0" prefWidth="200.0">
+      <DatePicker fx:id="date" editable="false" layoutX="90.0" layoutY="353.0" prefHeight="50.0" prefWidth="200.0">
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></DatePicker>
@@ -89,13 +89,13 @@
             <Image url="@../images/price.png" />
          </image>
       </ImageView>
-      <ChoiceBox fx:id="nameBox" layoutX="90.0" layoutY="112.0" prefHeight="41.0" prefWidth="200.0">
+      <ChoiceBox fx:id="nameBox" layoutX="90.0" layoutY="110.0" prefHeight="50.0" prefWidth="200.0">
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></ChoiceBox>
-      <Text fill="#dddddd" layoutX="165.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="المنتوج">
+      <Text fill="#dddddd" layoutX="171.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="المنتوج">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
       <Button id="green" fx:id="saveButton" contentDisplay="RIGHT" defaultButton="true" layoutX="104.0" layoutY="452.0" mnemonicParsing="false" onAction="#updateBuy" prefHeight="41.0" prefWidth="175.0" stylesheets="@../Layout/buttons.css" text="حفظ">

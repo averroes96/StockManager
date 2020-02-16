@@ -57,7 +57,7 @@
          <center>
             <Label text="GDP" textFill="#3d4956" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Century Schoolbook Bold" size="24.0" />
+                  <Font name="Arial" size="24.0" />
                </font>
             </Label>
          </center>

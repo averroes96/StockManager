@@ -15,7 +15,6 @@
     -fx-alignment: CENTER;
     -fx-text-alignment: center;
     
-
 }
 
 .table-row-cell:hover{
@@ -26,10 +25,12 @@
 
 .table-view .table-cell{
     -fx-font-weight:bold;
-    -fx-font-size:14px;
+    -fx-font-size:16px;
     -fx-text-fill:  #3D4956;
-    //the font size you asked in the comments below
+    -fx-font-family: Consolas;
+    //the font size you asked i1n the comments below
     /* -fx-text-fill:orange; */
+    
 
 }
 .table-view:row-selection {
@@ -123,11 +124,19 @@ ListView {
 }
 
 .choice-box {
+    
   -fx-background-color: white;
   -fx-mark-color: #3D4956;
+
+  
 }
 
-.choice-box > .label { -fx-text-fill: #3D4956; }
+.choice-box > .label { 
+    -fx-text-fill: #3D4956;   
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
 
 .choice-box .context-menu { -fx-background-color:  #3D4956; }
 .choice-box .menu-item:focused { -fx-background-color: orange; }
@@ -153,6 +162,9 @@ ListView {
         linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
     -fx-background-insets: 1 0 1 1;
     -fx-background-radius: 2 0 0 2;
+    -fx-font-size:16px;
+    -fx-font-weight:bold;
+    -fx-alignment:CENTER;
 }
 
 .date-picker:focused > .text-field,

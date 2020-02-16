@@ -42,7 +42,7 @@ import javafx.scene.input.MouseEvent;
 public class SellStatsController implements Initializable,Init {
 
     
-    @FXML Label weekSells,weekSum,monthSells,monthSum,yearSells,yearSum,totalSells,totalSum ;
+    @FXML Label weekSells,weekSum,monthSells,monthSum,yearSells,yearSum ;
     @FXML LineChart sellLineChart ;
     @FXML LineChart sumLineChart;
     @FXML DatePicker startDate,endDate;
@@ -84,9 +84,9 @@ public class SellStatsController implements Initializable,Init {
     public void getAllStats(){
         
         Connection con = getConnection();
-        String weekQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE sell_date <= curdate() AND sell_date >= date(curdate() - INTERVAL 7 day ) ";
-        String monthQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE sell_date <= curdate() AND sell_date >= date(curdate() - INTERVAL 30 day ) ";
-        String yearQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE sell_date <= curdate() AND sell_date >= date(curdate() - INTERVAL 365 day ) ";
+        String weekQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE date(sell_date) <= curdate() AND date(sell_date) >= date(curdate() - INTERVAL 7 day ) ";
+        String monthQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE date(sell_date) <= curdate() AND date(sell_date) >= date(curdate() - INTERVAL 30 day ) ";
+        String yearQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE date(sell_date) <= curdate() AND date(sell_date) >= date(curdate() - INTERVAL 365 day ) ";
         String query = "SELECT count(*), SUM(sell_price) FROM sell";
         PreparedStatement st;
         ResultSet rs;
@@ -156,9 +156,7 @@ public class SellStatsController implements Initializable,Init {
             monthSum.setText(String.valueOf(monthsum) + " دج");
             monthSells.setText(String.valueOf(monthsells) + " بيع");            
             yearSum.setText(String.valueOf(yearsum) + " دج");
-            yearSells.setText(String.valueOf(yearsells) + " بيع");
-            totalSum.setText(String.valueOf(Sum) + " دج");
-            totalSells.setText(String.valueOf(Sells) + " بيع");                         
+            yearSells.setText(String.valueOf(yearsells) + " بيع");                       
             
 
             con.close();
@@ -175,17 +173,17 @@ public class SellStatsController implements Initializable,Init {
         
         if(!startDate.equals("")){
             
-            whereClause += " WHERE sell_date >= '" + startDate + "' " ;
+            whereClause += " WHERE date(sell_date) >= '" + startDate + "' " ;
             
         }
         if(!endDate.equals("")){
             
             if(whereClause.equals("")){
-                whereClause += " WHERE sell_date <= '" + endDate + "' " ;
+                whereClause += " WHERE date(sell_date) <= '" + endDate + "' " ;
             }
             else
             {
-                whereClause += " AND sell_date <= '" + endDate + "' ";
+                whereClause += " AND date(sell_date) <= '" + endDate + "' ";
             }
             
         }
@@ -204,7 +202,7 @@ public class SellStatsController implements Initializable,Init {
         }
         
         Connection con = getConnection();
-        String query = "SELECT sell_date, count(*) FROM sell " + whereClause + "Group by sell_date ORDER BY sell_date";
+        String query = "SELECT date(sell_date), count(*) FROM sell " + whereClause + "Group by date(sell_date) " ;
         PreparedStatement st;
         ResultSet rs;
         
@@ -218,18 +216,17 @@ public class SellStatsController implements Initializable,Init {
 
             while (rs.next()) {
 
-                series.getData().add(new XYChart.Data<>(rs.getString("sell_date"),rs.getInt("count(*)")));
+                series.getData().add(new XYChart.Data<>(rs.getString("date(sell_date)"),rs.getInt("count(*)")));
                 
             }
             
         sellLineChart.getData().addAll(series);
         
-                for(final XYChart.Data<String, Integer> data : series.getData()){
-            
+        series.getData().forEach((data) -> {
             data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
                 Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
             });
-        }            
+            });            
             
             con.close();
         }
@@ -248,16 +245,16 @@ public class SellStatsController implements Initializable,Init {
         
         if(!startDate.equals("")){
             
-            whereClause += " WHERE sell_date >= '" + startDate + "' " ;
+            whereClause += " WHERE date(sell_date) >= '" + startDate + "' " ;
             
         }
         if(!endDate.equals("")){
             
             if(whereClause.equals("")){
-                whereClause += " WHERE sell_date <= '" + endDate + "' " ;
+                whereClause += " WHERE date(sell_date) <= '" + endDate + "' " ;
             }
             else{
-                whereClause += " AND sell_date <= '" + endDate + "' ";
+                whereClause += " AND date(sell_date) <= '" + endDate + "' ";
             }
             
         }
@@ -276,7 +273,7 @@ public class SellStatsController implements Initializable,Init {
         }        
         
         Connection con = getConnection();
-        String query = "SELECT sell_date, SUM(sell_price) FROM sell " + whereClause + " Group by sell_date";
+        String query = "SELECT date(sell_date), SUM(sell_price) FROM sell " + whereClause + " Group by date(sell_date)";
         PreparedStatement st;
         ResultSet rs;
         
@@ -290,18 +287,17 @@ public class SellStatsController implements Initializable,Init {
 
             while (rs.next()) {
 
-                series.getData().add(new XYChart.Data<>(rs.getString("sell_date"),rs.getInt("SUM(sell_price)")));
+                series.getData().add(new XYChart.Data<>(rs.getString("date(sell_date)"),rs.getInt("SUM(sell_price)")));
                 
             }
             
         sumLineChart.getData().addAll(series);
         
-        for(final XYChart.Data<String, Integer> data : series.getData()){
-            
+        series.getData().forEach((data) -> {
             data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
                 Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));//To change body of generated methods, choose Tools | Templates.
             });
-        }            
+            });            
             
             con.close();
         }
@@ -365,11 +361,7 @@ public class SellStatsController implements Initializable,Init {
         }        
         
         });
-        
-       
-        
-        
-        // TODO
+
     }    
     
 }

@@ -129,9 +129,14 @@ public class NewQuantityController implements Initializable,Init {
                     ps = con.prepareStatement("INSERT INTO buy(buy_qte, buy_unit_price, buy_price, buy_date, user_id, prod_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
                     ps.setInt(5, employer.getUserID());
                     ps.setInt(3, Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
-                    LocalDate todayLocalDate = LocalDate.now();
-                    Date sqlDate = Date.valueOf(todayLocalDate);
-                    ps.setDate(4, sqlDate);           
+                    //LocalDate todayLocalDate = LocalDate.now();
+                    //Date sqlDate = Date.valueOf(todayLocalDate);
+                    java.util.Date date = new java.util.Date();
+
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                    String sqlDate = sdf.format(date);                    
+                    ps.setString(4, sqlDate);           
                     ps.setInt(1, Integer.parseInt(qteField.getText()));
                     ps.setInt(2, Integer.parseInt(priceField.getText()));
                     ps.setInt(6, getProductByName(productBox.getSelectionModel().getSelectedItem()).getProdID());

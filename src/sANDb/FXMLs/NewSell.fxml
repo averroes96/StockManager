@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -33,7 +33,7 @@
          </graphic>          
          
       </Button>
-      <TextField fx:id="priceField" alignment="CENTER" layoutX="667.0" layoutY="193.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع" style="-fx-alignment: center;">
+      <TextField fx:id="priceField" alignment="CENTER" layoutX="668.0" layoutY="249.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع" style="-fx-alignment: center;">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -45,21 +45,17 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="839.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="839.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/price.png" />
          </image>
       </ImageView>
-      <DatePicker fx:id="dateField" editable="false" layoutX="667.0" layoutY="352.0" prefHeight="50.0" prefWidth="200.0" promptText="تاريخ البيع">
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect></DatePicker>
-      <Label fx:id="priceStatus" focusTraversable="false" layoutX="668.0" layoutY="243.0" prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر صالح !" textFill="WHITE" visible="false">
+      <Label fx:id="priceStatus" focusTraversable="false" layoutX="668.0" layoutY="299.0" prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر صالح !" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="733.0" layoutY="81.0" text="المنتوج" textFill="#dddddd">
+      <Label layoutX="734.0" layoutY="132.0" text="المنتوج" textFill="#dddddd">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -148,11 +144,14 @@
             </Label>
          </center>
       </BorderPane>
-      <ChoiceBox fx:id="nameBox" layoutX="667.0" layoutY="119.0" prefHeight="50.0" prefWidth="200.0">
+      <ChoiceBox fx:id="nameBox" layoutX="668.0" layoutY="170.0" prefHeight="50.0" prefWidth="200.0">
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect></ChoiceBox>
-      <TextField fx:id="qteField" alignment="CENTER" layoutX="667.0" layoutY="273.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-alignment: center;">
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ChoiceBox>
+      <TextField fx:id="qteField" alignment="CENTER" layoutX="668.0" layoutY="328.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-alignment: center;">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -160,7 +159,7 @@
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </TextField>
-      <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="839.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="839.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/icons8_pie_128px.png" />
          </image>
