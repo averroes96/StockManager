@@ -10,9 +10,12 @@ a javaFX inventory manager app - IN ARABIC -
 
 ## Screenshots
 
-### Users manager
+### Users view
 ![](interfaces/users_interface.png)
 
-### Main page
+### Sells view
+![](interfaces/sells_interface.png)
+
+### Main view
 ![](interfaces/GPD%20Interfaces.png)
 
