@@ -25,7 +25,7 @@
 
 .table-view .table-cell{
     -fx-font-weight:bold;
-    -fx-font-size:16px;
+    -fx-font-size:15px;
     -fx-text-fill:  #3D4956;
     -fx-font-family: Consolas;
     //the font size you asked i1n the comments below

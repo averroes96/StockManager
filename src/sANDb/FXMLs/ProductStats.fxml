@@ -15,7 +15,7 @@
       <InnerShadow height="15.0" radius="7.0" width="15.0" />
    </effect>
    <children>
-      <Label fx:id="buyAverage" alignment="CENTER" focusTraversable="false" layoutX="232.0" layoutY="49.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+      <Label fx:id="totalBuy" alignment="CENTER" focusTraversable="false" layoutX="232.0" layoutY="49.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
          <font>
             <Font name="Consolas Bold" size="14.0" />
          </font>
@@ -23,12 +23,12 @@
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </Label>
-      <Label alignment="CENTER_RIGHT" focusTraversable="false" layoutX="242.0" layoutY="20.0" text="متوسط سعر الشراء" textAlignment="RIGHT" textFill="#dddddd">
+      <Label alignment="CENTER_RIGHT" focusTraversable="false" layoutX="230.0" layoutY="20.0" text="التكلفة الإجمالية للشراء" textAlignment="RIGHT" textFill="#dddddd">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label focusTraversable="false" layoutX="36.0" layoutY="20.0" text="متوسط سعر البيع" textFill="#dddddd">
+      <Label focusTraversable="false" layoutX="23.0" layoutY="20.0" text="التكلفة الإجمالية للبيع" textFill="#dddddd">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
@@ -43,7 +43,7 @@
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="sellAverage" alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="49.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+      <Label fx:id="totalSell" alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="49.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
          <font>
             <Font name="Consolas Bold" size="14.0" />
          </font>

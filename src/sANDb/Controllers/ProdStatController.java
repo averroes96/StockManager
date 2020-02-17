@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 public class ProdStatController implements Initializable {
 
     
-    @FXML private Label buyAverage,sellAverage,qteBuy,qteSell,profitLabel;
+    @FXML private Label totalBuy,totalSell,qteBuy,qteSell,profitLabel;
     
     SpecialAlert alert = new SpecialAlert();
     
@@ -29,8 +29,8 @@ public class ProdStatController implements Initializable {
         
         this.stats = getProdStats(selected.getProdID());
 
-        buyAverage.setText(String.valueOf(stats.getBuyAverage()) + ".00 دج");
-        sellAverage.setText(String.valueOf(stats.getSellAverage()) + ".00 دج");
+        totalBuy.setText(String.valueOf(stats.getTotalBuy()) + ".00 دج");
+        totalSell.setText(String.valueOf(stats.getTotalSell()) + ".00 دج");
         qteBuy.setText(String.valueOf(stats.getQteBuy()));
         qteSell.setText(String.valueOf(stats.getQteSell()));
         profitLabel.setText(String.valueOf(stats.getProfit()) + ".00 دج");

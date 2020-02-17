@@ -13,7 +13,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="600.0" style="-fx-background-color: #3D4956;" stylesheets="@../Layout/custom.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.NewProductController">
    <children>
-      <Label fx:id="imgField" focusTraversable="false" layoutX="30.0" layoutY="127.0" prefHeight="220.0" prefWidth="260.0" style="-fx-background-color: #DDD; -fx-alignment: center;">
+      <Label fx:id="imgField" focusTraversable="false" layoutX="30.0" layoutY="127.0" prefHeight="220.0" prefWidth="260.0" style="-fx-background-color: azure;">
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></Label>
@@ -30,7 +30,7 @@
             </graphic>               
           
       </Button>
-      <TextField fx:id="nameField" alignment="CENTER_RIGHT" layoutX="319.0" layoutY="134.0" prefHeight="50.0" prefWidth="250.0" promptText="إسم المنتوج" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+      <TextField fx:id="nameField" alignment="CENTER" layoutX="319.0" layoutY="134.0" prefHeight="50.0" prefWidth="250.0" promptText="إسم المنتوج" style="-fx-background-color: azure;">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -59,7 +59,7 @@
             <Image url="@../images/reference.png" />
          </image>
       </ImageView>
-      <TextField fx:id="sellField" alignment="CENTER_RIGHT" layoutX="319.0" layoutY="229.0" prefHeight="50.0" prefWidth="250.0" promptText="سعر البيع" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+      <TextField fx:id="sellField" alignment="CENTER" layoutX="319.0" layoutY="229.0" prefHeight="50.0" prefWidth="250.0" promptText="سعر البيع" style="-fx-background-color: azure;">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -77,7 +77,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="qteField" alignment="CENTER_RIGHT" layoutX="319.0" layoutY="322.0" prefHeight="50.0" prefWidth="250.0" promptText="الكمية الأولية" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+      <TextField fx:id="qteField" alignment="CENTER" layoutX="319.0" layoutY="322.0" prefHeight="50.0" prefWidth="250.0" promptText="الكمية الأولية" style="-fx-background-color: azure;">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -90,7 +90,7 @@
             <Image url="@../images/icons8_pie_128px.png" />
          </image>
       </ImageView>
-      <BorderPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #ddd;">
+      <BorderPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: azure;">
          <left>
             <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#logOut" prefHeight="50.0" prefWidth="75.0" stylesheets="@../Layout/buttons.css" BorderPane.alignment="CENTER">
                 
@@ -137,7 +137,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Text fill="#dddddd" layoutX="130.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ملاحظة : في حالة عدم تحديد الكمية سيتم تلقائيا إنشاء المنتوج بـ 0 كمية " textAlignment="CENTER" wrappingWidth="340.4990234375">
+      <Text fill="AZURE" layoutX="130.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ملاحظة : في حالة عدم تحديد الكمية سيتم تلقائيا إنشاء المنتوج بـ 0 كمية " textAlignment="CENTER" wrappingWidth="340.4990234375">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>

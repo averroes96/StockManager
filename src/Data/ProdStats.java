@@ -7,12 +7,12 @@ package Data;
  */
 public class ProdStats {
     
-    private int buyAverage, sellAverage, qteBuy, qteSell, profit;
+    private int totalBuy, totalSell, qteBuy, qteSell, profit;
 
-    public ProdStats(int buyAverage, int sellAverage, int qteBuy, int qteSell, int profit) {
+    public ProdStats(int totalBuy, int totalSell, int qteBuy, int qteSell, int profit) {
         
-        this.buyAverage = buyAverage;
-        this.sellAverage = sellAverage;
+        this.totalBuy = totalBuy;
+        this.totalSell = totalSell;
         this.qteBuy = qteBuy;
         this.qteSell = qteSell;
         this.profit = profit;
@@ -21,27 +21,27 @@ public class ProdStats {
 
     public ProdStats() {
         
-        this.buyAverage = 0;
-        this.sellAverage = 0;
+        this.totalBuy = 0;
+        this.totalSell = 0;
         this.qteBuy = 0;
         this.qteSell = 0;
         
     }
 
-    public int getBuyAverage() {
-        return buyAverage;
+    public int getTotalBuy() {
+        return totalBuy;
     }
 
-    public void setBuyAverage(int buyAverage) {
-        this.buyAverage = buyAverage;
+    public void setTotalBuy(int totalBuy) {
+        this.totalBuy = totalBuy;
     }
 
-    public int getSellAverage() {
-        return sellAverage;
+    public int getTotalSell() {
+        return totalSell;
     }
 
-    public void setSellAverage(int sellAverage) {
-        this.sellAverage = sellAverage;
+    public void setTotalSell(int totalSell) {
+        this.totalSell = totalSell;
     }
 
     public int getQteBuy() {
@@ -67,9 +67,6 @@ public class ProdStats {
     public void setProfit(int profit) {
         this.profit = profit;
     }
-    
-    
-    
     
     
 }

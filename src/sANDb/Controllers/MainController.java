@@ -13,6 +13,7 @@ import static Include.Common.getUser;
 import Include.Init;
 import Include.SpecialAlert;
 import JR.JasperReporter;
+import com.sun.prism.paint.Paint;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -79,9 +81,9 @@ public class MainController implements Initializable,Init {
     @FXML public ChoiceBox<String> usersCB ;
     @FXML private TextField searchField,searchBuy,sellSearch,refField,priceField2,quantityField;
     @FXML public DatePicker sellDateField,buyDateField,dateField;
-    @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
+    @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage,changeLabel; 
     @FXML public Button addProd,newQuantityBtn,printBuys,printBuy,productStats,printEmployers,printSells,updateImage,addEmployerButton,updateEmployer,deleteEmployer,seeRecords,exBtn,newBillBtn,printProducts,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys,changePass;
-    @FXML private Button updateProduct,deleteProduct,removedProduct,newSellButton;
+    @FXML private Button updateProduct,deleteProduct,removedProduct,newSellButton,viewHistory;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane;
     
@@ -185,7 +187,10 @@ public class MainController implements Initializable,Init {
                 product.setImageURL(rs.getString("image_url"));
                 product.setNbrBuys(rs.getInt("nbrBuys"));
                 product.setNbrSells(rs.getInt("nbrSells"));
-
+                
+                if(rs.getTimestamp("last_change") != null){
+                    product.setLastChange(rs.getTimestamp("last_change").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
+                }
                 data.add(product);
             }
 
@@ -364,18 +369,24 @@ public class MainController implements Initializable,Init {
         Product selectedProduct = (Product) productsTable.getSelectionModel().getSelectedItem();
 
         try {
-
+            String sqlDate = "";
             try (Connection con = getConnection()) {
                 String query;
                 
-                query = "UPDATE product SET name = ?, sell_price = ?, add_date = ?,prod_quantity = ? WHERE prod_id = ?";
+                query = "UPDATE product SET name = ?, sell_price = ?, add_date = ?,prod_quantity = ?, last_change = ? WHERE prod_id = ?";
                 
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setString(1, refField.getText());
                 ps.setInt(2, Integer.valueOf(priceField2.getText()));
                 ps.setInt(4, Integer.valueOf(quantityField.getText()));
                 ps.setDate(3, Date.valueOf(dateField.getEditor().getText()));
-                ps.setInt(5, Integer.parseInt(idField.getText()));
+                
+                java.util.Date date = new java.util.Date();
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sqlDate = sdf.format(date);
+                
+                ps.setString(5, sqlDate);            
+                ps.setInt(6, Integer.parseInt(idField.getText()));
                 ps.executeUpdate();
             }
 
@@ -383,6 +394,7 @@ public class MainController implements Initializable,Init {
             selectedProduct.setSellPrice(Integer.valueOf(priceField2.getText()));
             selectedProduct.setProdQuantity(Integer.valueOf(quantityField.getText()));
             selectedProduct.setAddDate(dateField.getEditor().getText());
+            selectedProduct.setLastChange(sqlDate);
             
             productsTable.refresh();
 
@@ -418,14 +430,19 @@ public class MainController implements Initializable,Init {
             productImg.setText("");
             productImg.setGraphic(new ImageView(new Image(
                     new File(data.get(index).getImageURL()).toURI().toString(),
-                    200, 175, true, true)));
+                    220, 170, true, true)));
         }        
         
-        if(data.get(index).getProdQuantity() == 0){
+        if(data.get(index).getProdQuantity() < 10){
             emptyQte.setVisible(true);
         }
         else
             emptyQte.setVisible(false);
+        
+        if(data.get(index).getLastChange().equals(""))
+            changeLabel.setText("لا يوجد تعديلات");
+        else
+            changeLabel.setText(data.get(index).getLastChange());        
         
     }
     
@@ -941,7 +958,7 @@ public class MainController implements Initializable,Init {
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodQuantity.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
         sellProd.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        addDate.setCellValueFactory(new PropertyValueFactory<>("AddDate")); 
+        addDate.setCellValueFactory(new PropertyValueFactory<>("AddDate"));
 
         productsTable.setItems(data);
         searchField.textProperty().addListener((obs, oldText, newText) -> {
@@ -1063,7 +1080,36 @@ public class MainController implements Initializable,Init {
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
                         }
-        });        
+        });
+
+        viewHistory.setOnAction(Action ->{
+            
+                        try {
+                            
+                            Product product = productsTable.getSelectionModel().getSelectedItem();
+                            Stage stage = new Stage();
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ProductHistory.fxml"));
+                            AnchorPane root = (AnchorPane)loader.load();
+                            ProductHistoryController phControl = (ProductHistoryController)loader.getController();
+                            Scene scene = new Scene(root);
+                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            stage.setScene(scene);
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.showAndWait();
+                            root.setOnMousePressed((MouseEvent event) -> {
+                                xOffset = event.getSceneX();
+                                yOffset = event.getSceneY();
+                            });
+                            root.setOnMouseDragged((MouseEvent event) -> {
+                                stage.setX(event.getScreenX() - xOffset);
+                                stage.setY(event.getScreenY() - yOffset);
+                            });                              
+                        } catch (IOException ex) {
+                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                        }            
+            
+        });
         
         
         // SELLS TAB

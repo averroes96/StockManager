@@ -5,7 +5,6 @@
  */
 package Include;
 
-import Data.Buy;
 import Data.Employer;
 import Data.ProdStats;
 import Data.Product;
@@ -505,7 +504,7 @@ public class Common implements Init {
 
             while (rs.next()) {
                 
-                ProdStats stats = new ProdStats(rs.getInt("buy_moy_price"),rs.getInt("sell_moy_price"),rs.getInt("qte_bought"),rs.getInt("qte_sold"),rs.getInt("capital"));
+                ProdStats stats = new ProdStats(rs.getInt("total_bought"),rs.getInt("total_solde"),rs.getInt("qte_bought"),rs.getInt("qte_sold"),rs.getInt("capital"));
                 return stats;
             }
 

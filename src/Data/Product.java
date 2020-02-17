@@ -21,6 +21,7 @@ public class Product {
     private SimpleStringProperty imageURL;
     private SimpleIntegerProperty prodQuantity;
     private SimpleStringProperty addDate;
+    private SimpleStringProperty lastChange;
     private SimpleIntegerProperty nbrSells;
     private SimpleIntegerProperty nbrBuys;
 
@@ -30,6 +31,7 @@ public class Product {
         this.sellPrice = new SimpleIntegerProperty(0);        
         this.prodQuantity = new SimpleIntegerProperty(0);        
         this.addDate = new SimpleStringProperty("");
+        this.lastChange = new SimpleStringProperty("");
     }
 
     public Product(int id, String name, String brand, int sellPrice, int quantity, String addDate) {
@@ -102,7 +104,18 @@ public class Product {
 
     public void setNbrBuys(int nbrBuys) {
         this.nbrBuys = new SimpleIntegerProperty(nbrBuys);
-    }    
+    }
+
+    public String getLastChange() {
+        return lastChange.getValue();
+    }
+
+    public void setLastChange(String lastChange) {
+        this.lastChange = new SimpleStringProperty(lastChange);
+    }
+
+    
+    
 
     @Override
     public String toString() {
