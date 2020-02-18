@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="330.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
    <children>
-      <TextField fx:id="username" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="112.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0;">
+      <TextField fx:id="username" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="112.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0; -fx-background-color: azure;">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -22,7 +22,7 @@
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </TextField>
-      <PasswordField fx:id="password" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="166.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة السر" style="-fx-padding: 0 40 0 0;">
+      <PasswordField fx:id="password" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="166.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة السر" style="-fx-padding: 0 40 0 0; -fx-background-color: azure;">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -53,7 +53,7 @@
              
          </graphic>
       </Button>
-      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #ddd;">
+      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: azure;">
          <center>
             <Label text="GDP" textFill="#3d4956" BorderPane.alignment="CENTER">
                <font>

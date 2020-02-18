@@ -53,7 +53,7 @@
       </TextField>
       <Label focusTraversable="false" layoutX="201.0" layoutY="91.0" text="المعلومات الشخصية" textFill="#dddddd">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <TextField fx:id="username" layoutX="15.0" layoutY="145.0" prefHeight="50.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
@@ -121,7 +121,7 @@
          <center>
             <Label focusTraversable="false" text="إضافة حساب" textFill="#3d4956" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Simplified Arabic Fixed" size="24.0" />
                </font>
             </Label>
          </center>

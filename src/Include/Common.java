@@ -9,6 +9,7 @@ import Data.Employer;
 import Data.ProdStats;
 import Data.Product;
 import Data.Sell;
+import static Include.Init.UNKNOWN_ERROR;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,9 +19,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +43,41 @@ public class Common implements Init {
     final static String dateFormat = "yyyy-MM-dd";
     
     final static String datetimeFormat = "yyyy-MM-dd HH:mm:ss" ;
+    
+    public static ObservableList<String> nameList = getAllProducts();
+    
+    public static ObservableList<String> getAllProducts(){
+        
+        ObservableList<String> names = FXCollections.observableArrayList();
+        
+        Connection con = getConnection();
+        
+        String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
+
+        Statement st;
+        ResultSet rs;
+        
+
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+
+                names.add(rs.getString("name"));
+            }
+
+            con.close();
+        }
+        catch (SQLException e) {
+            
+            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+
+        }
+        
+        return names;
+        
+    }     
 
     public static Connection getConnection()
     {

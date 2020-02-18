@@ -388,6 +388,25 @@ public class MainController implements Initializable,Init {
                 ps.setString(5, sqlDate);            
                 ps.setInt(6, Integer.parseInt(idField.getText()));
                 ps.executeUpdate();
+                
+                query = "INSERT INTO product_history(prod_id, user_id, change_date, new_name, new_date, new_price, new_qte, old_name, old_date, old_price, old_qte) VALUES(?,?,?,?,?,?,?,?,?,?,?)" ;
+                
+                ps = con.prepareStatement(query);
+                ps.setInt(1, Integer.parseInt(idField.getText()));
+                ps.setInt(2, this.thisEmployer.getUserID());
+                ps.setString(3, sqlDate);                
+                ps.setString(4, refField.getText());
+                ps.setDate(5, Date.valueOf(dateField.getEditor().getText()));
+                ps.setInt(6, Integer.valueOf(priceField2.getText()));
+                ps.setInt(7, Integer.valueOf(quantityField.getText()));
+                ps.setString(8, selectedProduct.getName());
+                ps.setString(9, selectedProduct.getAddDate());
+                ps.setInt(10,selectedProduct.getSellPrice());
+                ps.setInt(11,selectedProduct.getProdQuantity());
+                
+                ps.executeUpdate();
+                
+                con.close();
             }
 
             selectedProduct.setName(refField.getText());
@@ -1091,11 +1110,12 @@ public class MainController implements Initializable,Init {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ProductHistory.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ProductHistoryController phControl = (ProductHistoryController)loader.getController();
-                            Scene scene = new Scene(root);
+                            Scene scene = new Scene(root);                           
                             scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
                             scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.setResizable(false);
                             stage.showAndWait();
                             root.setOnMousePressed((MouseEvent event) -> {
                                 xOffset = event.getSceneX();

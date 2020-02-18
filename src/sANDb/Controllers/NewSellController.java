@@ -9,6 +9,7 @@ import Include.CommonMethods;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
+import Include.Common;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getPrice;
@@ -73,7 +74,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     
-    private final ObservableList<String> nameList = FXCollections.observableArrayList();
+    private final ObservableList<String> nameList = Common.nameList;
     
     private final SpecialAlert alert = new SpecialAlert();
         
@@ -301,8 +302,6 @@ public class NewSellController implements Initializable,Init,CommonMethods {
             
         });
         
-        getAllProducts();
-        
         sellsTable.getSelectionModel().selectAll();
         
         nameBox.setItems(nameList);
@@ -425,34 +424,6 @@ public class NewSellController implements Initializable,Init,CommonMethods {
        
     }
 
-    @Override
-    public void getAllProducts(){
-        
-        Connection con = getConnection();
-        
-        String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
 
-        Statement st;
-        ResultSet rs;
-        
-
-        try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-
-                nameList.add(rs.getString("name"));
-            }
-
-            con.close();
-        }
-        catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
-        } 
-        
-    }
     
 }

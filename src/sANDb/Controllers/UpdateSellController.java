@@ -5,6 +5,7 @@ import Include.CommonMethods;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
+import Include.Common;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
@@ -25,13 +26,9 @@ import Include.SpecialAlert;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,6 +42,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -63,45 +61,17 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
     @FXML private Label minimize,priceStatus,qteStatus;
     @FXML private ChoiceBox nameBox;
     
-    ObservableList<String> nameList = FXCollections.observableArrayList();
+    ObservableList<String> nameList = Common.nameList;
     
     Employer employer = new Employer();
     Sell sell = new Sell();
     SpecialAlert alert = new SpecialAlert();               
     
-    private final double xOffset = 0;
-    private final double yOffset = 0;
+    private double xOffset = 0;
+    private double yOffset = 0;
     
     
-    @Override
-    public void getAllProducts(){
-        
-        Connection con = getConnection();
-        
-        String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
-
-        Statement st;
-        ResultSet rs;
-        
-
-        try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-
-                nameList.add(rs.getString("name"));
-            }
-
-            con.close();
-        }
-        catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
-        } 
-        
-    }    
+   
     
     public void fillFields(Sell selectedSell){
         
@@ -128,7 +98,16 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
                         scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
                         stage.setScene(scene);
-                        stage.show();            
+                        stage.show();
+                        root.setOnMousePressed((MouseEvent mevent) -> {
+                            xOffset = mevent.getSceneX();
+                            yOffset = mevent.getSceneY();
+                });
+                        root.setOnMouseDragged((MouseEvent mevent) -> {
+                            stage.setX(mevent.getScreenX() - xOffset);
+                            stage.setY(mevent.getScreenY() - yOffset);
+                });                        
+                        
             
     }    
     
@@ -263,8 +242,6 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        getAllProducts();
                
         nameBox.setItems(nameList);
         

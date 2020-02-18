@@ -16,8 +16,6 @@ public interface CommonMethods {
     
     public void logOut(ActionEvent event)throws IOException;
     
-    public void getAllProducts();
-    
     public boolean checkInputs();
     
 }
