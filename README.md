@@ -19,3 +19,6 @@ a javaFX inventory manager app - IN ARABIC -
 ### Main view
 ![](interfaces/GPD%20Interfaces.png)
 
+### Product history changes view
+![](interfaces/prodhist_view.png)
+
