@@ -44,15 +44,19 @@ public class Common implements Init {
     
     final static String datetimeFormat = "yyyy-MM-dd HH:mm:ss" ;
     
-    public static ObservableList<String> nameList = getAllProducts();
-    
-    public static ObservableList<String> getAllProducts(){
+    public static ObservableList<String> getAllProducts(int all){
         
         ObservableList<String> names = FXCollections.observableArrayList();
-        
+       
         Connection con = getConnection();
         
-        String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
+        String query = "SELECT name FROM product";
+        
+        if(all == 1){
+            names.add("الكل");
+        }else{
+            query += " WHERE on_hold = 0" ;
+        }        
 
         Statement st;
         ResultSet rs;

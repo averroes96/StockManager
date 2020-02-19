@@ -5,8 +5,8 @@ import Include.CommonMethods;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
-import Include.Common;
 import static Include.Common.dateFormatter;
+import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
 import static Include.Common.getProductByName;
@@ -61,7 +61,7 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
     @FXML private Label minimize,priceStatus,qteStatus;
     @FXML private ChoiceBox nameBox;
     
-    ObservableList<String> nameList = Common.nameList;
+    ObservableList<String> nameList = getAllProducts(0);
     
     Employer employer = new Employer();
     Sell sell = new Sell();

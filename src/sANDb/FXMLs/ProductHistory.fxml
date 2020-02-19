@@ -12,6 +12,8 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -26,14 +28,19 @@
       <ToolBar focusTraversable="false" layoutX="16.0" layoutY="16.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="221.0" style="-fx-background-color: azure; -fx-padding: 10;">
          <items>
             <Label alignment="CENTER" focusTraversable="false" prefHeight="40.0" prefWidth="207.0" style="-fx-background-color: #3d4956;" text="تخصيصات" textAlignment="CENTER" textFill="AZURE">
-               <font>
-                  <Font name="Simplified Arabic Fixed" size="20.0" />
-               </font>
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
             </Label>
-            <Separator layoutX="10.0" layoutY="74.0" prefHeight="20.0" prefWidth="207.0" />
+            <Separator layoutX="10.0" layoutY="255.0" prefHeight="15.0" prefWidth="207.0" />
+            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="المنتوج" textAlignment="CENTER" wrappingWidth="200.0703125">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
             <ChoiceBox fx:id="prodField" prefHeight="40.0" prefWidth="200.0">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
@@ -42,7 +49,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ChoiceBox>
-            <Separator prefHeight="20.0" prefWidth="200.0" />
+            <Text fill="#3d4956" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ البداية" textAlignment="CENTER" wrappingWidth="200.0703125">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
             <DatePicker fx:id="startDate" editable="false" prefHeight="40.0" prefWidth="200.0">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
@@ -51,7 +62,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </DatePicker>
-            <Separator layoutX="10.0" layoutY="54.0" prefHeight="20.0" prefWidth="200.0" />
+            <Text fill="#3d4956" layoutX="10.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ النهاية" textAlignment="CENTER" wrappingWidth="200.0703125">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
             <DatePicker fx:id="endDate" editable="false" layoutX="164.0" layoutY="13.0" prefHeight="40.0" prefWidth="200.0">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
@@ -60,122 +75,141 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </DatePicker>
-            <Separator layoutX="10.0" layoutY="122.0" prefHeight="30.0" prefWidth="201.0" />
-            <Button id="green" fx:id="search" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="بحث">
+            <Separator layoutX="10.0" layoutY="122.0" prefHeight="15.0" prefWidth="207.0" />
+            <Button id="green" fx:id="search" contentDisplay="RIGHT" defaultButton="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="بحث">
                <font>
-                  <Font name="Simplified Arabic Fixed" size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
+               <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="148.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                      <Image url="@../images/icons8_search_26px.png" />
+                   </image>
+                </ImageView>                   
+               </graphic>
             </Button>
          </items>
          <effect>
             <DropShadow />
          </effect>
       </ToolBar>
-      <Pane layoutX="15.0" layoutY="379.0" prefHeight="175.0" prefWidth="845.0" style="-fx-background-color: azure;">
+      <Pane layoutX="15.0" layoutY="374.0" prefHeight="180.0" prefWidth="845.0" style="-fx-background-color: azure;">
          <effect>
             <DropShadow />
          </effect>
          <children>
             <Text fill="#3d4956" layoutX="336.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="أهم التعديلات">
                <font>
-                  <Font name="Simplified Arabic Fixed" size="24.0" />
+                  <Font size="24.0" />
                </font>
             </Text>
-            <BorderPane layoutX="641.0" layoutY="72.0" prefHeight="75.0" prefWidth="190.0">
+            <BorderPane layoutX="641.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
                <top>
                   <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="الكمية" textAlignment="RIGHT" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Simplified Arabic Fixed" size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                </top>
                <center>
-                  <Label fx:id="oldQte" alignment="CENTER" prefHeight="17.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
+                  <Label fx:id="oldQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
                </center>
                <bottom>
-                  <Label fx:id="newQte" alignment="CENTER" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
+                  <Label fx:id="newQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas Bold" size="16.0" />
                      </font>
                   </Label>
                </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
             </BorderPane>
-            <BorderPane layoutX="430.0" layoutY="72.0" prefHeight="75.0" prefWidth="190.0">
+            <BorderPane layoutX="430.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
                <top>
                   <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="سعر البيع" textAlignment="RIGHT" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Simplified Arabic Fixed" size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                </top>
                <center>
-                  <Label fx:id="oldPrice" alignment="CENTER" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
+                  <Label fx:id="oldPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
                </center>
                <bottom>
-                  <Label fx:id="newPrice" alignment="CENTER" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
+                  <Label fx:id="newPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas Bold" size="16.0" />
                      </font>
                   </Label>
                </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
             </BorderPane>
-            <BorderPane layoutX="220.0" layoutY="72.0" prefHeight="75.0" prefWidth="190.0">
+            <BorderPane layoutX="220.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
                <top>
                   <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ الإضافة" textAlignment="RIGHT" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Simplified Arabic Fixed" size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                </top>
                <center>
-                  <Label fx:id="oldDate" alignment="CENTER" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
+                  <Label fx:id="oldDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
                </center>
                <bottom>
-                  <Label fx:id="newDate" alignment="CENTER" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
+                  <Label fx:id="newDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas Bold" size="16.0" />
                      </font>
                   </Label>
                </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
             </BorderPane>
-            <BorderPane layoutX="14.0" layoutY="72.0" prefHeight="75.0" prefWidth="190.0">
+            <BorderPane layoutX="14.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
                <top>
                   <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="الإسم" textAlignment="RIGHT" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Simplified Arabic Fixed" size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                </top>
                <center>
-                  <Label fx:id="oldName" alignment="CENTER" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
+                  <Label fx:id="oldName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
                </center>
                <bottom>
-                  <Label fx:id="newName" alignment="CENTER" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
+                  <Label fx:id="newName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Consolas Bold" size="16.0" />
                      </font>
                   </Label>
                </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
             </BorderPane>
          </children>
       </Pane>
-      <TableView fx:id="historyTable" focusTraversable="false" layoutX="251.0" layoutY="16.0" prefHeight="350.0" prefWidth="609.0" style="-fx-background-color: azure;">
+      <TableView fx:id="historyTable" focusTraversable="false" layoutX="251.0" layoutY="16.0" prefHeight="350.0" prefWidth="609.0" style="-fx-background-color: white;">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="75.0" resizable="false" text="ID" />
           <TableColumn fx:id="prodCol" prefWidth="175.0" text="المنتوج" />
@@ -186,6 +220,21 @@
             <DropShadow />
          </effect>
       </TableView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="148.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/product_default.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="161.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8_start_48px_1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="162.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8_end_60px_2.png" />
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />

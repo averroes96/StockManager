@@ -50,6 +50,8 @@ public class ProdHistory {
     
     private SimpleIntegerProperty prodHistID ;
     private SimpleStringProperty product,user,date ;
+    private int oldPrice,newPrice,oldQte,newQte;
+    private String oldName,newName,oldDate,newDate;
 
     public ProdHistory() {
         
@@ -57,6 +59,7 @@ public class ProdHistory {
         this.product = new SimpleStringProperty("");
         this.user = new SimpleStringProperty("");
         this.date = new SimpleStringProperty("");
+        
         
     }
 
@@ -91,8 +94,86 @@ public class ProdHistory {
     public void setDate(String date) {
         this.date = new SimpleStringProperty(date);
     }
+
+    public int getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(int oldPrice) {
+        this.oldPrice = oldPrice;
+    }
+
+    public int getNewPrice() {
+        return newPrice;
+    }
+
+    public void setNewPrice(int newPrice) {
+        this.newPrice = newPrice;
+    }
+
+    public int getOldQte() {
+        return oldQte;
+    }
+
+    public void setOldQte(int oldQte) {
+        this.oldQte = oldQte;
+    }
+
+    public int getNewQte() {
+        return newQte;
+    }
+
+    public void setNewQte(int newQte) {
+        this.newQte = newQte;
+    }
+
+    public String getOldName() {
+        return oldName;
+    }
+
+    public void setOldName(String oldName) {
+        this.oldName = oldName;
+    }
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    public String getOldDate() {
+        return oldDate;
+    }
+
+    public void setOldDate(String oldDate) {
+        this.oldDate = oldDate;
+    }
+
+    public String getNewDate() {
+        return newDate;
+    }
+
+    public void setNewDate(String newDate) {
+        this.newDate = newDate;
+    }
     
+    public boolean nameIsChanged(){
+        return !this.oldName.equals(this.newName);
+    }
     
+    public boolean priceIsChanged(){
+        return this.oldPrice != this.newPrice;
+    }
+
+    public boolean dateIsChanged(){
+        return !this.oldDate.equals(this.newDate);
+    }
+
+    public boolean qteIsChanged(){
+        return this.oldQte != this.newQte;
+    }    
     
     
     

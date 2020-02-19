@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -12,6 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,28 +25,32 @@
 
 <AnchorPane id="AnchorPane" maxHeight="720.0" maxWidth="950.0" minHeight="700.0" minWidth="900.0" prefHeight="720.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.MainController">
    <children>
-      <AnchorPane fx:id="products" layoutY="84.0" prefHeight="624.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
+      <AnchorPane fx:id="products" layoutY="86.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="767.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <TableView fx:id="productsTable" focusTraversable="false" layoutX="63.0" layoutY="68.0" maxWidth="825.0" minWidth="825.0" prefHeight="330.0" prefWidth="825.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="238.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="68.0">
+            <TableView fx:id="productsTable" focusTraversable="false" layoutX="18.0" layoutY="68.0" maxWidth="920.0" minWidth="920.0" prefHeight="320.0" prefWidth="920.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="68.0">
               <columns>
-                <TableColumn fx:id="id" maxWidth="100.0" minWidth="68.0" prefWidth="75.0" resizable="false" text="ID" />
-                <TableColumn fx:id="prodName" maxWidth="229.0" minWidth="178.0" prefWidth="200.0" resizable="false" text="إسم المنتوج" />
+                <TableColumn fx:id="id" maxWidth="100.0" minWidth="50.0" prefWidth="75.0" resizable="false" text="ID" />
+                <TableColumn fx:id="prodName" maxWidth="229.0" minWidth="178.0" prefWidth="175.0" resizable="false" text="إسم المنتوج" />
                   <TableColumn fx:id="prodQuantity" maxWidth="148.0" prefWidth="75.0" resizable="false" text="الكمية" />
                   <TableColumn fx:id="sellProd" maxWidth="251.0" prefWidth="100.0" resizable="false" text="سعر البيع" />
-                  <TableColumn fx:id="addDate" maxWidth="299.0" prefWidth="175.0" resizable="false" text="تاريخ الإضافة" />
-                  <TableColumn fx:id="nbrBuysCol" prefWidth="100.0" resizable="false" text="عدد الشراءات" />
-                  <TableColumn fx:id="nbrSellsCol" prefWidth="100.0" resizable="false" text="عدد المبيعات" />
+                  <TableColumn fx:id="addDate" maxWidth="299.0" prefWidth="150.0" resizable="false" text="تاريخ الإضافة" />
+                  <TableColumn fx:id="lastChange" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" text="آخر تعديل" />
+                  <TableColumn fx:id="nbrBuysCol" prefWidth="75.0" resizable="false" text="عدد الشراءات" />
+                  <TableColumn fx:id="nbrSellsCol" prefWidth="75.0" resizable="false" text="عدد المبيعات" />
               </columns>
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <TextField fx:id="searchField" layoutX="63.0" layoutY="16.0" prefHeight="40.0" prefWidth="238.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+            <TextField fx:id="searchField" layoutX="18.0" layoutY="16.0" prefHeight="40.0" prefWidth="238.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -67,18 +71,30 @@
              
          </graphic>               
             </Button>
-            <Label fx:id="productImg" focusTraversable="false" layoutX="14.0" layoutY="408.0" prefHeight="170.0" prefWidth="230.0" style="-fx-alignment: center; -fx-background-color: white; -fx-background-radius: 10;">
+            <Label fx:id="productImg" focusTraversable="false" layoutX="14.0" layoutY="398.0" prefHeight="180.0" prefWidth="230.0" style="-fx-alignment: center; -fx-background-color: white;">
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect></Label>
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="271.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="226.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/search.png" />
                </image>
             </ImageView>
-            <HBox layoutX="348.0" layoutY="5.0" prefHeight="61.0" prefWidth="550.0">
+            <HBox alignment="CENTER_RIGHT" layoutX="286.0" layoutY="4.0" prefHeight="61.0" prefWidth="650.0">
                <children>
+                  <Button id="menu-btn" fx:id="viewHistory" contentDisplay="RIGHT" layoutX="485.0" layoutY="10.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="سجل التعديلات" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_view_60px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button id="menu-btn" fx:id="removedProduct" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="200.0" text="المنتوجات المحذوفة" textFill="#dddddd">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -121,9 +137,9 @@
                   </Button>
                </children>
             </HBox>
-            <Pane layoutX="486.0" layoutY="407.0" prefHeight="220.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+            <Pane layoutX="258.0" layoutY="397.0" prefHeight="230.0" prefWidth="680.0" style="-fx-background-color: white;">
                <children>
-                  <TextField fx:id="refField" layoutX="186.0" layoutY="14.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المنتوج" style="-fx-background-color: azure; -fx-alignment: center;">
+                  <TextField fx:id="refField" layoutX="374.0" layoutY="20.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المنتوج" style="-fx-background-color: azure; -fx-alignment: center;">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -131,12 +147,12 @@
                         <InnerShadow height="15.0" radius="7.0" width="15.0" />
                      </effect>
                   </TextField>
-                  <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="407.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="593.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_document_48px_1.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="priceField2" layoutX="186.0" layoutY="64.0" prefHeight="40.0" prefWidth="250.0" promptText="سعر البيع" style="-fx-background-color: azure; -fx-alignment: center;">
+                  <TextField fx:id="priceField2" layoutX="374.0" layoutY="70.0" prefHeight="40.0" prefWidth="250.0" promptText="سعر البيع" style="-fx-background-color: azure; -fx-alignment: center;">
                      <font>
                         <Font name="Consolas Bold" size="16.0" />
                      </font>
@@ -144,7 +160,7 @@
                         <InnerShadow height="15.0" radius="7.0" width="15.0" />
                      </effect>
                   </TextField>
-                  <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="407.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="593.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_price_tag_52px_1.png" />
                      </image>
@@ -154,16 +170,16 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="337.0" layoutY="165.0" prefHeight="40.0" prefWidth="99.0" style="-fx-text-fill: #3D4956;" text="تاريخ الإضافة :" textAlignment="RIGHT" textFill="#dddddd">
+                  <Label alignment="CENTER_RIGHT" layoutX="526.0" layoutY="170.0" prefHeight="40.0" prefWidth="99.0" style="-fx-text-fill: #3D4956;" text="تاريخ الإضافة :" textAlignment="RIGHT" textFill="#dddddd">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="dateField" editable="false" layoutX="185.0" layoutY="166.0" prefHeight="40.0" prefWidth="150.0" style="-fx-cursor: hand;">
+                  <DatePicker fx:id="dateField" editable="false" layoutX="374.0" layoutY="171.0" prefHeight="40.0" prefWidth="150.0" style="-fx-cursor: hand;">
                      <effect>
                         <InnerShadow height="15.0" radius="7.0" width="15.0" />
                      </effect></DatePicker>
-                  <TextField fx:id="quantityField" layoutX="186.0" layoutY="115.0" prefHeight="40.0" prefWidth="250.0" promptText="الكمية" style="-fx-background-color: azure; -fx-alignment: center;">
+                  <TextField fx:id="quantityField" layoutX="374.0" layoutY="121.0" prefHeight="40.0" prefWidth="250.0" promptText="الكمية" style="-fx-background-color: azure; -fx-alignment: center;">
                      <font>
                         <Font name="Consolas Bold" size="16.0" />
                      </font>
@@ -171,93 +187,61 @@
                         <InnerShadow height="15.0" radius="7.0" width="15.0" />
                      </effect>
                   </TextField>
-                  <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="407.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="593.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_pie_128px_1.png" />
                      </image>
                   </ImageView>
-                  <Button id="rich-blue" fx:id="updateProduct" contentDisplay="RIGHT" layoutX="15.0" layoutY="20.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="150.0" text="تأكيد التعديل" textFill="#3c4854">
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/update.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button id="round-red" fx:id="deleteProduct" contentDisplay="RIGHT" layoutX="15.0" layoutY="141.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@../Layout/buttons.css" text="حذف المنتوج" textFill="#3c4854">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/cancel.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button id="shiny-orange" fx:id="productStats" contentDisplay="RIGHT" disable="true" layoutX="15.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="إحصائيات" textFill="#3c4854">
-                     <graphic>
-                        <ImageView fitHeight="17.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_area_chart_52px_1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
+                  <VBox alignment="TOP_CENTER" layoutY="9.0" prefHeight="213.0" prefWidth="333.0" spacing="15.0" style="-fx-padding: 10 0 0 0;">
+                     <children>
+                        <Button id="rich-blue" fx:id="updateProduct" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="تأكيد التعديل" textFill="#3c4854">
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/update.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button id="shiny-orange" fx:id="productStats" contentDisplay="RIGHT" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="إحصائيات" textFill="#3c4854">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8_area_chart_52px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button id="round-red" fx:id="deleteProduct" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@../Layout/buttons.css" text="حذف المنتوج" textFill="#3c4854">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="emptyQte" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" prefHeight="17.0" prefWidth="200.0" style="-fx-padding: 5; -fx-background-radius: 5; -fx-background-color: red;" text="ملاحظة : كمية هذا المنتوج صغيرة !" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Separator layoutX="337.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="9.0" />
                </children>
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect>
-            </Pane>
-            <Pane layoutX="254.0" layoutY="407.0" prefHeight="220.0" prefWidth="221.0" style="-fx-background-color: white; -fx-background-radius: 10;">
-               <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect>
-               <children>
-                  <Label fx:id="changeLabel" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="89.0" opacity="0.5" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #319a58; -fx-background-radius: 5;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arabic Typesetting" size="20.0" />
-                     </font>
-                  </Label>
-                  <Button id="dark-blue" fx:id="viewHistory" contentDisplay="RIGHT" layoutX="12.0" layoutY="136.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="رؤية سجل التغييرات" textFill="#3c4854">
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_view_60px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Label fx:id="emptyQte" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="12.0" layoutY="186.0" prefHeight="26.0" prefWidth="200.0" style="-fx-padding: 5; -fx-background-radius: 5; -fx-background-color: red;" text="ملاحظة : كمية هذا المنتوج صغيرة !" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="53.0" layoutY="56.0" prefHeight="30.0" prefWidth="119.0" text="تاريخ آخر تعديل" textAlignment="RIGHT" textFill="#3d4956">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="51.0" layoutY="14.0" prefHeight="30.0" prefWidth="119.0" style="-fx-text-fill: #3D4956;" text="معلومات" textAlignment="RIGHT" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
             </Pane>
          </children>
          <effect>

@@ -10,7 +10,7 @@ import Data.Employer;
 import Data.Product;
 import Data.Sell;
 import Include.Common;
-import static Include.Common.dateFormatter;
+import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.getPrice;
 import static Include.Common.getProductByName;
@@ -23,12 +23,9 @@ import JR.JasperReporter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
@@ -43,7 +40,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -74,7 +70,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     
-    private final ObservableList<String> nameList = Common.nameList;
+    private final ObservableList<String> nameList = getAllProducts(0);
     
     private final SpecialAlert alert = new SpecialAlert();
         
@@ -302,7 +298,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
             
         });
         
-        sellsTable.getSelectionModel().selectAll();
+        sellsTable.getSelectionModel().selectFirst();
         
         nameBox.setItems(nameList);
         

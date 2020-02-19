@@ -13,7 +13,6 @@ import static Include.Common.getUser;
 import Include.Init;
 import Include.SpecialAlert;
 import JR.JasperReporter;
-import com.sun.prism.paint.Paint;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -73,7 +72,7 @@ public class MainController implements Initializable,Init {
     @FXML private TableView<Buy> buysTable ;
     @FXML private TableColumn<Buy, Integer> buyIDCol,buyQteCol,buyPriceCol,buyTotalCol ;
     @FXML private TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
-    @FXML private TableColumn<Product, String> prodName,addDate ;
+    @FXML private TableColumn<Product, String> prodName,addDate,lastChange ;
     @FXML private TableColumn<Product, Integer> sellProd,prodQuantity,id,nbrSellsCol,nbrBuysCol ; 
     @FXML private TableColumn<Sell, Integer> sellID,sellQuantity,sellTotalCol,sellPrice ;
     @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
@@ -81,7 +80,7 @@ public class MainController implements Initializable,Init {
     @FXML public ChoiceBox<String> usersCB ;
     @FXML private TextField searchField,searchBuy,sellSearch,refField,priceField2,quantityField;
     @FXML public DatePicker sellDateField,buyDateField,dateField;
-    @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage,changeLabel; 
+    @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
     @FXML public Button addProd,newQuantityBtn,printBuys,printBuy,productStats,printEmployers,printSells,updateImage,addEmployerButton,updateEmployer,deleteEmployer,seeRecords,exBtn,newBillBtn,printProducts,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys,changePass;
     @FXML private Button updateProduct,deleteProduct,removedProduct,newSellButton,viewHistory;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
@@ -191,6 +190,8 @@ public class MainController implements Initializable,Init {
                 if(rs.getTimestamp("last_change") != null){
                     product.setLastChange(rs.getTimestamp("last_change").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
                 }
+                else
+                    product.setLastChange("/");
                 data.add(product);
             }
 
@@ -370,6 +371,7 @@ public class MainController implements Initializable,Init {
 
         try {
             String sqlDate = "";
+            String javaDate = "";
             try (Connection con = getConnection()) {
                 String query;
                 
@@ -383,12 +385,14 @@ public class MainController implements Initializable,Init {
                 
                 java.util.Date date = new java.util.Date();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                java.text.SimpleDateFormat ndf = new java.text.SimpleDateFormat("yyyy/MM/dd h.mm a");
                 sqlDate = sdf.format(date);
-                
+                javaDate = ndf.format(date);
                 ps.setString(5, sqlDate);            
                 ps.setInt(6, Integer.parseInt(idField.getText()));
                 ps.executeUpdate();
                 
+                if(!selectedProduct.getName().equals(refField.getText()) || !selectedProduct.getAddDate().equals(dateField.getEditor().getText()) || selectedProduct.getProdQuantity() != Integer.valueOf(quantityField.getText()) || selectedProduct.getSellPrice() != Integer.valueOf(priceField2.getText())){
                 query = "INSERT INTO product_history(prod_id, user_id, change_date, new_name, new_date, new_price, new_qte, old_name, old_date, old_price, old_qte) VALUES(?,?,?,?,?,?,?,?,?,?,?)" ;
                 
                 ps = con.prepareStatement(query);
@@ -406,6 +410,8 @@ public class MainController implements Initializable,Init {
                 
                 ps.executeUpdate();
                 
+                }
+                
                 con.close();
             }
 
@@ -413,7 +419,7 @@ public class MainController implements Initializable,Init {
             selectedProduct.setSellPrice(Integer.valueOf(priceField2.getText()));
             selectedProduct.setProdQuantity(Integer.valueOf(quantityField.getText()));
             selectedProduct.setAddDate(dateField.getEditor().getText());
-            selectedProduct.setLastChange(sqlDate);
+            selectedProduct.setLastChange(javaDate);
             
             productsTable.refresh();
 
@@ -456,12 +462,7 @@ public class MainController implements Initializable,Init {
             emptyQte.setVisible(true);
         }
         else
-            emptyQte.setVisible(false);
-        
-        if(data.get(index).getLastChange().equals(""))
-            changeLabel.setText("لا يوجد تعديلات");
-        else
-            changeLabel.setText(data.get(index).getLastChange());        
+            emptyQte.setVisible(false);    
         
     }
     
@@ -978,6 +979,7 @@ public class MainController implements Initializable,Init {
         prodQuantity.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
         sellProd.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
         addDate.setCellValueFactory(new PropertyValueFactory<>("AddDate"));
+        lastChange.setCellValueFactory(new PropertyValueFactory<>("lastChange"));
 
         productsTable.setItems(data);
         searchField.textProperty().addListener((obs, oldText, newText) -> {
