@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="427.0" prefWidth="651.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.ExEmployersController">
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="580.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.ExEmployersController">
    <children>
-      <TableView fx:id="exTable" focusTraversable="false" layoutX="51.0" layoutY="85.0" prefHeight="294.0" prefWidth="550.0" style="-fx-background-color: white;">
+      <TableView fx:id="exTable" focusTraversable="false" layoutX="15.0" layoutY="68.0" prefHeight="294.0" prefWidth="550.0" style="-fx-background-color: white;">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="fullname" prefWidth="173.0" text="الإسم الكامل" />
@@ -23,10 +24,10 @@
             <TableColumn fx:id="action1" prefWidth="129.0" text="تفعيل" />
         </columns>
          <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+            <DropShadow />
          </effect>
       </TableView>
-      <BorderPane prefHeight="50.0" prefWidth="651.0" style="-fx-background-color: #ddd;">
+      <BorderPane prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: azure;">
          <left>
             <Button id="return-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="75.0" BorderPane.alignment="CENTER">
                 
@@ -64,6 +65,9 @@
                 
             </Label>
          </right>
+         <effect>
+            <DropShadow />
+         </effect>
       </BorderPane>
    </children>
    <stylesheets>

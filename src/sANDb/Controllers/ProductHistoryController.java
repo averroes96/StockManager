@@ -2,7 +2,6 @@
 package sANDb.Controllers;
 
 import Data.ProdHistory;
-import Include.Common;
 import static Include.Common.dateFormatter;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;

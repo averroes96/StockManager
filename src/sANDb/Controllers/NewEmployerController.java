@@ -82,7 +82,7 @@ public class NewEmployerController implements Initializable,Init {
             try {
                 image.setText("");
                 image.setGraphic(new ImageView(new Image(
-                        selectedFile.toURI().toString(), 200, 200, true, true)));
+                        selectedFile.toURI().toString(), 200, 170, true, true)));
             }
             catch (Exception e) {
                 alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
@@ -338,7 +338,7 @@ public class NewEmployerController implements Initializable,Init {
             image.setText("");
             ImageView img = new ImageView(new Image(
                     ClassLoader.class.getResourceAsStream("/sANDb/images/user.png"),
-                    200, 200, true, true));
+                    200, 170, true, true));
             image.setGraphic(img);        
         
         fullname.setOnKeyPressed(Action -> {

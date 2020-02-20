@@ -25,7 +25,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="720.0" maxWidth="950.0" minHeight="700.0" minWidth="900.0" prefHeight="720.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.MainController">
    <children>
-      <AnchorPane fx:id="products" layoutY="86.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
+      <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="767.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -351,7 +351,7 @@
          <effect>
             <InnerShadow />
          </effect></AnchorPane>
-      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="616.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
+      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="542.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -360,7 +360,7 @@
             </ImageView>
             <Pane layoutX="65.0" layoutY="86.0" prefHeight="500.0" prefWidth="820.0" style="-fx-background-color: white;" stylesheets="@../Layout/buttons.css">
                <children>
-                  <VBox alignment="CENTER" layoutX="32.0" layoutY="83.0" prefHeight="276.0" prefWidth="175.0">
+                  <VBox alignment="CENTER" layoutX="18.0" layoutY="112.0" prefHeight="276.0" prefWidth="200.0" style="-fx-background-color: azure;">
                      <children>
                         <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="خيارات">
                            <font>
@@ -411,48 +411,51 @@
                                </graphic>                   
                         </Button>
                      </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </VBox>
                   <Pane layoutX="236.0" layoutY="25.0" prefHeight="450.0" prefWidth="550.0" style="-fx-background-color: #ddd;">
                      <children>
-                        <Label fx:id="fullnameLabel" layoutX="269.0" layoutY="48.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center; -fx-background-radius: 10;" textFill="#3d4956">
+                        <Label fx:id="fullnameLabel" layoutX="269.0" layoutY="73.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center; -fx-background-radius: 10;" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <effect>
-                              <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                              <DropShadow />
                            </effect>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="275.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="275.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/name-blue.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="phoneLabel" layoutX="269.0" layoutY="97.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center; -fx-background-radius: 10;" textFill="#3d4956">
+                        <Label fx:id="phoneLabel" layoutX="269.0" layoutY="122.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center; -fx-background-radius: 10;" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <effect>
-                              <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                              <DropShadow />
                            </effect>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="276.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="276.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons8_phone_48px_2.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="userStatus" alignment="CENTER" focusTraversable="false" layoutX="120.0" layoutY="386.0" prefHeight="17.0" prefWidth="299.0" text="هذا الحساب لا يمكنه الولوج للتطبيق لأنه لا يمتلك أية صلاحيات" textAlignment="CENTER" textFill="RED">
+                        <Label fx:id="userStatus" alignment="CENTER" focusTraversable="false" layoutX="120.0" layoutY="407.0" prefHeight="17.0" prefWidth="310.0" text="هذا الحساب لا يمكنه الولوج للتطبيق لأنه لا يمتلك أية صلاحيات" textAlignment="CENTER" textFill="RED">
                            <font>
-                              <Font name="Arial Bold" size="13.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="userImage" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="269.0" layoutY="146.0" prefHeight="220.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 10;" textAlignment="CENTER">
+                        <Label fx:id="userImage" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="269.0" layoutY="171.0" prefHeight="220.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 10;" textAlignment="CENTER">
                            <effect>
-                              <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                              <DropShadow />
                            </effect></Label>
                         <Separator layoutX="38.0" layoutY="265.0" prefHeight="3.0" prefWidth="182.0" />
-                        <Pane layoutX="31.0" layoutY="48.0" prefHeight="187.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                        <Pane layoutX="31.0" layoutY="73.0" prefHeight="187.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 10;">
                            <children>
-                              <Text fill="#3d4956" layoutX="63.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="الصلاحيات">
+                              <Text fill="#3d4956" layoutX="51.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="الصلاحيات">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -481,12 +484,17 @@
                               <ImageView fx:id="userManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="sellManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="buyManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="138.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8_membership_card_30px.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                            <effect>
-                              <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                              <DropShadow />
                            </effect>
                         </Pane>
-                        <Pane layoutX="31.0" layoutY="263.0" prefHeight="104.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                        <Pane layoutX="31.0" layoutY="288.0" prefHeight="104.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 10;">
                            <children>
                               <Text fill="#3d4956" layoutX="37.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="آخر تسجيل دخول">
                                  <font>
@@ -500,9 +508,19 @@
                               </Label>
                            </children>
                            <effect>
-                              <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                              <DropShadow />
                            </effect>
                         </Pane>
+                        <Text fill="#3d4956" layoutX="177.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="معلومات عن الحساب" wrappingWidth="174.716796875">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="352.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_more_info_64px.png" />
+                           </image>
+                        </ImageView>
                      </children>
                      <effect>
                         <InnerShadow height="15.0" radius="7.0" width="15.0" />
@@ -510,10 +528,10 @@
                   </Pane>
                </children>
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect>
             </Pane>
-            <ButtonBar layoutX="315.0" layoutY="23.0" prefHeight="53.0" prefWidth="566.0">
+            <ButtonBar layoutX="319.0" layoutY="20.0" prefHeight="61.0" prefWidth="566.0">
                <buttons>
                   <Button id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" stylesheets="@../Layout/buttons.css" text="طباعة الحسابات" textFill="#dddddd">
                       
@@ -559,7 +577,7 @@
                   </Button>
                </buttons>
             </ButtonBar>
-            <ChoiceBox fx:id="usersCB" focusTraversable="false" layoutX="69.0" layoutY="30.0" prefHeight="40.0" prefWidth="210.0" style="-fx-cursor: hand;">
+            <ChoiceBox fx:id="usersCB" focusTraversable="false" layoutX="65.0" layoutY="31.0" prefHeight="40.0" prefWidth="210.0" style="-fx-cursor: hand;">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
@@ -569,7 +587,7 @@
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="616.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
+      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
             <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="75.0" prefHeight="375.0" prefWidth="920.0" style="-fx-background-color: white; -fx-border-color: #000;" stylesheets="@../Layout/custom.css">
               <columns>
@@ -719,7 +737,7 @@
             <InnerShadow />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="616.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
+      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
             <HBox layoutX="15.0" layoutY="6.0" prefHeight="68.0" prefWidth="520.0">
                <children>

@@ -9,70 +9,19 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="663.0" prefWidth="550.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.NewEmployerController">
    <children>
-      <Label fx:id="image" focusTraversable="false" layoutX="300.0" layoutY="351.0" prefHeight="200.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: white;">
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect></Label>
-      <Button id="rich-blue" fx:id="upload" contentDisplay="RIGHT" layoutX="310.0" layoutY="302.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="41.0" prefWidth="200.0" text="تحميل صورة">
-          
-          <graphic>
-            <ImageView fitHeight="15.0" fitWidth="16.0" layoutX="115.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/upload.png" />
-               </image>
-            </ImageView>              
-              
-          </graphic>          
-          
-      </Button>
-      <TextField fx:id="fullname" alignment="CENTER_RIGHT" layoutX="285.0" layoutY="145.0" prefHeight="50.0" prefWidth="250.0" promptText="الإسم الكامل" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect>
-      </TextField>
-      <TextField fx:id="phone" alignment="CENTER_RIGHT" layoutX="285.0" layoutY="220.0" prefHeight="50.0" prefWidth="250.0" promptText="رقم الهاتف" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect>
-      </TextField>
-      <Label focusTraversable="false" layoutX="201.0" layoutY="91.0" text="المعلومات الشخصية" textFill="#dddddd">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="username" layoutX="15.0" layoutY="145.0" prefHeight="50.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect>
-      </TextField>
-      <PasswordField fx:id="password" layoutX="15.0" layoutY="220.0" prefHeight="50.0" prefWidth="250.0" promptText="كلمة السر" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect>
-      </PasswordField>
-      <Button id="green" fx:id="sava" contentDisplay="RIGHT" defaultButton="true" layoutX="187.0" layoutY="609.0" mnemonicParsing="false" onAction="#insertEmployer" prefHeight="40.0" prefWidth="180.0" text="تأكيد الإضافة">
+      <Button id="green" fx:id="sava" contentDisplay="RIGHT" defaultButton="true" layoutX="175.0" layoutY="609.0" mnemonicParsing="false" onAction="#insertEmployer" prefHeight="40.0" prefWidth="200.0" text="تأكيد الإضافة">
           
           <graphic>
             <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="115.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
@@ -87,46 +36,16 @@
          </font>          
           
       </Button>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="504.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/name.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="504.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/phone.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="237.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/username.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="236.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/password2.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="fullnameStatus" focusTraversable="false" layoutX="290.0" layoutY="195.0" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال إسم كامل صالح !" textFill="WHITE" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="phoneStatus" focusTraversable="false" layoutX="290.0" layoutY="270.0" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال رقم هاتف صالح !" textFill="WHITE" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <BorderPane prefHeight="50.0" prefWidth="550.0" style="-fx-background-color: #ddd;">
+      <BorderPane prefHeight="50.0" prefWidth="550.0" style="-fx-background-color: azure;">
          <center>
             <Label focusTraversable="false" text="إضافة حساب" textFill="#3d4956" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Simplified Arabic Fixed" size="24.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </center>
          <left>
-            <Button id="return-btn" fx:id="cancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="60.0" BorderPane.alignment="CENTER">
+            <Button id="return-btn" fx:id="cancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="70.0" BorderPane.alignment="CENTER">
                 <graphic>
                   <ImageView fitHeight="23.0" fitWidth="22.0" layoutX="115.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -154,9 +73,92 @@
                 
             </Label>
          </right>
+         <effect>
+            <DropShadow />
+         </effect>
       </BorderPane>
-      <VBox alignment="CENTER" layoutX="33.0" layoutY="351.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="202.0" style="-fx-background-color: #ddd;">
+      <Pane layoutX="25.0" layoutY="93.0" prefHeight="214.0" prefWidth="500.0" style="-fx-background-color: azure; -fx-background-radius: 10;">
          <children>
+            <TextField fx:id="fullname" alignment="CENTER_RIGHT" layoutX="263.0" layoutY="57.0" prefHeight="50.0" prefWidth="220.0" promptText="الإسم الكامل" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TextField>
+            <TextField fx:id="phone" alignment="CENTER_RIGHT" layoutX="263.0" layoutY="132.0" prefHeight="50.0" prefWidth="220.0" promptText="رقم الهاتف" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TextField>
+            <TextField fx:id="username" layoutX="18.0" layoutY="57.0" prefHeight="50.0" prefWidth="220.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TextField>
+            <PasswordField fx:id="password" layoutX="18.0" layoutY="132.0" prefHeight="50.0" prefWidth="220.0" promptText="كلمة السر" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </PasswordField>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="452.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/name.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="452.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/phone.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="210.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/username.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="209.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/password2.png" />
+               </image>
+            </ImageView>
+            <Label focusTraversable="false" layoutX="174.0" layoutY="14.0" text="المعلومات الشخصية" textFill="#3d4956">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="fullnameStatus" focusTraversable="false" layoutX="263.0" layoutY="107.0" prefHeight="17.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال إسم كامل صالح !" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="phoneStatus" focusTraversable="false" layoutX="263.0" layoutY="182.0" prefHeight="17.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال رقم هاتف صالح !" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <VBox alignment="CENTER" layoutX="25.0" layoutY="320.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="250.0" prefWidth="240.0" style="-fx-background-color: azure; -fx-background-radius: 10;">
+         <children>
+            <Label focusTraversable="false" text="الصلاحيات" textFill="#3d4956">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Separator prefHeight="30.0" prefWidth="202.0" />
             <CheckBox fx:id="admin" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="مستخدم أدمن" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -206,14 +208,28 @@
             </CheckBox>
          </children>
          <effect>
-            <InnerShadow />
+            <DropShadow />
          </effect>
       </VBox>
-      <Label focusTraversable="false" layoutX="96.0" layoutY="309.0" text="الصلاحيات" textFill="#dddddd">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
+      <BorderPane layoutX="285.0" layoutY="320.0" prefHeight="250.0" prefWidth="240.0" style="-fx-background-color: azure; -fx-padding: 20 0; -fx-background-radius: 10;">
+         <top>
+            <Button id="rich-blue" fx:id="upload" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#chooseImage" prefHeight="41.0" prefWidth="200.0" text="تحميل صورة" BorderPane.alignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="16.0" layoutX="115.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/upload.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </top>
+         <center>
+            <Label fx:id="image" focusTraversable="false" prefHeight="170.0" prefWidth="200.0" style="-fx-alignment: center; -fx-background-color: white;" BorderPane.alignment="CENTER" />
+         </center>
+         <effect>
+            <DropShadow />
+         </effect>
+      </BorderPane>
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />

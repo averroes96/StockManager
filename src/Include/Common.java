@@ -412,7 +412,7 @@ public class Common implements Init {
                 employer.setSellPrivs(rs.getInt("manage_sells"));
                 employer.setUserPrivs(rs.getInt("manage_users"));
                 if(rs.getString("last_logged_in") != null){
-                employer.setLastLogged(rs.getString("last_logged_in"));
+                employer.setLastLogged(rs.getTimestamp("last_logged_in").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
                 }
                 ++count;
                 
