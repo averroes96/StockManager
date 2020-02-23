@@ -112,7 +112,9 @@ public class ProductHistoryController implements Initializable,Init {
             
             alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
 
-        }        
+        }
+
+        
         
     }
     
@@ -175,9 +177,9 @@ public class ProductHistoryController implements Initializable,Init {
         
         startDate.setConverter(dateFormatter());
         endDate.setConverter(dateFormatter());
-        startDate.getEditor().setText(String.valueOf(LocalDate.now().minusMonths(1)));
+        startDate.getEditor().setText(String.valueOf(LocalDate.now().minusWeeks(1)));
         endDate.getEditor().setText(String.valueOf(LocalDate.now()));
-        startDate.setValue(LocalDate.now().minusMonths(1));
+        startDate.setValue(LocalDate.now().minusWeeks(1));
         endDate.setValue(LocalDate.now());
 
         prodField.setItems(nameList);

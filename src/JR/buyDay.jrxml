@@ -21,7 +21,7 @@
 	<field name="buy_price" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="buy_date" class="java.sql.Date">
+	<field name="buy_date" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="user_id" class="java.lang.Integer">
@@ -49,6 +49,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nbrBuys" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="on_hold" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="last_change" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="buy_id_1" class="java.lang.Integer" calculation="Count">
@@ -175,7 +181,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{buy_price} + ".00 da"]]></textFieldExpression>
 			</textField>
-			<textField pattern="HH.mm">
+			<textField pattern="h.mm a">
 				<reportElement x="463" y="0" width="92" height="29" uuid="a7f29a61-8bff-44b7-91ee-d288bd83797a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="12"/>

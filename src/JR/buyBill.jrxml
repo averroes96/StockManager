@@ -167,7 +167,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{buy_price} + ".00 da"]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy h.mm a">
+			<textField pattern="h.mm a">
 				<reportElement x="430" y="3" width="122" height="25" uuid="053b70c4-f3ca-45ae-a433-ad87c9ca6e33"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="11"/>

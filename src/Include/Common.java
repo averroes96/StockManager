@@ -564,6 +564,29 @@ public class Common implements Init {
         return new ProdStats();
         
     }
+    
+    public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause){
+        
+        Connection con = getConnection();
+        String query = "SELECT " + select + " FROM " + tableName + " " + additions + " " + whereClause;
+
+        PreparedStatement st;
+        ResultSet rs;
+                
+
+        try {
+            st = con.prepareStatement(query);
+            return rs = st.executeQuery();
+            
+            
+        }
+        catch (SQLException e){ 
+            
+            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            return null;
+        }     
+        
+    }
         
     
 }

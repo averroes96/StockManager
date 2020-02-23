@@ -82,7 +82,7 @@ public class MainController implements Initializable,Init {
     @FXML public DatePicker sellDateField,buyDateField,dateField;
     @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
     @FXML public Button addProd,newQuantityBtn,printBuys,printBuy,productStats,printEmployers,printSells,updateImage,addEmployerButton,updateEmployer,deleteEmployer,seeRecords,exBtn,newBillBtn,printProducts,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys,changePass;
-    @FXML private Button updateProduct,deleteProduct,removedProduct,newSellButton,viewHistory;
+    @FXML private Button updateProduct,deleteProduct,removedProduct,newSellButton,viewHistory,buyStatBtn;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane;
     
@@ -1406,7 +1406,6 @@ public class MainController implements Initializable,Init {
         changePass.setOnAction(Action -> {
             
                         try {
-                            
                             Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
                             Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ChangePass.fxml"));
@@ -1420,14 +1419,7 @@ public class MainController implements Initializable,Init {
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
                             stage.showAndWait();
-                            root.setOnMousePressed((MouseEvent event) -> {
-                                xOffset = event.getSceneX();
-                                yOffset = event.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event) -> {
-                                stage.setX(event.getScreenX() - xOffset);
-                                stage.setY(event.getScreenY() - yOffset);
-                            });                              
+                             
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
                         }
@@ -1569,8 +1561,28 @@ public class MainController implements Initializable,Init {
                     alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
                 }
 
-        });  
+        });
         
+        buyStatBtn.setOnAction(Action -> {
+
+                        try { 
+                            Stage stage = new Stage();
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/BuyStats.fxml"));
+                            AnchorPane root = (AnchorPane)loader.load();
+                            BuyStatsController erControl = (BuyStatsController)loader.getController();
+                            Scene scene = new Scene(root);
+                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            stage.setScene(scene);
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.setResizable(false);
+                            stage.showAndWait();
+                             
+                        } catch (IOException ex) {
+                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                        }
+
+        });        
 
         searchBuy.textProperty().addListener((obs, oldText, newText) -> {
             search("buys");

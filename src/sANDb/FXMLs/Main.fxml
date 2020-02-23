@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="720.0" maxWidth="950.0" minHeight="700.0" minWidth="900.0" prefHeight="720.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.MainController">
+<AnchorPane id="AnchorPane" maxHeight="720.0" maxWidth="950.0" minHeight="700.0" minWidth="900.0" prefHeight="719.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.MainController">
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
@@ -32,7 +32,7 @@
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <TableView fx:id="productsTable" focusTraversable="false" layoutX="18.0" layoutY="68.0" maxWidth="920.0" minWidth="920.0" prefHeight="320.0" prefWidth="920.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="68.0">
+            <TableView fx:id="productsTable" layoutX="18.0" layoutY="68.0" maxWidth="920.0" minWidth="920.0" prefHeight="320.0" prefWidth="920.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="68.0">
               <columns>
                 <TableColumn fx:id="id" maxWidth="100.0" minWidth="50.0" prefWidth="75.0" resizable="false" text="ID" />
                 <TableColumn fx:id="prodName" maxWidth="229.0" minWidth="178.0" prefWidth="175.0" resizable="false" text="إسم المنتوج" />
@@ -351,7 +351,7 @@
          <effect>
             <InnerShadow />
          </effect></AnchorPane>
-      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;">
+      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="542.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -425,7 +425,7 @@
                               <DropShadow />
                            </effect>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="275.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="275.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/name-blue.png" />
                            </image>
@@ -438,7 +438,7 @@
                               <DropShadow />
                            </effect>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="276.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="276.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons8_phone_48px_2.png" />
                            </image>
@@ -603,6 +603,9 @@
               </columns>
                <cursor>
                </cursor>
+               <effect>
+                  <DropShadow height="15.0" radius="7.0" width="15.0" />
+               </effect>               
             </TableView>
             <TextField fx:id="sellSearch" alignment="CENTER_RIGHT" layoutX="705.0" layoutY="18.0" prefHeight="41.0" prefWidth="230.0" promptText="بحث" style="-fx-padding: 0 40 0 0;" stylesheets="@../Layout/custom.css">
                <font>
@@ -610,10 +613,11 @@
                </font>
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect></TextField>
+               </effect>
+            </TextField>
             <DatePicker fx:id="sellDateField" editable="false" layoutX="95.0" layoutY="528.0" prefHeight="40.0" prefWidth="200.0" style="-fx-cursor: hand;">
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect></DatePicker>
             <ImageView fitHeight="40.0" fitWidth="27.0" layoutX="124.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -625,7 +629,7 @@
                   <Image url="@../images/search.png" />
                </image>
             </ImageView>
-            <BorderPane layoutX="385.0" layoutY="457.0" prefHeight="150.0" prefWidth="550.0">
+            <BorderPane layoutX="382.0" layoutY="466.0" prefHeight="150.0" prefWidth="550.0">
                <center>
                   <Pane prefHeight="120.0" prefWidth="550.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
                      <children>
@@ -658,7 +662,7 @@
                         </Label>
                      </children>
                      <effect>
-                        <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                        <DropShadow />
                      </effect>
                   </Pane>
                </center>
@@ -739,23 +743,35 @@
       </AnchorPane>
       <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false">
          <children>
-            <HBox layoutX="15.0" layoutY="6.0" prefHeight="68.0" prefWidth="520.0">
+            <HBox layoutX="15.0" layoutY="6.0" prefHeight="68.0" prefWidth="620.0">
                <children>
+                  <Button id="menu-btn" fx:id="buyStatBtn" contentDisplay="RIGHT" layoutX="356.0" layoutY="10.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="إحصائيات" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_statistics_filled_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button id="menu-btn" fx:id="printBuy" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="فاتورة جديدة" textFill="#dddddd">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons8_print_file_48px_2.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="printBuys" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="طبع شراءات اليوم" textFill="#dddddd">
+                  <Button id="menu-btn" fx:id="printBuys" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="طباعة اليوم" textFill="#dddddd">
                      <graphic>
-                        <ImageView fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/print.png" />
                            </image>
@@ -770,7 +786,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/buy2.png" />
                            </image>
@@ -784,7 +800,7 @@
                 <TableColumn fx:id="buyIDCol" prefWidth="69.0" resizable="false" text="ID" />
                 <TableColumn fx:id="buyProdCol" prefWidth="172.0" resizable="false" text="المنتوج" />
                   <TableColumn fx:id="buyDateCol" prefWidth="106.0" resizable="false" text="التوقيت" />
-                  <TableColumn fx:id="buyPriceCol" prefWidth="85.0" resizable="false" text=" سعر الشراء" />
+                  <TableColumn fx:id="buyPriceCol" prefWidth="85.0" resizable="false" text="السعر" />
                   <TableColumn fx:id="buyQteCol" prefWidth="75.0" resizable="false" text="الكمية" />
                   <TableColumn fx:id="buyTotalCol" prefWidth="104.0" resizable="false" text="السعر الإجمالي" />
                   <TableColumn fx:id="buyUserCol" prefWidth="137.0" resizable="false" text="المستخدم" />
@@ -792,19 +808,19 @@
                   <TableColumn fx:id="buyAction2" prefWidth="84.0" resizable="false" text="حذف" />
               </columns>
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect>
             </TableView>
-            <BorderPane layoutX="385.0" layoutY="456.0" prefHeight="150.0" prefWidth="550.0">
+            <BorderPane layoutX="386.0" layoutY="466.0" prefHeight="150.0" prefWidth="550.0">
                <center>
                   <Pane prefHeight="138.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="buyDayQte" layoutX="188.0" layoutY="69.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="buyDayQte" focusTraversable="false" layoutX="198.0" layoutY="64.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="buyDaySum" layoutX="356.0" layoutY="69.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="buyDaySum" focusTraversable="false" layoutX="366.0" layoutY="64.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
@@ -819,7 +835,7 @@
                               <Image url="@../images/icons8_today_filled_100px_1.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="buyDayTotal" layoutX="14.0" layoutY="69.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
+                        <Label fx:id="buyDayTotal" focusTraversable="false" layoutX="24.0" layoutY="64.0" prefHeight="50.0" prefWidth="160.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
@@ -828,21 +844,21 @@
                         <Separator layoutX="366.0" layoutY="23.0" prefHeight="3.0" prefWidth="160.0" style="-fx-background-color: #3D4956;" />
                      </children>
                      <effect>
-                        <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                        <DropShadow />
                      </effect>
                   </Pane>
                </center>
             </BorderPane>
             <DatePicker fx:id="buyDateField" editable="false" layoutX="95.0" layoutY="525.0" prefHeight="40.0" prefWidth="200.0" style="-fx-cursor: hand;">
                <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
+                  <DropShadow />
                </effect></DatePicker>
             <Text fill="#dddddd" layoutX="153.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ الشراء">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="343.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="336.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/up.png" />
                </image>

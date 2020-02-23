@@ -146,14 +146,9 @@ ListView {
 
 .axis {
     -fx-font-size: 1.4em;    
-    -fx-tick-label-fill: #fff;
     -fx-font-family: Tahoma;
     -fx-tick-length: 20;
     -fx-minor-tick-length: 10;
-}
- 
-.axis-label {
-   -fx-text-fill: #fff; 
 }
 
 .date-picker > .text-field {
@@ -176,3 +171,4 @@ ListView {
     -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
     -fx-background-radius: 2 0 0 2, 1 0 0 1, 0;
 }
+

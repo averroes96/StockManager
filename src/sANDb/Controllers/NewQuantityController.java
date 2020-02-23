@@ -9,6 +9,7 @@ import Data.Buy;
 import Data.Employer;
 import static Include.Common.getConnection;
 import static Include.Common.getProductByName;
+import static Include.Common.minimize;
 import Include.Init;
 import static Include.Init.CONNECTION_ERROR;
 import static Include.Init.CONNECTION_ERROR_MESSAGE;
@@ -374,8 +375,13 @@ public class NewQuantityController implements Initializable,Init {
             qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
         }         
             
-        });         
+        });
         
+        minimize.setOnMouseClicked(Action ->{
+        
+            minimize(Action);
+        
+        });
         
         
     }    
