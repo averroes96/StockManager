@@ -13,25 +13,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="378.0" style="-fx-background-color: #3D4956;" stylesheets="@../Layout/custom.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.UpdateSellController">
    <children>
-      <TextField fx:id="quantity" alignment="CENTER" layoutX="89.0" layoutY="263.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية">
+      <TextField fx:id="quantity" alignment="CENTER" layoutX="91.0" layoutY="352.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="price" alignment="CENTER" layoutX="90.0" layoutY="188.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع">
+      <TextField fx:id="price" alignment="CENTER" layoutX="91.0" layoutY="277.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <DatePicker fx:id="date" editable="false" layoutX="89.0" layoutY="341.0" prefHeight="50.0" prefWidth="200.0">
+      <DatePicker fx:id="date" editable="false" layoutX="91.0" layoutY="215.0" prefHeight="40.0" prefWidth="200.0">
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></DatePicker>
@@ -50,17 +49,17 @@
                 </graphic>         
       
       </Button>
-      <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="248.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="26.0" fitWidth="36.0" layoutX="249.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/icons8_pie_128px.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="29.0" layoutX="249.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="26.0" fitWidth="29.0" layoutX="250.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/price.png" />
          </image>
       </ImageView>
-      <Label fx:id="priceStatus" alignment="CENTER" focusTraversable="false" layoutX="90.0" layoutY="238.0" prefHeight="17.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد سعر صالح" textFill="WHITE" visible="false">
+      <Label fx:id="priceStatus" alignment="CENTER" focusTraversable="false" layoutX="91.0" layoutY="329.0" prefHeight="17.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد سعر صالح" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -68,7 +67,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <ChoiceBox fx:id="nameBox" layoutX="89.0" layoutY="116.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="41.0" prefWidth="200.0">
+      <ChoiceBox fx:id="nameBox" layoutX="91.0" layoutY="125.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="200.0">
          <effect>
             <InnerShadow height="15.0" radius="7.0" width="15.0" />
          </effect></ChoiceBox>
@@ -118,15 +117,29 @@
             </Label>
          </children>
       </Pane>
-      <Text fill="#dddddd" layoutX="166.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="المنتوج">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Text>
-      <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" layoutX="90.0" layoutY="313.0" prefHeight="17.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد كمية منتوج صالحة" textFill="WHITE" visible="false">
+      <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" layoutX="91.0" layoutY="404.0" prefHeight="17.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد كمية منتوج صالحة" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <Label alignment="CENTER" focusTraversable="false" layoutX="91.0" layoutY="98.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: tomato; -fx-background-radius: 10 10 0 0;" text="المنتوج" textFill="#3d4956">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" focusTraversable="false" layoutX="91.0" layoutY="188.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: tomato; -fx-background-radius: 10 10 0 0;" text="تاريخ البيع" textFill="#3d4956">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
       </Label>        
       
    </children>

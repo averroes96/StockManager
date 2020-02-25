@@ -135,7 +135,7 @@ ListView {
     -fx-text-fill: #3D4956;   
     -fx-alignment: CENTER;
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
 }
 
 .choice-box .context-menu { -fx-background-color:  #3D4956; }

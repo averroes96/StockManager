@@ -162,7 +162,7 @@ public interface Init {
     
     String ILLEGAL_INTERVAL = "مجال بحث غير صالح";
     
-    String ILLEGAL_INTERVAL_MSG = "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية" ;
+    String ILLEGAL_INTERVAL_MSG = "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية" ; 
 
     
 }

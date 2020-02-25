@@ -5,9 +5,11 @@
  */
 package sANDb.Controllers;
 
+import Data.Sell;
 import static Include.Common.dateFormatter;
+import static Include.Common.getAllFrom;
+import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
-import static Include.Common.getProductByName;
 import Include.Init;
 import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
@@ -16,22 +18,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -41,327 +46,242 @@ import javafx.scene.input.MouseEvent;
  */
 public class SellStatsController implements Initializable,Init {
 
+    @FXML private Button search;
+    @FXML private TableView<Sell> sellsTable;
+    @FXML private TableColumn<Sell, Integer> idCol;
+    @FXML private TableColumn<Sell, String> prodCol,userCol,dateCol,priceCol,qteCol;
+    @FXML private ChoiceBox<String> prodField ;
+    @FXML private DatePicker startDate,endDate;
+    @FXML private LineChart nbrSellsChart;
+    @FXML private BarChart sumSellsChart;
+    @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageBuyLabel,averageQteLabel,averagePriceLabel;
     
-    @FXML Label weekSells,weekSum,monthSells,monthSum,yearSells,yearSum ;
-    @FXML LineChart sellLineChart ;
-    @FXML LineChart sumLineChart;
-    @FXML DatePicker startDate,endDate;
-    @FXML ChoiceBox productBox ;
-    @FXML ObservableList<Data> list = FXCollections.observableArrayList();
-    @FXML Button filter;
     SpecialAlert alert = new SpecialAlert();
     
-    ObservableList<String> productsList = FXCollections.observableArrayList();
-    
-    private void getAllProducts()
-    {
-        Connection con = getConnection();
-        String query = "SELECT name FROM product WHERE on_hold = 0";
+    ObservableList<Sell> sellsList = FXCollections.observableArrayList();
+    ObservableList<String> nameList = getAllProducts(1);
 
-        Statement st;
+    private void getData(String name, String start, String end, String sortingType){
+        
+        Connection con = getConnection();
+        String whereClause = "" ;
+        String query ;
+        
+        if(!name.equals("الكل")){
+            whereClause = "WHERE name = '" + name + "' " ;
+        }
+        
+        if(!start.equals("")){
+            if(whereClause.equals("")){
+                whereClause = "WHERE date(sell_date) >= '" + start + "' " ;
+            }
+            else
+                whereClause += "AND date(sell_date) >= '" + start + "' " ;
+        }
+        
+        if(!end.equals("")){
+            if(whereClause.equals("")){
+                whereClause = "WHERE date(sell_date) <= '" + end + "' " ;
+            }
+            else
+                whereClause += "AND date(sell_date) <= '" + end + "' " ;
+        }        
+
+        
+        query = "SELECT * FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause ;
+
+        PreparedStatement st;
         ResultSet rs;
         
-        productsList.add("Tout");
-        
+
         try {
-            st = con.createStatement();
+            st = con.prepareStatement(query);
             rs = st.executeQuery(query);
 
             while (rs.next()) {
                 
-                String product = rs.getString("name");
-                productsList.add(product);
-            }
+                Sell sell = new Sell();
+                sell.setSellID(rs.getInt("sell_id"));
+                sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
+                sell.setTotalPrice(rs.getInt("sell.sell_price"));
+                sell.setSellDate(rs.getTimestamp("sell_date").toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd h.mm a")));
+                sell.setSellQuantity(rs.getInt("sell_quantity"));
+                sell.setSellName(rs.getString("name"));
+                sell.setSeller(rs.getString("username"));  
 
-            con.close();
-        }
-        catch (SQLException e) {          
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-        }
-    }     
-    
-    
-    public void getAllStats(){
-        
-        Connection con = getConnection();
-        String weekQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE date(sell_date) <= curdate() AND date(sell_date) >= date(curdate() - INTERVAL 7 day ) ";
-        String monthQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE date(sell_date) <= curdate() AND date(sell_date) >= date(curdate() - INTERVAL 30 day ) ";
-        String yearQuery = "SELECT count(*), SUM(sell_price) FROM sell WHERE date(sell_date) <= curdate() AND date(sell_date) >= date(curdate() - INTERVAL 365 day ) ";
-        String query = "SELECT count(*), SUM(sell_price) FROM sell";
-        PreparedStatement st;
-        ResultSet rs;
-
-        try {
-            st = con.prepareStatement(weekQuery);
-            rs = st.executeQuery();
-            
-            int weeksum = 0;
-            int weeksells = 0;
-            int monthsum = 0;
-            int monthsells = 0;
-            int yearsells = 0;
-            int yearsum = 0;
-            int Sum = 0;
-            int Sells = 0;            
-
-            while (rs.next()) {
-                
-                weeksum = rs.getInt("SUM(sell_price)");
-                weeksells = rs.getInt("count(*)");
+                sellsList.add(sell);                
                 
             }
             
-            st = con.prepareStatement(monthQuery);
-            rs = st.executeQuery();            
+            String query1="",query2="" ;
             
-            while (rs.next()) {
+            switch(sortingType){
                 
-                monthsum = rs.getInt("SUM(sell_price)");
-                monthsells = rs.getInt("count(*)");
-                
+                case "day" :
+                    query1 = "SELECT date(sell_date) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;                    
+                    query2 = "SELECT date(sell_date) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                    break;
+                case "week" :
+                    query1 = "SELECT extract( week from sell_date ) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;                    
+                    query2 = "SELECT extract( week from sell_date ) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                    break;
+                case "month" :
+                    query1 = "SELECT extract( month from sell_date ) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;                    
+                    query2 = "SELECT extract( month from sell_date ) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                    break;                   
+                    
             }
             
-            st = con.prepareStatement(yearQuery);
-            rs = st.executeQuery();            
-            
-            while (rs.next()) {
-                
-                yearsum = rs.getInt("SUM(sell_price)");
-                yearsells = rs.getInt("count(*)");
-                
-            }
 
-            st = con.prepareStatement(yearQuery);
-            rs = st.executeQuery();            
-            
-            while (rs.next()) {
-                
-                Sum = rs.getInt("SUM(sell_price)");
-                Sells = rs.getInt("count(*)");
-                
-            }
+            sumSellsChart.getData().clear();
+            XYChart.Series<String,Integer> series = new XYChart.Series<>();
 
-            st = con.prepareStatement(query);
-            rs = st.executeQuery();            
+                st = con.prepareStatement(query1);
+                rs = st.executeQuery();
+
+
+                while (rs.next()) {
+
+                    series.getData().add(new XYChart.Data<>(rs.getString("first_field"),rs.getInt("count(*)")));
+
+                    }
+
+                
+            sumSellsChart.getData().addAll(series);
+
+            series.getData().forEach((data) -> {
+                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
+                    Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue())));
+                });
+                });
             
-            while (rs.next()) {
+            series.setName("عدد المبيعات حسب اليوم");
+            
+
+            nbrSellsChart.getData().clear();
+            XYChart.Series<String,Integer> lineSeries = new XYChart.Series<>();
+
+                st = con.prepareStatement(query2);
+                rs = st.executeQuery();
+
+
+                while (rs.next()) {
+
+                    lineSeries.getData().add(new XYChart.Data<>(rs.getString("first_field"),rs.getInt("SUM(sell.sell_price)")));
+
+                }
+
+            nbrSellsChart.getData().addAll(lineSeries);
+
+            lineSeries.getData().forEach((data) -> {
+                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
+                    Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
+                });
+                });
+            
+            lineSeries.setName("المبلغ الإجمالي حسب اليوم");
+            
+            ResultSet stats1 = getAllFrom("COUNT(sell_id), SUM(sell_quantity), SUM(sell.sell_price)", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause);
+            
+            while(stats1.next()){
                 
-                Sum = rs.getInt("SUM(sell_price)");
-                Sells = rs.getInt("count(*)");
+            idCountLabel.setText(stats1.getString("COUNT(sell_id)") != null?  stats1.getString("COUNT(sell_id)") + " بيع" : "0 بيع");
+            qteCountLabel.setText(stats1.getString("SUM(sell_quantity)") != null?  stats1.getString("SUM(sell_quantity)") + " قطعة" : "0 قطع");
+            priceSumLabel.setText(stats1.getString("SUM(sell.sell_price)") != null?  stats1.getString("SUM(sell.sell_price)") + " دج" : "0 دج");
+            
+            }
+            
+            ResultSet stats2 = getAllFrom("COUNT(sell_id)/datediff('" + end + "','" + start + "') as abd, SUM(sell_quantity)/datediff('" + end + "','" + start + "') as aqd, SUM(sell.sell_price)/datediff('" + end + "','" + start + "') as asd", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause);
+            
+            while(stats2.next()){
                 
+            averageBuyLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " بيع" : "0 بيع");
+            averageQteLabel.setText(stats2.getString("aqd") != null?  stats2.getString("aqd") + " قطعة" : "0 قطع");
+            averagePriceLabel.setText(stats2.getString("asd") != null?  stats2.getString("asd") + " دج" : "0 دج");
+            
             }            
             
-            weekSum.setText(String.valueOf(weeksum) + " دج");
-            weekSells.setText(String.valueOf(weeksells) + " بيع");
-            monthSum.setText(String.valueOf(monthsum) + " دج");
-            monthSells.setText(String.valueOf(monthsells) + " بيع");            
-            yearSum.setText(String.valueOf(yearsum) + " دج");
-            yearSells.setText(String.valueOf(yearsells) + " بيع");                       
             
 
             con.close();
         }
         catch (SQLException e) {
+            
             alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+
         }         
         
     }
-    
-    public void loadLineChart(String startDate, String endDate, String product){
-        
-        String whereClause = "";
-        
-        if(!startDate.equals("")){
-            
-            whereClause += " WHERE date(sell_date) >= '" + startDate + "' " ;
-            
-        }
-        if(!endDate.equals("")){
-            
-            if(whereClause.equals("")){
-                whereClause += " WHERE date(sell_date) <= '" + endDate + "' " ;
-            }
-            else
-            {
-                whereClause += " AND date(sell_date) <= '" + endDate + "' ";
-            }
-            
-        }
-        if(!product.equals("Tout")){
-            
 
-              if(whereClause.equals("")){
-                  whereClause += " WHERE prod_id = " + getProductByName(product).getProdID() + " " ;
-              }
-              else
-              {
-                  whereClause += " AND prod_id = " + getProductByName(product).getProdID() + " " ;
-              }
-
-            
-        }
-        
-        Connection con = getConnection();
-        String query = "SELECT date(sell_date), count(*) FROM sell " + whereClause + "Group by date(sell_date) " ;
-        PreparedStatement st;
-        ResultSet rs;
-        
-        sellLineChart.getData().clear();
-        XYChart.Series<String,Integer> series = new XYChart.Series<>();
-
-        try {
-            st = con.prepareStatement(query);
-            rs = st.executeQuery();
-           
-
-            while (rs.next()) {
-
-                series.getData().add(new XYChart.Data<>(rs.getString("date(sell_date)"),rs.getInt("count(*)")));
-                
-            }
-            
-        sellLineChart.getData().addAll(series);
-        
-        series.getData().forEach((data) -> {
-            data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
-                Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
-            });
-            });            
-            
-            con.close();
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-        } 
-
-        series.setName("المبيعات");
-                
-        
-    }
-    
-    public void loadSumChart(String startDate, String endDate, String product){
-        
-        String whereClause = "";
-        
-        if(!startDate.equals("")){
-            
-            whereClause += " WHERE date(sell_date) >= '" + startDate + "' " ;
-            
-        }
-        if(!endDate.equals("")){
-            
-            if(whereClause.equals("")){
-                whereClause += " WHERE date(sell_date) <= '" + endDate + "' " ;
-            }
-            else{
-                whereClause += " AND date(sell_date) <= '" + endDate + "' ";
-            }
-            
-        }
-        if(!product.equals("Tout")){
-            
-
-              if(whereClause.equals("")){
-                  whereClause += " WHERE prod_id = " + getProductByName(product).getProdID() + " " ;
-              }
-              else
-              {
-                  whereClause += " AND prod_id = " + getProductByName(product).getProdID() + " " ;
-              }
-
-            
-        }        
-        
-        Connection con = getConnection();
-        String query = "SELECT date(sell_date), SUM(sell_price) FROM sell " + whereClause + " Group by date(sell_date)";
-        PreparedStatement st;
-        ResultSet rs;
-        
-        sumLineChart.getData().clear();
-        XYChart.Series<String,Integer> series = new XYChart.Series<>();
-
-        try {
-            st = con.prepareStatement(query);
-            rs = st.executeQuery();
-           
-
-            while (rs.next()) {
-
-                series.getData().add(new XYChart.Data<>(rs.getString("date(sell_date)"),rs.getInt("SUM(sell_price)")));
-                
-            }
-            
-        sumLineChart.getData().addAll(series);
-        
-        series.getData().forEach((data) -> {
-            data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
-                Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));//To change body of generated methods, choose Tools | Templates.
-            });
-            });            
-            
-            con.close();
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-        } 
-
-        series.setName("المبلغ الإجمالي");
-        
-        
-    }
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        idCol.setCellValueFactory(new PropertyValueFactory<>("sellID"));
+        prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));
+        userCol.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+        qteCol.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
+        
+        
+        sellsTable.setItems(sellsList);
+        sellsTable.getSelectionModel().selectFirst();
+        
         startDate.setConverter(dateFormatter());
         endDate.setConverter(dateFormatter());
-
         startDate.getEditor().setText(String.valueOf(LocalDate.now().minusWeeks(1)));
         endDate.getEditor().setText(String.valueOf(LocalDate.now()));
-        
         startDate.setValue(LocalDate.now().minusWeeks(1));
         endDate.setValue(LocalDate.now());
 
-        getAllProducts();
+        prodField.setItems(nameList);
+        prodField.getSelectionModel().selectFirst();
         
-        productBox.setItems(productsList);
+        getData("الكل",startDate.getEditor().getText(),endDate.getEditor().getText(), "day");
         
-        if(!productsList.isEmpty()){
-            productBox.getSelectionModel().select(0);
-        }
-        
-        getAllStats();
-        loadLineChart(startDate.getEditor().getText(), endDate.getEditor().getText(),productBox.getSelectionModel().getSelectedItem().toString());
-        loadSumChart(startDate.getEditor().getText(), endDate.getEditor().getText(),productBox.getSelectionModel().getSelectedItem().toString());
+        search.setOnAction(Action -> {
+            
+            System.out.println(endDate.getValue().compareTo(startDate.getValue()));
+            
+        if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+            
+            if(endDate.getValue().compareTo(startDate.getValue()) <= 1  || endDate.getValue().compareTo(startDate.getValue()) <= 30 ){
+                
+                sellsTable.getItems().clear();
+                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"day");            
 
-        filter.setOnAction(Action -> {
-
-        if(endDate.getValue().compareTo(startDate.getValue()) > 0){
-            
-        if(endDate.getValue().compareTo(startDate.getValue()) <= 30){
-            
-            
-        
-        loadLineChart(startDate.getEditor().getText(), endDate.getEditor().getText(),productBox.getSelectionModel().getSelectedItem().toString());
-        loadSumChart(startDate.getEditor().getText(), endDate.getEditor().getText(),productBox.getSelectionModel().getSelectedItem().toString());
-        
-       }
-        else {
-            
-            alert.show(LARGE_INTERVAL, LARGE_INTERVAL_MSG, Alert.AlertType.WARNING,false);
-            
-        }
-        
+            }
+            else if(endDate.getValue().compareTo(startDate.getValue()) <= 3  ){
+              
+                sellsTable.getItems().clear();
+                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"week");                 
+                
+            }
+            else if(endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear() <= 12 ){
+              
+                sellsTable.getItems().clear();
+                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"month");                 
+                
+            }            
+            else
+            {              
+               
+            alert.show(LARGE_INTERVAL, "المجال المسموح به يجب أن يكون أصغر من 365 يوما", Alert.AlertType.WARNING,false);                
+                
+            }
+                
+    
         }
         else {
             
             alert.show(ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, Alert.AlertType.WARNING,false);
             
-        }        
-        
+        }             
+          
+            
         });
-
-    }    
+        
+    }
     
 }

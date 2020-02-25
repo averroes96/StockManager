@@ -54,7 +54,7 @@
              
          </graphic>
       </Button>
-      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: azure;">
+      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #ddd;">
          <center>
             <Label text="GDP" textFill="#3d4956" BorderPane.alignment="CENTER">
                <font>

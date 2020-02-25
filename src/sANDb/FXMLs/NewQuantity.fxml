@@ -16,36 +16,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="475.0" prefWidth="801.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.NewQuantityController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="801.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.NewQuantityController">
    <children>
-      <Button id="green" fx:id="addQteBtn" contentDisplay="RIGHT" defaultButton="true" layoutX="567.0" layoutY="414.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="200.0" text="إضافة">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="23.0" fitWidth="33.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/add.png" />
-               </image>
-            </ImageView>
-         </graphic>         
-      </Button>
-      <TableView fx:id="buysTable" focusTraversable="false" layoutX="17.0" layoutY="88.0" prefHeight="300.0" prefWidth="520.0" style="-fx-background-color: white;">
+      <TableView fx:id="buysTable" focusTraversable="false" layoutX="17.0" layoutY="88.0" prefHeight="320.0" prefWidth="520.0" style="-fx-background-color: white;">
         <columns>
-            <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="prodCol" prefWidth="146.0" text="المنتوج" />
-          <TableColumn fx:id="priceCol" prefWidth="108.0" text="سعر الشراء" />
-            <TableColumn fx:id="qteCol" prefWidth="85.0" text="الكمية" />
-            <TableColumn fx:id="actionCol" prefWidth="105.0" text="Action" />
+            <TableColumn fx:id="idCol" prefWidth="75.0" resizable="false" text="ID" />
+          <TableColumn fx:id="prodCol" prefWidth="146.0" resizable="false" text="المنتوج" />
+          <TableColumn fx:id="priceCol" prefWidth="108.0" resizable="false" text="سعر الشراء" />
+            <TableColumn fx:id="qteCol" prefWidth="85.0" resizable="false" text="الكمية" />
+            <TableColumn fx:id="actionCol" prefWidth="105.0" resizable="false" text="Action" />
         </columns>
          <effect>
-            <InnerShadow color="#510606" height="15.0" radius="7.0" width="15.0">
-               <input>
-                  <DropShadow />
-               </input></InnerShadow>
+            <DropShadow />
          </effect>
       </TableView>
-      <Button id="rich-blue" fx:id="printBtn" contentDisplay="RIGHT" layoutX="199.0" layoutY="414.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="طباعة">
+      <Button id="rich-blue" fx:id="printBtn" contentDisplay="RIGHT" layoutX="200.0" layoutY="430.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="طباعة">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -57,7 +42,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane prefHeight="47.0" prefWidth="801.0" style="-fx-background-color: azure;">
+      <Pane prefHeight="47.0" prefWidth="801.0" style="-fx-background-color: #ddd;">
          <children>
             <Button id="return-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" layoutY="-1.0" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="80.0">
                <graphic>
@@ -97,18 +82,13 @@
                </graphic>         
             </Label>
          </children>
-      </Pane>
-      <Pane layoutX="555.0" layoutY="88.0" prefHeight="300.0" prefWidth="230.0" style="-fx-background-color: azure;">
          <effect>
             <DropShadow />
          </effect>
+      </Pane>
+      <Pane layoutX="555.0" layoutY="87.0" prefHeight="320.0" prefWidth="230.0" style="-fx-background-color: azure;">
          <children>
-            <Label layoutX="70.0" layoutY="14.0" prefHeight="22.0" prefWidth="55.0" text="المنتوج" textFill="#3d4956">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <ChoiceBox fx:id="productBox" layoutX="14.0" layoutY="51.0" prefHeight="50.0" prefWidth="200.0">
+            <ChoiceBox fx:id="productBox" layoutX="14.0" layoutY="72.0" prefHeight="50.0" prefWidth="200.0">
                <effect>
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
@@ -116,7 +96,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ChoiceBox>
-            <TextField fx:id="qteField" alignment="CENTER" layoutX="14.0" layoutY="217.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية المضافة">
+            <TextField fx:id="qteField" alignment="CENTER" layoutX="14.0" layoutY="239.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية">
                <font>
                   <Font name="Consolas Bold" size="18.0" />
                </font>
@@ -124,7 +104,7 @@
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </TextField>
-            <TextField fx:id="priceField" alignment="CENTER" layoutX="15.0" layoutY="133.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر الشراء">
+            <TextField fx:id="priceField" alignment="CENTER" layoutX="15.0" layoutY="155.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر الشراء">
                <font>
                   <Font name="Consolas Bold" size="18.0" />
                </font>
@@ -132,33 +112,51 @@
                   <InnerShadow height="15.0" radius="7.0" width="15.0" />
                </effect>
             </TextField>
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="175.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="175.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/salary.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="175.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="175.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/icons8_pie_128px.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="133.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/product_default.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="qteStatus" focusTraversable="false" layoutX="15.0" layoutY="271.0" prefHeight="22.0" prefWidth="200.0" style="-fx-alignment: center; -fx-background-radius: 10; -fx-background-color: red;" text="من فضلك قم بإدخال كمية صالحة" textFill="WHITE" visible="false">
+            <Label fx:id="qteStatus" focusTraversable="false" layoutX="17.0" layoutY="291.0" prefHeight="22.0" prefWidth="200.0" style="-fx-alignment: center; -fx-background-radius: 10; -fx-background-color: red;" text="من فضلك قم بإدخال كمية صالحة" textFill="WHITE" visible="false">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="priceStatus" focusTraversable="false" layoutX="14.0" layoutY="187.0" prefHeight="22.0" prefWidth="200.0" style="-fx-alignment: center; -fx-background-radius: 10; -fx-background-color: red;" text="من فضلك قم بإدخال سعر صالح" textFill="WHITE" visible="false">
+            <Label fx:id="priceStatus" focusTraversable="false" layoutX="16.0" layoutY="207.0" prefHeight="22.0" prefWidth="200.0" style="-fx-alignment: center; -fx-background-radius: 10; -fx-background-color: red;" text="من فضلك قم بإدخال سعر صالح" textFill="WHITE" visible="false">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
+            </Label>
+            <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: tomato;" text="معلومات الشراء" textFill="#3d4956">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </Pane>
+      <Button id="green" fx:id="addQteBtn" contentDisplay="RIGHT" defaultButton="true" layoutX="571.0" layoutY="430.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="200.0" text="إضافة الشراء">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="33.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/add.png" />
+               </image>
+            </ImageView>
+         </graphic>         
+      </Button>
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />
