@@ -13,6 +13,9 @@ import static Include.Common.getUser;
 import Include.Init;
 import Include.SpecialAlert;
 import JR.JasperReporter;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -78,13 +81,16 @@ public class MainController implements Initializable,Init {
     @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
     @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
     @FXML public ChoiceBox<String> usersCB ;
-    @FXML private TextField searchField,searchBuy,sellSearch,refField,priceField2,quantityField;
-    @FXML public DatePicker sellDateField,buyDateField,dateField;
+    @FXML private TextField searchBuy,sellSearch ;
+    @FXML public DatePicker sellDateField,buyDateField;
     @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
-    @FXML public Button addProd,newQuantityBtn,printBuys,printBuy,productStats,printEmployers,printSells,updateImage,addEmployerButton,updateEmployer,deleteEmployer,seeRecords,exBtn,newBillBtn,printProducts,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys,changePass;
-    @FXML private Button updateProduct,deleteProduct,removedProduct,newSellButton,viewHistory,buyStatBtn;
+    @FXML public Button newQuantityBtn,printBuys,printBuy,printEmployers,printSells,addEmployerButton,updateEmployer,deleteEmployer,seeRecords,exBtn,newBillBtn,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys,changePass;
+    @FXML private Button newSellButton,buyStatBtn;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane;
+    @FXML private JFXTextField searchField,refField,priceField2,quantityField ;
+    @FXML private JFXDatePicker dateField;
+    @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct ;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
@@ -480,13 +486,13 @@ public class MainController implements Initializable,Init {
             userImage.setText("");
             userImage.setGraphic(new ImageView(new Image(
                     ClassLoader.class.getResourceAsStream("/sANDb/images/user.png"),
-                    220, 220, true, true)));
+                    220, 200, true, true)));
         }
         else {
             userImage.setText("");
             userImage.setGraphic(new ImageView(new Image(
                     new File(choosen.getImage()).toURI().toString(),
-                    250, 220, true, true)));
+                    250, 200, true, true)));
         }
         
         if(choosen.getProdPrivs() == 1) prodManager.setImage(new Image(

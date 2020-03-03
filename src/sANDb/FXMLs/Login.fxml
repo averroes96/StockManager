@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,47 +14,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="330.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="330.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
    <children>
-      <TextField fx:id="username" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="112.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-padding: 0 40 0 0;">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect>
-      </TextField>
-      <PasswordField fx:id="password" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="166.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة السر" style="-fx-padding: 0 40 0 0;">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
-         </effect>
-      </PasswordField>
-      <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="319.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/username.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="319.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/password2.png" />
-         </image>
-      </ImageView>
-      <Button id="green" fx:id="loginButton" contentDisplay="RIGHT" defaultButton="true" layoutX="103.0" layoutY="248.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="250.0" style="-fx-alignment: center;" stylesheets="@../Layout/buttons.css" text="تسجيل الدخول" textAlignment="CENTER">
-         <font>
-            <Font name="Ebrima Bold" size="18.0" />
-         </font>
-         <graphic>
-      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="109.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/icons8_login_rounded_right_64px_2.png" />
-         </image>
-      </ImageView>             
-             
-         </graphic>
-      </Button>
       <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #ddd;">
          <center>
             <Label text="GDP" textFill="#3d4956" BorderPane.alignment="CENTER">
@@ -99,6 +61,43 @@
             <DropShadow />
          </effect>
       </BorderPane>
+      <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="89.0" prefHeight="40.0" prefWidth="290.0" promptText="إسم المستخدم" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="162.0" prefHeight="40.0" prefWidth="290.0" promptText="كلمة المرور" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="347.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/username.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="347.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/password2.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="131.0" layoutY="240.0" prefHeight="40.0" prefWidth="210.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+               <graphic>
+                   
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_login_128px.png" />
+                     </image>
+                  </ImageView>             
+                   
+               </graphic>          
+      </JFXButton>
         
 
    </children>
@@ -107,6 +106,6 @@
       <URL value="@../Layout/buttons.css" />
    </stylesheets>
    <effect>
-      <InnerShadow />
+      <InnerShadow height="15.0" radius="7.0" width="15.0" />
    </effect>
 </AnchorPane>

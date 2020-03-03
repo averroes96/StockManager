@@ -19,9 +19,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="580.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.UpdateEmployerController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="580.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.UpdateEmployerController">
    <children>
-      <Button id="green" fx:id="save" contentDisplay="RIGHT" defaultButton="true" layoutX="190.0" layoutY="526.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="حفظ">
+      <Button id="green" fx:id="save" contentDisplay="RIGHT" defaultButton="true" layoutX="189.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="حفظ">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -45,7 +45,7 @@
             <Font name="Arial Bold" size="12.0" />
          </font>
       </Label>
-      <BorderPane layoutX="-1.0" prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: azure;">
+      <BorderPane layoutX="-1.0" prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #ddd;">
          <center>
             <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="تعديل معلومات الحساب" textAlignment="CENTER" wrappingWidth="203.27734375" BorderPane.alignment="CENTER">
                <font>
@@ -88,14 +88,21 @@
             <DropShadow />
          </effect>
       </BorderPane>
-      <VBox fx:id="privs" alignment="CENTER" layoutX="338.0" layoutY="203.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="202.0" style="-fx-background-color: azure; -fx-background-radius: 10;">
+      <VBox fx:id="privs" alignment="TOP_CENTER" layoutX="338.0" layoutY="219.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="202.0" style="-fx-background-color: white; -fx-background-radius: 10;">
          <children>
-            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="الصلاحيات">
+            <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" prefHeight="40.0" prefWidth="210.0" text="الصلاحيات" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
-            </Text>
-            <Separator prefHeight="20.0" prefWidth="202.0" />
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_membership_card_30px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label />
             <CheckBox fx:id="admin" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="مستخدم أدمن" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -104,7 +111,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <Separator prefHeight="20.0" prefWidth="207.0" />
+            <Separator prefHeight="30.0" prefWidth="202.0" />
             <CheckBox fx:id="products" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة المنتوجات" textAlignment="RIGHT" textFill="#3d4956">
                <opaqueInsets>
                   <Insets />
@@ -116,7 +123,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </CheckBox>
-            <Separator prefHeight="10.0" prefWidth="198.0" />
+            <Separator prefHeight="20.0" prefWidth="202.0" />
             <CheckBox fx:id="users" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة الحسابات" textAlignment="RIGHT" textFill="#3d4956">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -125,7 +132,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </CheckBox>
-            <Separator prefHeight="10.0" prefWidth="198.0" />
+            <Separator prefHeight="20.0" prefWidth="202.0" />
             <CheckBox fx:id="buys" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة المشتريات" textAlignment="RIGHT" textFill="#3d4956">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -134,7 +141,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </CheckBox>
-            <Separator prefHeight="10.0" prefWidth="199.0" />
+            <Separator prefHeight="20.0" prefWidth="202.0" />
             <CheckBox fx:id="sells" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="إدارة المبيعات" textAlignment="RIGHT" textFill="#3d4956">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -148,12 +155,12 @@
             <DropShadow />
          </effect>
       </VBox>
-      <Pane layoutX="40.0" layoutY="78.0" prefHeight="100.0" prefWidth="500.0" style="-fx-background-color: azure; -fx-background-radius: 10;">
+      <Pane layoutX="40.0" layoutY="78.0" prefHeight="120.0" prefWidth="500.0" style="-fx-background-color: azure; -fx-background-radius: 0 0 10 10;">
          <effect>
             <DropShadow />
          </effect>
          <children>
-            <TextField fx:id="fullname" alignment="CENTER_RIGHT" layoutX="266.0" layoutY="25.0" prefHeight="50.0" prefWidth="220.0" promptText="الإسم كامل" style="-fx-padding: 0 40 0 0;">
+            <TextField fx:id="fullname" alignment="CENTER_RIGHT" layoutX="266.0" layoutY="54.0" prefHeight="50.0" prefWidth="220.0" promptText="الإسم كامل" style="-fx-padding: 0 40 0 0;">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -161,12 +168,12 @@
                   <DropShadow />
                </effect>
             </TextField>
-            <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="457.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="457.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/name.png" />
                </image>
             </ImageView>
-            <TextField fx:id="phone" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="25.0" prefHeight="50.0" prefWidth="220.0" promptText="رقم الهاتف" style="-fx-padding: 0 40 0 0;">
+            <TextField fx:id="phone" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="54.0" prefHeight="50.0" prefWidth="220.0" promptText="رقم الهاتف" style="-fx-padding: 0 40 0 0;">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -174,14 +181,29 @@
                   <DropShadow />
                </effect>
             </TextField>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="204.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="204.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/phone.png" />
                </image>
             </ImageView>
+            <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutY="-6.0" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: tomato;" text="معلومات عن الحساب" textFill="#3d4956">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" />
+               </effect>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_more_info_64px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
          </children>
       </Pane>
-      <BorderPane layoutX="41.0" layoutY="203.0" prefHeight="300.0" prefWidth="270.0" style="-fx-background-color: azure; -fx-background-radius: 10; -fx-padding: 10 0 0 0;">
+      <BorderPane layoutX="41.0" layoutY="219.0" prefHeight="300.0" prefWidth="270.0" style="-fx-background-color: azure; -fx-background-radius: 0 0 10 10; -fx-padding: 10 0 0 0;">
          <top>
             <Button id="rich-blue" fx:id="update" focusTraversable="false" mnemonicParsing="false" prefHeight="0.0" prefWidth="200.0" text="تعديل الصورة" BorderPane.alignment="CENTER">
                 

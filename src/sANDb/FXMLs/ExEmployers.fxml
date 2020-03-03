@@ -27,7 +27,7 @@
             <DropShadow />
          </effect>
       </TableView>
-      <BorderPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: azure;">
+      <BorderPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #ddd;">
          <left>
             <Button id="return-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="75.0" BorderPane.alignment="CENTER">
                 

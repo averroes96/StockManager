@@ -11,6 +11,8 @@ import static Include.Common.minimize;
 import static Include.Common.saveSelectedImage;
 import Include.Init;
 import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,11 +33,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -49,10 +51,11 @@ import javafx.stage.StageStyle;
 public class NewProductController implements Initializable,Init {
     
     
-        @FXML public TextField nameField,sellField,qteField;
-        @FXML public ChoiceBox catField;
-        @FXML public Label imgField,minimize,sellStatus,nameStatus,qteStatus;
-        @FXML public Button addProduct,addPhoto,cancel;
+        @FXML private JFXTextField nameField,sellField,qteField;
+        @FXML private ChoiceBox catField;
+        @FXML private Label imgField,minimize,sellStatus,nameStatus,qteStatus;
+        @FXML private JFXButton addProduct,addPhoto;
+        @FXML private Button cancel;
         
 
         SpecialAlert alert = new SpecialAlert();
@@ -162,7 +165,8 @@ public class NewProductController implements Initializable,Init {
     private void resetWindow()
     {
         nameField.setText("");
-        sellField.setText("");        
+        sellField.setText("");
+        qteField.setText(""); 
         imgField.setText("لم يتم تحديد أي صورة");
         imgField.setGraphic(null);
         selectedFile = null;
@@ -276,11 +280,11 @@ public class NewProductController implements Initializable,Init {
             
         if (!sellField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
             sellStatus.setVisible(true);
-            sellField.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
+            sellField.setFocusColor(Color.RED);
         }
         else{
             sellStatus.setVisible(false);
-            sellField.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
+            sellField.setFocusColor(Color.GREEN);
         }
         });
         
@@ -288,11 +292,11 @@ public class NewProductController implements Initializable,Init {
 
         if (!sellField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
             sellStatus.setVisible(true);
-            sellField.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
+            sellField.setFocusColor(Color.RED);
         }
         else{
             sellStatus.setVisible(false);
-            sellField.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
+            sellField.setFocusColor(Color.GREEN);
         }         
             
         });
@@ -301,11 +305,11 @@ public class NewProductController implements Initializable,Init {
 
         if (!sellField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
             sellStatus.setVisible(true);
-            sellField.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
+            sellField.setFocusColor(Color.RED);
         }
         else{
             sellStatus.setVisible(false);
-            sellField.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
+            sellField.setFocusColor(Color.GREEN);
         }         
             
         });      
@@ -314,11 +318,11 @@ public class NewProductController implements Initializable,Init {
             
         if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
             qteStatus.setVisible(true);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
+            qteField.setFocusColor(Color.RED);
         }
         else{
             qteStatus.setVisible(false);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
+            qteField.setFocusColor(Color.GREEN);
         }
         });
         
@@ -326,11 +330,11 @@ public class NewProductController implements Initializable,Init {
 
         if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
             qteStatus.setVisible(true);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
+            qteField.setFocusColor(Color.RED);
         }
         else{
             qteStatus.setVisible(false);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
+            qteField.setFocusColor(Color.GREEN);
         }         
             
         });
@@ -339,11 +343,11 @@ public class NewProductController implements Initializable,Init {
 
         if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
             qteStatus.setVisible(true);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
+            qteField.setFocusColor(Color.RED);
         }
         else{
             qteStatus.setVisible(false);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
+            qteField.setFocusColor(Color.GREEN);
         }         
             
         });           

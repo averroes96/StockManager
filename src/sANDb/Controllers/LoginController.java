@@ -11,6 +11,9 @@ import static Include.Common.updateLastLogged;
 import Include.Init;
 import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -25,10 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -41,9 +41,9 @@ import javafx.stage.StageStyle;
  */
 public class LoginController implements Initializable,Init {
     
-    @FXML TextField username;
-    @FXML PasswordField password;
-    @FXML Button loginButton;
+    @FXML JFXTextField username;
+    @FXML JFXPasswordField password;
+    @FXML JFXButton loginButton;
     @FXML Label closeButton,reduceButton;
     
     SpecialAlert alert = new SpecialAlert();
@@ -189,7 +189,13 @@ public class LoginController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         
-        
+        loginButton.setOnAction(Action ->{
+            try {
+                login(Action);
+            } catch (IOException ex) {
+                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+            }
+        });
     }    
     
 }
