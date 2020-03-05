@@ -10,6 +10,7 @@ import Data.ProdStats;
 import Data.Product;
 import Data.Sell;
 import static Include.Init.UNKNOWN_ERROR;
+import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -588,7 +590,45 @@ public class Common implements Init {
         
     }
     
-
+    public static void AnimateField(JFXTextField field, Label status, String formula){
+        
+        field.setOnKeyPressed(Action -> {
+            
+        if (field.getText().trim().equals("") || !field.getText().matches(formula)) {
+            status.setVisible(true);
+            field.setFocusColor(Color.RED);
+        }
+        else{
+            status.setVisible(false);
+            field.setFocusColor(Color.GREEN);
+        }
+            
+        });
+        field.setOnKeyTyped(Action -> {
+            
+        if (field.getText().trim().equals("") || !field.getText().matches(formula)) {
+            status.setVisible(true);
+            field.setFocusColor(Color.RED);
+        }
+        else{
+            status.setVisible(false);
+            field.setFocusColor(Color.GREEN);
+        }        
+            
+        });
+        field.setOnKeyReleased(Action -> {
+            
+        if (field.getText().trim().equals("") || !field.getText().matches(formula)) {
+            status.setVisible(true);
+            field.setFocusColor(Color.RED);
+        }        
+        else{
+            status.setVisible(false);
+            field.setFocusColor(Color.GREEN);
+        }            
+        });        
+        
+    }
         
     
 }

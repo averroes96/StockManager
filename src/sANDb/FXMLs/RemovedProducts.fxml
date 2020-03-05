@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.RemovedProductsController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.RemovedProductsController">
    <stylesheets>
       <URL value="@../Layout/custom.css" />
       <URL value="@../Layout/buttons.css" />
@@ -22,7 +23,7 @@
       <InnerShadow height="15.0" radius="7.0" width="15.0" />
    </effect>
    <children>
-      <BorderPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: azure;">
+      <BorderPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #ddd;">
          <left>
             <Button id="return-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="75.0" BorderPane.alignment="CENTER">
                <graphic>
@@ -62,7 +63,7 @@
             <TableColumn fx:id="action" prefWidth="110.0" text="تفعيل" />
          </columns>
          <effect>
-            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+            <DropShadow />
          </effect>
       </TableView>
    </children>

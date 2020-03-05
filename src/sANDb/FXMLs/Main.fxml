@@ -367,20 +367,20 @@
          <effect>
             <InnerShadow />
          </effect></AnchorPane>
-      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="542.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <ButtonBar layoutX="217.0" layoutY="9.0" prefHeight="60.0" prefWidth="566.0">
+            <ButtonBar layoutX="217.0" layoutY="8.0" prefHeight="60.0" prefWidth="566.0">
                <buttons>
                   <Button id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" stylesheets="@../Layout/buttons.css" text="طباعة الحسابات" textFill="#dddddd">
                       
-                                                    <graphic>
+                                                          <graphic>
             
-                                                       <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                             <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                <Image url="@../images/print.png" />
                             </image>
@@ -398,7 +398,7 @@
                      </font>
                       <graphic>
       
-                                                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                                   <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                <Image url="@../images/icons8_add_user_group_man_man_128px.png" />
                             </image>
@@ -422,7 +422,7 @@
             </ButtonBar>
             <Pane layoutX="82.0" layoutY="78.0" prefHeight="520.0" prefWidth="600.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="fullnameLabel" layoutX="300.0" layoutY="360.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center; -fx-background-radius: 10;" textFill="#3d4956">
+                  <Label fx:id="fullnameLabel" layoutX="300.0" layoutY="360.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -435,7 +435,7 @@
                         <Image url="@../images/name-blue.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="phoneLabel" layoutX="300.0" layoutY="424.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center; -fx-background-radius: 10;" textFill="#3d4956">
+                  <Label fx:id="phoneLabel" layoutX="300.0" layoutY="424.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -562,7 +562,7 @@
                   <DropShadow />
                </effect>
             </Pane>
-            <VBox alignment="TOP_CENTER" layoutX="699.0" layoutY="178.0" prefHeight="420.0" prefWidth="220.0" style="-fx-background-color: white;">
+            <VBox alignment="TOP_CENTER" layoutX="699.0" layoutY="177.0" prefHeight="222.0" prefWidth="220.0" spacing="10.0" style="-fx-background-color: #3d4956;">
                <children>
                   <Label id="pane-title" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="220.0" text="خيارات" textFill="#3d4956">
                      <font>
@@ -574,51 +574,48 @@
                               <Image url="@../images/icons8_bulleted_list_60px.png" />
                            </image>
                         </ImageView>
-                     </graphic>                     
+                     </graphic>
+                     <effect>
+                        <DropShadow />
+                     </effect>                     
                   </Label>
-                  <Label />
-                  <Button id="rich-blue" fx:id="updateEmployer" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="160.0" text="تعديل">
+                  <JFXButton id="menu-btn" fx:id="updateEmployer" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #3d4956;" text="تعديل" textFill="#dddddd">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/update.png" />
+                              <Image url="@../images/icons8_registration_60px.png" />
                            </image>
                         </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator prefHeight="30.0" prefWidth="200.0" />
-                  <Button id="green" fx:id="changePass" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="159.0" text="تغير كلمة المرور">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_change_60px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator prefHeight="30.0" prefWidth="200.0" />
-                  <Button id="round-red" fx:id="deleteEmployer" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="تعطيل">
+                     </graphic>                       
+                  </JFXButton>
+                  <JFXButton id="menu-btn" fx:id="changePass" buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="122.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #3d4956;" text="تغيير كلمة المرور" textFill="#dddddd">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/cancel.png" />
+                              <Image url="@../images/icons8_change_128px.png" />
                            </image>
                         </ImageView>
                      </graphic>
-                  </Button>
+                  </JFXButton>
+                  <JFXButton id="menu-btn" fx:id="deleteEmployer" buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="122.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #3d4956;" text="تعطيل الحساب" textFill="#dddddd">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_delete_sign_64px_2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
-               <effect>
-                  <DropShadow />
-               </effect>
             </VBox>
             <BorderPane layoutX="699.0" layoutY="76.0" prefHeight="84.0" prefWidth="220.0" style="-fx-background-color: white;">
                <center>

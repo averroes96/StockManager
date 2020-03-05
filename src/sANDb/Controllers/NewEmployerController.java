@@ -6,11 +6,17 @@
 package sANDb.Controllers;
 
 import Data.Employer;
+import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
 import static Include.Common.minimize;
 import static Include.Common.saveSelectedImage;
 import Include.Init;
 import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,14 +33,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -46,11 +50,13 @@ import javafx.stage.StageStyle;
  */
 public class NewEmployerController implements Initializable,Init {
 
-    @FXML Button upload,sava,cancel;
-    @FXML TextField fullname,phone,username;
-    @FXML PasswordField password;
-    @FXML CheckBox admin,products,users,sells,buys;
+    @FXML Button cancel;
+    @FXML JFXButton upload,save;
+    @FXML JFXTextField fullname,phone,username;
+    @FXML JFXPasswordField password;
+    @FXML JFXCheckBox products,users,sells,buys;
     @FXML Label image,min,fullnameStatus,phoneStatus;
+    @FXML JFXToggleButton admin ;
     
     Employer employer = new Employer();
     
@@ -82,7 +88,7 @@ public class NewEmployerController implements Initializable,Init {
             try {
                 image.setText("");
                 image.setGraphic(new ImageView(new Image(
-                        selectedFile.toURI().toString(), 200, 170, true, true)));
+                        selectedFile.toURI().toString(), 200, 200, true, true)));
             }
             catch (Exception e) {
                 alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
@@ -90,8 +96,7 @@ public class NewEmployerController implements Initializable,Init {
         }
 
     }     
-    
-    @FXML
+
     private boolean checkInputs()
     {
         if (fullname.getText().trim().equals("")) {
@@ -333,86 +338,23 @@ public class NewEmployerController implements Initializable,Init {
             
         });
         
+        upload.setOnAction(Action -> {
+            chooseImage();
+        });
         
+        save.setOnAction(Action -> {
+            insertEmployer();
+        });
         
             image.setText("");
             ImageView img = new ImageView(new Image(
                     ClassLoader.class.getResourceAsStream("/sANDb/images/user.png"),
                     200, 170, true, true));
-            image.setGraphic(img);        
+            image.setGraphic(img); 
+            
+        AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
         
-        fullname.setOnKeyPressed(Action -> {
-            
-        if (fullname.getText().trim().equals("") || !fullname.getText().matches("^[\\p{L} .'-]+$")) {
-            fullnameStatus.setVisible(true);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            fullnameStatus.setVisible(false);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }
-            
-        });
-        fullname.setOnKeyTyped(Action -> {
-            
-        if (fullname.getText().trim().equals("") || !fullname.getText().matches("^[\\p{L} .'-]+$")) {
-            fullnameStatus.setVisible(true);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            fullnameStatus.setVisible(false);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }        
-            
-        });
-        fullname.setOnKeyReleased(Action -> {
-            
-        if (fullname.getText().trim().equals("") || !fullname.getText().matches("^[\\p{L} .'-]+$")) {
-            fullnameStatus.setVisible(true);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }        
-        else{
-            fullnameStatus.setVisible(false);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }            
-        });
-
-
-        phone.setOnKeyPressed(Action -> {
-            
-        if (!phone.getText().matches("^[5-7]?[0-9]{10}$")) {
-            phoneStatus.setVisible(true);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            phoneStatus.setVisible(false);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }
-            
-        });
-        phone.setOnKeyTyped(Action -> {
-            
-        if (!phone.getText().matches("^[5-7]?[0-9]{10}$")) {
-            phoneStatus.setVisible(true);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            phoneStatus.setVisible(false);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }      
-            
-        });
-        phone.setOnKeyReleased(Action -> {
-            
-        if (!phone.getText().matches("^[5-7]?[0-9]{10}$")) {
-            phoneStatus.setVisible(true);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            phoneStatus.setVisible(false);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }           
-        });    
+        AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");   
 
         
         

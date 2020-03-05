@@ -177,3 +177,11 @@ ListView {
     -fx-alignment: CENTER;
     -fx-background-color: tomato;
 }
+
+.jfx-text-field,.jfx-password-field {
+    
+    -fx-background-color: #3D4956;
+    -fx-prompt-text-fill: #ddd;
+    -fx-text-fill: white;
+    -fx-padding: 0 40 0 0
+}

@@ -5,6 +5,7 @@
  */
 package Data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.Objects;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author med
  */
-public class Product {
+public class Product extends RecursiveTreeObject<Product> {
 
     private SimpleIntegerProperty prodID;
     private SimpleStringProperty name;   

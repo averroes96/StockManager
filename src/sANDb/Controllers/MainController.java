@@ -84,13 +84,13 @@ public class MainController implements Initializable,Init {
     @FXML private TextField searchBuy,sellSearch ;
     @FXML public DatePicker sellDateField,buyDateField;
     @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
-    @FXML public Button newQuantityBtn,printBuys,printBuy,printEmployers,printSells,addEmployerButton,updateEmployer,deleteEmployer,seeRecords,exBtn,newBillBtn,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys,changePass;
+    @FXML public Button newQuantityBtn,printBuys,printBuy,printEmployers,printSells,addEmployerButton,seeRecords,exBtn,newBillBtn,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys;
     @FXML private Button newSellButton,buyStatBtn;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane;
     @FXML private JFXTextField searchField,refField,priceField2,quantityField ;
     @FXML private JFXDatePicker dateField;
-    @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct ;
+    @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,updateEmployer,deleteEmployer,changePass ;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
