@@ -9,6 +9,8 @@ import Data.Employer;
 import static Include.Common.getConnection;
 import Include.Init;
 import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,17 +20,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-
 /**
  * FXML Controller class
  *
  * @author med
  */
 public class ChangePassController implements Initializable,Init {
-    @FXML public PasswordField current,newPass,repeat;
-    @FXML public Button save;
+    @FXML public JFXPasswordField current,newPass,repeat;
+    @FXML public JFXButton save;
     
     private Employer employer = new Employer();
     

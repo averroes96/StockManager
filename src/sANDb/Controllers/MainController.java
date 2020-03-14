@@ -81,16 +81,18 @@ public class MainController implements Initializable,Init {
     @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
     @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
     @FXML public ChoiceBox<String> usersCB ;
-    @FXML private TextField searchBuy,sellSearch ;
-    @FXML public DatePicker sellDateField,buyDateField;
+    @FXML private TextField searchBuy ;
+    @FXML public DatePicker buyDateField;
     @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
-    @FXML public Button newQuantityBtn,printBuys,printBuy,printEmployers,printSells,addEmployerButton,seeRecords,exBtn,newBillBtn,day,week,month,total,sellStats,employerStats,btn_products, btn_sells, btn_employers,btn_buys;
-    @FXML private Button newSellButton,buyStatBtn;
+    @FXML public Button newQuantityBtn,printBuys,printBuy,seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys;
+    @FXML private Button buyStatBtn;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane;
-    @FXML private JFXTextField searchField,refField,priceField2,quantityField ;
-    @FXML private JFXDatePicker dateField;
-    @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,updateEmployer,deleteEmployer,changePass ;
+    @FXML private JFXTextField searchField,refField,priceField2,quantityField,sellSearch ;
+    @FXML private JFXDatePicker dateField,sellDateField;
+    @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
+                            updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
+                            exBtn,addEmployerButton;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 

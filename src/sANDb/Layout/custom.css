@@ -6,6 +6,7 @@
     -fx-size:50;
     -fx-alignment:center;
     -fx-text-alignment:center;
+    -fx-text-fill: #3D4956;
 
 }
 
@@ -180,8 +181,12 @@ ListView {
 
 .jfx-text-field,.jfx-password-field {
     
-    -fx-background-color: #3D4956;
     -fx-prompt-text-fill: #ddd;
-    -fx-text-fill: white;
     -fx-padding: 0 40 0 0
+        
+}
+
+.jfx-button {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
 }

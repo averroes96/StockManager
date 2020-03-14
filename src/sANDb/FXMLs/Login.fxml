@@ -63,12 +63,12 @@
       </BorderPane>
       <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="89.0" prefHeight="40.0" prefWidth="290.0" promptText="إسم المستخدم" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </JFXTextField>
       <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="162.0" prefHeight="40.0" prefWidth="290.0" promptText="كلمة المرور" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </JFXPasswordField>
       <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="347.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">

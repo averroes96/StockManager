@@ -25,6 +25,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +40,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -88,7 +89,7 @@ public class NewEmployerController implements Initializable,Init {
             try {
                 image.setText("");
                 image.setGraphic(new ImageView(new Image(
-                        selectedFile.toURI().toString(), 200, 200, true, true)));
+                        selectedFile.toURI().toString(), 220, 220, true, true)));
             }
             catch (Exception e) {
                 alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
@@ -340,6 +341,14 @@ public class NewEmployerController implements Initializable,Init {
         
         upload.setOnAction(Action -> {
             chooseImage();
+        });
+        
+        cancel.setOnAction(Action ->{
+            try {
+                cancel(Action);
+            } catch (IOException ex) {
+                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+            }
         });
         
         save.setOnAction(Action -> {

@@ -3,6 +3,7 @@ package sANDb.Controllers;
 
 import Data.Employer;
 import Include.Common;
+import static Include.Common.AnimateField;
 import static Include.Common.adminsCount;
 import static Include.Common.getConnection;
 import static Include.Common.minimize;
@@ -22,9 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +32,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Include.Init;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 /**
@@ -42,14 +45,16 @@ import javafx.scene.layout.VBox;
  */
 public class UpdateEmployerController implements Initializable,Init {
 
-    @FXML Button update,save,cancel;
-    @FXML TextField fullname,phone;
+    @FXML Button cancel;
+    @FXML JFXTextField fullname,phone;
     @FXML Label image,min,fullnameStatus,phoneStatus;
-    @FXML CheckBox admin,products,users,sells,buys;
+    @FXML JFXCheckBox products,users,sells,buys;
+    @FXML JFXButton update,save;
     @FXML VBox privs;
+    @FXML JFXToggleButton admin ;
     
     SpecialAlert alert = new SpecialAlert();
-    
+    String currentImage = "";
     Employer employer = new Employer();
     
     Employer selectedEmployer = new Employer();
@@ -126,14 +131,14 @@ public class UpdateEmployerController implements Initializable,Init {
             try {
                
                 String createImagePath = Common.saveSelectedImage(selectedFile);
-
-                Common.deleteImage(selectedEmployer.getImage());
+                
+                currentImage = selectedEmployer.getImage();
 
                 selectedEmployer.setImage(createImagePath);
 
                 image.setText("");
                 image.setGraphic(new ImageView(new Image(
-                    selectedFile.toURI().toString(), 224, 220, true, true)));
+                    selectedFile.toURI().toString(), 220, 220, true, true)));
 
             }
             catch (Exception ex) {
@@ -221,6 +226,10 @@ public class UpdateEmployerController implements Initializable,Init {
                             }                            
                             
                             con.close();
+                }
+                
+                if(!currentImage.equals(selectedEmployer.getImage())){
+                    Common.deleteImage(currentImage);
                 }
 
                 alert.show(EMPLOYER_UPDATED, EMPLOYER_UPDATED_MSG, Alert.AlertType.INFORMATION,false);
@@ -337,81 +346,9 @@ public class UpdateEmployerController implements Initializable,Init {
         
         });
         
-        fullname.setOnKeyPressed(Action -> {
-            
-        if (fullname.getText().equals("") || !fullname.getText().matches("^[\\p{L} .'-]+$")) {
-            fullnameStatus.setVisible(true);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            fullnameStatus.setVisible(false);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }
-            
-        });
-        fullname.setOnKeyTyped(Action -> {
-            
-        if (fullname.getText().equals("") || !fullname.getText().matches("^[\\p{L} .'-]+$")) {
-            fullnameStatus.setVisible(true);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            fullnameStatus.setVisible(false);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }        
-            
-        });
-        fullname.setOnKeyReleased(Action -> {
-            
-        if (fullname.getText().equals("") || !fullname.getText().matches("^[\\p{L} .'-]+$")) {
-            fullnameStatus.setVisible(true);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }        
-        else{
-            fullnameStatus.setVisible(false);
-            fullname.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }            
-        });
-
-
-        phone.setOnKeyPressed(Action -> {
-            
-        if (!phone.getText().matches("^[5-7]?[0-9]{10}$")) {
-            phoneStatus.setVisible(true);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            phoneStatus.setVisible(false);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }
-            
-        });
-        phone.setOnKeyTyped(Action -> {
-            
-        if (!phone.getText().matches("^[5-7]?[0-9]{10}$")) {
-            phoneStatus.setVisible(true);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            phoneStatus.setVisible(false);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }      
-            
-        });
-        phone.setOnKeyReleased(Action -> {
-            
-        if (!phone.getText().matches("^[5-7]?[0-9]{10}")) {
-            phoneStatus.setVisible(true);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:red;-fx-padding:0 40 0 0");
-        }
-        else{
-            phoneStatus.setVisible(false);
-            phone.setStyle("-fx-border-width: 2; -fx-border-color:green;-fx-padding:0 40 0 0");
-        }           
-        });
-                 
-                
-
+        AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
+        
+        AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$"); 
 
     }    
 
