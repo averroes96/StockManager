@@ -9,7 +9,7 @@ import Include.CommonMethods;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
-import Include.Common;
+import static Include.Common.AnimateField;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.getPrice;
@@ -20,6 +20,8 @@ import Include.Init;
 import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
 import JR.JasperReporter;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -44,7 +46,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -63,9 +64,9 @@ public class NewSellController implements Initializable,Init,CommonMethods {
     @FXML private TableColumn<Sell,Integer> idCol,priceCol,quantityCol,totalCol;
     @FXML private TableColumn<Sell,Integer> prodCol;
     @FXML private TableColumn actionCol ;    
-    @FXML private TextField priceField,qteField;
+    @FXML private JFXTextField priceField,qteField;
     @FXML private Label minimize,priceStatus;
-    @FXML private Button addSell,deleteAll,printBtn;
+    @FXML private JFXButton addSell,deleteAll,printBtn;
     @FXML private ChoiceBox nameBox;
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
@@ -317,42 +318,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
             
         });
         
-        priceField.setOnKeyReleased(event -> {
-            
-        if (!priceField.getText().matches("^[1-9]?[0-9]*$")) {
-            priceStatus.setVisible(true);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }             
-            
-        });
-        priceField.setOnKeyPressed(event -> {
-            
-        if (!priceField.getText().matches("^[1-9]?[0-9]*$")) {
-            priceStatus.setVisible(true);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }            
-            
-        });
-        priceField.setOnKeyTyped(event -> {
-            
-        if (!priceField.getText().matches("^[1-9]?[0-9]*$")) {
-            priceStatus.setVisible(true);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }            
-            
-        });        
+        AnimateField(priceField,priceStatus,"^[1-9]?[0-9]*$");     
         
         deleteAll.setOnAction(Action ->{
             

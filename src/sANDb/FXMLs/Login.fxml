@@ -6,7 +6,6 @@
 <?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,11 +13,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="330.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="310.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
    <children>
-      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #ddd;">
+      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #3d4956;" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <Label text="GDP" textFill="#3d4956" BorderPane.alignment="CENTER">
+            <Label prefHeight="30.0" prefWidth="53.0" text="GDP" textFill="#dddddd" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
@@ -31,7 +30,7 @@
                    
                   <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="428.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_minus_48px_1.png" />
+                        <Image url="@../images/icons8_minus_48px_2.png" />
                      </image>
                   </ImageView>          
                                
@@ -48,7 +47,7 @@
                    
                   <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="428.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_delete_sign_64px_1.png" />
+                        <Image url="@../images/icons8_delete_sign_64px_2.png" />
                      </image>
                   </ImageView>          
                                
@@ -57,9 +56,6 @@
                 
             </Label>
          </right>
-         <effect>
-            <DropShadow />
-         </effect>
       </BorderPane>
       <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="89.0" prefHeight="40.0" prefWidth="290.0" promptText="إسم المستخدم" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
          <font>
@@ -81,7 +77,7 @@
             <Image url="@../images/password2.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="131.0" layoutY="240.0" prefHeight="40.0" prefWidth="210.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956">
+      <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="123.0" layoutY="240.0" prefHeight="40.0" prefWidth="210.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="123.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

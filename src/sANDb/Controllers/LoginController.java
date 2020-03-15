@@ -13,6 +13,7 @@ import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -45,6 +46,7 @@ public class LoginController implements Initializable,Init {
     @FXML JFXPasswordField password;
     @FXML JFXButton loginButton;
     @FXML Label closeButton,reduceButton;
+    @FXML JFXProgressBar loginProgress;
     
     SpecialAlert alert = new SpecialAlert();
     
@@ -196,6 +198,7 @@ public class LoginController implements Initializable,Init {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
             }
         });
+        
     }    
     
 }

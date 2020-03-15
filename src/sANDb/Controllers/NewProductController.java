@@ -6,6 +6,7 @@
 package sANDb.Controllers;
 
 import Data.Employer;
+import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
 import static Include.Common.minimize;
 import static Include.Common.saveSelectedImage;
@@ -37,7 +38,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -275,82 +275,9 @@ public class NewProductController implements Initializable,Init {
             minimize(Action);
             
         });
-
-        sellField.setOnKeyReleased(event -> {
-            
-        if (!sellField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            sellStatus.setVisible(true);
-            sellField.setFocusColor(Color.RED);
-        }
-        else{
-            sellStatus.setVisible(false);
-            sellField.setFocusColor(Color.GREEN);
-        }
-        });
         
-        sellField.setOnKeyPressed(event -> {
-
-        if (!sellField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            sellStatus.setVisible(true);
-            sellField.setFocusColor(Color.RED);
-        }
-        else{
-            sellStatus.setVisible(false);
-            sellField.setFocusColor(Color.GREEN);
-        }         
-            
-        });
-        
-        sellField.setOnKeyTyped(event -> {
-
-        if (!sellField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            sellStatus.setVisible(true);
-            sellField.setFocusColor(Color.RED);
-        }
-        else{
-            sellStatus.setVisible(false);
-            sellField.setFocusColor(Color.GREEN);
-        }         
-            
-        });      
-        
-        qteField.setOnKeyReleased(event -> {
-            
-        if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            qteField.setFocusColor(Color.RED);
-        }
-        else{
-            qteStatus.setVisible(false);
-            qteField.setFocusColor(Color.GREEN);
-        }
-        });
-        
-        qteField.setOnKeyPressed(event -> {
-
-        if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            qteField.setFocusColor(Color.RED);
-        }
-        else{
-            qteStatus.setVisible(false);
-            qteField.setFocusColor(Color.GREEN);
-        }         
-            
-        });
-        
-        qteField.setOnKeyTyped(event -> {
-
-        if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            qteField.setFocusColor(Color.RED);
-        }
-        else{
-            qteStatus.setVisible(false);
-            qteField.setFocusColor(Color.GREEN);
-        }         
-            
-        });           
+        AnimateField(sellField,sellStatus,"^[1-9]?[0-9]{1,7}$");
+        AnimateField(qteField,qteStatus,"^[1-9]?[0-9]{1,7}$");         
         
     }    
     
