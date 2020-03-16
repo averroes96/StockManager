@@ -8,12 +8,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -54,12 +52,12 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label fx:id="productImg" focusTraversable="false" layoutX="20.0" layoutY="396.0" prefHeight="180.0" prefWidth="230.0" style="-fx-alignment: center; -fx-background-color: white;">
+            <Label fx:id="productImg" focusTraversable="false" layoutX="20.0" layoutY="396.0" prefHeight="180.0" prefWidth="230.0" style="-fx-alignment: center; -fx-background-color: #eee;">
                <effect>
                   <DropShadow />
                </effect></Label>
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
-            <Pane layoutX="265.0" layoutY="394.0" prefHeight="230.0" prefWidth="720.0" style="-fx-background-color: white;">
+            <Pane layoutX="265.0" layoutY="394.0" prefHeight="230.0" prefWidth="720.0" style="-fx-background-color: #eee;">
                <children>
                   <Label fx:id="selectedSize" layoutX="195.0" layoutY="12.0" prefHeight="37.0" prefWidth="45.0" style="-fx-alignment: center;" textFill="#3d4956">
                      <font>
@@ -122,36 +120,36 @@
                      </children>
                   </VBox>
                   <Separator layoutX="278.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="9.0" />
-                  <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" layoutX="375.0" layoutY="176.0" prefHeight="37.0" prefWidth="250.0">
+                  <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" layoutX="375.0" layoutY="176.0" prefHeight="37.0" prefWidth="257.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></JFXDatePicker>
-                  <JFXTextField fx:id="refField" alignment="CENTER" layoutX="374.0" layoutY="17.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المنتوج" style="-fx-background-color: #eee;" unFocusColor="#3d4956">
+                  <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" layoutX="374.0" layoutY="17.0" prefHeight="40.0" prefWidth="220.0" promptText="إسم المنتوج" style="-fx-background-color: white; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="priceField2" alignment="CENTER" layoutX="374.0" layoutY="71.0" prefHeight="40.0" prefWidth="250.0" promptText="سعر البيع" style="-fx-background-color: #eee;" unFocusColor="#3d4956">
+                  <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" layoutX="374.0" layoutY="71.0" prefHeight="40.0" prefWidth="220.0" promptText="سعر البيع" style="-fx-background-color: white; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="quantityField" alignment="CENTER" layoutX="374.0" layoutY="125.0" prefHeight="40.0" prefWidth="250.0" promptText="الكمية" style="-fx-background-color: #eee;" unFocusColor="#3d4956">
+                  <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" layoutX="374.0" layoutY="125.0" prefHeight="40.0" prefWidth="220.0" promptText="الكمية" style="-fx-background-color: white; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </JFXTextField>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="599.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="600.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/product_default.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="599.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="600.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_price_tag_52px_1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="599.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="600.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_pie_128px_1.png" />
                      </image>
@@ -411,7 +409,7 @@
                   </JFXButton>
                </buttons>
             </ButtonBar>
-            <Pane layoutX="74.0" layoutY="84.0" prefHeight="515.0" prefWidth="600.0" style="-fx-background-color: #ddd;">
+            <Pane layoutX="74.0" layoutY="84.0" prefHeight="515.0" prefWidth="600.0" style="-fx-background-color: #eee;">
                <children>
                   <Label fx:id="fullnameLabel" layoutX="300.0" layoutY="360.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
                      <font>
@@ -555,7 +553,7 @@
             </Pane>
             <BorderPane layoutX="707.0" layoutY="84.0" prefHeight="84.0" prefWidth="220.0" style="-fx-background-color: white;">
                <center>
-                  <ChoiceBox fx:id="usersCB" focusTraversable="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="220.0" style="-fx-cursor: hand;" BorderPane.alignment="CENTER">
+                  <ChoiceBox fx:id="usersCB" focusTraversable="false" prefHeight="40.0" prefWidth="220.0" style="-fx-cursor: hand;" BorderPane.alignment="CENTER">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -664,7 +662,7 @@
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <ToolBar layoutX="15.0" layoutY="4.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="620.0" style="-fx-background-color: #3D4956; -fx-padding: 0;">
+            <ToolBar layoutX="15.0" layoutY="3.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="620.0" style="-fx-background-color: #3D4956; -fx-padding: 0;">
                <items>
                   <JFXButton id="menu-btn" fx:id="printSells" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutX="10.0" layoutY="16.0" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="طباعة" textFill="#dddddd">
                             <graphic>
@@ -707,7 +705,7 @@
 
                                <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
-                                     <Image url="@../images/buy2.png" />
+                                     <Image url="@../images/icons8_return_purchase_48px.png" />
                                   </image>
                                </ImageView>             
 
@@ -715,11 +713,11 @@
                   </JFXButton>
                </items>
             </ToolBar>
-            <BorderPane layoutX="286.0" layoutY="437.0" prefHeight="187.0" prefWidth="700.0">
+            <BorderPane layoutX="266.0" layoutY="437.0" prefHeight="187.0" prefWidth="720.0">
                <center>
-                  <Pane prefHeight="146.0" prefWidth="720.0" style="-fx-background-radius: 0 0 10 10; -fx-background-color: #ddd;" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="146.0" prefWidth="720.0" style="-fx-background-radius: 0 0 10 10; -fx-background-color: #eee;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="revQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="250.0" layoutY="15.0" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" textFill="#3d4956">
+                        <Label fx:id="revQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="260.0" layoutY="14.0" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" text="0" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="24.0" />
                            </font>
@@ -734,7 +732,7 @@
                               </ImageView>
                            </graphic>
                         </Label>
-                        <Label fx:id="revSum" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="486.0" layoutY="15.0" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" textFill="#3d4956">
+                        <Label fx:id="revSum" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="496.0" layoutY="14.0" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" text="0" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="24.0" />
                            </font>
@@ -749,7 +747,7 @@
                               </ImageView>
                            </graphic>
                         </Label>
-                        <Label fx:id="revTotal" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="14.0" layoutY="15.0" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" textFill="#3d4956">
+                        <Label fx:id="revTotal" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="24.0" layoutY="14.0" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" text="0" textFill="#3d4956">
                            <font>
                               <Font name="Consolas Bold" size="24.0" />
                            </font>
@@ -765,6 +763,9 @@
                            </effect>
                         </Label>
                      </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </Pane>
                </center>
                <top>
@@ -789,7 +790,7 @@
                   </Pane>
                </top>
             </BorderPane>
-            <Pane layoutX="45.0" layoutY="489.0" prefHeight="84.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10 10 0 0;">
+            <Pane layoutX="28.0" layoutY="489.0" prefHeight="84.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10 10 0 0;">
                <children>
                   <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="تاريخ البيع" textFill="#3d4956">
                      <font>
@@ -806,7 +807,10 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <JFXDatePicker fx:id="sellDateField" defaultColor="#3d4956" layoutY="40.0" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #ddd;" />
+                  <JFXDatePicker fx:id="sellDateField" defaultColor="#3d4956" editable="false" layoutY="40.0" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #ddd;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXDatePicker>
                </children>
             </Pane>
             <JFXTextField fx:id="sellSearch" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="734.0" layoutY="17.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-text-fill: #3d4956;" unFocusColor="#3d4956">
@@ -829,58 +833,6 @@
       </AnchorPane>
       <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <HBox layoutX="15.0" layoutY="6.0" prefHeight="68.0" prefWidth="620.0">
-               <children>
-                  <Button id="menu-btn" fx:id="buyStatBtn" contentDisplay="RIGHT" layoutX="356.0" layoutY="10.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="إحصائيات" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_statistics_filled_100px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button id="menu-btn" fx:id="printBuy" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="فاتورة جديدة" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_print_file_48px_2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button id="menu-btn" fx:id="printBuys" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="طباعة اليوم" textFill="#dddddd">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/print.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Button>
-                  <Button id="menu-btn" fx:id="newQuantityBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="175.0" text="شراء جديد" textFill="#dddddd">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/buy2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
             <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="74.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;">
               <columns>
                 <TableColumn fx:id="buyIDCol" prefWidth="69.0" resizable="false" text="ID" />
@@ -899,7 +851,7 @@
             </TableView>
             <BorderPane layoutX="263.0" layoutY="435.0" prefHeight="187.0" prefWidth="720.0">
                <center>
-                  <Pane prefHeight="138.0" prefWidth="500.0" style="-fx-background-color: #ddd; -fx-background-radius: 0 0 10 10;" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="138.0" prefWidth="500.0" style="-fx-background-color: #eee; -fx-background-radius: 0 0 10 10;" BorderPane.alignment="CENTER">
                      <children>
                         <Label fx:id="buyDayQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" layoutX="260.0" layoutY="15.0" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: white; -fx-background-radius: 10;" textFill="#3d4956">
                            <font>
@@ -992,22 +944,53 @@
                   <Image url="@../images/up.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchBuy" layoutX="735.0" layoutY="20.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-padding: 0 40 0 0; -fx-alignment: center_right;">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect>
-            </TextField>
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="956.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/search.png" />
-               </image>
-            </ImageView>
-            <Pane layoutX="32.0" layoutY="487.0" prefHeight="84.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10 10 0 0;">
+            <ToolBar layoutX="11.0" layoutY="1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="620.0" style="-fx-background-color: #3D4956; -fx-padding: 0;">
+               <items>
+                  <JFXButton id="menu-btn" fx:id="printBuys" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutX="10.0" layoutY="16.0" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="طباعة" textFill="#dddddd">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_print_file_48px_2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton id="menu-btn" fx:id="buyStatBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutX="10.0" layoutY="16.0" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="إحصائيات" textFill="#dddddd">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_combo_chart_filled_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Pane fx:id="billPane1" prefHeight="55.0" prefWidth="150.0" stylesheets="@../Layout/buttons.css">
+                     <children>
+                        <JFXButton id="menu-btn" fx:id="printBuy" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutY="6.0" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="فاتورة" textFill="#dddddd">
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8_bill_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+                  <JFXButton id="menu-btn" fx:id="newBuyBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="شراء جديد" textFill="#dddddd">
+                     <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/buy2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </items>
+            </ToolBar>
+            <Pane layoutX="28.0" layoutY="487.0" prefHeight="84.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10 10 0 0;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="تاريخ الشراء" textFill="#3d4956">
+                  <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="تاريخ الشراء" textFill="#3d4956">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -1022,13 +1005,22 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <DatePicker fx:id="buyDateField" editable="false" layoutY="41.0" prefHeight="45.0" prefWidth="200.0" style="-fx-cursor: hand;">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </DatePicker>
+                  <JFXDatePicker fx:id="buyDateField" defaultColor="#3d4956" editable="false" layoutY="40.0" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #ddd;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXDatePicker>
                </children>
             </Pane>
+            <JFXTextField fx:id="searchBuy" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="733.0" layoutY="15.0" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-text-fill: #3d4956;" unFocusColor="#3d4956">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="950.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_search_48px.png" />
+               </image>
+            </ImageView>
          </children>
          <stylesheets>
             <URL value="@../Layout/buttons.css" />

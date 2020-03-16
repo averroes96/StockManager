@@ -31,7 +31,7 @@
       </Label>
       <BorderPane layoutX="-1.0" prefHeight="50.0" prefWidth="580.0" style="-fx-background-color: #ddd;">
          <center>
-            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="تعديل معلومات الحساب" textAlignment="CENTER" wrappingWidth="203.27734375" BorderPane.alignment="CENTER">
+            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="تعديل الحساب" textAlignment="CENTER" wrappingWidth="152.27734375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -92,7 +92,7 @@
             <Image url="@../images/phone.png" />
          </image>
       </ImageView>
-      <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="207.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="260.0" prefWidth="250.0" style="-fx-background-color: white;">
+      <VBox fx:id="privs" alignment="TOP_CENTER" layoutX="24.0" layoutY="207.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="260.0" prefWidth="250.0" style="-fx-background-color: white;">
          <children>
             <Label id="pane-title" focusTraversable="false" prefHeight="40.0" prefWidth="250.0" text="الصلاحيات" textFill="#3d4956">
                <font>

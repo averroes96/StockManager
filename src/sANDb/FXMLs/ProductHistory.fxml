@@ -25,7 +25,7 @@
       <DropShadow />
    </effect>
    <children>
-      <ToolBar focusTraversable="false" layoutX="16.0" layoutY="16.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="221.0" style="-fx-background-color: #ddd; -fx-padding: 10;">
+      <ToolBar focusTraversable="false" layoutX="16.0" layoutY="16.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="221.0" style="-fx-background-color: #eee; -fx-padding: 10;">
          <items>
             <Label alignment="CENTER" focusTraversable="false" prefHeight="40.0" prefWidth="207.0" style="-fx-background-color: #3d4956;" text="تخصيصات" textAlignment="CENTER" textFill="AZURE">
                <font>
@@ -79,7 +79,7 @@
             <DropShadow />
          </effect>
       </ToolBar>
-      <Pane layoutX="15.0" layoutY="374.0" prefHeight="180.0" prefWidth="845.0" style="-fx-background-color: #ddd;">
+      <Pane layoutX="15.0" layoutY="374.0" prefHeight="180.0" prefWidth="845.0" style="-fx-background-color: #eee;">
          <effect>
             <DropShadow />
          </effect>

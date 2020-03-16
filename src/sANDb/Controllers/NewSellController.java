@@ -381,7 +381,6 @@ public class NewSellController implements Initializable,Init,CommonMethods {
         catch (SQLException e) {
             alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
         }
-
         
        
     }

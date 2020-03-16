@@ -84,15 +84,14 @@ public class MainController implements Initializable,Init {
     @FXML private TextField searchBuy ;
     @FXML public DatePicker buyDateField;
     @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
-    @FXML public Button newQuantityBtn,printBuys,printBuy,seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys;
-    @FXML private Button buyStatBtn;
+    @FXML public Button seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
-    @FXML public Pane billPane;
+    @FXML public Pane billPane,billPane1;
     @FXML private JFXTextField searchField,refField,priceField2,quantityField,sellSearch ;
     @FXML private JFXDatePicker dateField,sellDateField;
     @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
-                            exBtn,addEmployerButton;
+                            exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
@@ -1540,7 +1539,7 @@ public class MainController implements Initializable,Init {
         
         buysTable.setItems(buysList);
         
-        newQuantityBtn.setOnAction(Action -> {
+        newBuyBtn.setOnAction(Action -> {
 
                 try {
                 
@@ -1623,6 +1622,10 @@ public class MainController implements Initializable,Init {
         Tooltip.install(
                 billPane, 
                 new Tooltip("لإضافة فاتورة جديدة عليك أولا تحديد المبيعات من الجدول أدناه"));
+        
+        Tooltip.install(
+                billPane1, 
+                new Tooltip("لإضافة فاتورة جديدة عليك أولا تحديد المشتريات من الجدول أدناه"));        
 
         sellStats.setOnAction(Action -> {
         

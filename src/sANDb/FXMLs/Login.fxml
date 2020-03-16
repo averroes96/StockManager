@@ -13,16 +13,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="310.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="456.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sANDb.Controllers.LoginController">
    <children>
-      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #3d4956;" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <Label prefHeight="30.0" prefWidth="53.0" text="GDP" textFill="#dddddd" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-            </Label>
-         </center>
+      <BorderPane layoutY="-1.0" prefHeight="40.0" prefWidth="456.0" style="-fx-background-color: #3d4956;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <Label id="options" fx:id="reduceButton" onMouseClicked="#minimize" prefHeight="40.0" prefWidth="40.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
             
@@ -57,27 +50,27 @@
             </Label>
          </right>
       </BorderPane>
-      <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="89.0" prefHeight="40.0" prefWidth="290.0" promptText="إسم المستخدم" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
+      <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="87.0" layoutY="105.0" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0;" unFocusColor="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="91.0" layoutY="162.0" prefHeight="40.0" prefWidth="290.0" promptText="كلمة المرور" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0 40 0 0;" unFocusColor="WHITE">
+      <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="87.0" layoutY="178.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة المرور" style="-fx-background-color: #3d4956; -fx-text-fill: white; -fx-prompt-text-fill: #ddd; -fx-padding: 0;" unFocusColor="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXPasswordField>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="347.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="345.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/username.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="347.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="345.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/password2.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="123.0" layoutY="240.0" prefHeight="40.0" prefWidth="210.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="123.0">
+      <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="124.0" layoutY="255.0" prefHeight="40.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="122.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -94,6 +87,11 @@
                    
                </graphic>          
       </JFXButton>
+      <Label layoutX="202.0" layoutY="56.0" prefHeight="30.0" prefWidth="53.0" text="GDP" textFill="#dddddd">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
         
 
    </children>

@@ -88,7 +88,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <Label alignment="CENTER" focusTraversable="false" layoutX="89.0" layoutY="267.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #ddd;" text="المنتوج" textFill="#3d4956">
+      <Label alignment="CENTER" focusTraversable="false" layoutX="89.0" layoutY="267.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="المنتوج" textFill="#3d4956">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -104,7 +104,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXDatePicker>
-      <JFXButton fx:id="saveButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="89.0" layoutY="494.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+      <JFXButton fx:id="saveButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="114.0" layoutY="496.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
                 <graphic>
                     
                   <ImageView fitHeight="32.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
@@ -135,7 +135,7 @@
             <Image url="@../images/icons8_pie_128px.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" focusTraversable="false" layoutX="89.0" layoutY="360.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #ddd;" text="تاريخ البيع" textFill="#3d4956">
+      <Label alignment="CENTER" focusTraversable="false" layoutX="89.0" layoutY="360.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="تاريخ البيع" textFill="#3d4956">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

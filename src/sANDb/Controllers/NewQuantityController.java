@@ -7,6 +7,7 @@ package sANDb.Controllers;
 
 import Data.Buy;
 import Data.Employer;
+import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
 import static Include.Common.getProductByName;
 import static Include.Common.minimize;
@@ -20,6 +21,8 @@ import static Include.Init.SELL_ADDED_MESSAGE;
 import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
 import JR.JasperReporter;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -44,7 +47,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -63,10 +65,11 @@ public class NewQuantityController implements Initializable,Init {
     @FXML private TableColumn<Buy,Integer> priceCol,qteCol,idCol;
     @FXML private TableColumn<Buy,String> prodCol;
     @FXML private TableColumn actionCol ;   
-    @FXML Button cancel,addQteBtn,printBtn;
-    @FXML ChoiceBox<String> productBox;
-    @FXML Label minimize,qteStatus,priceStatus;
-    @FXML TextField qteField,priceField;
+    @FXML Button cancel;
+    @FXML JFXButton addQteBtn,printBtn;
+    @FXML ChoiceBox<String> nameBox;
+    @FXML Label minimize,priceStatus;
+    @FXML JFXTextField qteField,priceField;
     
     private Employer employer = new Employer();
     
@@ -128,8 +131,6 @@ public class NewQuantityController implements Initializable,Init {
                     ps = con.prepareStatement("INSERT INTO buy(buy_qte, buy_unit_price, buy_price, buy_date, user_id, prod_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
                     ps.setInt(5, employer.getUserID());
                     ps.setInt(3, Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
-                    //LocalDate todayLocalDate = LocalDate.now();
-                    //Date sqlDate = Date.valueOf(todayLocalDate);
                     java.util.Date date = new java.util.Date();
 
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -138,7 +139,7 @@ public class NewQuantityController implements Initializable,Init {
                     ps.setString(4, sqlDate);           
                     ps.setInt(1, Integer.parseInt(qteField.getText()));
                     ps.setInt(2, Integer.parseInt(priceField.getText()));
-                    ps.setInt(6, getProductByName(productBox.getSelectionModel().getSelectedItem()).getProdID());
+                    ps.setInt(6, getProductByName(nameBox.getSelectionModel().getSelectedItem()).getProdID());
                     ps.executeUpdate();
                     
                     try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
@@ -152,13 +153,13 @@ public class NewQuantityController implements Initializable,Init {
                     }
                     ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity + ?, nbrBuys = nbrBuys + 1 WHERE prod_id = ?");
                     ps.setInt(1, Integer.parseInt(qteField.getText()));
-                    ps.setInt(2, getProductByName(productBox.getSelectionModel().getSelectedItem()).getProdID());
+                    ps.setInt(2, getProductByName(nameBox.getSelectionModel().getSelectedItem()).getProdID());
                     ps.executeUpdate();
                 }
 
                 Buy AddedBuy = new Buy();
                 
-                AddedBuy.setProduct(productBox.getSelectionModel().getSelectedItem());
+                AddedBuy.setProduct(nameBox.getSelectionModel().getSelectedItem());
                 AddedBuy.setBuyID(insertedBuyID);
                 AddedBuy.setBuyPrice(Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
                 AddedBuy.setBuyQte(Integer.parseInt(qteField.getText()));
@@ -277,9 +278,9 @@ public class NewQuantityController implements Initializable,Init {
         
         getAllProducts();
                
-        productBox.setItems(nameList);
+        nameBox.setItems(nameList);
         
-        productBox.getSelectionModel().select(0);        
+        nameBox.getSelectionModel().select(0);        
         
         addQteBtn.setOnAction(Action ->{
             
@@ -300,82 +301,7 @@ public class NewQuantityController implements Initializable,Init {
         
         });
         
-        priceField.setOnKeyReleased(event -> {
-            
-        if (!priceField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            priceStatus.setVisible(true);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }
-        });
-        
-        priceField.setOnKeyPressed(event -> {
-
-        if (!priceField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            priceStatus.setVisible(true);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });
-        
-        priceField.setOnKeyTyped(event -> {
-
-        if (!priceField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            priceStatus.setVisible(true);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            priceField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });
-        
-
-        qteField.setOnKeyReleased(event -> {
-            
-        if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            qteStatus.setVisible(false);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }
-        });
-        
-        qteField.setOnKeyPressed(event -> {
-
-        if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            qteStatus.setVisible(false);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });
-        
-        qteField.setOnKeyTyped(event -> {
-
-        if (!qteField.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            qteStatus.setVisible(false);
-            qteField.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });
+        AnimateField(priceField,priceStatus,"^[1-9]?[0-9]{1,7}$");
         
         minimize.setOnMouseClicked(Action ->{
         
@@ -406,7 +332,7 @@ public class NewQuantityController implements Initializable,Init {
 
     private void resetWindow() {
        
-        productBox.getSelectionModel().select(0);
+        nameBox.getSelectionModel().select(0);
         priceField.setText("");
         qteField.setText("");
     }

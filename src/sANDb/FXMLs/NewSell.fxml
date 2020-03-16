@@ -55,7 +55,7 @@
             </Label>
          </right>
          <left>
-            <Button id="menu-btn" fx:id="cancel" cancelButton="true" mnemonicParsing="false" onAction="#logOut" prefHeight="50.0" prefWidth="75.0" stylesheets="@../Layout/buttons.css" BorderPane.alignment="CENTER">
+            <Button id="menu-btn" fx:id="cancel" cancelButton="true" mnemonicParsing="false" onAction="#logOut" prefHeight="50.0" prefWidth="75.0" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -74,12 +74,12 @@
          <center>
             <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="150.0" text="بيع جديد" textAlignment="CENTER" textFill="#dddddd" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
          </center>
       </BorderPane>
-      <BorderPane layoutX="634.0" layoutY="91.0" prefHeight="410.0" prefWidth="250.0">
+      <BorderPane layoutX="634.0" layoutY="91.0" prefHeight="320.0" prefWidth="250.0">
          <top>
             <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: tomato;" text="معلومات البيع" textFill="#3d4956" BorderPane.alignment="CENTER">
                <font>
@@ -88,22 +88,19 @@
             </Label>
          </top>
          <center>
-            <Pane prefHeight="360.0" prefWidth="250.0" style="-fx-background-color: #3d4956;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="360.0" prefWidth="250.0" style="-fx-background-color: #eee;" BorderPane.alignment="CENTER">
                <children>
-                  <ChoiceBox fx:id="nameBox" layoutX="25.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="50.0" prefWidth="200.0">
+                  <ChoiceBox fx:id="nameBox" layoutX="25.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #3d4956; -fx-border-width: 0 0 1;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <effect>
-                        <DropShadow />
-                     </effect>
                   </ChoiceBox>
                   <Label fx:id="priceStatus" focusTraversable="false" layoutX="25.0" layoutY="155.0" prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر صالح !" textFill="WHITE" visible="false">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" layoutX="25.0" layoutY="101.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع" style="-fx-padding: 0; -fx-background-color: #3d4956; -fx-text-fill: white;" unFocusColor="#dddddd">
+                  <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" layoutX="25.0" layoutY="101.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع" style="-fx-padding: 0; -fx-background-color: white; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -113,7 +110,7 @@
                         <Image url="@../images/price.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" layoutX="25.0" layoutY="187.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: #3d4956; -fx-text-fill: white;" unFocusColor="#dddddd">
+                  <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" layoutX="25.0" layoutY="187.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: white; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -123,20 +120,6 @@
                         <Image url="@../images/icons8_pie_128px.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="addSell" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="50.0" layoutY="292.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                <graphic>
-                    
-                  <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_add_48px.png" />
-                     </image>
-                  </ImageView>              
-                    
-                </graphic>                     
-                  </JFXButton>
                </children>
             </Pane>
          </center>
@@ -171,6 +154,20 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>      
+      </JFXButton>
+      <JFXButton fx:id="addSell" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="684.0" layoutY="445.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+    <graphic>
+        
+                  <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8_add_48px.png" />
+         </image>
+      </ImageView>              
+        
+    </graphic>                     
       </JFXButton>      
    </children>
    <stylesheets>

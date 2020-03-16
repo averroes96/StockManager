@@ -8,6 +8,7 @@ package sANDb.Controllers;
 import Data.Buy;
 import Data.Employer;
 import Data.Product;
+import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
@@ -26,6 +27,9 @@ import static Include.Init.SELL_UPDATED;
 import static Include.Init.SELL_UPDATED_MSG;
 import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -45,9 +49,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -59,9 +61,10 @@ import javafx.stage.StageStyle;
  */
 public class UpdateBuyController implements Initializable,Init {
 
-    @FXML private Button saveButton,cancelButton;
-    @FXML private TextField price,quantity;
-    @FXML private DatePicker date;
+    @FXML private JFXButton saveButton;
+    @FXML private Button cancelButton;
+    @FXML private JFXTextField price,quantity;
+    @FXML private JFXDatePicker date;
     @FXML private Label minimize,priceStatus,qteStatus;
     @FXML private ChoiceBox nameBox;    
     
@@ -256,86 +259,16 @@ public class UpdateBuyController implements Initializable,Init {
         
             minimize(Action);
             
-        });       
-
-        price.setOnKeyReleased(event -> {
-            
-        if (!price.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            priceStatus.setVisible(true);
-            price.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            price.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }
         });
         
-        price.setOnKeyPressed(event -> {
-
-        if (!price.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            priceStatus.setVisible(true);
-            price.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            price.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
+        saveButton.setOnAction(Action ->{
+            
+            updateBuy(Action);
             
         });
-        
-        price.setOnKeyTyped(event -> {
 
-        if (!price.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            priceStatus.setVisible(true);
-            price.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            priceStatus.setVisible(false);
-            price.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });
-        
-
-
-        quantity.setOnKeyReleased(event -> {
-            
-        if (!quantity.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            quantity.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            qteStatus.setVisible(false);
-            quantity.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }
-        });
-        
-        quantity.setOnKeyPressed(event -> {
-
-        if (!quantity.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            quantity.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            qteStatus.setVisible(false);
-            quantity.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });
-        
-        quantity.setOnKeyTyped(event -> {
-
-        if (!quantity.getText().matches("^[1-9]?[0-9]{1,7}$")) {
-            qteStatus.setVisible(true);
-            quantity.setStyle("-fx-border-width: 2; -fx-border-color:red;");
-        }
-        else{
-            qteStatus.setVisible(false);
-            quantity.setStyle("-fx-border-width: 2; -fx-border-color:green;");
-        }         
-            
-        });         
-
+        AnimateField(price,priceStatus,"^[1-9]?[0-9]{1,7}$");
+        AnimateField(quantity,qteStatus,"^[1-9]?[0-9]{1,7}$");        
     }    
     
 }
