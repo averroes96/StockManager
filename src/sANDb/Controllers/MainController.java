@@ -5,11 +5,11 @@ import Data.Employer;
 import Data.Product;
 import Data.Sell;
 import Include.Common;
-import static Include.Common.adminsCount;
 import static Include.Common.dateFormatter;
+import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
-import static Include.Common.getProductByName;
 import static Include.Common.getUser;
+import static Include.Common.setDraggable;
 import Include.Init;
 import Include.SpecialAlert;
 import JR.JasperReporter;
@@ -24,7 +24,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -171,17 +170,12 @@ public class MainController implements Initializable,Init {
 
     public void fillTheTable()
     {
-        Connection con = getConnection();
-        
-        String query = "SELECT * FROM product WHERE on_hold = 0 ORDER BY add_date DESC";
 
-        Statement st;
         ResultSet rs;
         
 
         try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = getAllFrom("*","product","","WHERE on_hold = 0","ORDER BY add_date DESC");
 
             while (rs.next()) {
                 Product product = new Product();
@@ -202,7 +196,6 @@ public class MainController implements Initializable,Init {
                 data.add(product);
             }
 
-            con.close();
         }
         catch (SQLException e) {
             
@@ -776,30 +769,12 @@ public class MainController implements Initializable,Init {
         
     }     
   
-
     private void deleteSell(Sell selectedSell)
     {
         
         try {
 
-            try (Connection con = getConnection()) {
-                String query = "DELETE FROM sell WHERE sell_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, selectedSell.getSellID());
-                
-                ps.executeUpdate();
-                
-                query = "UPDATE product SET prod_quantity = prod_quantity + ? WHERE prod_id = ?";
-                
-                ps = con.prepareStatement(query);
-                
-                ps.setInt(2, selectedSell.getProduct().getProdID());
-                ps.setInt(1, selectedSell.getSellQuantity());
-                
-                ps.executeUpdate();
-            }
+            selectedSell.delete();
             
             data.clear();
             fillTheTable();
@@ -820,28 +795,11 @@ public class MainController implements Initializable,Init {
         }
     }
     
-            private void deleteBuy(Buy buy) {
+    private void deleteBuy(Buy buy) {
                 try {
-
-                    try (Connection con = getConnection()) {
-                        String query = "DELETE FROM buy WHERE buy_id = ?";
-                        
-                        PreparedStatement ps = con.prepareStatement(query);
-                        
-                        ps.setInt(1, buy.getBuyID());
-                        
-                        ps.executeUpdate();
-                        
-                        query = "UPDATE product SET prod_quantity = prod_quantity - ? WHERE prod_id = ?";
-                        
-                        ps = con.prepareStatement(query);
-                        
-                        ps.setInt(2, getProductByName(buy.getProduct()).getProdID());
-                        ps.setInt(1, buy.getBuyQte());
-                        
-                        ps.executeUpdate();
-                    }
-
+                    
+                    buy.delete();
+                    
                     data.clear();
                     fillTheTable();
                     productsTable.setItems(data);
@@ -863,15 +821,10 @@ public class MainController implements Initializable,Init {
     
     private void getAllEmployers()
     {
-        Connection con = getConnection();
-        String query = "SELECT username FROM user WHERE active != 0";
-
-        Statement st;
         ResultSet rs;
 
         try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = getAllFrom("username","user","","WHERE active != 0","");
 
             while (rs.next()) {
                 
@@ -879,7 +832,6 @@ public class MainController implements Initializable,Init {
                 employersList.add(employer);
             }
 
-            con.close();
         }
         catch (SQLException e) {          
             alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
@@ -892,17 +844,9 @@ public class MainController implements Initializable,Init {
         try {
             
             
-            if( adminsCount() > 1 || selectedEmployer.getAdmin() != 1){            
-
-                try (Connection con = getConnection()) {
-                    String query = "UPDATE user SET active = 0 WHERE user_id = ?";
-                    
-                    PreparedStatement ps = con.prepareStatement(query);
-                    
-                    ps.setInt(1, selectedEmployer.getUserID());
-                    
-                    ps.executeUpdate();
-                }
+            if( Employer.getAdminCount() > 1 || selectedEmployer.getAdmin() != 1){            
+                
+               selectedEmployer.delete();
             
             if(this.thisEmployer.getUsername().equals(selectedEmployer.getUsername())){
                 
@@ -955,8 +899,6 @@ public class MainController implements Initializable,Init {
         }
     }
 
-
-
     @FXML
     public void minimize(MouseEvent event){
         
@@ -968,7 +910,8 @@ public class MainController implements Initializable,Init {
     public void close(MouseEvent event){
         
         System.exit(0);
-    }   
+    }
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -1031,14 +974,7 @@ public class MainController implements Initializable,Init {
                 stage.initStyle(StageStyle.TRANSPARENT);                
                 scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                 
                 stage.show();
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                });
+                setDraggable(root,stage);
                 
                 
             } catch (IOException ex) {
@@ -1064,14 +1000,7 @@ public class MainController implements Initializable,Init {
                             scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
                             stage.setScene(scene);                         
                             stage.show();
-                            root.setOnMousePressed((MouseEvent event) -> {
-                                xOffset = event.getSceneX();
-                                yOffset = event.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event) -> {
-                                stage.setX(event.getScreenX() - xOffset);
-                                stage.setY(event.getScreenY() - yOffset);
-                            });                            
+                            setDraggable(root,stage);                            
                             
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
@@ -1097,14 +1026,7 @@ public class MainController implements Initializable,Init {
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
                             stage.showAndWait();
-                            root.setOnMousePressed((MouseEvent event) -> {
-                                xOffset = event.getSceneX();
-                                yOffset = event.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event) -> {
-                                stage.setX(event.getScreenX() - xOffset);
-                                stage.setY(event.getScreenY() - yOffset);
-                            });                              
+                            setDraggable(root,stage);                          
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
                         }
@@ -1126,14 +1048,7 @@ public class MainController implements Initializable,Init {
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
                             stage.showAndWait();
-                            root.setOnMousePressed((MouseEvent event) -> {
-                                xOffset = event.getSceneX();
-                                yOffset = event.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event) -> {
-                                stage.setX(event.getScreenX() - xOffset);
-                                stage.setY(event.getScreenY() - yOffset);
-                            });                              
+                            setDraggable(root,stage);                            
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
                         }            
@@ -1167,7 +1082,8 @@ public class MainController implements Initializable,Init {
                 if (empty) {
                     setGraphic(null);
                     setText(null);
-                } else {
+                } 
+                else {
                     update.setOnAction(event -> {
                        
                             Sell sell = getTableView().getItems().get(getIndex());
@@ -1264,14 +1180,8 @@ public class MainController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                        });                         
+                        setDraggable(root,stage); 
+                        
             } catch (IOException ex) {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
             }
@@ -1323,14 +1233,8 @@ public class MainController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                        });                           
+                        setDraggable(root,stage);
+                        
             } catch (IOException ex) {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
             }
@@ -1355,14 +1259,7 @@ public class MainController implements Initializable,Init {
                             scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.show();
-                            root.setOnMousePressed((MouseEvent event) -> {
-                                xOffset = event.getSceneX();
-                                yOffset = event.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event) -> {
-                                stage.setX(event.getScreenX() - xOffset);
-                                stage.setY(event.getScreenY() - yOffset);
-                            });                            
+                            setDraggable(root,stage);                           
                             
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
@@ -1395,14 +1292,7 @@ public class MainController implements Initializable,Init {
                             scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
                             stage.setScene(scene);                         
                             stage.show();
-                            root.setOnMousePressed((MouseEvent event) -> {
-                                xOffset = event.getSceneX();
-                                yOffset = event.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event) -> {
-                                stage.setX(event.getScreenX() - xOffset);
-                                stage.setY(event.getScreenY() - yOffset);
-                            });                            
+                            setDraggable(root,stage);                          
                             
                         } catch (IOException ex) {
                             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
@@ -1479,14 +1369,7 @@ public class MainController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                            root.setOnMousePressed((MouseEvent event1) -> {
-                                xOffset = event1.getSceneX();
-                                yOffset = event1.getSceneY();
-                        });
-                            root.setOnMouseDragged((MouseEvent event1) -> {
-                                stage.setX(event1.getScreenX() - xOffset);
-                                stage.setY(event1.getScreenY() - yOffset);
-                        });                         
+                        setDraggable(root,stage);
             } catch (IOException ex) {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
             }                        
@@ -1554,14 +1437,7 @@ public class MainController implements Initializable,Init {
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                 stage.initStyle(StageStyle.TRANSPARENT);                               
                 stage.show();
-                root.setOnMousePressed((MouseEvent event) -> {
-                    xOffset = event.getSceneX();
-                    yOffset = event.getSceneY();
-                });
-                root.setOnMouseDragged((MouseEvent event) -> {
-                    stage.setX(event.getScreenX() - xOffset);
-                    stage.setY(event.getScreenY() - yOffset);
-                });
+                setDraggable(root,stage);
                 
                 
                 } catch (IOException ex) {
@@ -1639,10 +1515,8 @@ public class MainController implements Initializable,Init {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setResizable(false);
                 stage.showAndWait();
-                root.setOnMouseDragged((MouseEvent event) -> {
-                    stage.setX(event.getScreenX() - xOffset);
-                    stage.setY(event.getScreenY() - yOffset); 
-                });
+                setDraggable(root,stage);
+                
             } catch (IOException ex) {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
                 
@@ -1707,6 +1581,7 @@ public class MainController implements Initializable,Init {
 
     public void selectMenu(Event event) throws IOException{
         
+        
         if(event.getTarget() == btn_products){
             products.setVisible(true);
             btn_products.setEffect(new Glow());
@@ -1760,14 +1635,7 @@ public class MainController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                        root.setOnMousePressed((MouseEvent event1) -> {
-                            xOffset = event1.getSceneX();
-                            yOffset = event1.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent event1) -> {
-                            stage.setX(event1.getScreenX() - xOffset);
-                            stage.setY(event1.getScreenY() - yOffset);
-                        });                                                   
+                        setDraggable(root,stage);
                         
         }
         
@@ -1803,7 +1671,6 @@ public class MainController implements Initializable,Init {
             default:
                 break;
         }
-
         
         
     }

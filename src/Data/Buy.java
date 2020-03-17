@@ -1,5 +1,10 @@
 package Data;
 
+import static Include.Common.getConnection;
+import static Include.Common.getProductByName;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -88,6 +93,30 @@ public class Buy {
 
     public void setBuyTotalPrice(int buyTotalPrice) {
         this.buyTotalPrice = new SimpleIntegerProperty(buyTotalPrice);
+    }
+    
+    public void delete() throws SQLException{
+        
+                    try (Connection con = getConnection()) {
+                        String query = "DELETE FROM buy WHERE buy_id = ?";
+                        
+                        PreparedStatement ps = con.prepareStatement(query);
+                        
+                        ps.setInt(1, this.getBuyID());
+                        
+                        ps.executeUpdate();
+                        
+                        query = "UPDATE product SET prod_quantity = prod_quantity - ? WHERE prod_id = ?";
+                        
+                        ps = con.prepareStatement(query);
+                        
+                        ps.setInt(2, getProductByName(this.getProduct()).getProdID());
+                        ps.setInt(1, this.getBuyQte());
+                        
+                        ps.executeUpdate();
+                    }
+        
+        
     }
     
     

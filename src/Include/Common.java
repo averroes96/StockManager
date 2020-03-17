@@ -29,6 +29,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -45,6 +47,9 @@ public class Common implements Init {
     final static String dateFormat = "yyyy-MM-dd";
     
     final static String datetimeFormat = "yyyy-MM-dd HH:mm:ss" ;
+    
+    private static double xOffset = 0;
+    private static double yOffset = 0;    
     
     public static ObservableList<String> getAllProducts(int all){
         
@@ -567,10 +572,10 @@ public class Common implements Init {
         
     }
     
-    public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause){
+    public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause, String ordering){
         
         Connection con = getConnection();
-        String query = "SELECT " + select + " FROM " + tableName + " " + additions + " " + whereClause;
+        String query = "SELECT " + select + " FROM " + tableName + " " + additions + " " + whereClause + " " + ordering;
 
         PreparedStatement st;
         ResultSet rs;
@@ -579,7 +584,6 @@ public class Common implements Init {
         try {
             st = con.prepareStatement(query);
             return rs = st.executeQuery();
-            
             
         }
         catch (SQLException e){ 
@@ -629,6 +633,32 @@ public class Common implements Init {
         });        
         
     }
+    
+    public static void setDraggable(Pane root, Stage stage){
+        
+                        root.setOnMousePressed((MouseEvent event) -> {
+                            xOffset = event.getSceneX();
+                            yOffset = event.getSceneY();
+                });
+                        root.setOnMouseDragged((MouseEvent event) -> {
+                            stage.setX(event.getScreenX() - xOffset);
+                            stage.setY(event.getScreenY() - yOffset);
+                });        
+        
+    }
+    
+    public static void setDraggable(AnchorPane root, Stage stage){
+        
+                        root.setOnMousePressed((MouseEvent event) -> {
+                            xOffset = event.getSceneX();
+                            yOffset = event.getSceneY();
+                });
+                        root.setOnMouseDragged((MouseEvent event) -> {
+                            stage.setX(event.getScreenX() - xOffset);
+                            stage.setY(event.getScreenY() - yOffset);
+                });        
+        
+    }    
         
     
 }

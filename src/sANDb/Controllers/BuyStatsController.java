@@ -8,6 +8,8 @@ import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import Include.Init;
 import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,9 +26,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,12 +41,12 @@ import javafx.scene.input.MouseEvent;
  */
 public class BuyStatsController implements Initializable,Init {
 
-    @FXML private Button search;
+    @FXML private JFXButton search;
     @FXML private TableView<Buy> buysTable;
     @FXML private TableColumn<Buy, Integer> idCol;
     @FXML private TableColumn<Buy, String> prodCol,userCol,dateCol,priceCol,qteCol;
     @FXML private ChoiceBox<String> prodField ;
-    @FXML private DatePicker startDate,endDate;
+    @FXML private JFXDatePicker startDate,endDate;
     @FXML private LineChart nbrBuysChart;
     @FXML private BarChart sumBuysChart;
     @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageBuyLabel,averageQteLabel,averagePriceLabel;
@@ -158,8 +158,12 @@ public class BuyStatsController implements Initializable,Init {
                 });
 
             lineSeries.setName("المبلغ الإجمالي حسب اليوم");
+            
+            String select = "COUNT(buy_id), SUM(buy_qte), SUM(buy_price)";
+            String tableName = "buy";
+            String innerJoin = "INNER JOIN product ON buy.prod_id = product.prod_id";
 
-            ResultSet stats1 = getAllFrom("COUNT(buy_id), SUM(buy_qte), SUM(buy_price)", "buy", "INNER JOIN product ON buy.prod_id = product.prod_id", whereClause);
+            ResultSet stats1 = getAllFrom(select, tableName, innerJoin, whereClause,"");
 
             while(stats1.next()){
 
@@ -168,8 +172,12 @@ public class BuyStatsController implements Initializable,Init {
             priceSumLabel.setText(stats1.getString("SUM(buy_price)") != null?  stats1.getString("SUM(buy_price)") + " دج" : "0 دج");
 
             }
-
-            ResultSet stats2 = getAllFrom("COUNT(buy_id)/datediff('" + end + "','" + start + "') as abd, SUM(buy_qte)/datediff('" + end + "','" + start + "') as aqd, SUM(buy_price)/datediff('" + end + "','" + start + "') as asd", "buy", "INNER JOIN product ON buy.prod_id = product.prod_id", whereClause);
+            
+            select = "COUNT(buy_id)/datediff('" + end + "','" + start + "') as abd, SUM(buy_qte)/datediff('" + end + "','" + start + "') as aqd, SUM(buy_price)/datediff('" + end + "','" + start + "') as asd";
+            tableName = "buy";
+            innerJoin = "INNER JOIN product ON buy.prod_id = product.prod_id";
+            
+            ResultSet stats2 = getAllFrom(select, tableName, innerJoin, whereClause,"");
 
             while(stats2.next()){
 
