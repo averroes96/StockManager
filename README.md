@@ -9,7 +9,8 @@ a javaFX inventory manager app - IN ARABIC -
 
 ## Used libraries
 - [jfoenix-8.0.8](http://jfoenix.com/) (a JavaFX material design library)
-- [commons-lang3-3.10](http://commons.apache.org/proper/commons-lang/download_lang.cgi)
+- [Appache Commons](http://commons.apache.org/)
+- [JasperReports](https://sourceforge.net/projects/jasperreports/)
 
 
 ## Admin login : 
