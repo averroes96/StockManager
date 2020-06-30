@@ -1,5 +1,23 @@
 # GDP
-a javaFX inventory manager app - IN ARABIC -
+This is JavaFX inventory manager app - IN ARABIC -
+
+## Features:
+- [x] Consult/Add/Update/Delete products.
+- [x] Retreive deleted products.
+- [x] Follow all the updates done on products.
+- [x] Consult/Add/Update/Delete users and admins.
+- [x] Retreive deleted users.
+- [x] Check users last sign in.
+- [x] Consult/Add/Update/Delete sells and buys.
+- [x] Filter sells and buys by date.
+- [x] Get the day outcome from sells and buys.
+- [x] Get stats about sells/buys with charts and filtering option.
+- [x] Print the list of products/users.
+- [x] Print the day's list of sells/buys.
+- [x] Print sell/buy information
+- [x] Print any bill of selected buys/sells
+
+
 
 ## IDE
 [Netbeans](https://netbeans.org/)
