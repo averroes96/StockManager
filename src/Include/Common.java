@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -538,40 +539,6 @@ public class Common implements Init {
         
     }
     
-    public static ProdStats getProdStats(int prodID){
-        
-        Connection con = getConnection();
-        String query = "SELECT * FROM product_stats WHERE prod_id = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-                
-
-        try {
-            st = con.prepareStatement(query);
-            st.setInt(1,prodID);
-            rs = st.executeQuery();
-
-            while (rs.next()) {
-                
-                ProdStats stats = new ProdStats(rs.getInt("total_bought"),rs.getInt("total_solde"),rs.getInt("qte_bought"),rs.getInt("qte_sold"),rs.getInt("capital"));
-                return stats;
-            }
-
-            con.close();
-            
-            
-        }
-        catch (SQLException e){ 
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return null;
-        }
-        
-        return new ProdStats();
-        
-    }
-    
     public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause, String ordering){
         
         Connection con = getConnection();
@@ -658,7 +625,8 @@ public class Common implements Init {
                             stage.setY(event.getScreenY() - yOffset);
                 });        
         
-    }    
-        
+    }
+     
+    
     
 }

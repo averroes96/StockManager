@@ -162,7 +162,19 @@ public interface Init {
     
     String ILLEGAL_INTERVAL = "مجال بحث غير صالح";
     
-    String ILLEGAL_INTERVAL_MSG = "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية" ; 
+    String ILLEGAL_INTERVAL_MSG = "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية" ;
+    
+    String ERROR = "Error";
+    
+    String WARNING = "Warning";
+    
+    String INFORMATION = "Information";
+    
+    String IMAGES_PATH = "/sANDb/images/";
+    
+    String FXML_PATH = "/sANDb/FXMLs/";
+    
+    String LAYOUT_PATH = "/sANDb/Layout/";
 
     
 }

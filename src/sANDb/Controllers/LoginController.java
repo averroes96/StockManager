@@ -7,6 +7,7 @@ package sANDb.Controllers;
 
 import Data.Employer;
 import static Include.Common.getConnection;
+import static Include.Common.setDraggable;
 import static Include.Common.updateLastLogged;
 import Include.Init;
 import static Include.Init.UNKNOWN_ERROR;
@@ -30,7 +31,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -50,13 +50,10 @@ public class LoginController implements Initializable,Init {
     @FXML JFXProgressBar loginProgress;
     
     SpecialAlert alert = new SpecialAlert();
-    
-    private double xOffset = 0;
-    private double yOffset = 0;     
 
 
 
-    public Employer getEmployer(String username, String password)
+    public Employer getUser(String username, String password)
     {
         Connection con = getConnection();
         String query = "SELECT * FROM user INNER JOIN privs ON user.user_id = privs.user_id WHERE username = ? AND password = ?";
@@ -143,22 +140,14 @@ public class LoginController implements Initializable,Init {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/Main.fxml"));
                 AnchorPane root = (AnchorPane)loader.load();
                 MainController mControl = (MainController)loader.getController();
-                mControl.getEmployer(getEmployer(username.getText(), password.getText()));
+                mControl.getEmployer(getUser(username.getText(), password.getText()));
                 Scene scene = new Scene(root);
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                 stage.initStyle(StageStyle.TRANSPARENT);
                 scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
                 stage.setScene(scene);
                 stage.show();
-                root.setOnMousePressed((MouseEvent event1) -> {
-                    xOffset = event1.getSceneX();
-                    yOffset = event1.getSceneY();
-                });
-                root.setOnMouseDragged((MouseEvent event1) -> {
-                    stage.setX(event1.getScreenX() - xOffset);
-                    stage.setY(event1.getScreenY() - yOffset);
-                });
+                setDraggable(root,stage);
 
                 
             }

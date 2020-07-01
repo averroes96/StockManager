@@ -3,7 +3,6 @@ package sANDb.Controllers;
 
 import Data.ProdStats;
 import Data.Product;
-import static Include.Common.getProdStats;
 import Include.SpecialAlert;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +26,7 @@ public class ProdStatController implements Initializable {
     
     public void setProduct(Product selected){
         
-        this.stats = getProdStats(selected.getProdID());
+        this.stats = ProdStats.get(selected.getProdID());
 
         totalBuy.setText(String.valueOf(stats.getTotalBuy()) + ".00 دج");
         totalSell.setText(String.valueOf(stats.getTotalSell()) + ".00 دج");

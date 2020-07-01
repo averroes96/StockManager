@@ -853,12 +853,12 @@ public class MainController implements Initializable,Init {
                         this.addProd.getScene().getWindow().hide();
                         
                         Stage stage = new Stage();
-                        AnchorPane root = FXMLLoader.load(getClass().getResource("/sANDb/FXMLs/Login.fxml"));
+                        AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"));
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
                         root.setOnMousePressed((MouseEvent event) -> {
@@ -964,7 +964,7 @@ public class MainController implements Initializable,Init {
                 
                 ((Node)Action.getSource()).getScene().getWindow().hide();
                 Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/NewProduct.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewProduct.fxml"));
                 Pane root = (Pane)loader.load();
                 NewProductController npControl = (NewProductController)loader.getController();
                 npControl.getEmployer(thisEmployer);
@@ -972,7 +972,7 @@ public class MainController implements Initializable,Init {
                 stage.setScene(scene);
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                 stage.initStyle(StageStyle.TRANSPARENT);                
-                scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                 
+                scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                 
                 stage.show();
                 setDraggable(root,stage);
                 
@@ -989,15 +989,15 @@ public class MainController implements Initializable,Init {
 
                             ((Node)Action.getSource()).getScene().getWindow().hide();
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/RemovedProducts.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "RemovedProducts.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             RemovedProductsController rpControl = (RemovedProductsController)loader.getController();
                             rpControl.getInfo(this.thisEmployer);
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);                         
                             stage.show();
                             setDraggable(root,stage);                            
@@ -1014,13 +1014,13 @@ public class MainController implements Initializable,Init {
                             
                             Product product = productsTable.getSelectionModel().getSelectedItem();
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ProductStats.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductStats.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ProdStatController psControl = (ProdStatController)loader.getController();
                             psControl.setProduct(product);
                             Scene scene = new Scene(root);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.setTitle("إحصائيات المنتوج " + product.getName());
                             stage.initModality(Modality.APPLICATION_MODAL);
@@ -1038,12 +1038,12 @@ public class MainController implements Initializable,Init {
                             
                             Product product = productsTable.getSelectionModel().getSelectedItem();
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ProductHistory.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductHistory.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ProductHistoryController phControl = (ProductHistoryController)loader.getController();
                             Scene scene = new Scene(root);                           
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
@@ -1091,7 +1091,7 @@ public class MainController implements Initializable,Init {
                             
                             ((Node)event.getSource()).getScene().getWindow().hide();
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/UpdateSell.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             UpdateSellController usControl = (UpdateSellController)loader.getController();
                             usControl.fillFields(sell);
@@ -1099,7 +1099,7 @@ public class MainController implements Initializable,Init {
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.show();
                             root.setOnMousePressed((MouseEvent event1) -> {
@@ -1169,15 +1169,15 @@ public class MainController implements Initializable,Init {
             try {                
                         ((Node)Action.getSource()).getScene().getWindow().hide();
                         Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/NewSell.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewSell.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         NewSellController nsControl = (NewSellController)loader.getController();
                         nsControl.getEmployer(thisEmployer);
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
                         setDraggable(root,stage); 
@@ -1222,15 +1222,15 @@ public class MainController implements Initializable,Init {
             try {                
                         ((Node)Action.getSource()).getScene().getWindow().hide();
                         Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/NewEmployer.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewEmployer.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         NewEmployerController nsControl = (NewEmployerController)loader.getController();
                         nsControl.getEmployer(thisEmployer);
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
                         setDraggable(root,stage);
@@ -1247,7 +1247,7 @@ public class MainController implements Initializable,Init {
                             Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
                             ((Node)Action.getSource()).getScene().getWindow().hide();
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/UpdateEmployer.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
                             ueControl.getInfo(thisEmployer,employer);
@@ -1255,8 +1255,8 @@ public class MainController implements Initializable,Init {
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.show();
                             setDraggable(root,stage);                           
@@ -1281,15 +1281,15 @@ public class MainController implements Initializable,Init {
 
                             ((Node)Action.getSource()).getScene().getWindow().hide();
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ExEmployers.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ExEmployers.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ExEmployersController ueControl = (ExEmployersController)loader.getController();
                             ueControl.getInfo(this.thisEmployer);
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);                         
                             stage.show();
                             setDraggable(root,stage);                          
@@ -1305,13 +1305,13 @@ public class MainController implements Initializable,Init {
                         try {
                             Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/ChangePass.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ChangePassController erControl = (ChangePassController)loader.getController();
                             erControl.getEmployer(employer);
                             Scene scene = new Scene(root);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
@@ -1358,7 +1358,7 @@ public class MainController implements Initializable,Init {
 
                         ((Node)event.getSource()).getScene().getWindow().hide();
                         Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/UpdateBuy.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateBuy.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         UpdateBuyController ubControl = (UpdateBuyController)loader.getController();
                         ubControl.setRequirements(thisEmployer,buy);
@@ -1366,7 +1366,7 @@ public class MainController implements Initializable,Init {
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
                         setDraggable(root,stage);
@@ -1428,7 +1428,7 @@ public class MainController implements Initializable,Init {
                 
                 ((Node)Action.getSource()).getScene().getWindow().hide();
                 Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/NewQuantity.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewQuantity.fxml"));
                 Pane root = (Pane)loader.load();
                 NewQuantityController npControl = (NewQuantityController)loader.getController();
                 npControl.getEmployer(thisEmployer);
@@ -1450,12 +1450,12 @@ public class MainController implements Initializable,Init {
 
                         try { 
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/BuyStats.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "BuyStats.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             BuyStatsController erControl = (BuyStatsController)loader.getController();
                             Scene scene = new Scene(root);
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
@@ -1507,10 +1507,10 @@ public class MainController implements Initializable,Init {
         
             try {
                 Stage stage = new Stage();
-                AnchorPane root = FXMLLoader.load(getClass().getResource("/sANDb/FXMLs/SellStats.fxml"));
+                AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "SellStats.fxml"));
                 Scene scene = new Scene(root);
-                scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setResizable(false);
@@ -1627,12 +1627,12 @@ public class MainController implements Initializable,Init {
             
                         ((Node)event.getSource()).getScene().getWindow().hide();
                         Stage stage = new Stage();
-                        AnchorPane root = FXMLLoader.load(getClass().getResource("/sANDb/FXMLs/Login.fxml"));
+                        AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"));
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource("/sANDb/Layout/buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
                         setDraggable(root,stage);
