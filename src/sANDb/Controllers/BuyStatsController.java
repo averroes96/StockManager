@@ -155,7 +155,7 @@ public class BuyStatsController implements Initializable,Init {
                 data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
                     Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
                 });
-                });
+            });
 
             lineSeries.setName("المبلغ الإجمالي حسب اليوم");
             

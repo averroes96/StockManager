@@ -31,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -50,7 +51,6 @@ public class LoginController implements Initializable,Init {
     @FXML JFXProgressBar loginProgress;
     
     SpecialAlert alert = new SpecialAlert();
-
 
 
     public Employer getUser(String username, String password)
@@ -137,7 +137,7 @@ public class LoginController implements Initializable,Init {
                 updateLastLogged(username.getText().trim());                
                 ((Node)event.getSource()).getScene().getWindow().hide();
                 Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sANDb/FXMLs/Main.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
                 AnchorPane root = (AnchorPane)loader.load();
                 MainController mControl = (MainController)loader.getController();
                 mControl.getEmployer(getUser(username.getText(), password.getText()));
@@ -187,7 +187,7 @@ public class LoginController implements Initializable,Init {
             } catch (IOException ex) {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
             }
-        });      
+        });
         
     }    
     

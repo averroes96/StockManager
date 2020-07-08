@@ -6,8 +6,8 @@
     -fx-size:50;
     -fx-alignment:center;
     -fx-text-alignment:center;
-    -fx-text-fill: #3D4956;
-
+    -fx-text-fill: #eee;
+    -fx-font-size: 16px
 }
 
 .table-row-cell:filled:hover {
@@ -103,10 +103,15 @@ TextArea{
 
 }
 
-#menu-btn:hover{
+#top-btn:hover{
     
-    -fx-border-width: 0 0 1 0;
     -fx-border-color: #dddddd;
+    -fx-cursor: hand;
+}
+
+#top-btn{
+    
+    -fx-font-size:24px
     
 }
 
@@ -181,14 +186,14 @@ ListView {
 
 .jfx-text-field,.jfx-password-field {
     
-    -fx-prompt-text-fill: #ddd;
-    -fx-padding: 0 40 0 0
+    -fx-prompt-text-fill: #aaa;
         
 }
 
 .jfx-button {
     -fx-font-size: 16;
     -fx-font-weight: bold;
+    -fx-font-family: "Simplified Arabic"
 }
 
 .jfx-date-picker > .jfx-text-field {
