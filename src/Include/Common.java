@@ -6,10 +6,10 @@
 package Include;
 
 import Data.Employer;
-import Data.ProdStats;
 import Data.Product;
 import Data.Sell;
 import static Include.Init.UNKNOWN_ERROR;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,9 +24,10 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -89,7 +90,17 @@ public class Common implements Init {
         
         return names;
         
-    }     
+    }
+   
+    public static void initLayout(JFXDialogLayout layout, Node header, Node body, ArrayList<Node> actions){
+                
+        if(actions != null){
+            layout.setActions(actions);
+        }
+        layout.setHeading(header);
+        layout.setBody(body);
+        
+    }
 
     public static Connection getConnection()
     {

@@ -24,7 +24,7 @@ public interface Init {
     
     String UPLOADED_FILE_PATH = "C:/gdp-uploads/";
     
-    String FXMLS_PATH = "/sANDb/FXMLs/" ;
+    String FXMLS_PATH = "/App/FXMLs/" ;
     
     String CONNECTION_ERROR = "خطأ خلال محاولة الإتصال بقاعدة البيانات";
     
@@ -50,7 +50,9 @@ public interface Init {
     
     String USER_INFO = "بيانات المستخدم خاطئة";
     
-    String USER_INFO_MESSAGE = "كملة المرور أو إسم المستخدم خاطئ.. تأكد من أن الحساب يمتلك صلاحيات الولوج للتطبيق بطلب من الأدمن" ;
+    String OKAY = "حسنا";
+    
+    String USER_INFO_MESSAGE = "كملة المرور أو إسم المستخدم خاطئ..\n تأكد من أن الحساب يمتلك صلاحيات الولوج للتطبيق بطلب من الأدمن" ;
 
     String JR_ERROR = "خطأ مطبعي" ;
     
@@ -170,11 +172,11 @@ public interface Init {
     
     String INFORMATION = "Information";
     
-    String IMAGES_PATH = "/sANDb/images/";
+    String IMAGES_PATH = "/App/images/";
     
-    String FXML_PATH = "/sANDb/FXMLs/";
+    String FXML_PATH = "/App/FXMLs/";
     
-    String LAYOUT_PATH = "/sANDb/Layout/";
+    String LAYOUT_PATH = "/App/Layout/";
 
     
 }

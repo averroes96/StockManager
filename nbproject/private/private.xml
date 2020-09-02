@@ -3,9 +3,29 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/Controllers/LoginController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/Layout/custom.css</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/sANDb/FXMLs/Login.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/ExEmployers.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/ChangePass.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/Login.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/SellStats.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/UpdateBuy.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/.idea/workspace.xml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/ProductStats.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/LoginController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/BuyStats.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Preloader/SplashController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/ExEmployersController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/NewQuantity.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/UpdateSell.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/RemovedProducts.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/UpdateEmployer.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/ProductHistory.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/NewSell.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/Main.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Preloader/MyPreLoader.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/MainController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/NewEmployer.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/Preloader/Splash.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/build/classes/sANDb/FXMLs/NewProduct.fxml</file>
         </group>
     </open-files>
 </project-private>

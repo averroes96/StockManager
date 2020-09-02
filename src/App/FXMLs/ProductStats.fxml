@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="310.0" prefWidth="400.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ProdStatController">
+   <stylesheets>
+      <URL value="@../Layout/buttons.css" />
+      <URL value="@../Layout/custom.css" />
+   </stylesheets>
+   <effect>
+      <InnerShadow height="15.0" radius="7.0" width="15.0" />
+   </effect>
+   <children>
+      <Label fx:id="totalBuy" alignment="CENTER" focusTraversable="false" layoutX="232.0" layoutY="49.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+         <font>
+            <Font name="Consolas Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </Label>
+      <Label alignment="CENTER_RIGHT" focusTraversable="false" layoutX="230.0" layoutY="20.0" text="التكلفة الإجمالية للشراء" textAlignment="RIGHT" textFill="#dddddd">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label focusTraversable="false" layoutX="23.0" layoutY="20.0" text="التكلفة الإجمالية للبيع" textFill="#dddddd">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label focusTraversable="false" layoutX="254.0" layoutY="222.0" text="الكمية المشترات" textFill="#dddddd">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label focusTraversable="false" layoutX="46.0" layoutY="222.0" text="الكمية المباعة" textFill="#dddddd">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalSell" alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="49.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+         <font>
+            <Font name="Consolas Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </Label>
+      <Label fx:id="qteBuy" alignment="CENTER" focusTraversable="false" layoutX="232.0" layoutY="251.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+         <font>
+            <Font name="Consolas Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </Label>
+      <Label fx:id="qteSell" alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="251.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+         <font>
+            <Font name="Consolas Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </Label>
+      <Label focusTraversable="false" layoutX="183.0" layoutY="115.0" text="الربح" textFill="#dddddd">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="profitLabel" alignment="CENTER" focusTraversable="false" layoutX="126.0" layoutY="150.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 50;" textAlignment="RIGHT" textFill="#3d4956">
+         <font>
+            <Font name="Consolas Bold" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>

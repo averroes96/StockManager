@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.LoginController">
+   <children>
+      <VBox alignment="CENTER" layoutX="78.0" layoutY="50.0" prefHeight="250.0" prefWidth="300.0" spacing="10.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="53.0" text="GDP" textFill="#3d4956">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <JFXTextField fx:id="username" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_user_96px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0">
+               <children>
+                  <JFXPasswordField fx:id="password" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="كلمة المرور" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_password_96px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="40.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                     <graphic>
+                         
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_login_128px.png" />
+                           </image>
+                        </ImageView>             
+                         
+                     </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>          
+            </JFXButton>
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </VBox>
+      <StackPane fx:id="stackPane" layoutX="-45.0" layoutY="-8.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog fx:id="dialog" maxHeight="300.0" maxWidth="400.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="350.0" prefWidth="400.0" />
+         </children>
+      </StackPane>
+        
+
+   </children>
+   <stylesheets>
+      <URL value="@../Layout/custom.css" />
+      <URL value="@../Layout/buttons.css" />
+   </stylesheets>
+   <effect>
+      <DropShadow />
+   </effect>
+</AnchorPane>

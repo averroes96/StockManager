@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1040.0" style="-fx-background-color: #3d4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.SellStatsController">
+   <stylesheets>
+      <URL value="@../Layout/custom.css" />
+      <URL value="@../Layout/buttons.css" />
+   </stylesheets>
+   <effect>
+      <DropShadow />
+   </effect>
+   <children>
+      <ScrollPane prefHeight="650.0" prefWidth="1050.0" style="-fx-background-color: #3d4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1800.0" prefWidth="1040.0" style="-fx-background-color: #3d4956;">
+               <children>
+                  <TableView fx:id="sellsTable" layoutX="248.0" layoutY="14.0" prefHeight="370.0" prefWidth="780.0" style="-fx-background-color: white;">
+                    <columns>
+                      <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="prodCol" prefWidth="175.0" resizable="false" text="المنتوج" />
+                        <TableColumn fx:id="dateCol" prefWidth="200.0" resizable="false" text="تاريخ البيع" />
+                        <TableColumn fx:id="priceCol" prefWidth="100.0" resizable="false" text="السعر" />
+                        <TableColumn fx:id="qteCol" prefWidth="75.0" resizable="false" text="الكمية" />
+                        <TableColumn fx:id="userCol" prefWidth="155.0" resizable="false" text="المستخدم" />
+                    </columns>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </TableView>
+                  <LineChart fx:id="nbrSellsChart" layoutX="10.0" layoutY="421.0" prefHeight="400.0" prefWidth="1020.0" style="-fx-background-color: #eee; -fx-padding: 10;" title="المبلغ الإجمالي">
+                    <xAxis>
+                      <CategoryAxis label="اليوم" side="BOTTOM" tickLabelFill="#3d4956" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="المبلغ" side="LEFT" tickLabelFill="#3d4956">
+                           <tickLabelFont>
+                              <Font name="System Bold" size="8.0" />
+                           </tickLabelFont>
+                        </NumberAxis>
+                    </yAxis>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </LineChart>
+                  <BarChart fx:id="sumSellsChart" layoutX="10.0" layoutY="859.0" prefHeight="400.0" prefWidth="1020.0" style="-fx-background-color: azure;" title="المبيعات">
+                    <xAxis>
+                      <CategoryAxis label="اليوم" side="BOTTOM" tickLabelFill="#3d4956" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="العدد" side="LEFT" tickLabelFill="#3d4956" />
+                    </yAxis>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </BarChart>
+                  <BorderPane layoutX="120.0" layoutY="1317.0" prefHeight="410.0" prefWidth="800.0" style="-fx-background-color: azure;">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <right>
+                        <Pane prefHeight="245.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="350.0" prefWidth="400.0" style="-fx-padding: 10 0;">
+                                 <children>
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="عدد المبيعات" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="idCountLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="249.0" style="-fx-background-color: white; -fx-background-radius: 20;" textFill="TOMATO">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Label>
+                                    <Label alignment="CENTER" focusTraversable="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="400.0" text="الكمية" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="qteCountLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 20;" textFill="TOMATO">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Label>
+                                    <Label alignment="CENTER" focusTraversable="false" layoutX="10.0" layoutY="50.0" prefHeight="50.0" prefWidth="400.0" text="المبلغ الإجمالي" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="priceSumLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 20;" textFill="TOMATO">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </right>
+                     <left>
+                        <Pane prefHeight="245.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox alignment="CENTER" layoutY="2.0" prefHeight="350.0" prefWidth="400.0">
+                                 <children>
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="متوسط البيع اليومي" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="averageBuyLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 20;" textFill="TOMATO">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Label>
+                                    <Label alignment="CENTER" focusTraversable="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="400.0" text="متوسط الكمية اليومية" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="averageQteLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 20;" textFill="TOMATO">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Label>
+                                    <Label alignment="CENTER" focusTraversable="false" layoutX="10.0" layoutY="50.0" prefHeight="50.0" prefWidth="400.0" text="متوسط المبلغ اليومي" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="averagePriceLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 20;" textFill="TOMATO">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </left>
+                     <top>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="800.0" style="-fx-background-color: tomato;" text="إحصائيات" textAlignment="CENTER" textFill="#3d4956" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </top>
+                  </BorderPane>
+                  <Separator layoutX="520.0" layoutY="1377.0" orientation="VERTICAL" prefHeight="342.0" prefWidth="5.0" />
+                  <ToolBar focusTraversable="false" layoutX="7.0" layoutY="14.0" orientation="VERTICAL" prefHeight="370.0" prefWidth="227.0" style="-fx-background-color: #eee; -fx-padding: 10;">
+                     <items>
+                        <Label alignment="CENTER" focusTraversable="false" prefHeight="40.0" prefWidth="207.0" style="-fx-background-color: #3d4956;" text="تخصيصات" textAlignment="CENTER" textFill="AZURE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="15.0" radius="7.0" width="15.0" />
+                           </effect>
+                        </Label>
+                        <Separator layoutX="10.0" layoutY="255.0" prefHeight="30.0" prefWidth="207.0" />
+                        <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="المنتوج" textAlignment="CENTER" wrappingWidth="200.0703125">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="prodField" prefHeight="40.0" prefWidth="200.0" style="-fx-border-width: 0 0 1; -fx-border-color: #3d4956;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ChoiceBox>
+                        <Text fill="#3d4956" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ البداية" textAlignment="CENTER" wrappingWidth="200.0703125">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" prefHeight="37.0" prefWidth="201.0" />
+                        <Text fill="#3d4956" layoutX="10.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ النهاية" textAlignment="CENTER" wrappingWidth="200.0703125">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" prefHeight="37.0" prefWidth="200.0" />
+                        <Separator layoutX="10.0" layoutY="122.0" prefHeight="30.0" prefWidth="207.0" />
+                        <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="بحث" textFill="#3d4956">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8_search_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </items>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ToolBar>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
