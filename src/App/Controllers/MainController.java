@@ -1611,9 +1611,26 @@ public class MainController implements Initializable,Init {
         
         });
         printEmployers.setOnAction(Action -> {
-        
-            JasperReporter jr = new JasperReporter();
-            jr.ShowReport("employersList","");
+            
+            JFXDialogLayout layout = new JFXDialogLayout();
+            Image image = new Image(IMAGES_PATH + "wait_small.png");
+            ImageView icon = new ImageView(image);
+            Label label = new Label(PLEASE_WAIT);
+            label.graphicProperty().setValue(icon);
+            layout.setHeading(label);
+            layout.setBody(new Text(REPORT_WAIT_MESSAGE));
+            
+            loadDialog(layout, false);
+            
+            Thread th = new Thread(() -> {
+            
+                jr.ShowReport("employersList","");
+                dialog.close();
+                stackPane.setVisible(false);
+            
+            });
+            
+            th.start();            
         
         });
         
