@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.LoginController">
    <children>
-      <VBox alignment="CENTER" layoutX="78.0" layoutY="50.0" prefHeight="250.0" prefWidth="300.0" spacing="10.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0">
+      <VBox alignment="CENTER" layoutX="78.0" layoutY="50.0" prefHeight="250.0" prefWidth="300.0" spacing="8.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0">
          <children>
             <Label alignment="CENTER" prefHeight="30.0" prefWidth="53.0" text="GDP" textFill="#3d4956">
                <font>

@@ -172,6 +172,10 @@ public interface Init {
     
     String INFORMATION = "Information";
     
+    String PLEASE_WAIT = "الرجاء الإنتظار";
+    
+    String REPORT_WAIT_MESSAGE = "الطباعة جارية حاليا...";
+    
     String IMAGES_PATH = "/App/images/";
     
     String FXML_PATH = "/App/FXMLs/";

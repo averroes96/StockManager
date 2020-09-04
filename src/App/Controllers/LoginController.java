@@ -11,7 +11,6 @@ import static Include.Common.setDraggable;
 import static Include.Common.updateLastLogged;
 import Include.Init;
 import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -49,9 +48,7 @@ public class LoginController implements Initializable,Init {
     @FXML private JFXPasswordField password;
     @FXML private JFXButton loginButton;
     @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
-    SpecialAlert alert = new SpecialAlert();
-    
+    @FXML private JFXDialog dialog;    
     
     public void loadDialog(JFXDialogLayout layout){
         

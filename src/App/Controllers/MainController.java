@@ -11,10 +11,15 @@ import static Include.Common.getConnection;
 import static Include.Common.getUser;
 import static Include.Common.setDraggable;
 import Include.Init;
+import static Include.Init.IMAGES_PATH;
+import static Include.Init.OKAY;
+import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
 import JR.JasperReporter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +59,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -91,6 +98,9 @@ public class MainController implements Initializable,Init {
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn;
     
+    @FXML private StackPane stackPane;
+    @FXML private JFXDialog dialog;
+    
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
     ObservableList<String> employersList = FXCollections.observableArrayList();
@@ -105,9 +115,30 @@ public class MainController implements Initializable,Init {
     
     private Employer thisEmployer = new Employer();
     
+    JasperReporter jr = new JasperReporter();
+    
     private double xOffset = 0;
     private double yOffset = 0;
     
+    
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }    
 
     public void getEmployer(Employer employer) {
         
@@ -917,6 +948,8 @@ public class MainController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        stackPane.setVisible(false);
+        
         fillTheTable();
 
         dateField.setConverter(dateFormatter());
@@ -933,6 +966,7 @@ public class MainController implements Initializable,Init {
         lastChange.setCellValueFactory(new PropertyValueFactory<>("lastChange"));
 
         productsTable.setItems(data);
+        productsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         searchField.textProperty().addListener((obs, oldText, newText) -> {
             search("products");
         });
@@ -1542,9 +1576,28 @@ public class MainController implements Initializable,Init {
         });        
         
         printProducts.setOnAction(Action -> {
-        
-            JasperReporter jr = new JasperReporter();
+            
+            JFXDialogLayout layout = new JFXDialogLayout();
+            Image image = new Image(IMAGES_PATH + "wait_small.png");
+            ImageView icon = new ImageView(image);
+            Label label = new Label(PLEASE_WAIT);
+            label.graphicProperty().setValue(icon);
+            layout.setHeading(label);
+            layout.setBody(new Text(REPORT_WAIT_MESSAGE));
+            
+            
+            loadDialog(layout, false);
+            
+            Thread th = new Thread(() -> {
+            
             jr.ShowReport("productsReport","");
+            dialog.close();
+            stackPane.setVisible(false);
+            
+            });
+            
+            th.start();
+        
         
         });
         newBillBtn.setOnAction(Action -> {
