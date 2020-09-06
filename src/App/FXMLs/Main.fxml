@@ -402,7 +402,7 @@
             </ImageView>
             <HBox alignment="CENTER" layoutX="200.0" prefHeight="75.0" prefWidth="600.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
                <children>
-                  <JFXButton id="menu-btn" fx:id="exBtn" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="200.0" text="الحسابات السابقة" textFill="#3d4956">
+                  <JFXButton id="menu-btn" fx:id="exBtn" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="الحسابات السابقة" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
                                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -413,7 +413,7 @@
 
                                         </graphic>                      
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="addEmployerButton" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="حساب جديد" textFill="#3d4956">
+                  <JFXButton id="menu-btn" fx:id="addEmployerButton" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="حساب جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
                                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -424,7 +424,7 @@
 
                                         </graphic>                  
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="200.0" text="طباعة" textFill="#3d4956">
+                  <JFXButton id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
                                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -437,168 +437,185 @@
                   </JFXButton>
                </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" layoutX="50.0" layoutY="75.0" prefHeight="515.0" prefWidth="900.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <HBox alignment="TOP_CENTER" layoutX="50.0" layoutY="75.0" prefHeight="530.0" prefWidth="900.0" spacing="32.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                <children>
-                  <Pane prefHeight="515.0" prefWidth="600.0" style="-fx-background-color: #eee;">
+                  <VBox prefHeight="566.0" prefWidth="600.0" styleClass="box">
                      <children>
-                        <Label fx:id="fullnameLabel" layoutX="300.0" layoutY="360.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="306.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/name-blue.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="phoneLabel" layoutX="300.0" layoutY="424.0" prefHeight="43.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="307.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8_phone_48px_2.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="userStatus" alignment="CENTER" focusTraversable="false" layoutX="152.0" layoutY="489.0" prefHeight="17.0" prefWidth="310.0" text="هذا الحساب لا يمكنه الولوج للتطبيق لأنه لا يمتلك أية صلاحيات" textAlignment="CENTER" textFill="RED">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Pane layoutX="50.0" layoutY="114.0" prefHeight="187.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10;">
+                        <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: tomato;" styleClass="box-top-pane" VBox.vgrow="SOMETIMES">
                            <children>
-                              <Text fill="#3d4956" layoutX="86.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المنتوجات" textAlignment="RIGHT" wrappingWidth="99.0">
+                              <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="معلومات عن الحساب" textFill="#3d4956">
                                  <font>
-                                    <Font name="Arial Bold" size="14.0" />
+                                    <Font name="System Bold" size="20.0" />
                                  </font>
-                              </Text>
-                              <Text fill="#3d4956" layoutX="86.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة الحسابات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="14.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#3d4956" layoutX="86.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المبيعات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="14.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#3d4956" layoutX="86.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المشتريات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="14.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fx:id="prodManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="userManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="sellManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="buyManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" layoutY="-2.0" prefHeight="40.0" prefWidth="210.0" text="الصلاحيات" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                  <graphic>
-                                     <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                           <Image url="@../images/icons8_membership_card_30px.png" />
-                                        </image>
-                                     </ImageView>
-                                  </graphic>                           
+                                 <graphic>
+                                    <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/icons8_more_info_64px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>                     
                               </Label>
                            </children>
-                           <effect>
-                              <DropShadow />
-                           </effect>
                         </Pane>
-                        <Pane layoutX="50.0" layoutY="342.0" prefHeight="104.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                        <VBox alignment="CENTER" prefHeight="90.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label fx:id="lastLogged" alignment="CENTER" layoutX="5.0" layoutY="62.0" prefHeight="25.0" prefWidth="200.0" textAlignment="CENTER" textFill="#0d4a11">
-                                 <font>
-                                    <Font name="Consolas" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" layoutY="-2.0" prefHeight="40.0" prefWidth="210.0" text="آخر نسجيل دخول" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                  <graphic>
-                                     <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                           <Image url="@../images/icons8_login_128px.png" />
-                                        </image>
-                                     </ImageView>
-                                  </graphic>                           
-                              </Label>
+                              <Pane prefHeight="530.0" prefWidth="600.0" style="-fx-background-color: #eee;" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label fx:id="fullnameLabel" layoutX="300.0" layoutY="305.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow color="#00000099" height="11.25" radius="6.0625" width="15.0" />
+                                       </effect>
+                                    </Label>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="517.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/name-blue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="phoneLabel" layoutX="300.0" layoutY="369.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: white; -fx-alignment: center;" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow color="#00000099" />
+                                       </effect>
+                                    </Label>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="517.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/icons8_phone_48px_2.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="userStatus" alignment="CENTER" focusTraversable="false" layoutY="447.0" prefHeight="20.0" prefWidth="600.0" text="هذا الحساب لا يمكنه الولوج للتطبيق لأنه لا يمتلك أية صلاحيات" textAlignment="CENTER" textFill="RED">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox layoutX="300.0" layoutY="28.0" prefHeight="250.0" prefWidth="250.0" styleClass="box">
+                                       <children>
+                                          <Pane prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: tomato;" styleClass="box-top-pane">
+                                             <children>
+                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-1.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20 20 0 0;" text="الصورة الشخصية" textFill="#3d4956">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                    <graphic>
+                                                       <ImageView fitHeight="18.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                          <image>
+                                                             <Image url="@../images/icons8_picture_60px.png" />
+                                                          </image>
+                                                       </ImageView>
+                                                    </graphic>                           
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                          <VBox alignment="CENTER" prefHeight="90.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="userImage" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10; -fx-padding: 5 0;" textAlignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="50.0" layoutY="28.0" prefHeight="240.0" prefWidth="210.0" styleClass="box">
+                                       <children>
+                                          <Pane prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: tomato;" styleClass="box-top-pane">
+                                             <children>
+                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-1.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-radius: 20 20 0 0;" text="الصلاحيات" textFill="#3d4956">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                    <graphic>
+                                                       <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                          <image>
+                                                             <Image url="@../images/icons8_membership_card_30px.png" />
+                                                          </image>
+                                                       </ImageView>
+                                                    </graphic>                           
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                          <VBox alignment="CENTER" prefHeight="90.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Pane prefHeight="200.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10;">
+                                                   <children>
+                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المنتوجات" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة الحسابات" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المبيعات" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المشتريات" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <ImageView fx:id="prodManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="userManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="sellManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="buyManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="50.0" layoutY="299.0" prefHeight="140.0" prefWidth="210.0" styleClass="box">
+                                       <children>
+                                          <Pane prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: tomato;" styleClass="box-top-pane">
+                                             <children>
+                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-6.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-radius: 20 20 0 0;" text="آخر نسجيل دخول" textFill="#3d4956">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                    <graphic>
+                                                       <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                          <image>
+                                                             <Image url="@../images/icons8_login_128px.png" />
+                                                          </image>
+                                                       </ImageView>
+                                                    </graphic>                           
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                          <VBox alignment="CENTER" prefHeight="90.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Pane prefHeight="100.0" prefWidth="210.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                                                   <children>
+                                                      <Label fx:id="lastLogged" alignment="CENTER" layoutX="5.0" layoutY="38.0" prefHeight="25.0" prefWidth="200.0" textAlignment="CENTER" textFill="#0d4a11">
+                                                         <font>
+                                                            <Font name="Consolas" size="12.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
                            </children>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Pane>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutY="-2.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: tomato;" text="معلومات عن الحساب" textFill="#3d4956">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" />
-                           </effect>
-                           <graphic>
-                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons8_more_info_64px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>                     
-                        </Label>
-                        <BorderPane layoutX="300.0" layoutY="89.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: azure; -fx-background-radius: 0 0 10 10;">
-                           <center>
-                              <Label fx:id="userImage" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10; -fx-padding: 5 0;" textAlignment="CENTER" BorderPane.alignment="CENTER" />
-                           </center>
-                           <top>
-                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" prefHeight="40.0" prefWidth="250.0" text="الصورة الشخصية" textFill="#3d4956" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                  <graphic>
-                                     <ImageView fitHeight="18.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                           <Image url="@../images/icons8_picture_60px.png" />
-                                        </image>
-                                     </ImageView>
-                                  </graphic>                           
-                              </Label>
-                           </top>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </BorderPane>
+                        </VBox>
                      </children>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Pane>
-                  <VBox prefHeight="400.0" prefWidth="250.0" spacing="32.0">
+                  </VBox>
+                  <VBox prefHeight="400.0" prefWidth="250.0" spacing="32.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <BorderPane prefHeight="84.0" prefWidth="220.0" style="-fx-background-color: white;">
-                           <center>
-                              <ChoiceBox fx:id="usersCB" focusTraversable="false" prefHeight="40.0" prefWidth="220.0" style="-fx-cursor: hand; -fx-background-color: #eee;" BorderPane.alignment="CENTER">
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </ChoiceBox>
-                           </center>
-                           <top>
-                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" prefHeight="40.0" prefWidth="220.0" text="إسم المستخدم" textFill="#3d4956" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="80.0" prefWidth="200.0" styleClass="box">
+                           <children>
+                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-radius: 20 20 0 0;" text="إسم المستخدم" textFill="#3d4956">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
                                  <graphic>
                                     <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -607,61 +624,63 @@
                                     </ImageView>
                                  </graphic>                     
                               </Label>
-                           </top>
-                        </BorderPane>
-                        <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="220.0" spacing="15.0">
+                              <ChoiceBox fx:id="usersCB" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="271.0" style="-fx-cursor: hand;" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="250.0" prefWidth="250.0" spacing="8.0" styleClass="box">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: tomato;" text="خيارات" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" />
-                                 </effect>
-                                 <graphic>
-                                    <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/icons8_bulleted_list_60px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <JFXButton id="menu-btn" fx:id="updateEmployer" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: #eee;" text="تعديل" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/icons8_registration_60px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>                       
-                              </JFXButton>
-                              <JFXButton id="menu-btn" fx:id="changePass" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: #eee;" text="تغيير كلمة المرور" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/icons8_change_128px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton id="menu-btn" fx:id="deleteEmployer" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: #eee;" text="تعطيل الحساب" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/icons8_delete_sign_64px_1.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
+                              <VBox alignment="TOP_CENTER" prefHeight="100.0" spacing="8.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="خيارات" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/icons8_bulleted_list_60px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Label>
+                                    <JFXButton id="menu-btn" fx:id="updateEmployer" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="تعديل" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/icons8_registration_60px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>                       
+                                    </JFXButton>
+                                    <JFXButton id="menu-btn" fx:id="changePass" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="تغيير كلمة المرور" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/icons8_change_128px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton id="menu-btn" fx:id="deleteEmployer" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="تعطيل الحساب" textFill="#3d4956">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/icons8_delete_sign_64px_1.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
