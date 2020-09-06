@@ -138,7 +138,22 @@ public class MainController implements Initializable,Init {
         dialog.setOverlayClose(false);
         dialog.show();
         
-    }    
+    }
+
+    private void onJasperReportLoading(){
+        
+            JFXDialogLayout layout = new JFXDialogLayout();
+            Image image = new Image(IMAGES_PATH + "wait_small.png");
+            ImageView icon = new ImageView(image);
+            Label label = new Label(PLEASE_WAIT);
+            label.graphicProperty().setValue(icon);
+            layout.setHeading(label);
+            layout.setBody(new Text(REPORT_WAIT_MESSAGE));
+            
+            loadDialog(layout, false);
+            
+            jr = new JasperReporter();
+    }
 
     public void getEmployer(Employer employer) {
         
@@ -1560,33 +1575,45 @@ public class MainController implements Initializable,Init {
         });
 
         printSells.setOnAction(Action -> {
-        
-            JasperReporter jr = new JasperReporter();
+            
+            
+            onJasperReportLoading();
+            
+            Thread th = new Thread(() -> {
+      
             jr.params.put("sell_date", sellDateField.getEditor().getText());
             jr.ShowReport("sellsReport","");
+            dialog.close();
+            stackPane.setVisible(false);
+            
+            });
+            
+            th.start();
+
         
         });
         
         printBuys.setOnAction(Action -> {
-        
-            JasperReporter jr = new JasperReporter();
+            
+            onJasperReportLoading();
+            
+            Thread th = new Thread(() -> {
+            
             jr.params.put("buyDate", buyDateField.getEditor().getText());
             jr.ShowReport("buys","");
+            dialog.close();
+            stackPane.setVisible(false);
+            
+            });
+            
+            th.start();            
+        
         
         });        
         
         printProducts.setOnAction(Action -> {
             
-            JFXDialogLayout layout = new JFXDialogLayout();
-            Image image = new Image(IMAGES_PATH + "wait_small.png");
-            ImageView icon = new ImageView(image);
-            Label label = new Label(PLEASE_WAIT);
-            label.graphicProperty().setValue(icon);
-            layout.setHeading(label);
-            layout.setBody(new Text(REPORT_WAIT_MESSAGE));
-            
-            
-            loadDialog(layout, false);
+            onJasperReportLoading();
             
             Thread th = new Thread(() -> {
             
@@ -1601,26 +1628,30 @@ public class MainController implements Initializable,Init {
         
         });
         newBillBtn.setOnAction(Action -> {
-            String selectedSells = "";
             
+            onJasperReportLoading();
+            
+            Thread th = new Thread(() -> {
+            
+            String selectedSells = "";
+                        
             selectedSells = sellsTable.getSelectionModel().getSelectedItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
             selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
-            JasperReporter jr = new JasperReporter();
             jr.params.put("selectedSells", selectedSells);                        
-            jr.ShowReport("sellBill","");            
+            jr.ShowReport("sellBill","");   
+            dialog.close();
+            stackPane.setVisible(false);
+            
+            });
+            
+            th.start();
+                    
         
         });
+        
         printEmployers.setOnAction(Action -> {
             
-            JFXDialogLayout layout = new JFXDialogLayout();
-            Image image = new Image(IMAGES_PATH + "wait_small.png");
-            ImageView icon = new ImageView(image);
-            Label label = new Label(PLEASE_WAIT);
-            label.graphicProperty().setValue(icon);
-            layout.setHeading(label);
-            layout.setBody(new Text(REPORT_WAIT_MESSAGE));
-            
-            loadDialog(layout, false);
+            onJasperReportLoading();
             
             Thread th = new Thread(() -> {
             
@@ -1635,14 +1666,25 @@ public class MainController implements Initializable,Init {
         });
         
         printBuy.setOnAction(Action -> {
+            
+            
+            onJasperReportLoading();
+            
+            Thread th = new Thread(() -> {
+                
             String selectedBuys = "";
             
             selectedBuys = buysTable.getSelectionModel().getSelectedItems().stream().map((buy) -> buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
             selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
-            JasperReporter jr = new JasperReporter();
             jr.params.put("selectedBuys", selectedBuys);                        
-            jr.ShowReport("buy","");            
-        
+            jr.ShowReport("buy","");                  
+            dialog.close();
+            stackPane.setVisible(false);
+            
+            });
+            
+            th.start();
+                      
         });        
                 
         

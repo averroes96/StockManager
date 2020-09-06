@@ -77,4 +77,5 @@ public class Main extends Application implements Init {
           LauncherImpl.launchApplication(Main.class, MyPreLoader.class, args);
     }
     
+    
 }
