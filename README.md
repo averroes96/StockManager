@@ -41,7 +41,10 @@ This is JavaFX inventory manager app - IN ARABIC -
 ## Screenshots
 
 ### Users view
-![](interfaces/users_interface.png)
+![](interfaces/login_ui.png)
+
+### Users view
+![](interfaces/users_ui.png)
 
 ### Sells view
 ![](interfaces/sells_interface.png)
