@@ -40,7 +40,7 @@ This is JavaFX inventory manager app - IN ARABIC -
 
 ## Screenshots
 
-### Users view
+### login view
 ![](interfaces/login_ui.png)
 
 ### Users view
