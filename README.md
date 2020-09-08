@@ -29,6 +29,7 @@ This is JavaFX inventory manager app - IN ARABIC -
 - [jfoenix-8.0.8](http://jfoenix.com/) (a JavaFX material design library)
 - [Appache Commons](http://commons.apache.org/)
 - [JasperReports](https://sourceforge.net/projects/jasperreports/)
+- [AnimateFX](https://github.com/Typhon0/AnimateFX)
 
 
 ## Admin login : 
