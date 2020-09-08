@@ -16,6 +16,12 @@ import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
 import Include.SpecialAlert;
 import JR.JasperReporter;
+import animatefx.animation.AnimationFX;
+import animatefx.animation.FadeIn;
+import animatefx.animation.Pulse;
+import animatefx.animation.Shake;
+import animatefx.animation.ZoomIn;
+import animatefx.animation.ZoomOut;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
@@ -58,8 +64,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -100,6 +108,8 @@ public class MainController implements Initializable,Init {
     
     @FXML private StackPane stackPane;
     @FXML private JFXDialog dialog;
+    @FXML private VBox infoContainer;
+    @FXML private HBox productHB;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
@@ -484,6 +494,8 @@ public class MainController implements Initializable,Init {
     
     private void showProduct(int index)
     {
+        
+        new FadeIn(productHB).play();
         refField.setText(data.get(index).getName());
         quantityField.setText(String.valueOf(data.get(index).getProdQuantity()));
         dateField.getEditor().setText(data.get(index).getAddDate());
@@ -513,6 +525,9 @@ public class MainController implements Initializable,Init {
     
     private void showEmployer(String username)
     {
+        
+        new ZoomOut(infoContainer).play();
+        new ZoomIn(infoContainer).play();
         Employer choosen = getUser(username);
         if(choosen != null){
         fullnameLabel.setText(choosen.getFullname());
@@ -726,6 +741,10 @@ public class MainController implements Initializable,Init {
     
     public void getSellStats(String selectedDate, String type){
         
+        new FadeIn(revQte).play();
+        new FadeIn(revSum).play();
+        new FadeIn(revTotal).play();
+        
         Connection con = getConnection();
         String query = "";
         PreparedStatement st;
@@ -770,6 +789,10 @@ public class MainController implements Initializable,Init {
     }
     
     public void getBuyStats(String selectedDate, String type){
+        
+        new FadeIn(buyDayQte).play();
+        new FadeIn(buyDaySum).play();
+        new FadeIn(buyDayTotal).play();        
         
         Connection con = getConnection();
         String query = "";
@@ -962,6 +985,7 @@ public class MainController implements Initializable,Init {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
         
         stackPane.setVisible(false);
         
@@ -1003,6 +1027,7 @@ public class MainController implements Initializable,Init {
         
         updateProduct.setOnAction(Action -> {
             updateProduct();
+            //new Shake(updateProduct).play();
         });        
        
         deleteProduct.setOnAction(Action -> {
@@ -1685,10 +1710,9 @@ public class MainController implements Initializable,Init {
             
             th.start();
                       
-        });        
-                
+        });
         
-        
+        handleMenuButtons();
        
     }
 
@@ -1696,6 +1720,7 @@ public class MainController implements Initializable,Init {
         
         
         if(event.getTarget() == btn_products){
+            new Pulse(btn_products).play();
             products.setVisible(true);
             btn_products.setEffect(new Glow());
             sells.setVisible(false);
@@ -1707,6 +1732,7 @@ public class MainController implements Initializable,Init {
             
         }
         else if(event.getTarget() == btn_sells){
+            new Pulse(btn_sells).play();
             products.setVisible(false);
             btn_products.setEffect(null);
             sells.setVisible(true);
@@ -1717,6 +1743,7 @@ public class MainController implements Initializable,Init {
             btn_buys.setEffect(null);              
         }
         else if(event.getTarget() == btn_employers){
+            new Pulse(btn_employers).play();
             products.setVisible(false);
             btn_products.setEffect(null);
             sells.setVisible(false);
@@ -1727,6 +1754,7 @@ public class MainController implements Initializable,Init {
             btn_buys.setEffect(null);              
         }
         else if(event.getTarget() == btn_buys){
+            new Pulse(btn_buys).play();
             products.setVisible(false);
             btn_products.setEffect(null);
             sells.setVisible(false);
@@ -1787,6 +1815,43 @@ public class MainController implements Initializable,Init {
                 break;
         }
         
+        
+    }
+    
+    public void handleMenuButtons(){
+        
+        AnimationFX animProduct, animUsers, animBuys, animeSells;
+        
+        animProduct = new Shake(btn_products);
+        animUsers = new Shake(btn_employers);
+        animBuys = new Shake(btn_buys);
+        animeSells = new Shake(btn_sells);
+        
+        btn_products.setOnMouseEntered(value -> {
+            animProduct.play();
+        });
+        btn_employers.setOnMouseEntered(value -> {
+            animUsers.play();
+        });
+        btn_buys.setOnMouseEntered(value -> {
+            animBuys.play();
+        });
+        btn_sells.setOnMouseEntered(value -> {
+            animeSells.play();
+        });
+
+        btn_products.setOnMouseExited(value -> {
+            animProduct.stop();
+        });
+        btn_employers.setOnMouseExited(value -> {
+            animUsers.stop();
+        });
+        btn_buys.setOnMouseExited(value -> {
+            animBuys.stop();
+        });
+        btn_sells.setOnMouseExited(value -> {
+            animeSells.stop();
+        });        
         
     }
   

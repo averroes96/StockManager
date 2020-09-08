@@ -11,6 +11,9 @@ import static Include.Common.setDraggable;
 import static Include.Common.updateLastLogged;
 import Include.Init;
 import static Include.Init.UNKNOWN_ERROR;
+import animatefx.animation.AnimationFX;
+import animatefx.animation.Shake;
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -33,6 +36,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,7 +52,9 @@ public class LoginController implements Initializable,Init {
     @FXML private JFXPasswordField password;
     @FXML private JFXButton loginButton;
     @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;    
+    @FXML private JFXDialog dialog;
+    @FXML private Label title;
+    @FXML private HBox usernameHB, passwordHB;
     
     public void loadDialog(JFXDialogLayout layout){
         
@@ -220,8 +226,17 @@ public class LoginController implements Initializable,Init {
     }
     
     
+    
+    
     @Override
-    public void initialize(URL url, ResourceBundle rb) { 
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        new ZoomIn(usernameHB).play();
+        new ZoomIn(passwordHB).play();
+        new ZoomIn(loginButton).play();
+        new ZoomIn(title).play();
+        
+        AnimationFX loginBtnAnim = new Shake(loginButton);;
         
         loginButton.setOnAction(Action ->{
             try {
@@ -240,6 +255,12 @@ public class LoginController implements Initializable,Init {
             }
         });
         
+        loginButton.setOnMouseEntered(value -> {
+            loginBtnAnim.play();
+        });
+        loginButton.setOnMouseExited(value -> {
+            loginBtnAnim.stop();
+        });
     }    
     
 }

@@ -269,3 +269,6 @@
     -fx-font-size: 14px;
 }
 
+.jfx-button{
+    -fx-background-radius: 20;
+}

@@ -19,14 +19,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.LoginController">
    <children>
-      <VBox alignment="CENTER" layoutX="78.0" layoutY="50.0" prefHeight="250.0" prefWidth="300.0" spacing="8.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0">
+      <VBox fx:id="loginVB" alignment="CENTER" layoutX="75.0" layoutY="62.0" prefHeight="250.0" prefWidth="400.0" spacing="8.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="62.0">
          <children>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="53.0" text="GDP" textFill="#3d4956">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="usernameHB" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
                <children>
                   <JFXTextField fx:id="username" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
@@ -40,7 +35,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0">
+            <HBox fx:id="passwordHB" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="300.0">
                <children>
                   <JFXPasswordField fx:id="password" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="كلمة المرور" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
@@ -54,7 +49,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="40.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato;" text="تسجيل الدخول" textFill="#3d4956">
+            <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="40.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato; -fx-background-radius: 20;" text="دخول" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -84,6 +79,11 @@
             <JFXDialog fx:id="dialog" maxHeight="300.0" maxWidth="400.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="350.0" prefWidth="400.0" />
          </children>
       </StackPane>
+      <Label fx:id="title" alignment="CENTER" layoutX="195.0" layoutY="14.0" prefHeight="48.0" prefWidth="161.0" text="GDP" textFill="#3d4956" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
         
 
    </children>
