@@ -192,10 +192,11 @@ public class NewQuantityController implements Initializable,Init {
                         mControl.returnMenu("buys");
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(700);
+                        stage.setMinWidth(1000);
                         stage.show();            
             
     }     

@@ -199,6 +199,8 @@ public class NewEmployerController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(700);
+                        stage.setMinWidth(1000);
                         stage.show();
                         root.setOnMousePressed((MouseEvent event1) -> {
                             xOffset = event1.getSceneX();

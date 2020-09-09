@@ -4,6 +4,7 @@ package App.Controllers;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
+import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getAllProducts;
@@ -44,7 +45,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -101,15 +101,10 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(700);
+                        stage.setMinHeight(1000);
                         stage.show();
-                        root.setOnMousePressed((MouseEvent mevent) -> {
-                            xOffset = mevent.getSceneX();
-                            yOffset = mevent.getSceneY();
-                });
-                        root.setOnMouseDragged((MouseEvent mevent) -> {
-                            stage.setX(mevent.getScreenX() - xOffset);
-                            stage.setY(mevent.getScreenY() - yOffset);
-                });                        
+                        Common.setDraggable(root, stage);
                         
             
     }    
@@ -231,6 +226,8 @@ public class UpdateSellController implements Initializable,Init,CommonMethods {
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         //stage.initStyle(StageStyle.TRANSPARENT);                    
                         stage.setScene(scene);
+                        stage.setMinHeight(700);
+                        stage.setMinWidth(1000);                      
                         stage.show();                
                         ((Node)event.getSource()).getScene().getWindow().hide();                
                 

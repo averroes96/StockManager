@@ -9,17 +9,17 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import static Include.Common.getUser;
+import static Include.Common.initLayout;
 import static Include.Common.setDraggable;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
 import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.FadeIn;
-import animatefx.animation.Pulse;
 import animatefx.animation.Shake;
+import animatefx.animation.Tada;
 import animatefx.animation.ZoomIn;
 import animatefx.animation.ZoomOut;
 import com.jfoenix.controls.JFXButton;
@@ -47,7 +47,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -68,7 +67,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -117,8 +115,6 @@ public class MainController implements Initializable,Init {
     ObservableList<Buy> buysList = FXCollections.observableArrayList(); 
     
     
-    SpecialAlert alert = new SpecialAlert();
-
     final String dateFormat = "yyyy-MM-dd";
 
     File selectedFile = null;
@@ -149,16 +145,18 @@ public class MainController implements Initializable,Init {
         dialog.show();
         
     }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
 
     private void onJasperReportLoading(){
         
             JFXDialogLayout layout = new JFXDialogLayout();
-            Image image = new Image(IMAGES_PATH + "wait_small.png");
-            ImageView icon = new ImageView(image);
-            Label label = new Label(PLEASE_WAIT);
-            label.graphicProperty().setValue(icon);
-            layout.setHeading(label);
-            layout.setBody(new Text(REPORT_WAIT_MESSAGE));
+            initLayout(layout, PLEASE_WAIT, REPORT_WAIT_MESSAGE, WAIT_SMALL);
             
             loadDialog(layout, false);
             
@@ -254,8 +252,11 @@ public class MainController implements Initializable,Init {
         }
         catch (SQLException e) {
             
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);            
+            
         }
     }
     
@@ -318,7 +319,10 @@ public class MainController implements Initializable,Init {
 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
-            alert.show(INFO_MESSAGE, INFO_MSG, Alert.AlertType.INFORMATION,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, INFO_MESSAGE, INFO_MSG, INFO_SMALL);                
+                
+            loadDialog(layout, true);               
             return;
         }
 
@@ -362,7 +366,10 @@ public class MainController implements Initializable,Init {
                 productsTable.refresh();
             }
             catch (NumberFormatException | SQLException ex) {
-                alert.show(UNKNOWN_ERROR, LOAD_IMAGE_ERROR, Alert.AlertType.ERROR,false);
+                JFXDialogLayout layout = new JFXDialogLayout();
+                initLayout(layout, UNKNOWN_ERROR, LOAD_IMAGE_ERROR, ERROR_SMALL);                
+
+                loadDialog(layout, true);                    
             }
         }
 
@@ -371,18 +378,30 @@ public class MainController implements Initializable,Init {
     private boolean checkInputs()
     {
         if (refField.getText().trim().equals("") && priceField2.getText().trim().equals("") && quantityField.getText().trim().equals("")) {
-            alert.show(MISSING_FIELDS, "إسم وأسعار المنتج غير مملوءة", Alert.AlertType.WARNING,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, MISSING_FIELDS, "إسم وأسعار المنتج غير مملوءة", ERROR_SMALL);                
+
+            loadDialog(layout, true);     
         }
         else if (refField.getText().trim().equals("")) {
-            alert.show(MISSING_FIELDS, "قم بإدخال إسم المنتج من فضلك", Alert.AlertType.WARNING,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, MISSING_FIELDS, "قم بإدخال إسم المنتج من فضلك", ERROR_SMALL);                
+
+            loadDialog(layout, true);               
             return false;
         }
         else if (priceField2.getText().trim().equals("")) {
-            alert.show(MISSING_FIELDS, "من فضلك قم بإدخال أسعار المنتج", Alert.AlertType.WARNING,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, MISSING_FIELDS, "من فضلك قم بإدخال أسعار المنتج", ERROR_SMALL);                
+
+            loadDialog(layout, true);                
             return false;
         }
         else if (quantityField.getText().trim().equals("")) {
-            alert.show(MISSING_FIELDS, "من فضلك قم بإدخال أسعار المنتج", Alert.AlertType.WARNING,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, MISSING_FIELDS, "من فضلك قم بإدخال أسعار المنتج", ERROR_SMALL);                
+
+            loadDialog(layout, true);   
             return false;
         }        
         
@@ -394,17 +413,27 @@ public class MainController implements Initializable,Init {
                     return true;
                 }
                 else{
-                    alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR, false);
+                    JFXDialogLayout layout = new JFXDialogLayout();
+                    initLayout(layout, INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL);                
+
+                    loadDialog(layout, true);                     
                     return false;
                 }
             }
             else{
-            alert.show(INVALID_PRICE, "من فضلك قم بإدخال أسعار صالحة", Alert.AlertType.ERROR,false);
-            return false;
+                    JFXDialogLayout layout = new JFXDialogLayout();
+                    initLayout(layout, INVALID_PRICE, "من فضلك قم بإدخال أسعار صالحة", ERROR_SMALL);                
+
+                    loadDialog(layout, true);                     
+                    return false;
             }
         }
         catch (NumberFormatException e) {
-            alert.show(INVALID_PRICE, "من فضلك قم بإدخال أسعار صالحة", Alert.AlertType.ERROR,false);
+                    
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, INVALID_PRICE, "من فضلك قم بإدخال أسعار صالحة", ERROR_SMALL);                
+
+            loadDialog(layout, true);             
             return false;
         }
     }    
@@ -414,7 +443,10 @@ public class MainController implements Initializable,Init {
 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
-            alert.show(INFO_MESSAGE, INFO_MSG1, Alert.AlertType.INFORMATION,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, INFO_MESSAGE, INFO_MSG1, INFO_SMALL);                
+
+            loadDialog(layout, true);               
             return;
         }
         
@@ -478,17 +510,20 @@ public class MainController implements Initializable,Init {
             
             productsTable.refresh();
 
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, PRODUCT_UPDATED, PRODUCT_UPDATED_MSG, INFO_SMALL);                
+
+            loadDialog(layout, true);
             
-            alert.show(PRODUCT_UPDATED,
-                    PRODUCT_UPDATED_MSG,
-                    Alert.AlertType.INFORMATION,
-                    false);
         
         }
         catch (NumberFormatException | SQLException e) {
             
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
 
+            loadDialog(layout, true);
+            
         }
     }   
     
@@ -615,7 +650,10 @@ public class MainController implements Initializable,Init {
 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
-            alert.show(INFO_MESSAGE, INFO_MSG, Alert.AlertType.INFORMATION,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, INFO_MESSAGE, INFO_MSG, INFO_SMALL);                
+
+            loadDialog(layout, true);             
             return;
         }
 
@@ -637,7 +675,10 @@ public class MainController implements Initializable,Init {
             
             productsTable.refresh();
             
-            alert.show(PRODUCT_DELETED, PRODUCT_DELETED_MSG, Alert.AlertType.INFORMATION,false);            
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, PRODUCT_DELETED, PRODUCT_DELETED_MSG, ERROR_SMALL);                
+
+            loadDialog(layout, true); 
             
             if(data.size() > 0) {
                 showNextProduct();
@@ -655,7 +696,10 @@ public class MainController implements Initializable,Init {
             
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
+
+            loadDialog(layout, true); 
         }
         
         
@@ -702,7 +746,10 @@ public class MainController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
         }
     }
     
@@ -735,7 +782,10 @@ public class MainController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
         }
     }    
     
@@ -744,6 +794,8 @@ public class MainController implements Initializable,Init {
         new FadeIn(revQte).play();
         new FadeIn(revSum).play();
         new FadeIn(revTotal).play();
+        
+        new FadeIn(sellsTable).play();
         
         Connection con = getConnection();
         String query = "";
@@ -782,8 +834,10 @@ public class MainController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
         }        
         
     }
@@ -794,13 +848,15 @@ public class MainController implements Initializable,Init {
         new FadeIn(buyDaySum).play();
         new FadeIn(buyDayTotal).play();        
         
+        new FadeIn(buysTable).play();
+        
         Connection con = getConnection();
         String query = "";
         PreparedStatement st;
         ResultSet rs;        
         if(selectedDate.equals("")){
             
-                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
+            query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
         }
         else{
             query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
@@ -831,8 +887,10 @@ public class MainController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
         }        
         
     }     
@@ -854,12 +912,14 @@ public class MainController implements Initializable,Init {
             
             getSellStats(sellDateField.getEditor().getText(),"");
             
-            alert.show(SELL_DELETED, SELL_DELETED, Alert.AlertType.INFORMATION,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, SELL_DELETED, SELL_DELETED_MESSAGE, INFO_SMALL);
+            
+            loadDialog(layout, true);
             
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+             exceptionLayout(e);
         }
     }
     
@@ -877,13 +937,16 @@ public class MainController implements Initializable,Init {
                     buysTable.refresh();
 
                     getSellStats(buyDateField.getEditor().getText(),"");
-
-                    alert.show(BUY_DELETED, BUY_DELETED, Alert.AlertType.INFORMATION,false);
+                    
+                    JFXDialogLayout layout = new JFXDialogLayout();
+                    initLayout(layout, BUY_DELETED, BUY_DELETED_MSG, INFO_SMALL);
+            
+                    loadDialog(layout, true);
 
                 }
                 catch (SQLException e) {
 
-                    alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                    exceptionLayout(e);
                 }            
             }    
     
@@ -902,7 +965,7 @@ public class MainController implements Initializable,Init {
 
         }
         catch (SQLException e) {          
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
         }
     }  
 
@@ -950,21 +1013,26 @@ public class MainController implements Initializable,Init {
         if (!employersList.isEmpty()) {
             usersCB.getSelectionModel().select(thisEmployer.getUsername());
             showEmployer(thisEmployer.getUsername());
-        }            
-                alert.show(EMPLOYER_DELETED, EMPLOYER_DELETED_MSG, Alert.AlertType.INFORMATION,false);
+        }
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, EMPLOYER_DELETED, EMPLOYER_DELETED_MSG, INFO_SMALL);
+            
+            loadDialog(layout, true);
             
             }
             }
             else{
-                
-                alert.show(LAST_ADMIN, LAST_ADMIN_MSG, Alert.AlertType.ERROR,false);
+                JFXDialogLayout layout = new JFXDialogLayout();
+                initLayout(layout, LAST_ADMIN, LAST_ADMIN_MSG, ERROR_SMALL);
+
+                loadDialog(layout, true);
                 
             }
             
         }
         catch (IOException | SQLException e) {
 
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
 
         }
     }
@@ -1053,7 +1121,7 @@ public class MainController implements Initializable,Init {
                 
                 
             } catch (IOException ex) {
-               alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(ex);
             }
 
         });
@@ -1078,7 +1146,7 @@ public class MainController implements Initializable,Init {
                             setDraggable(root,stage);                            
                             
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }                            
         
         });
@@ -1103,7 +1171,7 @@ public class MainController implements Initializable,Init {
                             stage.showAndWait();
                             setDraggable(root,stage);                          
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }
         });
 
@@ -1125,7 +1193,7 @@ public class MainController implements Initializable,Init {
                             stage.showAndWait();
                             setDraggable(root,stage);                            
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }            
             
         });
@@ -1186,7 +1254,7 @@ public class MainController implements Initializable,Init {
                                 stage.setY(event1.getScreenY() - yOffset);
                             });
                             } catch (IOException ex) {
-                                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                                exceptionLayout(ex);
                             }
                     });
                     update.setStyle("-fx-background-color : green; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
@@ -1258,12 +1326,15 @@ public class MainController implements Initializable,Init {
                         setDraggable(root,stage); 
                         
             } catch (IOException ex) {
-                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(ex);
             }
             
             }
             else{
-                alert.show(NO_PRODUCTS_FOUND, NO_PRODUCTS_FOUND_MESSAGE, Alert.AlertType.ERROR,true);
+                JFXDialogLayout layout = new JFXDialogLayout();
+                initLayout(layout, NO_PRODUCTS_FOUND, NO_PRODUCTS_FOUND_MESSAGE, ERROR_SMALL);                
+
+                loadDialog(layout, true);
             }
 
         });
@@ -1311,7 +1382,7 @@ public class MainController implements Initializable,Init {
                         setDraggable(root,stage);
                         
             } catch (IOException ex) {
-                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(ex);
             }
 
         });
@@ -1337,7 +1408,7 @@ public class MainController implements Initializable,Init {
                             setDraggable(root,stage);                           
                             
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }
         });
 
@@ -1370,7 +1441,7 @@ public class MainController implements Initializable,Init {
                             setDraggable(root,stage);                          
                             
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }                            
         
         });
@@ -1393,7 +1464,7 @@ public class MainController implements Initializable,Init {
                             stage.showAndWait();
                              
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }
         });
 
@@ -1446,7 +1517,7 @@ public class MainController implements Initializable,Init {
                         stage.show();
                         setDraggable(root,stage);
             } catch (IOException ex) {
-                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(ex);
             }                        
                     });
                     update.setStyle("-fx-background-color : green; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
@@ -1516,7 +1587,7 @@ public class MainController implements Initializable,Init {
                 
                 
                 } catch (IOException ex) {
-                    alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                    exceptionLayout(ex);
                 }
 
         });
@@ -1537,7 +1608,7 @@ public class MainController implements Initializable,Init {
                             stage.showAndWait();
                              
                         } catch (IOException ex) {
-                            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                            exceptionLayout(ex);
                         }
 
         });        
@@ -1593,7 +1664,7 @@ public class MainController implements Initializable,Init {
                 setDraggable(root,stage);
                 
             } catch (IOException ex) {
-                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(ex);
                 
             }
             
@@ -1720,7 +1791,7 @@ public class MainController implements Initializable,Init {
         
         
         if(event.getTarget() == btn_products){
-            new Pulse(btn_products).play();
+            new Tada(btn_products).play();
             products.setVisible(true);
             btn_products.setEffect(new Glow());
             sells.setVisible(false);
@@ -1732,7 +1803,7 @@ public class MainController implements Initializable,Init {
             
         }
         else if(event.getTarget() == btn_sells){
-            new Pulse(btn_sells).play();
+            new Tada(btn_sells).play();
             products.setVisible(false);
             btn_products.setEffect(null);
             sells.setVisible(true);
@@ -1743,7 +1814,7 @@ public class MainController implements Initializable,Init {
             btn_buys.setEffect(null);              
         }
         else if(event.getTarget() == btn_employers){
-            new Pulse(btn_employers).play();
+            new Tada(btn_employers).play();
             products.setVisible(false);
             btn_products.setEffect(null);
             sells.setVisible(false);
@@ -1754,7 +1825,7 @@ public class MainController implements Initializable,Init {
             btn_buys.setEffect(null);              
         }
         else if(event.getTarget() == btn_buys){
-            new Pulse(btn_buys).play();
+            new Tada(btn_buys).play();
             products.setVisible(false);
             btn_products.setEffect(null);
             sells.setVisible(false);

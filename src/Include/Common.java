@@ -24,16 +24,17 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -92,15 +93,17 @@ public class Common implements Init {
         
     }
    
-    public static void initLayout(JFXDialogLayout layout, Node header, Node body, ArrayList<Node> actions){
+    public static void initLayout(JFXDialogLayout layout, String header, String body, String icon){
                 
-        if(actions != null){
-            layout.setActions(actions);
-        }
-        layout.setHeading(header);
-        layout.setBody(body);
+        Image image = new Image(IMAGES_PATH + icon);
+        ImageView imageView = new ImageView(image);
+        Label label = new Label(header);
+        label.graphicProperty().setValue(imageView);
+        layout.setHeading(label);
+        layout.setBody(new Text(body));        
         
     }
+    
 
     public static Connection getConnection()
     {

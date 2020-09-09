@@ -139,6 +139,8 @@ public class ExEmployersController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(600);
+                        stage.setMinWidth(1000);
                         stage.show();            
             
     }    

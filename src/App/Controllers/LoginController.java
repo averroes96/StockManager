@@ -7,9 +7,11 @@ package App.Controllers;
 
 import Data.Employer;
 import static Include.Common.getConnection;
+import static Include.Common.initLayout;
 import static Include.Common.setDraggable;
 import static Include.Common.updateLastLogged;
 import Include.Init;
+import static Include.Init.ERROR_SMALL;
 import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
@@ -33,12 +35,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -116,12 +115,7 @@ public class LoginController implements Initializable,Init {
             } catch (IOException ex) {
                 
                 JFXDialogLayout layout = new JFXDialogLayout();
-                Image image = new Image(IMAGES_PATH + "error_small.png");
-                ImageView icon = new ImageView(image);
-                Label label = new Label(UNKNOWN_ERROR);
-                label.graphicProperty().setValue(icon);
-                layout.setHeading(label);
-                layout.setBody(new Text(ex.getMessage()));
+                initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
                 
                 loadDialog(layout);                  
                 //alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
@@ -156,14 +150,9 @@ public class LoginController implements Initializable,Init {
             } catch (IOException e) {
                 
                 JFXDialogLayout layout = new JFXDialogLayout();
-                Image image = new Image(IMAGES_PATH + "error_small.png");
-                ImageView icon = new ImageView(image);
-                Label label = new Label(UNKNOWN_ERROR);
-                label.graphicProperty().setValue(icon);
-                layout.setHeading(label);
-                layout.setBody(new Text(e.getMessage()));
+                initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
                 
-                loadDialog(layout);        
+                loadDialog(layout);          
                 //alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
                 
             }
@@ -189,6 +178,8 @@ public class LoginController implements Initializable,Init {
                 //stage.initStyle(StageStyle.TRANSPARENT);
                 scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                 stage.setScene(scene);
+                stage.setMinHeight(700);
+                stage.setMinWidth(1000);
                 stage.show();
                 setDraggable(root,stage);
 
@@ -197,28 +188,18 @@ public class LoginController implements Initializable,Init {
             else{
                 
                 JFXDialogLayout layout = new JFXDialogLayout();
-                Image image = new Image(IMAGES_PATH + "error_small.png");
-                ImageView icon = new ImageView(image);
-                Label label = new Label(USER_INFO);
-                label.graphicProperty().setValue(icon);
-                layout.setHeading(label);
-                layout.setBody(new Text(USER_INFO_MESSAGE));
+                initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
                 
-                loadDialog(layout);
+                loadDialog(layout);       
                 
                 //alert.show(USER_INFO, USER_INFO_MESSAGE, Alert.AlertType.ERROR,false);
                         
             }
         } catch (SQLException ex) {
                 JFXDialogLayout layout = new JFXDialogLayout();
-                Image image = new Image(IMAGES_PATH + "error_small.png");
-                ImageView icon = new ImageView(image);
-                Label label = new Label(CONNECTION_ERROR);
-                label.graphicProperty().setValue(icon);
-                layout.setHeading(label);
-                layout.setBody(new Text(CONNECTION_ERROR_MESSAGE));
+                initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
                 
-                loadDialog(layout);             
+                loadDialog(layout);                
                 //alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
         }
         
@@ -241,14 +222,10 @@ public class LoginController implements Initializable,Init {
         loginButton.setOnAction(Action ->{
             try {
                 login(Action);
-            } catch (IOException ex) {                
+            } catch (IOException ex) {
+
                 JFXDialogLayout layout = new JFXDialogLayout();
-                Image image = new Image(IMAGES_PATH + "error_small.png");
-                ImageView icon = new ImageView(image);
-                Label label = new Label(CONNECTION_ERROR);
-                label.graphicProperty().setValue(icon);
-                layout.setHeading(label);
-                layout.setBody(new Text(CONNECTION_ERROR_MESSAGE));
+                initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
                 
                 loadDialog(layout);        
             //alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);

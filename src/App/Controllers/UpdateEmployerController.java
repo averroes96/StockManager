@@ -7,6 +7,7 @@ import static Include.Common.AnimateField;
 import static Include.Common.adminsCount;
 import static Include.Common.getConnection;
 import static Include.Common.minimize;
+import static Include.Common.setDraggable;
 import Include.Init;
 import Include.SpecialAlert;
 import com.jfoenix.controls.JFXButton;
@@ -32,7 +33,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -239,12 +239,10 @@ public class UpdateEmployerController implements Initializable,Init {
                         AnchorPane root = (AnchorPane)loader.load();
                         MainController mControl = (MainController)loader.getController();
                         if(employer.getUsername().equals(selectedEmployer.getUsername())){
-
-                        mControl.getEmployer(selectedEmployer);
+                            mControl.getEmployer(selectedEmployer);
                         }
                         else{
-
-                        mControl.getEmployer(employer);    
+                            mControl.getEmployer(employer);    
                         }
                         mControl.returnMenu("employers");
                         Scene scene = new Scene(root);
@@ -253,6 +251,8 @@ public class UpdateEmployerController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(700);
+                        stage.setMinWidth(1000);
                         stage.show();                
                         ((Node)event.getSource()).getScene().getWindow().hide();                
                 
@@ -322,16 +322,11 @@ public class UpdateEmployerController implements Initializable,Init {
                 Scene scene = new Scene(root);
                 scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                 scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
-                stage.setScene(scene);  
+                stage.setScene(scene);
+                stage.setMinHeight(700);
+                stage.setMinWidth(1000);
                 stage.show();
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                });                
+                setDraggable(root, stage);
             } catch (IOException ex) {
                 alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
             }

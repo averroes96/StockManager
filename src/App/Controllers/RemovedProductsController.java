@@ -9,6 +9,7 @@ import Data.Employer;
 import Data.Product;
 import static Include.Common.getConnection;
 import static Include.Common.minimize;
+import static Include.Common.setDraggable;
 import Include.Init;
 import static Include.Init.EMPLOYER_ASSIGNED;
 import static Include.Init.EMPLOYER_ASSIGNED_MSG;
@@ -37,7 +38,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -87,15 +87,10 @@ public class RemovedProductsController implements Initializable,Init {
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(600);
+                        stage.setMinWidth(1000);
                         stage.show();
-                        root.setOnMousePressed((MouseEvent mevent) -> {
-                            xOffset = mevent.getSceneX();
-                            yOffset = mevent.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent mevent) -> {
-                            stage.setX(mevent.getScreenX() - xOffset);
-                            stage.setY(mevent.getScreenY() - yOffset);
-                        });                         
+                        setDraggable(root, stage);
                         
             
     }

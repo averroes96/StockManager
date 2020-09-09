@@ -11,6 +11,14 @@ package Include;
  * @author med
  */
 public interface Init {
+    
+    // AlertDialog icons
+    
+    String WAIT_SMALL = "wait_small.png";
+    
+    String ERROR_SMALL = "error_small.png";
+    
+    String INFO_SMALL = "info_small.png";
 
     String DB_NAME = "jdbc:mysql://127.0.0.1/gdp";
     
@@ -177,6 +185,8 @@ public interface Init {
     String REPORT_WAIT_MESSAGE = "الطباعة جارية حاليا...";
     
     String IMAGES_PATH = "/App/images/";
+    
+    String ALERT_ICONS_PATH = "/App/images/alert/";
     
     String FXML_PATH = "/App/FXMLs/";
     

@@ -10,6 +10,7 @@ import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
 import static Include.Common.minimize;
 import static Include.Common.saveSelectedImage;
+import static Include.Common.setDraggable;
 import Include.Init;
 import Include.SpecialAlert;
 import com.jfoenix.controls.JFXButton;
@@ -36,7 +37,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -183,19 +183,13 @@ public class NewProductController implements Initializable,Init {
                         mControl.returnMenu("products");
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
+                        stage.setMinHeight(700);
+                        stage.setMinWidth(1000);
                         stage.show(); 
-                        root.setOnMousePressed((MouseEvent mevent) -> {
-                            xOffset = mevent.getSceneX();
-                            yOffset = mevent.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent mevent) -> {
-                            stage.setX(mevent.getScreenX() - xOffset);
-                            stage.setY(mevent.getScreenY() - yOffset);
-                        });                           
+                        setDraggable(root, stage);
             
     } 
 
