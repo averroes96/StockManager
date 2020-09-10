@@ -29,7 +29,7 @@
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="773.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="770.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="200.0">
                <image>
                   <Image url="@../images/up.png" />
                </image>
@@ -137,6 +137,9 @@
                            <effect>
                               <DropShadow color="#00000099" />
                            </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Label>
                         <JFXButton fx:id="updateImage" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="230.0" ripplerFill="RED" style="-fx-background-color: #3d4956;" text="تعديل الصورة" textFill="#eeeeee">
                            <font>
@@ -313,11 +316,11 @@
             <URL value="@../Layout/custom.css" />
          </stylesheets>
       </AnchorPane>
-      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="950.0" style="-fx-background-color: #ddd;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ButtonBar focusTraversable="false" layoutY="6.0" prefHeight="74.0" prefWidth="994.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <ButtonBar buttonMinWidth="50.0" focusTraversable="false" layoutY="6.0" prefHeight="74.0" prefWidth="994.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <buttons>
-                  <Button id="top-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" style="-fx-background-color: transparent;" text="المبيعات" textFill="#3d4956">
+                  <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" text="المبيعات" textFill="#eeeeee">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -325,25 +328,25 @@
 
                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/large/icons8_sell_64px.png" />
+                             <Image url="@../images/large/icons8_return_purchase_64px.png" />
                           </image>
                        </ImageView>             
 
                     </graphic>                     
                   </Button>
-                  <Button id="top-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="30.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" style="-fx-background-color: transparent;" text="المشتريات" textFill="#3d4956">
+                  <Button id="menu-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="30.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" text="المشتريات" textFill="#eeeeee">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/large/icons8_buy_64px.png" />
+                              <Image url="@../images/large/icons8_buy_64px_1.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="top-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="الحسابات" textFill="#3d4956">
+                  <Button id="menu-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="200.0" text="الحسابات" textFill="#eeeeee">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -351,13 +354,13 @@
 
                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/large/icons8_google_groups_64px.png" />
+                             <Image url="@../images/large/icons8_staff_64px.png" />
                           </image>
                        </ImageView>             
 
                     </graphic>                     
                   </Button>
-                  <Button id="top-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="المنتوجات" textFill="#3d4956">
+                  <Button id="menu-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="200.0" text="المنتوجات" textFill="#eeeeee">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -365,19 +368,19 @@
 
                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/large/icons8_product_documents_64px.png" />
+                             <Image url="@../images/large/icons8_trolley_64px.png" />
                           </image>
                        </ImageView>             
 
                     </graphic>                     
                   </Button>
-                  <Label fx:id="btn_close" maxWidth="50.0" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="50.0" prefWidth="50.0" style="-fx-alignment: center;" styleClass="topbar" stylesheets="@../Layout/custom.css">
+                  <Label fx:id="btn_close" maxWidth="50.0" minWidth="0.0" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="50.0" prefWidth="50.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
                       
                <graphic>
                    
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/large/icons8_sign_out_64px.png" />
+                        <Image url="@../images/large/icons8_logout_rounded_up_64px_1.png" />
                      </image>
                   </ImageView>             
                    
@@ -386,6 +389,9 @@
                       
                   </Label>
                </buttons>
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
             </ButtonBar>
        
 
@@ -809,81 +815,75 @@
                         </JFXDatePicker>
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="720.0" styleClass="box" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="156.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-radius: 20 20 0 0;" text="الحصيلة" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" textFill="#3d4956" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/small/icons8_summary_list_32px.png" />
+                                    <Image url="@../images/medium/icons8_sigma_48px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Label>
-                        <HBox alignment="CENTER" prefHeight="160.0" prefWidth="720.0" spacing="32.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="buyDayTotal" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: #eee; -fx-background-radius: 10;" text="0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Consolas Bold" size="28.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/medium/icons8_sigma_48px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <effect>
-                                    <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-                                 </effect>
-                              </Label>
-                              <Label fx:id="buyDayQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: #eee; -fx-background-radius: 10;" text="0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Consolas Bold" size="28.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-                                 </effect>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <Label fx:id="buyDaySum" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: #eee; -fx-background-radius: 10;" text="0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Consolas Bold" size="28.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-                                 </effect>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/medium/icons8_calculator_48px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="8.0" right="8.0" />
-                           </padding>
-                        </HBox>
+                        <Label fx:id="buyDayTotal" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" text="0" textFill="#3d4956">
+                           <font>
+                              <Font name="Consolas Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="156.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="buyDayQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" text="0" textFill="#3d4956">
+                           <font>
+                              <Font name="Consolas Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="156.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_calculator_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="buyDaySum" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" text="0" textFill="#3d4956">
+                           <font>
+                              <Font name="Consolas Bold" size="28.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
             </HBox>
          </children>
-         <stylesheets>
-            <URL value="@../Layout/buttons.css" />
-            <URL value="@../Layout/custom.css" />
-         </stylesheets>
          <effect>
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
@@ -1000,81 +1000,75 @@
                         </JFXDatePicker>
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="720.0" styleClass="box" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="156.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-radius: 20 20 0 0;" text="الحصيلة" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" textFill="#3d4956" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/small/icons8_summary_list_32px.png" />
+                                    <Image url="@../images/medium/icons8_sigma_48px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Label>
-                        <HBox alignment="CENTER" prefHeight="160.0" prefWidth="720.0" spacing="32.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="revTotal" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: #eee; -fx-background-radius: 10;" text="0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Consolas Bold" size="28.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/medium/icons8_sigma_48px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <effect>
-                                    <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-                                 </effect>
-                              </Label>
-                              <Label fx:id="revQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: #eee; -fx-background-radius: 10;" text="0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Consolas Bold" size="28.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-                                 </effect>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <Label fx:id="revSum" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956; -fx-background-color: #eee; -fx-background-radius: 10;" text="0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Consolas Bold" size="28.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-                                 </effect>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/medium/icons8_calculator_48px.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="8.0" right="8.0" />
-                           </padding>
-                        </HBox>
+                        <Label fx:id="revTotal" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" text="0" textFill="#3d4956">
+                           <font>
+                              <Font name="Consolas Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="156.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="revQte" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" text="0" textFill="#3d4956">
+                           <font>
+                              <Font name="Consolas Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="156.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_calculator_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="revSum" contentDisplay="TOP" focusTraversable="false" graphicTextGap="6.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #3D4956;" text="0" textFill="#3d4956">
+                           <font>
+                              <Font name="Consolas Bold" size="28.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
             </HBox>
          </children>
-         <stylesheets>
-            <URL value="@../Layout/custom.css" />
-            <URL value="@../Layout/buttons.css" />
-         </stylesheets>
          <effect>
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>

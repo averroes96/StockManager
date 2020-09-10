@@ -18,6 +18,7 @@ import static Include.Init.UNKNOWN_ERROR;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.FadeIn;
+import animatefx.animation.FlipInY;
 import animatefx.animation.Shake;
 import animatefx.animation.Tada;
 import animatefx.animation.ZoomIn;
@@ -1093,6 +1094,10 @@ public class MainController implements Initializable,Init {
             updateImage();
         });
         
+        productImg.setOnMouseClicked(value -> {
+            updateImage();
+        });
+        
         updateProduct.setOnAction(Action -> {
             updateProduct();
             //new Shake(updateProduct).play();
@@ -1791,49 +1796,61 @@ public class MainController implements Initializable,Init {
         
         
         if(event.getTarget() == btn_products){
-            new Tada(btn_products).play();
-            products.setVisible(true);
-            btn_products.setEffect(new Glow());
-            sells.setVisible(false);
-            btn_sells.setEffect(null);
-            employers.setVisible(false);
-            btn_employers.setEffect(null);
-            buys.setVisible(false);
-            btn_buys.setEffect(null);            
+            if(!products.isVisible()){
+                new Tada(btn_products).play();
+                products.setVisible(true);
+                new FlipInY(products).play();
+                btn_products.setEffect(new Glow());
+                sells.setVisible(false);
+                btn_sells.setEffect(null);
+                employers.setVisible(false);
+                btn_employers.setEffect(null);
+                buys.setVisible(false);
+                btn_buys.setEffect(null);
+            }            
             
         }
         else if(event.getTarget() == btn_sells){
-            new Tada(btn_sells).play();
-            products.setVisible(false);
-            btn_products.setEffect(null);
-            sells.setVisible(true);
-            btn_sells.setEffect(new Glow());
-            employers.setVisible(false);
-            btn_employers.setEffect(null);
-            buys.setVisible(false);
-            btn_buys.setEffect(null);              
+            if(!sells.isVisible()){
+                new Tada(btn_sells).play();
+                products.setVisible(false);
+                btn_products.setEffect(null);
+                sells.setVisible(true);
+                new FlipInY(sells).play();
+                btn_sells.setEffect(new Glow());
+                employers.setVisible(false);
+                btn_employers.setEffect(null);
+                buys.setVisible(false);
+                btn_buys.setEffect(null);
+            }
         }
         else if(event.getTarget() == btn_employers){
-            new Tada(btn_employers).play();
-            products.setVisible(false);
-            btn_products.setEffect(null);
-            sells.setVisible(false);
-            btn_sells.setEffect(null);
-            employers.setVisible(true);
-            btn_employers.setEffect(new Glow());
-            buys.setVisible(false);
-            btn_buys.setEffect(null);              
+            if(!employers.isVisible()){
+                new Tada(btn_employers).play();
+                products.setVisible(false);
+                btn_products.setEffect(null);
+                sells.setVisible(false);
+                btn_sells.setEffect(null);
+                employers.setVisible(true);
+                new FlipInY(employers).play();
+                btn_employers.setEffect(new Glow());
+                buys.setVisible(false);
+                btn_buys.setEffect(null);
+            }
         }
         else if(event.getTarget() == btn_buys){
-            new Tada(btn_buys).play();
-            products.setVisible(false);
-            btn_products.setEffect(null);
-            sells.setVisible(false);
-            btn_sells.setEffect(null);
-            buys.setVisible(true);
-            btn_buys.setEffect(new Glow());
-            employers.setVisible(false);
-            btn_employers.setEffect(null);              
+            if(!buys.isVisible()){
+                new Tada(btn_buys).play();
+                products.setVisible(false);
+                btn_products.setEffect(null);
+                sells.setVisible(false);
+                btn_sells.setEffect(null);
+                buys.setVisible(true);
+                new FlipInY(buys).play();
+                btn_buys.setEffect(new Glow());
+                employers.setVisible(false);
+                btn_employers.setEffect(null);
+            }
         }        
         else if(event.getTarget() == btn_close){
             
@@ -1854,6 +1871,7 @@ public class MainController implements Initializable,Init {
         }
         
     }
+    
     
     public void returnMenu(String source){
         
@@ -1899,16 +1917,20 @@ public class MainController implements Initializable,Init {
         animeSells = new Shake(btn_sells);
         
         btn_products.setOnMouseEntered(value -> {
-            animProduct.play();
+            if(!products.isVisible())
+                animProduct.play();
         });
         btn_employers.setOnMouseEntered(value -> {
-            animUsers.play();
+            if(!employers.isVisible())
+                animUsers.play();
         });
         btn_buys.setOnMouseEntered(value -> {
-            animBuys.play();
+            if(!buys.isVisible())
+                animBuys.play();
         });
         btn_sells.setOnMouseEntered(value -> {
-            animeSells.play();
+            if(!sells.isVisible())
+                animeSells.play();
         });
 
         btn_products.setOnMouseExited(value -> {

@@ -8,12 +8,16 @@ package App.Controllers;
 import Data.Employer;
 import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
-import static Include.Common.minimize;
+import static Include.Common.initLayout;
 import static Include.Common.saveSelectedImage;
 import static Include.Common.setDraggable;
 import Include.Init;
-import Include.SpecialAlert;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
+import static Include.Init.UNKNOWN_ERROR;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
@@ -31,13 +35,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -51,20 +53,43 @@ public class NewProductController implements Initializable,Init {
     
     
         @FXML private JFXTextField nameField,sellField,qteField;
-        @FXML private ChoiceBox catField;
-        @FXML private Label imgField,minimize,sellStatus,nameStatus,qteStatus;
-        @FXML private JFXButton addProduct,addPhoto;
-        @FXML private Button cancel;
+        @FXML private Label imgField,sellStatus,qteStatus;
+        @FXML private JFXButton addProduct;
+        @FXML private StackPane stackPane;
+        @FXML private JFXDialog dialog;
         
-
-        SpecialAlert alert = new SpecialAlert();
-
         File selectedFile = null;
     
         public Employer employer = new Employer();
         
         private double xOffset = 0;
-        private double yOffset = 0;        
+        private double yOffset = 0;
+
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
 
     
     public void getEmployer(Employer employer){
@@ -90,7 +115,7 @@ public class NewProductController implements Initializable,Init {
                         selectedFile.toURI().toString(), 224, 224, true, true)));
             }
             catch (Exception e) {
-                alert.show(UNKNOWN_ERROR, "فشل إضافة الصورة", Alert.AlertType.ERROR,true);
+                exceptionLayout(e);
             }
         }
 
@@ -99,20 +124,18 @@ public class NewProductController implements Initializable,Init {
     @FXML
     private boolean checkInputs()
     {
-        if (nameField.getText().trim().equals("") && sellField.getText().trim().equals("") && qteField.getText().trim().equals("") ) {
-            alert.show("بعض حقول الإدخال غير مملوءة","من فضلك حدد إسم المنتوج وسعر البيع والكمية", Alert.AlertType.WARNING,false);
-            return false;
-        }
-        else if (nameField.getText().trim().equals("")) {
-            alert.show("بعض حقول الإدخال غير مملوءة", "من فضلك أدخل إسم المنتوج", Alert.AlertType.WARNING,false);
+        if (nameField.getText().trim().equals("") || sellField.getText().trim().equals("") || qteField.getText().trim().equals("") ) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL);
+            
+            loadDialog(layout, true);
             return false;
         }
         else if (nameField.getText().length() >= 50) {
-            alert.show(LONG_NAME_ERROR, LONG_NAME_ERROR_MSG, Alert.AlertType.WARNING,false);
-            return false;
-        }        
-        else if (sellField.getText().trim().equals("")) {
-            alert.show("بعض حقول الإدخال غير مملوءة", "من فضلك قم بإدخال سعر المنتوج", Alert.AlertType.WARNING,false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, LONG_NAME_ERROR, LONG_NAME_ERROR_MSG, ERROR_SMALL);
+            
+            loadDialog(layout, true);
             return false;
         }
         
@@ -120,13 +143,19 @@ public class NewProductController implements Initializable,Init {
                     if(sellField.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(sellField.getText().trim()) > 0)
                     return true;
                     else{
-                    alert.show(INVALID_PRICE, INVALID_PRICE_MSG, Alert.AlertType.ERROR,false);
-                    return false;
+                        JFXDialogLayout layout = new JFXDialogLayout();
+                        initLayout(layout, INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL);
+
+                        loadDialog(layout, true);
+                        return false;
                     }               
             }
             else{
-                alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR,false);
-                return false;                
+                        JFXDialogLayout layout = new JFXDialogLayout();
+                        initLayout(layout, INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL);
+
+                        loadDialog(layout, true);                
+                        return false;                
             }
                 
     }
@@ -154,7 +183,7 @@ public class NewProductController implements Initializable,Init {
 
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
             return false;
         } 
         
@@ -204,7 +233,10 @@ public class NewProductController implements Initializable,Init {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        alert.show("خطأ خلال محاولة الإتصال بقاعدة البيانات", "تعذر الإتصال بقاعدة البيانات، تأكد من أن السرفر يعمل وحاول مجددا", Alert.AlertType.ERROR,true);
+                        JFXDialogLayout layout = new JFXDialogLayout();
+                        initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR, ERROR_SMALL);
+
+                        loadDialog(layout, true);   
                     }
                     
                     PreparedStatement ps;
@@ -235,14 +267,22 @@ public class NewProductController implements Initializable,Init {
 
             }
             catch (NumberFormatException | SQLException e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e);
             }
+                        JFXDialogLayout layout = new JFXDialogLayout();
+                        initLayout(layout, PRODUCT_ADDED, PRODUCT_ADDED_MSG, ERROR_SMALL);
+
+                        loadDialog(layout, true); 
             
-            alert.show("تم إضافة المنتوج", "المنتوج متوفر حاليا في قاعدة البيانات", Alert.AlertType.INFORMATION,false);
-            resetWindow();
+                        resetWindow();
         }
-        else
-            alert.show("المنتوج موجود في قاعدة البيانات", "إسم هذا المنتوج موجود في قاعدة البيانات", Alert.AlertType.ERROR, true);
+        else{
+                        JFXDialogLayout layout = new JFXDialogLayout();
+                        initLayout(layout, PRODUCT_EXIST, PRODUCT_EXIST_MSG, ERROR_SMALL);
+
+                        loadDialog(layout, true);
+        }
+        
         }
 
     }
@@ -250,23 +290,17 @@ public class NewProductController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-            imgField.setText("");
-            imgField.setGraphic(new ImageView(new Image(
+        imgField.setText("");
+        imgField.setGraphic(new ImageView(new Image(
                     ClassLoader.class.getResourceAsStream(IMAGES_PATH + "product_default.png"),
                     60, 60, true, true)));       
         
-        addPhoto.setOnAction(Action -> {
+        imgField.setOnMouseClicked(sAction -> {
             chooseImage();
         });
 
         addProduct.setOnAction(Action -> {
             insertProduct();
-        });
-        
-        minimize.setOnMouseClicked(Action -> {
-        
-            minimize(Action);
-            
         });
         
         AnimateField(sellField,sellStatus,"^[1-9]?[0-9]{1,7}$");

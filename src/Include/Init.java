@@ -120,6 +120,10 @@ public interface Init {
     
     String PASSWORD_ERROR = "كلمة المرور" ;
     
+    String PRODUCT_EXIST = "المنتوج موجود في قاعدة البيانات";
+    
+    String PRODUCT_EXIST_MSG = "إسم هذا المنتوج موجود في قاعدة البيانات، لا يمكن لمنتوجين مختلفين أن يحملا نفس الإسم.";
+    
     String PASSWORD_ERROR_MSG_2 = "كلمة المرور غير متطابقة" ;
     
     String PASSWORD_ERROR_MSG = "كلمة المرور يجب أن تتكون من 7 حتى 30 حرفا على الأكثر" ;
@@ -159,6 +163,10 @@ public interface Init {
     String LONG_NAME_ERROR_MSG = "إسم المنتوج لا يجب أن يتعدى 50 حرفا على الأكثر" ;
     
     String NOT_ENOUGH_QUANTITY = "كمية غير متوفرة" ;
+    
+    String PRODUCT_ADDED = "تم إضافة المنتوج";
+    
+    String PRODUCT_ADDED_MSG = "المنتوج متوفر حاليا في قاعدة البيانات";
     
     String NOT_ENOUGH_QUANTITY_MSG = "هذا المنتوج لا يتوفر على الكمية التي تم تحديدها" ;
     
