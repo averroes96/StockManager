@@ -53,3 +53,5 @@ This is JavaFX inventory manager app - IN ARABIC -
 ### Sells view
 ![](interfaces/sells_ui.png)
 
+### Add product view
+![](interfaces/newproduct_ui.png)
