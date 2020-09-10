@@ -154,6 +154,10 @@ public interface Init {
     
     String EMPLOYER_ASSIGNED_MSG = "تم إعادة دمج الحساب بنجاح" ;
     
+    String PRODUCT_ACTIVATED = "تشغيل المنتوج";
+    
+    String PRODUCT_ACTIVATED_MSG = "تم إعادة المنتوج إلى قاعدة البيانات بنجاح !";
+
     String BUY_DELETED = "حذف الشراء" ;
     
     String BUY_DELETED_MSG = "تم حذف هذا الشراء بنجاح من قاعدة البيانات" ;

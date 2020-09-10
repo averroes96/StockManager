@@ -8,13 +8,15 @@ package App.Controllers;
 import Data.Employer;
 import Data.Product;
 import static Include.Common.getConnection;
-import static Include.Common.minimize;
+import static Include.Common.initLayout;
 import static Include.Common.setDraggable;
 import Include.Init;
-import static Include.Init.EMPLOYER_ASSIGNED;
-import static Include.Init.EMPLOYER_ASSIGNED_MSG;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -31,14 +33,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -53,22 +54,44 @@ public class RemovedProductsController implements Initializable,Init {
     @FXML private TableColumn<Product,Integer> idCol,qteCol,priceCol;
     @FXML private TableColumn<Product,String> nameCol;
     @FXML private TableColumn action;
-    @FXML private Label minimize;
     @FXML private Button returnBtn;
+    @FXML private StackPane stackPane;
+    @FXML private JFXDialog dialog;
     
     ObservableList<Product> removedList = FXCollections.observableArrayList();
-    
-    SpecialAlert alert = new SpecialAlert();
-    
+        
     Employer admin = new Employer();
-    
-    private double xOffset;
-    private double yOffset;
     
     public void getInfo(Employer employer){
         
         this.admin = employer;
         
+    }
+
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
     }    
     
     
@@ -122,7 +145,7 @@ public class RemovedProductsController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
         }        
         
     }    
@@ -183,18 +206,16 @@ public class RemovedProductsController implements Initializable,Init {
             removedList.remove(selected);
             
             removedTable.refresh();
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, PRODUCT_ACTIVATED, PRODUCT_ACTIVATED_MSG, INFO_SMALL);
             
-                alert.show(EMPLOYER_ASSIGNED, EMPLOYER_ASSIGNED_MSG, Alert.AlertType.INFORMATION,false);
-
+            loadDialog(layout, true);
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
         }        
         
-    
     }    
-
 
         };
         return cell;
@@ -202,13 +223,8 @@ public class RemovedProductsController implements Initializable,Init {
         
     action.setCellFactory(cellFactory);    
         
-        removedTable.setItems(removedList);        
-        
-        minimize.setOnMouseClicked(Action -> {
-        
-            minimize(Action);
-            
-        });        
+    removedTable.setItems(removedList);        
+             
         
         
     }    
