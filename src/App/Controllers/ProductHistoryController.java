@@ -5,9 +5,16 @@ import Data.ProdHistory;
 import static Include.Common.dateFormatter;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
+import static Include.Common.initLayout;
 import Include.Init;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
+import animatefx.animation.ZoomIn;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,14 +27,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -37,17 +43,45 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ProductHistoryController implements Initializable,Init {
     
     @FXML private Label oldQte,newQte,oldName,newName,oldDate,newDate,oldPrice,newPrice;
-    @FXML private Button search;
+    @FXML private JFXButton search;
     @FXML private TableView<ProdHistory> historyTable;
     @FXML private TableColumn<ProdHistory, Integer> idCol;
     @FXML private TableColumn<ProdHistory, String> prodCol,userCol,dateCol;
     @FXML private ChoiceBox<String> prodField ;
-    @FXML private DatePicker startDate,endDate;
-    
-    SpecialAlert alert = new SpecialAlert();
-    
+    @FXML private JFXDatePicker startDate,endDate;
+    @FXML private VBox nameVB,dateVB,priceVB,qteVB;
+    @FXML private StackPane stackPane;
+    @FXML private JFXDialog dialog;
+        
     ObservableList<ProdHistory> historyList = FXCollections.observableArrayList();
     ObservableList<String> nameList = getAllProducts(1);
+    
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
+
     
     private void getAllHistory(String name, String start, String end){
         
@@ -109,16 +143,20 @@ public class ProductHistoryController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
+            exceptionLayout(e);
         }
-
+        if(!historyTable.getItems().isEmpty())
+            setValues(historyTable.getItems().get(0));
         
         
     }
     
-    private void setValues(ProdHistory selected){
+    public void setValues(ProdHistory selected){
+        
+        new ZoomIn(nameVB).play();
+        new ZoomIn(dateVB).play();
+        new ZoomIn(priceVB).play();
+        new ZoomIn(qteVB).play();
         
         oldName.setText(selected.getOldName());
         oldPrice.setText(String.valueOf(selected.getOldPrice()));
@@ -171,8 +209,8 @@ public class ProductHistoryController implements Initializable,Init {
         userCol.setCellValueFactory(new PropertyValueFactory<>("user"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         
-        getAllHistory("الكل","","");
         historyTable.setItems(historyList);
+        getAllHistory("الكل","","");
         historyTable.getSelectionModel().selectFirst();
         
         startDate.setConverter(dateFormatter());
@@ -197,17 +235,18 @@ public class ProductHistoryController implements Initializable,Init {
         
         search.setOnAction(Action ->{
             
-        if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
-            
-            historyTable.getItems().clear();
-            getAllHistory(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());            
-        
-        }
-        else {
-            
-            alert.show(ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, Alert.AlertType.WARNING,false);
-            
-        }             
+            new ZoomIn(historyTable).play();
+
+            if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+                historyTable.getItems().clear();
+                getAllHistory(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());            
+            }
+            else {
+                JFXDialogLayout layout = new JFXDialogLayout();
+                initLayout(layout, ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, ERROR_SMALL);
+
+                loadDialog(layout, true);            
+            }             
                       
         });
         

@@ -44,6 +44,10 @@ public interface Init {
     
     String UNKNOWN_ERROR = "خطأ تقني";
     
+    String NO_CHANGES = "صفر تغييرات";
+    
+    String NO_CHANGES_MSG = "لم يتم العثور على أي تغييرات حسب التخصيصات التي قمت بتحديدها.";
+    
     String SELL_DELETED = "تم حذف البيع";
     
     String SELL_DELETED_MESSAGE = "تم حذف البيع بنجاح من قاعدة البيانات" ;

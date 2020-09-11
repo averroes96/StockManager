@@ -62,18 +62,17 @@ public class NewProductController implements Initializable,Init {
     
         public Employer employer = new Employer();
         
-        private double xOffset = 0;
-        private double yOffset = 0;
-
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
         stackPane.setVisible(true);
         JFXButton btn = new JFXButton(OKAY);
         btn.setDefaultButton(true);
+        addProduct.setDefaultButton(false);
         btn.setOnAction(Action -> {
             dialog.close();
             stackPane.setVisible(false);
             btn.setDefaultButton(false);
+            addProduct.setDefaultButton(true);
         });
         if(btnIncluded){
             layout.setActions(btn);

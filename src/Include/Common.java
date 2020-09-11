@@ -9,6 +9,8 @@ import Data.Employer;
 import Data.Product;
 import Data.Sell;
 import static Include.Init.UNKNOWN_ERROR;
+import animatefx.animation.AnimationFX;
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
@@ -577,11 +579,15 @@ public class Common implements Init {
     
     public static void AnimateField(JFXTextField field, Label status, String formula){
         
+        AnimationFX animField = new Shake(field);
+        animField.setResetOnFinished(true);
+        
         field.setOnKeyPressed(Action -> {
             
-        if (field.getText().trim().equals("") || !field.getText().matches(formula)) {
+        if (!field.getText().matches(formula)) {
             status.setVisible(true);
             field.setFocusColor(Color.RED);
+            animField.play();
         }
         else{
             status.setVisible(false);
@@ -591,9 +597,10 @@ public class Common implements Init {
         });
         field.setOnKeyTyped(Action -> {
             
-        if (field.getText().trim().equals("") || !field.getText().matches(formula)) {
+        if (!field.getText().matches(formula)) {
             status.setVisible(true);
             field.setFocusColor(Color.RED);
+            animField.play();
         }
         else{
             status.setVisible(false);
@@ -603,15 +610,16 @@ public class Common implements Init {
         });
         field.setOnKeyReleased(Action -> {
             
-        if (field.getText().trim().equals("") || !field.getText().matches(formula)) {
+        if (!field.getText().matches(formula)) {
             status.setVisible(true);
             field.setFocusColor(Color.RED);
+            animField.play();
         }        
         else{
             status.setVisible(false);
             field.setFocusColor(Color.GREEN);
         }            
-        });        
+        });
         
     }
     

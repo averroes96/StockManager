@@ -2,218 +2,31 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="875.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ProductHistoryController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ProductHistoryController">
    <effect>
-      <DropShadow />
+      <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
    </effect>
    <children>
-      <ToolBar focusTraversable="false" layoutX="16.0" layoutY="16.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="221.0" style="-fx-background-color: #eee; -fx-padding: 10;">
-         <items>
-            <Label alignment="CENTER" focusTraversable="false" prefHeight="40.0" prefWidth="207.0" style="-fx-background-color: #3d4956;" text="تخصيصات" textAlignment="CENTER" textFill="AZURE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Label>
-            <Separator layoutX="10.0" layoutY="255.0" prefHeight="15.0" prefWidth="207.0" />
-            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="المنتوج" textAlignment="CENTER" wrappingWidth="200.0703125">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <ChoiceBox fx:id="prodField" prefHeight="40.0" prefWidth="166.0">
-               <effect>
-                  <InnerShadow height="15.0" radius="7.0" width="15.0" />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ChoiceBox>
-            <Text fill="#3d4956" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ البداية" textAlignment="CENTER" wrappingWidth="200.0703125">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" prefHeight="37.0" prefWidth="201.0" />
-            <Text fill="#3d4956" layoutX="10.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ النهاية" textAlignment="CENTER" wrappingWidth="200.0703125">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" prefHeight="37.0" prefWidth="200.0" />
-            <Separator layoutX="10.0" layoutY="122.0" prefHeight="15.0" prefWidth="207.0" />
-            <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="بحث" textFill="#3d4956">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-                   <image>
-                      <Image url="@../images/icons8_search_48px.png" />
-                   </image>
-                </ImageView>      
-               </graphic>         
-            </JFXButton>
-         </items>
-         <effect>
-            <DropShadow />
-         </effect>
-      </ToolBar>
-      <Pane layoutX="15.0" layoutY="374.0" prefHeight="180.0" prefWidth="845.0" style="-fx-background-color: #eee;">
-         <effect>
-            <DropShadow />
-         </effect>
-         <children>
-            <Text fill="#3d4956" layoutX="336.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="أهم التعديلات">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <BorderPane layoutX="641.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
-               <top>
-                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="الكمية" textAlignment="RIGHT" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </top>
-               <center>
-                  <Label fx:id="oldQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
-               </center>
-               <bottom>
-                  <Label fx:id="newQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </bottom>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </BorderPane>
-            <BorderPane layoutX="430.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
-               <top>
-                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="سعر البيع" textAlignment="RIGHT" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </top>
-               <center>
-                  <Label fx:id="oldPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
-               </center>
-               <bottom>
-                  <Label fx:id="newPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </bottom>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </BorderPane>
-            <BorderPane layoutX="220.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
-               <top>
-                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="تاريخ الإضافة" textAlignment="RIGHT" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </top>
-               <center>
-                  <Label fx:id="oldDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
-               </center>
-               <bottom>
-                  <Label fx:id="newDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </bottom>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </BorderPane>
-            <BorderPane layoutX="14.0" layoutY="52.0" prefHeight="110.0" prefWidth="190.0" style="-fx-background-color: white; -fx-padding: 10 0 10 0;">
-               <top>
-                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="الإسم" textAlignment="RIGHT" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </top>
-               <center>
-                  <Label fx:id="oldName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
-               </center>
-               <bottom>
-                  <Label fx:id="newName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </bottom>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </BorderPane>
-         </children>
-      </Pane>
-      <TableView fx:id="historyTable" focusTraversable="false" layoutX="251.0" layoutY="16.0" prefHeight="350.0" prefWidth="609.0" style="-fx-background-color: white;">
-        <columns>
-          <TableColumn fx:id="idCol" prefWidth="75.0" resizable="false" text="ID" />
-          <TableColumn fx:id="prodCol" prefWidth="175.0" text="المنتوج" />
-            <TableColumn fx:id="userCol" prefWidth="160.0" text="المستخدم" />
-            <TableColumn fx:id="dateCol" prefWidth="200.0" text="تاريخ التعديل" />
-        </columns>
-         <effect>
-            <DropShadow />
-         </effect>
-      </TableView>
       <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/product_default.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="202.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/icons8_start_48px_1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="201.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
@@ -221,6 +34,223 @@
             <Image url="@../images/icons8_end_60px_2.png" />
          </image>
       </ImageView>
+      <HBox alignment="TOP_RIGHT" prefHeight="370.0" prefWidth="884.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="230.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تخصيصات" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_mail_filter_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="200.0" spacing="8.0">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_product_48px.png" />
+                           </image>
+                        </ImageView>
+                        <ChoiceBox fx:id="prodField" maxWidth="256.0" prefHeight="42.0" prefWidth="166.0" HBox.hgrow="ALWAYS">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <DropShadow color="#00000066" height="15.0" radius="7.0" width="15.0" />
+                           </effect>
+                        </ChoiceBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ البداية" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="122.0" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ النهاية" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </VBox>
+                  <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="بحث" textFill="#3d4956">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                            <Image url="@../images/icons8_search_48px.png" />
+                         </image>
+                      </ImageView>      
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>         
+                  </JFXButton>
+               </children>
+            </VBox>
+            <TableView fx:id="historyTable" focusTraversable="false" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="prodCol" maxWidth="350.0" minWidth="175.0" prefWidth="175.0" text="المنتوج" />
+                  <TableColumn fx:id="userCol" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="المستخدم" />
+                  <TableColumn fx:id="dateCol" maxWidth="400.0" minWidth="200.0" prefWidth="200.0" text="تاريخ التعديل" />
+              </columns>
+               <effect>
+                  <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
+               </effect>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" fillHeight="false" layoutY="402.0" prefHeight="192.0" prefWidth="884.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
+         <children>
+            <VBox fx:id="nameVB" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="الإسم" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_magazine_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="newName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oldName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="dateVB" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تاريخ الإضافة" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_calendar_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="newDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oldDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="priceVB" alignment="TOP_CENTER" layoutX="110.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="السعر" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_price_tag_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="newPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oldPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="qteVB" alignment="TOP_CENTER" layoutX="144.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="الكمية" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="newQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oldQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="8.0" right="8.0" />
+         </padding>
+      </HBox>
+      <StackPane fx:id="stackPane" layoutX="10.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog fx:id="dialog" nodeOrientation="RIGHT_TO_LEFT" />
+         </children>
+      </StackPane>
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />

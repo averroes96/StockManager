@@ -316,7 +316,7 @@
             <URL value="@../Layout/custom.css" />
          </stylesheets>
       </AnchorPane>
-      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="950.0" style="-fx-background-color: #3D4956;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="950.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ButtonBar buttonMinWidth="50.0" focusTraversable="false" layoutY="6.0" prefHeight="74.0" prefWidth="994.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <buttons>
@@ -888,7 +888,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="73.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
