@@ -31,6 +31,9 @@ This is JavaFX inventory manager app - IN ARABIC -
 - [JasperReports](https://sourceforge.net/projects/jasperreports/)
 - [AnimateFX](https://github.com/Typhon0/AnimateFX)
 
+### If you like it
+Please give a ⭐️ to this repo
+
 
 ## Admin login : 
   - Username : admin
