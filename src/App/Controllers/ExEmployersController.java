@@ -7,8 +7,15 @@ package App.Controllers;
 
 import Data.Employer;
 import static Include.Common.getConnection;
+import static Include.Common.initLayout;
 import Include.Init;
-import Include.SpecialAlert;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
+import static Include.Init.UNKNOWN_ERROR;
+import animatefx.animation.FlipInX;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -25,14 +32,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -48,12 +54,11 @@ public class ExEmployersController implements Initializable,Init {
     @FXML TableColumn<Employer,String> fullname,username;
     @FXML TableColumn action1;
     @FXML Button returnBtn;
-    @FXML Label minimize;
+    @FXML private StackPane stackPane;
+    @FXML private JFXDialog dialog;
     
     ObservableList<Employer> exList = FXCollections.observableArrayList();
-    
-    SpecialAlert alert = new SpecialAlert();
-    
+        
     Employer admin = new Employer();
     
     public void getInfo(Employer employer){
@@ -61,6 +66,33 @@ public class ExEmployersController implements Initializable,Init {
         this.admin = employer;
         
     }
+    
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }    
+    
     
     public void restore(Employer selected) {
     
@@ -81,14 +113,14 @@ public class ExEmployersController implements Initializable,Init {
             
             exTable.refresh();
             
-                alert.show(EMPLOYER_ASSIGNED, EMPLOYER_ASSIGNED_MSG, Alert.AlertType.INFORMATION,false);
-
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, EMPLOYER_ASSIGNED, EMPLOYER_ASSIGNED_MSG, INFO_SMALL);
+            
+            loadDialog(layout, true);
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
         }        
-        
     
     }    
     
@@ -119,7 +151,7 @@ public class ExEmployersController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
         }        
         
     }
@@ -174,6 +206,7 @@ public class ExEmployersController implements Initializable,Init {
                     reassign.setOnAction(event -> {
                         Employer selected = getTableView().getItems().get(getIndex());
                         restore(selected);
+                        new FlipInX(exTable).play();
                     });
                     reassign.setStyle("-fx-background-color : green; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(reassign);

@@ -15,6 +15,8 @@ import Include.Init;
 import static Include.Init.ERROR_SMALL;
 import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
+import animatefx.animation.AnimationFX;
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -289,6 +291,8 @@ public class NewProductController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        AnimationFX addBtnAnim = new Shake(addProduct);
+        
         imgField.setText("");
         imgField.setGraphic(new ImageView(new Image(
                     ClassLoader.class.getResourceAsStream(IMAGES_PATH + "product_default.png"),
@@ -303,7 +307,14 @@ public class NewProductController implements Initializable,Init {
         });
         
         AnimateField(sellField,sellStatus,"^[1-9]?[0-9]{1,7}$");
-        AnimateField(qteField,qteStatus,"^[1-9]?[0-9]{1,7}$");         
+        AnimateField(qteField,qteStatus,"^[1-9]?[0-9]{1,7}$");
+        
+        addProduct.setOnMouseEntered(value -> {
+            addBtnAnim.play();
+        });
+        addProduct.setOnMouseExited(value -> {
+            addBtnAnim.stop();
+        });        
         
     }    
     

@@ -54,6 +54,8 @@ public interface Init {
     
     String SELL_UPDATED = "تعديل البيع" ;
     
+    String USERNAME_ERROR_MSG_2 = "إسم المستخدم الذي قمت بإدخاله محجوز لحساب باسم حساب اخر";
+    
     String SELL_UPDATED_MSG = "تم تعديل هذا البيع بنجاح" ;
     
     String EMPTY_STOCK = "صفر كمية";
@@ -189,6 +191,10 @@ public interface Init {
     String ILLEGAL_INTERVAL = "مجال بحث غير صالح";
     
     String ILLEGAL_INTERVAL_MSG = "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية" ;
+    
+    String ARE_U_SURE = "هل أنت متأكد؟";
+    
+    String DELETE = "تأكيد حذف";
     
     String ERROR = "Error";
     

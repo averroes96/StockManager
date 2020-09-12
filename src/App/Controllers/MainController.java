@@ -127,6 +127,42 @@ public class MainController implements Initializable,Init {
     private double xOffset = 0;
     private double yOffset = 0;
     
+    public void confirmDialog(Object object, String type, String title, String body, String icon){
+            
+        JFXDialogLayout layout = new JFXDialogLayout();
+        initLayout(layout, title, body, icon);
+            
+        stackPane.setVisible(true);
+        JFXButton yesBtn = new JFXButton("نعم");
+        yesBtn.setDefaultButton(true);
+        yesBtn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            yesBtn.setDefaultButton(false);
+            if("employer".equals(type))
+                deleteEmployer((Employer) object);
+            else if("buy".equals(type))
+                deleteBuy((Buy) object);
+            else if("sell".equals(type))
+                deleteSell((Sell) object);
+            else if("product".equals(type))
+                deleteProduct();
+        });
+        JFXButton noBtn = new JFXButton("لا");
+        noBtn.setCancelButton(true);
+        noBtn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            noBtn.setCancelButton(false);
+        });        
+        
+        layout.setActions(yesBtn, noBtn);
+        
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+    
+    }
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
@@ -575,14 +611,14 @@ public class MainController implements Initializable,Init {
         if (choosen.getImage().trim().equals("") ) {
             userImage.setText("");
             userImage.setGraphic(new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "user.png"),
-                    220, 200, true, true)));
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+                    64, 64, true, true)));
         }
         else {
             userImage.setText("");
             userImage.setGraphic(new ImageView(new Image(
                     new File(choosen.getImage()).toURI().toString(),
-                    250, 200, true, true)));
+                    220, 200, true, true)));
         }
         
         if(choosen.getProdPrivs() == 1) prodManager.setImage(new Image(
@@ -1104,7 +1140,7 @@ public class MainController implements Initializable,Init {
         });        
        
         deleteProduct.setOnAction(Action -> {
-            deleteProduct();
+            confirmDialog(null, "product", DELETE, ARE_U_SURE, INFO_SMALL);
         });
         
         addProd.setOnAction(Action -> {
@@ -1291,7 +1327,7 @@ public class MainController implements Initializable,Init {
                 } else {
                     delete.setOnAction(event -> {
                         Sell sell = getTableView().getItems().get(getIndex());
-                        deleteSell(sell);
+                        confirmDialog(sell, "sell", DELETE, ARE_U_SURE, INFO_SMALL);
                     });
                     delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(delete);
@@ -1419,7 +1455,7 @@ public class MainController implements Initializable,Init {
         deleteEmployer.setOnAction(Action -> {
 
                 Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
-                deleteEmployer(employer);
+                confirmDialog(employer, "employer", DELETE + " " + employer.getFullname(), ARE_U_SURE, INFO_SMALL);
                 
 
 
@@ -1554,7 +1590,7 @@ public class MainController implements Initializable,Init {
                 } else {
                     delete.setOnAction(event -> {
                         Buy buy = getTableView().getItems().get(getIndex());
-                        deleteBuy(buy);
+                        confirmDialog(buys, "buy", DELETE, ARE_U_SURE, INFO_SMALL);
                     });
                     delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(delete);
@@ -1788,6 +1824,8 @@ public class MainController implements Initializable,Init {
         });
         
         handleMenuButtons();
+        
+        updateMenuButtons();
        
     }
 
@@ -1835,6 +1873,7 @@ public class MainController implements Initializable,Init {
                 btn_employers.setEffect(new Glow());
                 buys.setVisible(false);
                 btn_buys.setEffect(null);
+                 
             }
         }
         else if(event.getTarget() == btn_buys){
@@ -1867,6 +1906,58 @@ public class MainController implements Initializable,Init {
                         stage.show();
                         setDraggable(root,stage);
                         
+        }
+        
+        updateMenuButtons();
+        
+    }
+    
+    public void updateMenuButtons(){
+        
+        System.out.println("OK");
+        
+        if(products.isVisible()){
+             btn_products.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/product_large_filled_grey.png"),
+                32, 32, true, true))); 
+        }
+        else{
+             btn_products.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/product_large_outlined_grey.png"),
+                32, 32, true, true)));   
+        }
+        
+        if(employers.isVisible()){
+             btn_employers.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user_large_filled_grey.png"),
+                32, 32, true, true))); 
+        }
+        else{
+             btn_employers.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user_large_outlined_grey.png"),
+                32, 32, true, true))); 
+        }
+        
+        if(buys.isVisible()){
+             btn_buys.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/buy_large_outlined_grey.png"),
+                32, 32, true, true))); 
+        }
+        else{
+             btn_buys.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/buy_large_outlined_grey.png"),
+                32, 32, true, true)));  
+        }
+        
+        if(sells.isVisible()){
+             btn_sells.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/sell_large_outlined_grey.png"),
+                32, 32, true, true))); 
+        }
+        else{
+             btn_sells.setGraphic(new ImageView(new Image(
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/sell_large_outlined_grey.png"),
+                32, 32, true, true))); 
         }
         
     }

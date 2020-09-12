@@ -217,7 +217,7 @@ public class LoginController implements Initializable,Init {
         new ZoomIn(loginButton).play();
         new ZoomIn(title).play();
         
-        AnimationFX loginBtnAnim = new Shake(loginButton);;
+        AnimationFX loginBtnAnim = new Shake(loginButton);
         
         loginButton.setOnAction(Action ->{
             try {

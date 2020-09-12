@@ -6,14 +6,23 @@
 package App.Controllers;
 
 import Data.Employer;
+import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
-import static Include.Common.minimize;
+import static Include.Common.initLayout;
 import static Include.Common.saveSelectedImage;
 import Include.Init;
-import Include.SpecialAlert;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
+import static Include.Init.UNKNOWN_ERROR;
+import animatefx.animation.AnimationFX;
+import animatefx.animation.BounceIn;
+import animatefx.animation.Shake;
+import animatefx.animation.Tada;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -31,13 +40,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -49,26 +57,58 @@ import javafx.stage.Stage;
 public class NewEmployerController implements Initializable,Init {
 
     @FXML Button cancel;
-    @FXML JFXButton upload,save;
+    @FXML JFXButton save;
     @FXML JFXTextField fullname,phone,username;
     @FXML JFXPasswordField password;
     @FXML JFXCheckBox products,users,sells,buys;
-    @FXML Label image,min,fullnameStatus,phoneStatus;
+    @FXML Label image,fullnameStatus,phoneStatus;
     @FXML JFXToggleButton admin ;
+    @FXML private StackPane stackPane;
+    @FXML private JFXDialog dialog;    
     
     Employer employer = new Employer();
     
-    SpecialAlert alert = new SpecialAlert();
-
     File selectedFile = null;
-
-    private double xOffset = 0;
-    private double yOffset = 0;
     
     public void getEmployer(Employer employer){
         
         this.employer = employer;
         
+    }
+    
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        save.setDefaultButton(false);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+            save.setDefaultButton(true);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
+
+    public void customDialog(String title, String body, String icon, boolean btnIncluded){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, title, body, icon);
+            
+            loadDialog(layout, btnIncluded);
     }
     
     @FXML    
@@ -86,10 +126,10 @@ public class NewEmployerController implements Initializable,Init {
             try {
                 image.setText("");
                 image.setGraphic(new ImageView(new Image(
-                        selectedFile.toURI().toString(), 220, 220, true, true)));
+                        selectedFile.toURI().toString(), 192, 160, true, true)));
             }
             catch (Exception e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e);
             }
         }
 
@@ -98,28 +138,28 @@ public class NewEmployerController implements Initializable,Init {
     private boolean checkInputs()
     {
         if (fullname.getText().trim().equals("")) {
-            alert.show(MISSING_FIELDS, MISSING_FIELDS_MSG, Alert.AlertType.WARNING,false);
+            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL, true);
             return false;
         }
         else if(!fullname.getText().matches("^[\\p{L} .'-]+$")){
-            alert.show(UNVALID_NAME, UNVALID_NAME_MSG, Alert.AlertType.WARNING,false);
+            customDialog(UNVALID_NAME, UNVALID_NAME_MSG, ERROR_SMALL, true);
             return false;              
         }        
         else if(username.getText().trim().equals("") || password.getText().trim().equals("")){
-            alert.show(MISSING_FIELDS, MISSING_FIELDS_MSG, Alert.AlertType.WARNING,false);
+            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL, true);
             return false;            
             
         }
         else if(!username.getText().trim().matches("^[a-zA-Z0-9._-]{5,30}$")){
-            alert.show(USERNAME_ERROR, USERNAME_ERROR_MSG, Alert.AlertType.WARNING,false);
+            customDialog(USERNAME_ERROR, USERNAME_ERROR_MSG, ERROR_SMALL, true);
             return false;              
         }
         else if(!password.getText().trim().matches("^[a-zA-Z0-9._-]{7,30}$")){
-            alert.show(PASSWORD_ERROR, PASSWORD_ERROR_MSG, Alert.AlertType.WARNING,false);
+            customDialog(PASSWORD_ERROR, PASSWORD_ERROR_MSG, ERROR_SMALL, true);
             return false;              
         }
         else if(!phone.getText().trim().matches("^[5-7]?[0-9]{10}$") && !phone.getText().equals("")){
-            alert.show(UNVALID_PHONE, UNVALID_PHONE_MSG, Alert.AlertType.WARNING,false);
+            customDialog(UNVALID_PHONE, UNVALID_PHONE_MSG, ERROR_SMALL, true);
             return false;              
         }
         
@@ -139,14 +179,14 @@ public class NewEmployerController implements Initializable,Init {
         sells.setSelected(false);
         sells.setDisable(false);
         buys.setSelected(false);
-        buys.setSelected(false);
+        buys.setDisable(false);
         phone.setText("");
         username.setText("");
         password.setText(""); 
             image.setText("");
             ImageView img = new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "user.png"),
-                    200, 200, true, true));
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+                    64, 64, true, true));
             image.setGraphic(img);  
         selectedFile = null;
         
@@ -177,7 +217,7 @@ public class NewEmployerController implements Initializable,Init {
 
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e);
             return 0;
         }       
        
@@ -202,15 +242,7 @@ public class NewEmployerController implements Initializable,Init {
                         stage.setMinHeight(700);
                         stage.setMinWidth(1000);
                         stage.show();
-                        root.setOnMousePressed((MouseEvent event1) -> {
-                            xOffset = event1.getSceneX();
-                            yOffset = event1.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent event1) -> {
-                            stage.setX(event1.getScreenX() - xOffset);
-                            stage.setY(event1.getScreenY() - yOffset);
-                        });                         
-            
+                        Common.setDraggable(root, stage);
     }
 
     @FXML
@@ -223,7 +255,7 @@ public class NewEmployerController implements Initializable,Init {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
+                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true);
                     }
                     
                     PreparedStatement ps;
@@ -275,26 +307,27 @@ public class NewEmployerController implements Initializable,Init {
                             }
                         }
                         else {
-                            alert.show(UNKNOWN_ERROR,"Creating key failed, no ID obtained.",Alert.AlertType.ERROR,true);
+                            JFXDialogLayout layout = new JFXDialogLayout();
+                            initLayout(layout, UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL);
+
+                            loadDialog(layout, true);                            
                         }
                     }
 
                         con.close();
                     
                 }
-                
-                alert.show(USER_ADDED, USER_ADDED_MSG, Alert.AlertType.INFORMATION,false);
-                
+                customDialog(USER_ADDED, USER_ADDED_MSG, INFO_SMALL, true);                
                 resetWindow();
 
 
             }
             catch (NumberFormatException | SQLException e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e);
             }
         }
             else{
-                alert.show(USERNAME_ERROR, "إسم المستخدم الذي قمت بإدخاله محجوز لحساب باسم حساب اخر", Alert.AlertType.ERROR,false);
+                customDialog(USERNAME_ERROR, USERNAME_ERROR_MSG_2, INFO_SMALL, true);
             }
         }
 
@@ -304,27 +337,25 @@ public class NewEmployerController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        min.setOnMouseClicked(Action ->{
-        
-            minimize(Action);
-        
-        });
-        
         admin.setOnAction(Action ->{
             
         if(admin.isSelected()){
             
             products.setSelected(true);
             products.setDisable(true);
+            new Tada(products).play();
             
             users.setSelected(true);
             users.setDisable(true);
+            new Tada(users).play();
             
             sells.setSelected(true);
             sells.setDisable(true);
+            new Tada(sells).play();
             
             buys.setSelected(true);
             buys.setDisable(true);
+            new Tada(buys).play();
             
         }
         else{
@@ -338,15 +369,16 @@ public class NewEmployerController implements Initializable,Init {
             
         });
         
-        upload.setOnAction(Action -> {
+        image.setOnMouseClicked(Action -> {
             chooseImage();
+            new BounceIn(image).play();
         });
         
         cancel.setOnAction(Action ->{
             try {
                 cancel(Action);
             } catch (IOException ex) {
-                alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(ex);
             }
         });
         
@@ -356,15 +388,22 @@ public class NewEmployerController implements Initializable,Init {
         
             image.setText("");
             ImageView img = new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "user.png"),
-                    200, 170, true, true));
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+                    64, 64, true, true));
             image.setGraphic(img); 
             
         AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
+        AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
         
-        AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");   
+        AnimationFX saveBtnAnim = new Shake(save);
+        
 
-        
+        save.setOnMouseEntered(value -> {
+            saveBtnAnim.play();
+        });
+        save.setOnMouseExited(value -> {
+            saveBtnAnim.stop();
+        });  
         
     }    
     

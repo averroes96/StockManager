@@ -75,7 +75,7 @@
             </Label>
             <HBox alignment="CENTER" maxWidth="768.0" prefHeight="80.0" prefWidth="256.0" spacing="8.0">
                <children>
-                  <JFXTextField fx:id="nameField" alignment="CENTER" focusColor="TOMATO" prefHeight="50.0" prefWidth="224.0" promptText="الإسم" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="nameField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="الإسم" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

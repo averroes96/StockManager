@@ -326,9 +326,9 @@
                      </font>
                     <graphic>
 
-                       <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                       <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/large/icons8_return_purchase_64px.png" />
+                             <Image url="@../images/large/sell_large_filled_grey.png" />
                           </image>
                        </ImageView>             
 
@@ -339,9 +339,9 @@
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/large/icons8_buy_64px_1.png" />
+                              <Image url="@../images/large/buy_large_filled_grey.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -352,9 +352,9 @@
                      </font>
                     <graphic>
 
-                       <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                       <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/large/icons8_staff_64px.png" />
+                             <Image url="@../images/large/user_large_filled_grey.png" />
                           </image>
                        </ImageView>             
 
@@ -366,9 +366,9 @@
                      </font>
                     <graphic>
 
-                       <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                       <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                             <Image url="@../images/large/icons8_trolley_64px.png" />
+                             <Image url="@../images/large/product_large_filled_grey.png" />
                           </image>
                        </ImageView>             
 
@@ -888,7 +888,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="73.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
