@@ -239,8 +239,8 @@ public class UpdateBuyController implements Initializable,Init {
                         mControl.returnMenu("buys");
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(FXMLS_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(FXMLS_PATH + "buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.setMinHeight(700);
                         stage.setMinWidth(1000);

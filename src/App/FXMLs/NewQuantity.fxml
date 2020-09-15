@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.validation.NumberValidator?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -10,35 +13,23 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="810.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewQuantityController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewQuantityController">
    <children>
-      <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="90.0" prefHeight="320.0" prefWidth="520.0" style="-fx-background-color: white;">
-        <columns>
-            <TableColumn fx:id="idCol" prefWidth="75.0" resizable="false" text="ID" />
-          <TableColumn fx:id="prodCol" prefWidth="146.0" resizable="false" text="المنتوج" />
-          <TableColumn fx:id="priceCol" prefWidth="108.0" resizable="false" text="سعر الشراء" />
-            <TableColumn fx:id="qteCol" prefWidth="85.0" resizable="false" text="الكمية" />
-            <TableColumn fx:id="actionCol" prefWidth="105.0" resizable="false" text="Action" />
-        </columns>
-         <effect>
-            <DropShadow />
-         </effect>
-      </TableView>
-      <Pane prefHeight="47.0" prefWidth="801.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="topBar" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" layoutY="-1.0" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="80.0">
+            <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#logOut" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_left_filled_100px.png" />
+                        <Image url="@../images/medium/icons8_left_3_48px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -46,107 +37,147 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label id="options" fx:id="minimize" focusTraversable="false" layoutX="754.0" layoutY="4.0" prefHeight="40.0" prefWidth="47.0" style="-fx-alignment: center;">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="33.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_minus_48px_2.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Label>
-            <Label contentDisplay="RIGHT" layoutX="351.0" layoutY="10.0" text="شراء جديد" textAlignment="CENTER" textFill="#dddddd">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="شراء جديد" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/buy.png" />
+                        <Image url="@../images/medium/icons8_add_shopping_cart_48px_1.png" />
                      </image>
                   </ImageView>
-               </graphic>         
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="8.0" />
+               </padding>
             </Label>
          </children>
-      </Pane>
-      <BorderPane layoutX="546.0" layoutY="90.0" prefHeight="320.0" prefWidth="250.0">
-         <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: tomato;" text="معلومات الشراء" textFill="#3d4956" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </top>
-         <center>
-            <Pane prefHeight="360.0" prefWidth="250.0" style="-fx-background-color: #eee;" BorderPane.alignment="CENTER">
+      </HBox>
+      <HBox alignment="TOP_RIGHT" layoutX="16.0" layoutY="84.0" prefHeight="490.0" prefWidth="778.0" spacing="16.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="96.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="488.0" prefWidth="800.0" spacing="16.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ChoiceBox fx:id="nameBox" layoutX="25.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #3d4956; -fx-border-width: 0 0 1;">
+                  <TableView fx:id="buysTable" focusTraversable="false" prefHeight="504.0" prefWidth="675.0" style="-fx-background-color: white;">
+                     <columns>
+                        <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="prodCol" maxWidth="500.0" minWidth="150.0" prefWidth="150.0" text="المنتوج" />
+                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="سعر الشراء" />
+                        <TableColumn fx:id="qteCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="الكمية" />
+                        <TableColumn fx:id="actionCol" maxWidth="250.0" minWidth="100.0" prefWidth="150.0" text="حذف" />
+                     </columns>
+                     <effect>
+                        <DropShadow color="#000000b2" height="15.0" radius="7.0" width="15.0" />
+                     </effect>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <HBox alignment="CENTER" prefHeight="156.0" prefWidth="529.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="printBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3d4956;" text="طباعة" textFill="#eeeeee">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_print_32px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <Label fx:id="sum" alignment="CENTER" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="156.0" style="-fx-border-width: 0 0 1; -fx-border-color: #ddd;" text="0 بيع" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Consolas Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="total" alignment="CENTER" focusTraversable="false" layoutX="294.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="156.0" style="-fx-border-width: 0 0 1; -fx-border-color: #ddd;" text="0 دج" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Consolas Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="qte" alignment="CENTER" focusTraversable="false" layoutX="366.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="156.0" style="-fx-border-width: 0 0 1; -fx-border-color: #ddd;" text="0 قطعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Consolas Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="488.0" prefWidth="450.0" spacing="16.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ChoiceBox fx:id="nameBox" maxWidth="300.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ChoiceBox>
-                  <Label fx:id="priceStatus" focusTraversable="false" layoutX="25.0" layoutY="155.0" prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر صالح !" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" layoutX="25.0" layoutY="101.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر الشراء" style="-fx-padding: 0; -fx-background-color: white; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="195.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/price.png" />
-                     </image>
-                  </ImageView>
-                  <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" layoutX="25.0" layoutY="187.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: white; -fx-text-fill: #3d4956;" unFocusColor="#3d4956">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="195.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_pie_128px.png" />
-                     </image>
-                  </ImageView>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                     <children>
+                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXTextField>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                     <children>
+                        <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر الشراء" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXTextField>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_price_tag_48px.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="addQteBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_add_48px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="16.0" />
+                     </VBox.margin>
+                  </JFXButton>
                </children>
-            </Pane>
-         </center>
-         <effect>
-            <DropShadow />
-         </effect>
-      </BorderPane>
-      <JFXButton fx:id="addQteBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="598.0" layoutY="429.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/icons8_add_48px.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="printBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" layoutX="202.0" layoutY="429.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #eee;" text="طباعة" textFill="#3d4956">
-         <graphic>
-            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/icons8_print_48px.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
+               <padding>
+                  <Insets top="16.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <StackPane fx:id="stackPane" layoutX="-80.0" layoutY="69.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+         <children>
+            <JFXDialog fx:id="dialog" />
+         </children>
+      </StackPane>
+      <NumberValidator layoutX="346.0" layoutY="76.0" />
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />
       <URL value="@../Layout/custom.css" />
    </stylesheets>
    <effect>
-      <InnerShadow height="15.0" radius="7.0" width="15.0" />
+      <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
    </effect>
 </AnchorPane>

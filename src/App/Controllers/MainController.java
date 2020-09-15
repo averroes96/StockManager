@@ -139,14 +139,23 @@ public class MainController implements Initializable,Init {
             dialog.close();
             stackPane.setVisible(false);
             yesBtn.setDefaultButton(false);
-            if("employer".equals(type))
-                deleteEmployer((Employer) object);
-            else if("buy".equals(type))
-                deleteBuy((Buy) object);
-            else if("sell".equals(type))
-                deleteSell((Sell) object);
-            else if("product".equals(type))
-                deleteProduct();
+            if(null != type)
+                switch (type) {
+                case "employer":
+                    deleteEmployer((Employer) object);
+                    break;
+                case "buy":
+                    deleteBuy((Buy) object);
+                    break;
+                case "sell":
+                    deleteSell((Sell) object);
+                    break;
+                case "product":
+                    deleteProduct();
+                    break;
+                default:
+                    break;
+            }
         });
         JFXButton noBtn = new JFXButton("لا");
         noBtn.setCancelButton(true);
@@ -1257,7 +1266,7 @@ public class MainController implements Initializable,Init {
     (final TableColumn<Sell, String> param) -> {
         final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
             
-            final Button update = new Button("تعديل");
+            final Button update = new Button();
             
             @Override
             public void updateItem(String item, boolean empty) {
@@ -1267,6 +1276,7 @@ public class MainController implements Initializable,Init {
                     setText(null);
                 } 
                 else {
+                    update.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/edit_small_white.png", 24, 24, false, false)));
                     update.setOnAction(event -> {
                        
                             Sell sell = getTableView().getItems().get(getIndex());
@@ -1297,7 +1307,7 @@ public class MainController implements Initializable,Init {
                                 exceptionLayout(ex);
                             }
                     });
-                    update.setStyle("-fx-background-color : green; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                    update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(update);
                     setText(null);               
                     
@@ -1325,6 +1335,7 @@ public class MainController implements Initializable,Init {
                     setGraphic(null);
                     setText(null);
                 } else {
+                    delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
                     delete.setOnAction(event -> {
                         Sell sell = getTableView().getItems().get(getIndex());
                         confirmDialog(sell, "sell", DELETE, ARE_U_SURE, INFO_SMALL);
@@ -1456,8 +1467,6 @@ public class MainController implements Initializable,Init {
 
                 Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
                 confirmDialog(employer, "employer", DELETE + " " + employer.getFullname(), ARE_U_SURE, INFO_SMALL);
-                
-
 
         });
         
@@ -1529,7 +1538,7 @@ public class MainController implements Initializable,Init {
     (final TableColumn<Buy, String> param) -> {
         final TableCell<Buy, String> cell = new TableCell<Buy, String>() {
             
-            final Button update = new Button("تعديل");
+            final Button update = new Button();
             
             @Override
             public void updateItem(String item, boolean empty) {
@@ -1538,6 +1547,7 @@ public class MainController implements Initializable,Init {
                     setGraphic(null);
                     setText(null);
                 } else {
+                    update.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/edit_small_white.png", 24, 24, false, false)));
                     update.setOnAction(event -> {
                         Buy buy = getTableView().getItems().get(getIndex());
             try {
@@ -1560,7 +1570,7 @@ public class MainController implements Initializable,Init {
                 exceptionLayout(ex);
             }                        
                     });
-                    update.setStyle("-fx-background-color : green; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                    update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(update);
                     setText(null);               
                     
@@ -1579,7 +1589,7 @@ public class MainController implements Initializable,Init {
     (final TableColumn<Buy, String> param) -> {
         final TableCell<Buy, String> cell = new TableCell<Buy, String>() {
             
-            final Button delete = new Button("حذف");
+            final Button delete = new Button();
             
             @Override
             public void updateItem(String item, boolean empty) {
@@ -1588,6 +1598,7 @@ public class MainController implements Initializable,Init {
                     setGraphic(null);
                     setText(null);
                 } else {
+                    delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
                     delete.setOnAction(event -> {
                         Buy buy = getTableView().getItems().get(getIndex());
                         confirmDialog(buys, "buy", DELETE, ARE_U_SURE, INFO_SMALL);
@@ -1753,10 +1764,10 @@ public class MainController implements Initializable,Init {
             
             Thread th = new Thread(() -> {
             
-            jr.ShowReport("productsReport","");
-            dialog.close();
-            stackPane.setVisible(false);
-            
+                jr.ShowReport("productsReport","");
+                dialog.close();
+                stackPane.setVisible(false);
+
             });
             
             th.start();
@@ -1822,9 +1833,7 @@ public class MainController implements Initializable,Init {
             th.start();
                       
         });
-        
-        handleMenuButtons();
-        
+                
         updateMenuButtons();
        
     }
@@ -1913,8 +1922,6 @@ public class MainController implements Initializable,Init {
     }
     
     public void updateMenuButtons(){
-        
-        System.out.println("OK");
         
         if(products.isVisible()){
              btn_products.setGraphic(new ImageView(new Image(

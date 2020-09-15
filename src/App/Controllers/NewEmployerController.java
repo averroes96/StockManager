@@ -8,6 +8,7 @@ package App.Controllers;
 import Data.Employer;
 import Include.Common;
 import static Include.Common.AnimateField;
+import static Include.Common.animateBtn;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import static Include.Common.saveSelectedImage;
@@ -15,9 +16,7 @@ import Include.Init;
 import static Include.Init.ERROR_SMALL;
 import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
-import animatefx.animation.AnimationFX;
 import animatefx.animation.BounceIn;
-import animatefx.animation.Shake;
 import animatefx.animation.Tada;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -395,15 +394,7 @@ public class NewEmployerController implements Initializable,Init {
         AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
         AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
         
-        AnimationFX saveBtnAnim = new Shake(save);
-        
-
-        save.setOnMouseEntered(value -> {
-            saveBtnAnim.play();
-        });
-        save.setOnMouseExited(value -> {
-            saveBtnAnim.stop();
-        });  
+        animateBtn(save);
         
     }    
     

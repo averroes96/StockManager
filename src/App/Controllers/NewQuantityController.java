@@ -7,22 +7,31 @@ package App.Controllers;
 
 import Data.Buy;
 import Data.Employer;
-import static Include.Common.AnimateField;
+import static Include.Common.animateBtn;
 import static Include.Common.getConnection;
 import static Include.Common.getProductByName;
-import static Include.Common.minimize;
+import static Include.Common.initLayout;
 import Include.Init;
+import static Include.Init.BUY_DELETED;
+import static Include.Init.BUY_DELETED_MSG;
 import static Include.Init.CONNECTION_ERROR;
 import static Include.Init.CONNECTION_ERROR_MESSAGE;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.IMAGES_PATH;
 import static Include.Init.INVALID_QTE;
 import static Include.Init.INVALID_QTE_MSG;
+import static Include.Init.OKAY;
 import static Include.Init.SELL_ADDED;
 import static Include.Init.SELL_ADDED_MESSAGE;
 import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
 import JR.JasperReporter;
+import animatefx.animation.Pulse;
+import animatefx.animation.SlideInDown;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -40,7 +49,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -48,7 +56,11 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -67,20 +79,53 @@ public class NewQuantityController implements Initializable,Init {
     @FXML Button cancel;
     @FXML JFXButton addQteBtn,printBtn;
     @FXML ChoiceBox<String> nameBox;
-    @FXML Label minimize,priceStatus;
+    @FXML Label sum, total, qte;
     @FXML JFXTextField qteField,priceField;
-    
+    @FXML private StackPane stackPane;
+    @FXML private JFXDialog dialog;
+    @FXML private HBox topBar;
+    @FXML private NumberValidator validator;
     private Employer employer = new Employer();
     
     private final ObservableList<Buy> buysList = FXCollections.observableArrayList();  
     
     ObservableList<String> nameList = FXCollections.observableArrayList();
     
-    SpecialAlert alert = new SpecialAlert();
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        addQteBtn.setDefaultButton(false);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+            addQteBtn.setDefaultButton(true);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
     
-    private final double xOffset = 0;
-    private final double yOffset = 0;     
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
 
+    public void customDialog(String title, String body, String icon, boolean btnIncluded){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, title, body, icon);
+            
+            loadDialog(layout, btnIncluded);
+    }
+        
     public void getEmployer(Employer employer){
         
         this.employer = employer; 
@@ -108,9 +153,7 @@ public class NewQuantityController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
+            exceptionLayout(e);
         } 
         
     }
@@ -124,7 +167,7 @@ public class NewQuantityController implements Initializable,Init {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
+                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true);
                     }
                     PreparedStatement ps;
                     ps = con.prepareStatement("INSERT INTO buy(buy_qte, buy_unit_price, buy_price, buy_date, user_id, prod_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -147,7 +190,7 @@ public class NewQuantityController implements Initializable,Init {
                             insertedBuyID = generatedKeys.getInt(1) ;
                         }
                         else {
-                            alert.show(UNKNOWN_ERROR,"Creating key failed, no ID obtained.",Alert.AlertType.ERROR,true);
+                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL, true);
                         }
                     }
                     ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity + ?, nbrBuys = nbrBuys + 1 WHERE prod_id = ?");
@@ -167,18 +210,36 @@ public class NewQuantityController implements Initializable,Init {
                 
                 buysTable.refresh();
                 
-                resetWindow();                
+                updateReport();
                 
-                alert.show(SELL_ADDED, SELL_ADDED_MESSAGE, Alert.AlertType.INFORMATION,false);               
+                resetWindow();
 
+                new Pulse(buysTable).play();
+                
+                customDialog(SELL_ADDED, SELL_ADDED_MESSAGE, INFO_SMALL, true);
 
             }
             catch (NumberFormatException | SQLException e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e);
             }
         }
 
-    }     
+    }
+    
+    public void updateReport(){
+        
+                int sumTemp = 0,totalTemp = 0,qteTemp = 0;
+                
+                for(Buy buy : buysTable.getItems()){
+                    sumTemp++;
+                    totalTemp += buy.getBuyPrice();
+                    qteTemp += buy.getBuyQte();
+                }
+                
+                sum.setText(sumTemp + " بيع");
+                total.setText(totalTemp + " دج");
+                qte.setText(qteTemp + " قطعة");        
+    }
     
     
     public void logOut(ActionEvent event) throws IOException {
@@ -215,7 +276,7 @@ public class NewQuantityController implements Initializable,Init {
     (final TableColumn<Buy, String> param) -> {
         final TableCell<Buy, String> cell = new TableCell<Buy, String>() {
             
-            final Button delete = new Button("حذف");
+            final Button delete = new Button();
             
             @Override
             public void updateItem(String item, boolean empty) {
@@ -227,7 +288,9 @@ public class NewQuantityController implements Initializable,Init {
                     delete.setOnAction(event -> {
                         Buy buy = getTableView().getItems().get(getIndex());
                         deleteBuy(buy);
+                        new Pulse(buysTable).play();
                     });
+                    delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
                     delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(delete);
                     setText(null);               
@@ -236,38 +299,39 @@ public class NewQuantityController implements Initializable,Init {
             }
 
             private void deleteBuy(Buy buy) {
-        try {
+                try {
 
-            try (Connection con = getConnection()) {
-                String query = "DELETE FROM buy WHERE buy_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, buy.getBuyID());
-                
-                ps.executeUpdate();
-                
-                query = "UPDATE product SET prod_quantity = prod_quantity - ?, nbrBuys = nbrBuys - 1 WHERE prod_id = ?";
-                
-                ps = con.prepareStatement(query);
-                
-                ps.setInt(2, getProductByName(buy.getProduct()).getProdID());
-                ps.setInt(1, buy.getBuyQte());
-                
-                ps.executeUpdate();
-            }
+                    try (Connection con = getConnection()) {
+                        String query = "DELETE FROM buy WHERE buy_id = ?";
 
-            buysList.remove(buy);
-            
-            buysTable.refresh();
-                       
-            
-            alert.show(BUY_DELETED, BUY_DELETED_MSG, Alert.AlertType.INFORMATION,false);
-            
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-        }            }
+                        PreparedStatement ps = con.prepareStatement(query);
+
+                        ps.setInt(1, buy.getBuyID());
+
+                        ps.executeUpdate();
+
+                        query = "UPDATE product SET prod_quantity = prod_quantity - ?, nbrBuys = nbrBuys - 1 WHERE prod_id = ?";
+
+                        ps = con.prepareStatement(query);
+
+                        ps.setInt(2, getProductByName(buy.getProduct()).getProdID());
+                        ps.setInt(1, buy.getBuyQte());
+
+                        ps.executeUpdate();
+                    }
+
+                    buysList.remove(buy);
+
+                    buysTable.refresh();
+                    
+                    updateReport();
+                    
+                    customDialog(BUY_DELETED, BUY_DELETED_MSG, INFO_SMALL, true);
+                }
+                catch (SQLException e) {
+                    exceptionLayout(e);
+                }            
+                    }
         };
         return cell;
     }; 
@@ -291,43 +355,74 @@ public class NewQuantityController implements Initializable,Init {
         printBtn.disableProperty().bind(Bindings.size(buysTable.getItems()).isEqualTo(0));
         
         printBtn.setOnAction(Action ->{
-            String selectedBuys = "";
             
-            selectedBuys = buysTable.getItems().stream().map((buy) ->  buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
-            selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
-            JasperReporter jr = new JasperReporter();
-            jr.params.put("selectedBuys", selectedBuys);                        
-            jr.ShowReport("buy","");          
-        
+            onJasperReportLoading();
+            
+            Thread th = new Thread(() -> {
+            
+                String selectedBuys = "";
+
+                selectedBuys = buysTable.getItems().stream().map((buy) ->  buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
+                selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
+                jr.params.put("selectedBuys", selectedBuys);                        
+                jr.ShowReport("buy","");     
+                dialog.close();
+                stackPane.setVisible(false);
+
+            });
+            
+            th.start();
+
         });
         
-        AnimateField(priceField,priceStatus,"^[1-9]?[0-9]{1,7}$");
+        new SlideInDown(topBar).play();
         
-        minimize.setOnMouseClicked(Action ->{
-        
-            minimize(Action);
-        
-        });
-        
-        
+        animateBtn(addQteBtn);
     }    
 
     private boolean checkInputs() {
 
         try {
             Integer.parseInt(qteField.getText());
-            if(Integer.parseInt(qteField.getText()) > 0 )
-            return true;
+            if(Integer.parseInt(qteField.getText()) > 0 ){
+                try {
+                    Integer.parseInt(priceField.getText());
+                    if(Integer.parseInt(priceField.getText()) > 0 )
+                    return true;
+                    else{
+                        customDialog(INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL, true);
+                        return false;
+                    }
+                }
+                catch (NumberFormatException e) {
+                    customDialog(INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL, true);
+                    return false;
+                } 
+            }
             else{
-            alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR,false);
-            return false;
+                customDialog(INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL, true);
+                return false;
             }
         }
         catch (NumberFormatException e) {
-            alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR,false);
+            customDialog(INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL, true);
             return false;
-        }           
+        }
         
+        
+        
+    }
+    
+    JasperReporter jr = new JasperReporter();
+    
+    private void onJasperReportLoading(){
+        
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, PLEASE_WAIT, REPORT_WAIT_MESSAGE, WAIT_SMALL);
+            
+            loadDialog(layout, false);
+            
+            jr = new JasperReporter();
     }
 
     private void resetWindow() {
@@ -335,6 +430,7 @@ public class NewQuantityController implements Initializable,Init {
         nameBox.getSelectionModel().select(0);
         priceField.setText("");
         qteField.setText("");
+        
     }
     
 }

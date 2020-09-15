@@ -14,7 +14,6 @@ import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -22,9 +21,6 @@ import javafx.stage.Stage;
  * @author med
  */
 public class Main extends Application implements Init {
-    
-    private double xOffset = 0;
-    private double yOffset = 0;
 
     private static final int COUNT_LIMIT = 100;
 
@@ -58,16 +54,6 @@ public class Main extends Application implements Init {
         stage.setMinHeight(350);
         stage.setMinWidth(450);        
         stage.show();
-
-        root.setOnMousePressed((MouseEvent event) -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });        
-        
     }
 
     /**
