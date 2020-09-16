@@ -58,3 +58,6 @@ Please give a ⭐️ to this repo
 
 ### Add product view
 ![](interfaces/newproduct_ui.png)
+
+### Add user view
+![](interfaces/newuser_ui.png)
