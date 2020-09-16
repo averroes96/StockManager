@@ -6,10 +6,18 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
+import static Include.Common.initLayout;
 import Include.Init;
-import Include.SpecialAlert;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
+import static Include.Init.UNKNOWN_ERROR;
+import animatefx.animation.ZoomIn;
+import animatefx.animation.ZoomOut;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,14 +33,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class
@@ -49,9 +58,11 @@ public class BuyStatsController implements Initializable,Init {
     @FXML private JFXDatePicker startDate,endDate;
     @FXML private LineChart nbrBuysChart;
     @FXML private BarChart sumBuysChart;
-    @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageBuyLabel,averageQteLabel,averagePriceLabel;
-
-    SpecialAlert alert = new SpecialAlert();
+    @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageBuyLabel,averageQteLabel,averagePriceLabel, interval;
+    @FXML private JFXTextField filterSearch;
+    @FXML private StackPane stackPane, filterPane;
+    @FXML private JFXDialog dialog;
+    @FXML private ImageView filterBtn;
 
     ObservableList<Buy> buysList = FXCollections.observableArrayList();
     ObservableList<String> nameList = getAllProducts(1);
@@ -192,12 +203,63 @@ public class BuyStatsController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
+            exceptionLayout(e);
         }
 
     }
+    
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
+
+    public void customDialog(String title, String body, String icon, boolean btnIncluded){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, title, body, icon);
+            
+            loadDialog(layout, btnIncluded);
+    }
+
+    public static void search(JFXTextField field, ObservableList<Buy> list, TableView table)
+    {
+        
+        String keyword = field.getText();
+        
+        if (keyword.trim().equals("")) {
+            table.setItems(list);
+        }
+        
+        else {
+            ObservableList<Buy> filteredBuys = FXCollections.observableArrayList();
+            list.stream().filter((buy) -> (buy.getProduct().toLowerCase().contains(keyword.toLowerCase()) || buy.getUser().toLowerCase().contains(keyword.toLowerCase()))).forEachOrdered((buy) -> {
+                filteredBuys.add(buy);
+            });
+            table.setItems(filteredBuys);
+        }
+      
+    }    
+        
 
 
     @Override
@@ -227,20 +289,52 @@ public class BuyStatsController implements Initializable,Init {
         getData("الكل",startDate.getEditor().getText(),endDate.getEditor().getText());
 
         search.setOnAction(Action -> {
+            
+            new ZoomOut(filterPane).play();
+            filterPane.setVisible(false);
+            
+            if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+                
+                int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
 
-        if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+                if(endDate.getValue().equals(LocalDate.now())){
+                    switch(interv){
+                        case 7:
+                            interval.setText("مبيعات آخر أسبوع");
+                            break;
+                        case 30:
+                            interval.setText("مبيعات آخر شهر");
+                            break;
+                        case 365:
+                            interval.setText("مبيعات آخر عام");
+                            break;
+                        default:
+                            interval.setText("مبيعات آخر " + interv + " يوم");
+                            break;
+                    }
+                }
+                else{
+                    interval.setText("مبيعات " + startDate.getValue().toString() + "  ____ " + endDate.getValue().toString());
+                }
 
-            buysTable.getItems().clear();
-            getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());
+                buysTable.getItems().clear();
+                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());
 
-        }
-        else {
-
-            alert.show(ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, Alert.AlertType.WARNING,false);
-
-        }
+            }
+            else {
+                customDialog(ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, INFO_SMALL, true);
+            }
 
 
+        });
+        
+        filterSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            search(filterSearch, buysList, buysTable);
+        });
+        
+        filterBtn.setOnMouseClicked(value -> {
+            filterPane.setVisible(true);
+            new ZoomIn(filterPane).play();
         });
     }
 

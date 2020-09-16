@@ -160,7 +160,7 @@
                         </JFXButton>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="242.0" prefWidth="673.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="242.0" prefWidth="673.0" style="-fx-background-color: #eee;" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="selectedSize" prefHeight="37.0" prefWidth="45.0" style="-fx-alignment: center;" textFill="#3d4956">
                            <font>
@@ -298,9 +298,6 @@
                            </children>
                         </VBox>
                      </children>
-                     <effect>
-                        <DropShadow color="#00000099" />
-                     </effect>
                      <padding>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
@@ -708,7 +705,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="74.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>

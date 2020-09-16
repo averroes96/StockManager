@@ -55,7 +55,7 @@ public class Common implements Init {
     final static String datetimeFormat = "yyyy-MM-dd HH:mm:ss" ;
     
     private static double xOffset = 0;
-    private static double yOffset = 0;    
+    private static double yOffset = 0;
     
     public static ObservableList<String> getAllProducts(int all){
         

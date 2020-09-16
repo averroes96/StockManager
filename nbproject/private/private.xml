@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Main.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Layout/custom.css</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Layout/buttons.css</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/NewQuantityController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/UpdateBuyController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/Common.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/BuyStatsController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/FXMLs/Main.fxml</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/MainController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/NewEmployerController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/Init.java</file>
         </group>
     </open-files>
 </project-private>

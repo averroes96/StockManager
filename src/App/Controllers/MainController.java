@@ -1654,8 +1654,6 @@ public class MainController implements Initializable,Init {
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.setResizable(false);
                             stage.showAndWait();
                              
                         } catch (IOException ex) {
@@ -1947,7 +1945,7 @@ public class MainController implements Initializable,Init {
         
         if(buys.isVisible()){
              btn_buys.setGraphic(new ImageView(new Image(
-                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/buy_large_outlined_grey.png"),
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/buy_large_filled_grey.png"),
                 32, 32, true, true))); 
         }
         else{
@@ -1958,7 +1956,7 @@ public class MainController implements Initializable,Init {
         
         if(sells.isVisible()){
              btn_sells.setGraphic(new ImageView(new Image(
-                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/sell_large_outlined_grey.png"),
+                ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/sell_large_filled_grey.png"),
                 32, 32, true, true))); 
         }
         else{

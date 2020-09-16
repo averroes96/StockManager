@@ -57,7 +57,7 @@
                               <Image url="@../images/medium/icons8_product_48px.png" />
                            </image>
                         </ImageView>
-                        <ChoiceBox fx:id="prodField" maxWidth="256.0" prefHeight="42.0" prefWidth="166.0" HBox.hgrow="ALWAYS">
+                        <ChoiceBox fx:id="prodField" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="166.0" HBox.hgrow="ALWAYS">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

@@ -31,7 +31,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.NumberValidator;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -84,7 +83,6 @@ public class NewQuantityController implements Initializable,Init {
     @FXML private StackPane stackPane;
     @FXML private JFXDialog dialog;
     @FXML private HBox topBar;
-    @FXML private NumberValidator validator;
     private Employer employer = new Employer();
     
     private final ObservableList<Buy> buysList = FXCollections.observableArrayList();  
