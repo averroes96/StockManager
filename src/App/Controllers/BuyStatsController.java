@@ -314,7 +314,7 @@ public class BuyStatsController implements Initializable,Init {
                     }
                 }
                 else{
-                    interval.setText("مبيعات " + startDate.getValue().toString() + "  ____ " + endDate.getValue().toString());
+                    interval.setText("مبيعات " + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
                 }
 
                 buysTable.getItems().clear();

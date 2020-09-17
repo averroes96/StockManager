@@ -8,7 +8,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -313,25 +312,26 @@
             <URL value="@../Layout/custom.css" />
          </stylesheets>
       </AnchorPane>
-      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="84.0" prefWidth="950.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="topBar" layoutY="-8.0" prefHeight="80.0" prefWidth="950.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <effect>
+            <DropShadow />
+         </effect>
          <children>
-            <ButtonBar buttonMinWidth="50.0" focusTraversable="false" layoutY="6.0" prefHeight="74.0" prefWidth="994.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <buttons>
-                  <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" text="المبيعات" textFill="#eeeeee">
+            <HBox alignment="CENTER_RIGHT" layoutX="76.0" layoutY="34.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="المبيعات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
-                    <graphic>
-
-                       <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                             <Image url="@../images/large/sell_large_filled_grey.png" />
-                          </image>
-                       </ImageView>             
-
-                    </graphic>                     
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/large/sell_large_filled_grey.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="30.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="307.0" text="المشتريات" textFill="#eeeeee">
+                  <Button id="menu-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="المشتريات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -343,60 +343,58 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="200.0" text="الحسابات" textFill="#eeeeee">
+                  <Button id="menu-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="الحسابات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
-                    <graphic>
-
-                       <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                             <Image url="@../images/large/user_large_filled_grey.png" />
-                          </image>
-                       </ImageView>             
-
-                    </graphic>                     
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/large/user_large_filled_grey.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" onAction="#selectMenu" prefHeight="74.0" prefWidth="200.0" text="المنتوجات" textFill="#eeeeee">
+                  <Button id="menu-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="المنتوجات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
-                    <graphic>
-
-                       <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                             <Image url="@../images/large/product_large_filled_grey.png" />
-                          </image>
-                       </ImageView>             
-
-                    </graphic>                     
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/large/product_large_filled_grey.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="btn_close" maxWidth="50.0" minWidth="0.0" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="50.0" prefWidth="50.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
-                      
-               <graphic>
-                   
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/large/icons8_logout_rounded_up_64px_1.png" />
-                     </image>
-                  </ImageView>             
-                   
-               </graphic>                 
-                      
-                      
-                  </Label>
-               </buttons>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-            </ButtonBar>
-       
-
-       
-         </children>
-         <effect>
-            <DropShadow />
-         </effect></AnchorPane>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="150.0" spacing="8.0">
+                     <children>
+                        <Label layoutX="82.0" layoutY="26.0" onMouseClicked="#selectMenu" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_settings_48px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="btn_close" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_shutdown_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
+         </children></AnchorPane>
       <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="546.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
@@ -705,7 +703,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="74.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>

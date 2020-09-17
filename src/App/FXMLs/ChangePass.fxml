@@ -3,60 +3,116 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="423.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ChangePassController">
+<AnchorPane id="AnchorPane" prefHeight="384.0" prefWidth="423.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ChangePassController">
    <children>
-      <Text fill="#dddddd" layoutX="148.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تغيير كلمة المرور" wrappingWidth="127.564453125">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Text>
-      <JFXButton fx:id="save" contentDisplay="RIGHT" defaultButton="true" layoutX="112.0" layoutY="299.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
-                            <graphic>
-
-                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                     <Image url="@../images/icons8_save_60px.png" />
-                                  </image>
-                               </ImageView>             
-
-                            </graphic>       
-      </JFXButton>
-      <JFXPasswordField fx:id="current" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="87.0" layoutY="96.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة السر الحالية" style="-fx-background-color: #3d4956;" unFocusColor="#dddddd">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXPasswordField fx:id="newPass" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="87.0" layoutY="154.0" prefHeight="40.0" prefWidth="250.0" promptText="كلمة السر الجديدة" style="-fx-background-color: #3d4956;" unFocusColor="#dddddd">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXPasswordField fx:id="repeat" alignment="CENTER_RIGHT" focusColor="TOMATO" layoutX="87.0" layoutY="214.0" prefHeight="40.0" prefWidth="250.0" promptText=" إعادة كلمة السر الجديدة" style="-fx-background-color: #3d4956;" unFocusColor="#dddddd">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </JFXPasswordField>
-      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="305.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/icons8_repeat_52px.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="305.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/icons8_new_48px.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="305.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/password2.png" />
-         </image>
-      </ImageView>
+      <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center;" text="تغيير كلمة المرور" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/medium/icons8_password_reset_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="8.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <VBox alignment="TOP_CENTER" layoutX="32.0" layoutY="94.0" maxWidth="1.7976931348623157E308" prefHeight="136.0" prefWidth="326.0" spacing="8.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
+         <children>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
+               <children>
+                  <JFXPasswordField fx:id="current" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="كلمة السر الحالية" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/small/icons8_forgot_password_24px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <Label fx:id="fullnameStatus" focusTraversable="false" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال إسم كامل صالح !" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
+               <children>
+                  <JFXPasswordField fx:id="newPass" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="كلمة السر الجديدة" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/small/icons8_password_24px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Label fx:id="phoneStatus" focusTraversable="false" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال رقم هاتف صالح !" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
+               <children>
+                  <JFXPasswordField fx:id="repeat" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText=" إعادة كلمة السر الجديدة" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/small/icons8_password_24px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="16.0" />
+               </VBox.margin>
+            </HBox>
+            <JFXButton fx:id="save" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+                                  <graphic>
+      
+                                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                           <Image url="@../images/icons8_save_60px.png" />
+                                        </image>
+                                     </ImageView>             
+      
+                                  </graphic>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>       
+            </JFXButton>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="8.0" />
+         </children>
+      </VBox>
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />

@@ -8,6 +8,7 @@ package App.Controllers;
 import Data.Buy;
 import Data.Employer;
 import static Include.Common.animateBtn;
+import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.getProductByName;
 import static Include.Common.initLayout;
@@ -372,6 +373,9 @@ public class NewQuantityController implements Initializable,Init {
             th.start();
 
         });
+        
+        controlDigitField(priceField);
+        controlDigitField(qteField);
         
         new SlideInDown(topBar).play();
         

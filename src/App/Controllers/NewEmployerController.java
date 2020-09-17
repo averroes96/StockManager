@@ -70,9 +70,7 @@ public class NewEmployerController implements Initializable,Init {
     File selectedFile = null;
     
     public void getEmployer(Employer employer){
-        
         this.employer = employer;
-        
     }
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){

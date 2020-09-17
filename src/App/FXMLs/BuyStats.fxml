@@ -104,7 +104,7 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <Label fx:id="interval" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="256.0" text="&gt; مبيعات آخر 7 أيام" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                        <Label fx:id="interval" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="256.0" text="&gt; مبيعات آخر أسبوع" textFill="#3d4956" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -134,7 +134,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="averageBuyLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="TOMATO">
+                                    <Label fx:id="averageBuyLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="#3d4956">
                                        <font>
                                           <Font name="Consolas Bold" size="24.0" />
                                        </font>
@@ -147,7 +147,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="averageQteLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="TOMATO">
+                                    <Label fx:id="averageQteLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="#3d4956">
                                        <font>
                                           <Font name="Consolas Bold" size="24.0" />
                                        </font>
@@ -160,7 +160,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="averagePriceLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="TOMATO">
+                                    <Label fx:id="averagePriceLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="#3d4956">
                                        <font>
                                           <Font name="Consolas Bold" size="24.0" />
                                        </font>
@@ -177,7 +177,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="idCountLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="249.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="TOMATO">
+                                    <Label fx:id="idCountLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="249.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="#3d4956">
                                        <font>
                                           <Font name="Consolas Bold" size="24.0" />
                                        </font>
@@ -190,7 +190,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="qteCountLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="TOMATO">
+                                    <Label fx:id="qteCountLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="#3d4956">
                                        <font>
                                           <Font name="Consolas Bold" size="24.0" />
                                        </font>
@@ -203,7 +203,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="priceSumLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="TOMATO">
+                                    <Label fx:id="priceSumLabel" alignment="CENTER" focusTraversable="false" prefHeight="60.0" prefWidth="250.0" style="-fx-background-color: #eee; -fx-background-radius: 16;" textFill="#3d4956">
                                        <font>
                                           <Font name="Consolas Bold" size="24.0" />
                                        </font>

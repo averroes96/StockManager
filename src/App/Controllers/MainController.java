@@ -1509,7 +1509,6 @@ public class MainController implements Initializable,Init {
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.setResizable(false);
                             stage.showAndWait();
                              
                         } catch (IOException ex) {

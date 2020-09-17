@@ -31,6 +31,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -56,6 +57,18 @@ public class Common implements Init {
     
     private static double xOffset = 0;
     private static double yOffset = 0;
+    
+    public static void controlDigitField(TextField field){
+        field.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                Integer.parseInt(newValue);
+            }
+            catch(NumberFormatException e){
+                if(!newValue.isEmpty())
+                    field.setText(newValue.substring(0, newValue.length() - 1));
+            }
+        });
+    }
     
     public static ObservableList<String> getAllProducts(int all){
         

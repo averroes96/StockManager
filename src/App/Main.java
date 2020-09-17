@@ -9,6 +9,7 @@ import App.Preloader.MyPreLoader;
 import Include.Init;
 import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
@@ -22,28 +23,31 @@ import javafx.stage.Stage;
  */
 public class Main extends Application implements Init {
 
-    private static final int COUNT_LIMIT = 100;
-
     @Override
-    public void init() {
-        // load all (database start, check update for application, ...and more)
-        for(int i = 0; i < COUNT_LIMIT; i++) {
-            double progress = (double)i/100;
-            LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
-            try {Thread.sleep(20);} catch(InterruptedException e) {e.printStackTrace();}
-        }
-    }    
-    
-    @Override
-    public void start(Stage stage) throws Exception {
+    public void init() throws IOException {
+        
+        LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(0));
         
         Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqld.exe");
+        
+        LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(50));
         
         File directory = new File(UPLOADED_FILE_PATH);
         
         if(!directory.exists()){
             directory.mkdir();
         }
+
+        LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(100));
+        // load all (database start, check update for application, ...and more)
+    }    
+    
+    @Override
+    public void start(Stage stage) throws Exception {
+        
+        
+        init();
+        
         Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
         
         Scene scene = new Scene(root);

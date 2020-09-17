@@ -116,6 +116,8 @@ public interface Init {
     
     String LAST_ADMIN_MSG = "لا يمكن حذف هذا الحساب لأنه حساب الأدمن الوحيد المتبقي" ;
     
+    String LAST_ADMIN_MSG_2 = "لا يمكن أخذ صلاحيات الأدمن من هذا الحساب لأنه الأدمن الوحيد المتبقي";
+    
     String UNVALID_NAME = "إسم غير صالح" ;
     
     String UNVALID_NAME_MSG = "من فضلك قم بإدخال إسم صالح";
