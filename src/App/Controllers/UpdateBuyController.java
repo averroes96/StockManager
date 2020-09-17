@@ -8,25 +8,15 @@ package App.Controllers;
 import Data.Buy;
 import Data.Employer;
 import Data.Product;
+import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
 import static Include.Common.getProductByName;
-import static Include.Common.minimize;
+import Include.DialogMethods;
 import Include.Init;
-import static Include.Init.CONNECTION_ERROR;
-import static Include.Init.CONNECTION_ERROR_MESSAGE;
-import static Include.Init.INVALID_PRICE;
-import static Include.Init.INVALID_PRICE_MSG;
-import static Include.Init.INVALID_QTE;
-import static Include.Init.INVALID_QTE_MSG;
-import static Include.Init.MISSING_FIELDS;
-import static Include.Init.MISSING_FIELDS_MSG;
-import static Include.Init.SELL_UPDATED;
-import static Include.Init.SELL_UPDATED_MSG;
-import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
+import animatefx.animation.Swing;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -46,7 +36,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -58,18 +47,17 @@ import javafx.stage.Stage;
  *
  * @author user
  */
-public class UpdateBuyController implements Initializable,Init {
+public class UpdateBuyController extends DialogMethods implements Initializable,Init {
 
     @FXML private JFXButton saveButton;
-    @FXML private Button cancelButton;
+    @FXML private Button returnBtn;
     @FXML private JFXTextField price,quantity;
     @FXML private JFXDatePicker date;
-    @FXML private Label minimize,priceStatus,qteStatus;
+    @FXML private Label priceStatus,qteStatus;
     @FXML private ChoiceBox nameBox;    
     
     private Employer employer = new Employer();
     private Buy buy = new Buy();
-    SpecialAlert alert = new SpecialAlert();
     
     ObservableList<String> nameList = FXCollections.observableArrayList();
 
@@ -95,9 +83,7 @@ public class UpdateBuyController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
+            exceptionLayout(e, saveButton);
         } 
         
     }      
@@ -121,10 +107,11 @@ public class UpdateBuyController implements Initializable,Init {
 
     }
 
-    private boolean checkInputs()
+    @Override
+    public boolean checkInputs()
     {
         if (price.getText().trim().equals("") || quantity.getText().trim().equals("") )  {
-            alert.show(MISSING_FIELDS, MISSING_FIELDS_MSG, Alert.AlertType.WARNING,false);
+            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, INFO_SMALL, true, saveButton);
             return false;
         }
         
@@ -137,21 +124,21 @@ public class UpdateBuyController implements Initializable,Init {
                     return true;                    
                     }
                     else{
-                    alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR,false);
-                    return false;                    
+                        customDialog(INVALID_QTE, INVALID_QTE_MSG, INFO_SMALL, true, saveButton);
+                        return false;                    
                     }
                 }catch (NumberFormatException e) {
-                    alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR,false);
+                    customDialog(INVALID_QTE, INVALID_QTE_MSG, INFO_SMALL, true, saveButton);
                     return false;
                 }
             }
             else{
-            alert.show(INVALID_PRICE, INVALID_PRICE_MSG, Alert.AlertType.ERROR,false);
-            return false;
+                customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, saveButton);
+                return false;
             }
         }
         catch (NumberFormatException e) {
-            alert.show(INVALID_PRICE, INVALID_PRICE_MSG, Alert.AlertType.ERROR,false);
+            customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, saveButton);
             return false;
         }
     }
@@ -163,7 +150,7 @@ public class UpdateBuyController implements Initializable,Init {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
+                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, INFO_SMALL, true, saveButton);
                     }
                     
                     PreparedStatement ps;
@@ -201,9 +188,7 @@ public class UpdateBuyController implements Initializable,Init {
                         ps.executeUpdate();                         
                     }
                 }
-
-                alert.show(SELL_UPDATED, SELL_UPDATED_MSG, Alert.AlertType.INFORMATION,false);
-                
+                customDialog(SELL_UPDATED, SELL_UPDATED_MSG, INFO_SMALL, true, saveButton);                
 
                         Stage stage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
@@ -222,7 +207,7 @@ public class UpdateBuyController implements Initializable,Init {
                 
             }
             catch (IOException | NumberFormatException | SQLException e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e, saveButton);
             }
         }        
         
@@ -256,21 +241,30 @@ public class UpdateBuyController implements Initializable,Init {
         nameBox.setItems(nameList);
         
         date.setConverter(dateFormatter());
-        
-        minimize.setOnMouseClicked(Action -> {
-        
-            minimize(Action);
-            
-        });
-        
+
         saveButton.setOnAction(Action ->{
             
             updateBuy(Action);
             
         });
+        
+        returnBtn.setOnAction(value -> {
+            try {
+                logOut(value);
+            } catch (IOException ex) {
+                exceptionLayout(ex, saveButton);
+            }
+        });
 
         AnimateField(price,priceStatus,"^[1-9]?[0-9]{1,7}$");
-        AnimateField(quantity,qteStatus,"^[1-9]?[0-9]{1,7}$");        
+        AnimateField(quantity,qteStatus,"^[1-9]?[0-9]{1,7}$");
+
+        date.setOnAction(value -> {
+            new Swing(date).play();
+        });
+        
+        Common.controlDigitField(price);
+        Common.controlDigitField(quantity);
     }    
     
 }

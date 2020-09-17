@@ -7,17 +7,12 @@ import static Include.Common.AnimateField;
 import static Include.Common.adminsCount;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
-import static Include.Common.initLayout;
 import static Include.Common.setDraggable;
 import Include.DialogMethods;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
@@ -39,7 +34,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -57,8 +51,6 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
     @FXML JFXButton save;
     @FXML VBox privs;
     @FXML JFXToggleButton admin ;
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
     
     String currentImage = "";
     Employer employer = new Employer();
@@ -66,44 +58,6 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
     Employer selectedEmployer = new Employer();
     
     File selectedFile = null;
-    
-    @Override
-    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
-        
-        stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
-        btn.setDefaultButton(true);
-        save.setDefaultButton(false);
-        btn.setOnAction(Action -> {
-            dialog.close();
-            stackPane.setVisible(false);
-            btn.setDefaultButton(false);
-            save.setDefaultButton(true);
-        });
-        if(btnIncluded){
-            layout.setActions(btn);
-        }    
-        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
-        dialog.setOverlayClose(false);
-        dialog.show();
-        
-    }
-    
-    @Override
-    public void exceptionLayout(Exception e){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-    }
-
-    @Override
-    public void customDialog(String title, String body, String icon, boolean btnIncluded){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, title, body, icon);
-            
-            loadDialog(layout, btnIncluded);
-    }
    
 
     public void getInfo(Employer employer, Employer selected){
@@ -183,24 +137,25 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
 
             }
             catch (Exception ex) {
-                exceptionLayout(ex);
+                exceptionLayout(ex, save);
             }
         }
 
     }
     
-    private boolean checkInputs()
+    @Override
+    public boolean checkInputs()
     {
         if (fullname.getText().trim().equals("")){
-            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL, true);
+            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL, true, save);
             return false;
         }
         else if(!fullname.getText().matches("^[\\p{L} .'-]+$")){
-            customDialog(UNVALID_NAME, UNVALID_NAME_MSG, ERROR_SMALL, true);
+            customDialog(UNVALID_NAME, UNVALID_NAME_MSG, ERROR_SMALL, true, save);
             return false;              
         }
         else if(!phone.getText().trim().matches("^[5-7]?[0-9]{10}$") && !phone.getText().equals("")){
-            customDialog(UNVALID_PHONE, UNVALID_PHONE_MSG, ERROR_SMALL, true);
+            customDialog(UNVALID_PHONE, UNVALID_PHONE_MSG, ERROR_SMALL, true, save);
             return false;              
         }        
        
@@ -211,14 +166,14 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
 
         if (checkInputs()) {
             if(!admin.isSelected() && adminsCount() == 1 && selectedEmployer.getAdmin() == 1){
-                customDialog(LAST_ADMIN, LAST_ADMIN_MSG, INFO_SMALL, true);                
+                customDialog(LAST_ADMIN, LAST_ADMIN_MSG, INFO_SMALL, true, save);                
             }
             else{
                 try {
 
                     try (Connection con = getConnection()) {
                         if(con == null) {
-                            customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true); 
+                            customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true, save); 
                         }
 
                         PreparedStatement ps;
@@ -271,7 +226,7 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
                         Common.deleteImage(currentImage);
                     }
 
-                    customDialog(EMPLOYER_UPDATED, EMPLOYER_UPDATED_MSG, INFO_SMALL, true);                
+                    customDialog(EMPLOYER_UPDATED, EMPLOYER_UPDATED_MSG, INFO_SMALL, true, save);                
 
                             Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
@@ -299,7 +254,7 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
 
                 }
                 catch (IOException | NumberFormatException | SQLException e) {
-                    exceptionLayout(e);
+                    exceptionLayout(e, save);
                 }
             }
 
@@ -369,7 +324,7 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
                 stage.show();
                 setDraggable(root, stage);
             } catch (IOException ex) {
-                exceptionLayout(ex);
+                exceptionLayout(ex, save);
             }
         });
         
