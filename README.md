@@ -58,6 +58,7 @@ This is JavaFX inventory manager app - IN ARABIC -
 ### Add user view
 ![](interfaces/newuser_ui.png)
 
+-------------------------------------------------------------------------------------------------------------------
 
 ### If you like it
 Please give a ⭐️ to this repo
