@@ -31,10 +31,6 @@ This is JavaFX inventory manager app - IN ARABIC -
 - [JasperReports](https://sourceforge.net/projects/jasperreports/)
 - [AnimateFX](https://github.com/Typhon0/AnimateFX)
 
-### If you like it
-Please give a ⭐️ to this repo
-
-
 ## Admin login : 
   - Username : admin
   - Password : admin
@@ -53,11 +49,15 @@ Please give a ⭐️ to this repo
 ### Users view
 ![](interfaces/users_ui.png)
 
-### Sells view
-![](interfaces/sells_ui.png)
+### Buys view
+![](interfaces/buys_ui.png)
 
 ### Add product view
 ![](interfaces/newproduct_ui.png)
 
 ### Add user view
 ![](interfaces/newuser_ui.png)
+
+
+### If you like it
+Please give a ⭐️ to this repo
