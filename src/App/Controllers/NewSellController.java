@@ -8,19 +8,20 @@ package App.Controllers;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
-import static Include.Common.AnimateField;
+import static Include.Common.animateBtn;
+import static Include.Common.controlDigitField;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.getPrice;
 import static Include.Common.getProductByName;
 import static Include.Common.getQuantity;
-import static Include.Common.minimize;
+import static Include.Common.initLayout;
 import Include.CommonMethods;
+import Include.GDPController;
 import Include.Init;
-import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
 import JR.JasperReporter;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +40,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -47,6 +47,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -56,27 +58,22 @@ import javafx.util.Callback;
  *
  * @author med
  */
-public class NewSellController implements Initializable,Init,CommonMethods {
+public class NewSellController extends GDPController implements Initializable,Init,CommonMethods {
     
     
     @FXML private TableView<Sell> sellsTable ;
-    @FXML private TableColumn<Sell,Integer> idCol,priceCol,quantityCol,totalCol;
-    @FXML private TableColumn<Sell,Integer> prodCol;
+    @FXML private TableColumn<Sell,Integer> idCol,priceCol,qteCol;
+    @FXML private TableColumn<Sell,String> prodCol;
     @FXML private TableColumn actionCol ;    
     @FXML private JFXTextField priceField,qteField;
-    @FXML private Label minimize,priceStatus;
+    @FXML private Label priceStatus;
     @FXML private JFXButton addSell,deleteAll,printBtn;
     @FXML private ChoiceBox nameBox;
+    @FXML private Button cancel;
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     
-    private final ObservableList<String> nameList = getAllProducts(0);
-    
-    private final SpecialAlert alert = new SpecialAlert();
-        
-    private Employer employer = new Employer();       
-      
-        
+    private final ObservableList<String> nameList = getAllProducts(0);        
 
     public void getEmployer(Employer employer){
         
@@ -88,8 +85,8 @@ public class NewSellController implements Initializable,Init,CommonMethods {
     public boolean checkInputs()
     {
                 
-        if (priceField.getText().trim().equals("") || qteField.getText().trim().equals("") )  {
-            alert.show("حقول إدخال فارغة", "من فضلك قم بتحديد كمية وسعر المنتوج قبل إضافة البيع", Alert.AlertType.WARNING,false);
+        if (priceField.getText().trim().equals("") || qteField.getText().trim().equals("") ){
+            customDialog(MISSING_FIELDS, MISSING_FIELDS, INFO_SMALL, true, addSell);
             return false;
         }
             if(qteField.getText().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(qteField.getText()) > 0){
@@ -97,18 +94,18 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                     if(priceField.getText().trim().matches("^[1-9]?[0-9]{1,7}$"))
                     return true;
                     else{
-                    alert.show(INVALID_PRICE, INVALID_PRICE_MSG, Alert.AlertType.ERROR,false);
-                    return false;
+                        customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, addSell);
+                        return false;
                     }                     
                 }
                 else{
-                    alert.show(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, Alert.AlertType.WARNING,false);
+                    customDialog(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, INFO_SMALL, true, addSell);
                     return false;                    
                 }
               
             }
             else{
-                alert.show(INVALID_QTE, INVALID_QTE_MSG, Alert.AlertType.ERROR,false);
+                customDialog(INVALID_QTE, INVALID_QTE_MSG, INFO_SMALL, true, addSell);
                 return false;                
             }        
     }
@@ -130,7 +127,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                 Product product = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
+                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, INFO_SMALL, true, addSell);
                     }
                     PreparedStatement ps;
                     ps = con.prepareStatement("INSERT INTO sell(sell_price_unit, sell_price, sell_quantity, sell_date, prod_id, user_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -152,7 +149,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                             insertedSellID = generatedKeys.getInt(1) ;
                         }
                         else {
-                            alert.show(UNKNOWN_ERROR,"Creating key failed, no ID obtained.",Alert.AlertType.ERROR,true);
+                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", INFO_SMALL, true, addSell);
                         }
                     }
                     ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity - ?, nbrSells = nbrSells + 1 WHERE prod_id = ?");
@@ -176,12 +173,11 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                 
                 resetWindow();                
                 
-                alert.show(SELL_ADDED, SELL_ADDED_MESSAGE, Alert.AlertType.INFORMATION,false);               
-
+                customDialog(SELL_ADDED, SELL_ADDED_MESSAGE, INFO_SMALL, true, addSell);
 
             }
             catch (NumberFormatException | SQLException e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e, addSell);
             }
         }
 
@@ -238,12 +234,24 @@ public class NewSellController implements Initializable,Init,CommonMethods {
 
             resetWindow();
             
-            alert.show(SELL_DELETED, SELL_DELETED_MESSAGE, Alert.AlertType.INFORMATION,false);
+            customDialog(SELL_DELETED, SELL_DELETED_MESSAGE, INFO_SMALL, true, addSell);
             
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e, addSell);
         }
+    }
+
+    JasperReporter jr = new JasperReporter();
+    
+    private void onJasperReportLoading(){
+        
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, PLEASE_WAIT, REPORT_WAIT_MESSAGE, WAIT_SMALL);
+            
+            loadDialog(layout, false , addSell);
+            
+            jr = new JasperReporter();
     }    
     
     @Override
@@ -251,9 +259,8 @@ public class NewSellController implements Initializable,Init,CommonMethods {
         
         idCol.setCellValueFactory(new PropertyValueFactory<>("sellID"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        totalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
+        qteCol.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
         actionCol.setCellValueFactory(new PropertyValueFactory<>("sellActions"));       
                    
         Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory
@@ -261,7 +268,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
     (final TableColumn<Sell, String> param) -> {
         final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
             
-            final Button delete = new Button("حذف");
+            final Button delete = new Button();
             
             @Override
             public void updateItem(String item, boolean empty) {
@@ -274,6 +281,7 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                         Sell sell = getTableView().getItems().get(getIndex());
                         deleteSell(sell);
                     });
+                    delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
                     delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                     setGraphic(delete);
                     setText(null);               
@@ -294,12 +302,6 @@ public class NewSellController implements Initializable,Init,CommonMethods {
             insertSell();
         });
         
-        minimize.setOnMouseClicked(Action -> {
-        
-            minimize(Action);
-            
-        });
-        
         sellsTable.getSelectionModel().selectFirst();
         
         nameBox.setItems(nameList);
@@ -312,38 +314,57 @@ public class NewSellController implements Initializable,Init,CommonMethods {
         nameBox.setOnAction(event -> {
             
             if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
-                alert.show(ZERO_QTE, ZERO_QTE_MSG, Alert.AlertType.WARNING, false);                
+                customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, addSell);
             }
             priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
             qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()))); 
             
         });
-        
-        AnimateField(priceField,priceStatus,"^[1-9]?[0-9]*$");     
-        
+                
         deleteAll.setOnAction(Action ->{
             
             deleteAll();            
-            
-            alert.show(SELL_DELETED, SELL_DELETED_MESSAGE, Alert.AlertType.INFORMATION,false);
-
+            customDialog(SELL_DELETED, SELL_DELETED_MESSAGE, INFO_SMALL, true, addSell);
             sellsList.clear();
-            sellsTable.getItems().clear();            
+            sellsTable.getItems().clear();    
+            
+        });
+        
+        cancel.setOnAction(value -> {
+            try {
+                logOut(value);
+            } catch (IOException ex) {
+                exceptionLayout(ex, addSell);
+            }
         });
         
         deleteAll.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
         printBtn.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
         
         printBtn.setOnAction(Action ->{
-            String selectedSells = "";
             
-            selectedSells = sellsTable.getItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
-            selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
-            JasperReporter jr = new JasperReporter();
-            jr.params.put("selectedSells", selectedSells);                        
-            jr.ShowReport("sellBill","");          
+            
+          onJasperReportLoading();
+            
+            Thread th = new Thread(() -> {
+            
+                String selectedSells = "";
+
+                selectedSells = sellsTable.getItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
+                selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
+                jr.params.put("selectedSells", selectedSells);                        
+                jr.ShowReport("sellBill","");
+                dialog.close();
+                stackPane.setVisible(false);
+            });
+            
+            th.start();          
         
         });
+        
+        controlDigitField(priceField);
+        
+        animateBtn(addSell);
         
     }    
 
@@ -375,15 +396,16 @@ public class NewSellController implements Initializable,Init,CommonMethods {
                 ps.setInt(1, selectedSell.getSellQuantity());
                 
                 ps.executeUpdate();
+                
             }
             
         }
         }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+        catch (SQLException e){
+            exceptionLayout(e, addSell);
         }
         
-       
+       resetWindow();
     }
 
 

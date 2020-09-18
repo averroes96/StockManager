@@ -12,6 +12,7 @@ import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.getProductByName;
 import static Include.Common.initLayout;
+import Include.GDPController;
 import Include.Init;
 import static Include.Init.BUY_DELETED;
 import static Include.Init.BUY_DELETED_MSG;
@@ -21,7 +22,6 @@ import static Include.Init.ERROR_SMALL;
 import static Include.Init.IMAGES_PATH;
 import static Include.Init.INVALID_QTE;
 import static Include.Init.INVALID_QTE_MSG;
-import static Include.Init.OKAY;
 import static Include.Init.SELL_ADDED;
 import static Include.Init.SELL_ADDED_MESSAGE;
 import static Include.Init.UNKNOWN_ERROR;
@@ -29,7 +29,6 @@ import JR.JasperReporter;
 import animatefx.animation.Pulse;
 import animatefx.animation.SlideInDown;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -60,7 +59,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -69,7 +67,7 @@ import javafx.util.Callback;
  *
  * @author med
  */
-public class NewQuantityController implements Initializable,Init {
+public class NewQuantityController extends GDPController implements Initializable,Init {
     
     
     @FXML private TableView<Buy> buysTable ;
@@ -81,49 +79,11 @@ public class NewQuantityController implements Initializable,Init {
     @FXML ChoiceBox<String> nameBox;
     @FXML Label sum, total, qte;
     @FXML JFXTextField qteField,priceField;
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
     @FXML private HBox topBar;
-    private Employer employer = new Employer();
     
     private final ObservableList<Buy> buysList = FXCollections.observableArrayList();  
     
     ObservableList<String> nameList = FXCollections.observableArrayList();
-    
-    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
-        
-        stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
-        btn.setDefaultButton(true);
-        addQteBtn.setDefaultButton(false);
-        btn.setOnAction(Action -> {
-            dialog.close();
-            stackPane.setVisible(false);
-            btn.setDefaultButton(false);
-            addQteBtn.setDefaultButton(true);
-        });
-        if(btnIncluded){
-            layout.setActions(btn);
-        }    
-        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
-        dialog.setOverlayClose(false);
-        dialog.show();
-        
-    }
-    
-    public void exceptionLayout(Exception e){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-    }
-
-    public void customDialog(String title, String body, String icon, boolean btnIncluded){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, title, body, icon);
-            
-            loadDialog(layout, btnIncluded);
-    }
         
     public void getEmployer(Employer employer){
         
@@ -152,7 +112,7 @@ public class NewQuantityController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            exceptionLayout(e);
+            exceptionLayout(e, addQteBtn);
         } 
         
     }
@@ -166,7 +126,7 @@ public class NewQuantityController implements Initializable,Init {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true);
+                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true, addQteBtn);
                     }
                     PreparedStatement ps;
                     ps = con.prepareStatement("INSERT INTO buy(buy_qte, buy_unit_price, buy_price, buy_date, user_id, prod_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -189,7 +149,7 @@ public class NewQuantityController implements Initializable,Init {
                             insertedBuyID = generatedKeys.getInt(1) ;
                         }
                         else {
-                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL, true);
+                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL, true, addQteBtn);
                         }
                     }
                     ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity + ?, nbrBuys = nbrBuys + 1 WHERE prod_id = ?");
@@ -215,11 +175,11 @@ public class NewQuantityController implements Initializable,Init {
 
                 new Pulse(buysTable).play();
                 
-                customDialog(SELL_ADDED, SELL_ADDED_MESSAGE, INFO_SMALL, true);
+                customDialog(SELL_ADDED, SELL_ADDED_MESSAGE, INFO_SMALL, true, addQteBtn);
 
             }
             catch (NumberFormatException | SQLException e) {
-                exceptionLayout(e);
+                exceptionLayout(e, addQteBtn);
             }
         }
 
@@ -325,10 +285,10 @@ public class NewQuantityController implements Initializable,Init {
                     
                     updateReport();
                     
-                    customDialog(BUY_DELETED, BUY_DELETED_MSG, INFO_SMALL, true);
+                    customDialog(BUY_DELETED, BUY_DELETED_MSG, INFO_SMALL, true, addQteBtn);
                 }
                 catch (SQLException e) {
-                    exceptionLayout(e);
+                    exceptionLayout(e, addQteBtn);
                 }            
                     }
         };
@@ -382,7 +342,8 @@ public class NewQuantityController implements Initializable,Init {
         animateBtn(addQteBtn);
     }    
 
-    private boolean checkInputs() {
+    @Override
+    public boolean checkInputs() {
 
         try {
             Integer.parseInt(qteField.getText());
@@ -392,22 +353,22 @@ public class NewQuantityController implements Initializable,Init {
                     if(Integer.parseInt(priceField.getText()) > 0 )
                     return true;
                     else{
-                        customDialog(INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL, true);
+                        customDialog(INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL, true, addQteBtn);
                         return false;
                     }
                 }
                 catch (NumberFormatException e) {
-                    customDialog(INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL, true);
+                    customDialog(INVALID_PRICE, INVALID_PRICE_MSG, ERROR_SMALL, true, addQteBtn);
                     return false;
                 } 
             }
             else{
-                customDialog(INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL, true);
+                customDialog(INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL, true, addQteBtn);
                 return false;
             }
         }
         catch (NumberFormatException e) {
-            customDialog(INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL, true);
+            customDialog(INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL, true, addQteBtn);
             return false;
         }
         
@@ -422,7 +383,7 @@ public class NewQuantityController implements Initializable,Init {
             JFXDialogLayout layout = new JFXDialogLayout();
             initLayout(layout, PLEASE_WAIT, REPORT_WAIT_MESSAGE, WAIT_SMALL);
             
-            loadDialog(layout, false);
+            loadDialog(layout, false , null);
             
             jr = new JasperReporter();
     }

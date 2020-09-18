@@ -1326,7 +1326,7 @@ public class MainController implements Initializable,Init {
     (final TableColumn<Sell, String> param) -> {
         final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
             
-            final Button delete = new Button("حذف");
+            final Button delete = new Button();
             
             @Override
             public void updateItem(String item, boolean empty) {

@@ -8,7 +8,7 @@ import static Include.Common.adminsCount;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.setDraggable;
-import Include.DialogMethods;
+import Include.GDPController;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
 import com.jfoenix.controls.JFXButton;
@@ -42,7 +42,7 @@ import javafx.stage.Stage;
  *
  * @author med
  */
-public class UpdateEmployerController extends DialogMethods implements Initializable,Init {
+public class UpdateEmployerController extends GDPController implements Initializable,Init {
 
     @FXML Button cancel;
     @FXML JFXTextField fullname,phone;
@@ -53,7 +53,6 @@ public class UpdateEmployerController extends DialogMethods implements Initializ
     @FXML JFXToggleButton admin ;
     
     String currentImage = "";
-    Employer employer = new Employer();
     
     Employer selectedEmployer = new Employer();
     

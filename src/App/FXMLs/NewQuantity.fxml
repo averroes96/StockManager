@@ -89,7 +89,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <Label fx:id="sum" alignment="CENTER" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="156.0" style="-fx-border-width: 0 0 1; -fx-border-color: #ddd;" text="0 بيع" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                        <Label fx:id="sum" alignment="CENTER" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="156.0" style="-fx-border-width: 0 0 1; -fx-border-color: #ddd;" text="0 شراء" textFill="#3d4956" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Consolas Bold" size="18.0" />
                            </font>

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="384.0" prefWidth="423.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ChangePassController">
    <children>
-      <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="48.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center;" text="تغيير كلمة المرور" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
@@ -35,8 +38,11 @@
                </padding>
             </Label>
          </children>
+         <effect>
+            <DropShadow color="#00000099" height="16.0" radius="7.5" width="16.0" />
+         </effect>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="32.0" layoutY="94.0" maxWidth="1.7976931348623157E308" prefHeight="136.0" prefWidth="326.0" spacing="8.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
+      <VBox alignment="TOP_CENTER" layoutX="32.0" layoutY="87.0" maxWidth="1.7976931348623157E308" prefHeight="283.0" prefWidth="359.0" spacing="8.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
          <children>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
                <children>
@@ -96,7 +102,7 @@
                   <Insets bottom="16.0" />
                </VBox.margin>
             </HBox>
-            <JFXButton fx:id="save" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+            <JFXButton fx:id="save" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
                                   <graphic>
       
                                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -113,6 +119,11 @@
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="8.0" />
          </children>
       </VBox>
+      <StackPane fx:id="stackPane" layoutX="-60.0" layoutY="89.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog fx:id="dialog" />
+         </children>
+      </StackPane>
    </children>
    <stylesheets>
       <URL value="@../Layout/buttons.css" />

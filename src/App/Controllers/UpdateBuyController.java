@@ -14,7 +14,7 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
 import static Include.Common.getProductByName;
-import Include.DialogMethods;
+import Include.GDPController;
 import Include.Init;
 import animatefx.animation.Swing;
 import com.jfoenix.controls.JFXButton;
@@ -47,7 +47,7 @@ import javafx.stage.Stage;
  *
  * @author user
  */
-public class UpdateBuyController extends DialogMethods implements Initializable,Init {
+public class UpdateBuyController extends GDPController implements Initializable,Init {
 
     @FXML private JFXButton saveButton;
     @FXML private Button returnBtn;
@@ -56,7 +56,6 @@ public class UpdateBuyController extends DialogMethods implements Initializable,
     @FXML private Label priceStatus,qteStatus;
     @FXML private ChoiceBox nameBox;    
     
-    private Employer employer = new Employer();
     private Buy buy = new Buy();
     
     ObservableList<String> nameList = FXCollections.observableArrayList();

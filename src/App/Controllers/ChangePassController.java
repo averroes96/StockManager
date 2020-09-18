@@ -7,9 +7,12 @@ package App.Controllers;
 
 import Data.Employer;
 import static Include.Common.getConnection;
+import Include.GDPController;
 import Include.Init;
-import Include.SpecialAlert;
+import static Include.Init.OKAY;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import java.net.URL;
 import java.sql.Connection;
@@ -19,22 +22,44 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
  * @author med
  */
-public class ChangePassController implements Initializable,Init {
+public class ChangePassController extends GDPController implements Initializable,Init {
     @FXML public JFXPasswordField current,newPass,repeat;
     @FXML public JFXButton save;
-    
-    private Employer employer = new Employer();
-    
-    private final SpecialAlert alert = new SpecialAlert();
-    
+            
     public void getEmployer(Employer emp){
         this.employer = emp;
+    }
+    
+    @Override
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        defaultBtn.setDefaultButton(false);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+            defaultBtn.setDefaultButton(true);
+            Label label = (Label)layout.getHeading().get(0);
+            if(label.getText().equals(PASSWORD_UPDATED))
+                save.getScene().getWindow().hide();
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
     }
     
     private boolean checkPassword(){
@@ -59,7 +84,7 @@ public class ChangePassController implements Initializable,Init {
             
         }
         catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+            exceptionLayout(e, save);
             return false;
         }
         
@@ -68,18 +93,19 @@ public class ChangePassController implements Initializable,Init {
     }
     
     
-    private boolean checkInputs()
+    @Override
+    public boolean checkInputs()
     {
         if (current.getText().trim().equals("") || newPass.getText().trim().equals("") || repeat.getText().trim().equals("")) {
-            alert.show(MISSING_FIELDS, MISSING_FIELDS_MSG, Alert.AlertType.WARNING,false);
+            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, INFO_SMALL, true, save);
             return false;
         }
         else if(!newPass.getText().matches("^[a-zA-Z0-9._-]{7,30}$")){
-            alert.show(PASSWORD_ERROR, PASSWORD_ERROR_MSG, Alert.AlertType.WARNING,false);
+            customDialog(PASSWORD_ERROR, PASSWORD_ERROR_MSG, INFO_SMALL, true, save);
             return false;              
         }
         else if(!newPass.getText().equals(repeat.getText())){
-            alert.show(PASSWORD_ERROR, PASSWORD_ERROR_MSG_2, Alert.AlertType.ERROR,false);
+            customDialog(PASSWORD_ERROR, PASSWORD_ERROR_MSG_2, INFO_SMALL, true, save);
             return false;           
         }
         
@@ -95,7 +121,7 @@ public class ChangePassController implements Initializable,Init {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
+                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, INFO_SMALL, true, save);
                     }
                     
                     PreparedStatement ps;
@@ -103,26 +129,21 @@ public class ChangePassController implements Initializable,Init {
                     
                     ps = con.prepareStatement("UPDATE user SET password = ? WHERE user_id = ?");
                     
-                    
-                    
-                    
                     ps.setString(1, newPass.getText());
                     ps.setInt(2, employer.getUserID());
                     
                     ps.executeUpdate();
                 }
                 
-                alert.show(PASSWORD_UPDATED, PASSWORD_UPDATED_MSG, Alert.AlertType.INFORMATION,false);
-                save.getScene().getWindow().hide();
-
+                customDialog(PASSWORD_UPDATED, PASSWORD_UPDATED_MSG, INFO_SMALL, true, save);
 
             }
             catch (NumberFormatException | SQLException e) {
-                alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e, save);
             }
         }
             else{
-                alert.show(WRONG_PASSWORD, WRONG_PASSWORD_MSG, Alert.AlertType.ERROR,false);
+                customDialog(WRONG_PASSWORD, WRONG_PASSWORD_MSG, INFO_SMALL, true, save);
             }
         }        
         
@@ -130,7 +151,9 @@ public class ChangePassController implements Initializable,Init {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        save.setOnAction(value -> {
+            changePassword();
+        });
     }    
     
 }

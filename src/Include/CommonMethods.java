@@ -5,17 +5,11 @@
  */
 package Include;
 
-import java.io.IOException;
-import javafx.event.ActionEvent;
-
 /**
  *
  * @author user
  */
 public interface CommonMethods {
-    
-    public void logOut(ActionEvent event)throws IOException;
-    
     public boolean checkInputs();
     
 }

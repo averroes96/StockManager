@@ -14,6 +14,7 @@ import static Include.Common.getProductByName;
 import static Include.Common.getQuantity;
 import static Include.Common.minimize;
 import Include.CommonMethods;
+import Include.GDPController;
 import Include.Init;
 import static Include.Init.INVALID_PRICE;
 import static Include.Init.INVALID_PRICE_MSG;
@@ -54,7 +55,7 @@ import javafx.stage.StageStyle;
  *
  * @author med
  */
-public class UpdateSellController implements Initializable,Init,CommonMethods {
+public class UpdateSellController extends GDPController implements Initializable,Init,CommonMethods {
 
     
     @FXML private JFXButton saveButton;
