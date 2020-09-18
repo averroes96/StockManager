@@ -42,7 +42,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -66,7 +65,6 @@ public class NewSellController extends GDPController implements Initializable,In
     @FXML private TableColumn<Sell,String> prodCol;
     @FXML private TableColumn actionCol ;    
     @FXML private JFXTextField priceField,qteField;
-    @FXML private Label priceStatus;
     @FXML private JFXButton addSell,deleteAll,printBtn;
     @FXML private ChoiceBox nameBox;
     @FXML private Button cancel;

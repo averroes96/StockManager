@@ -77,7 +77,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" prefHeight="50.0" prefWidth="256.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -100,7 +100,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="256.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" prefHeight="50.0" prefWidth="256.0" promptText="سعر الشراء" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="سعر الشراء" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -121,7 +121,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="512.0" spacing="8.0">
                <children>
-                  <JFXTimePicker defaultColor="#3d4956" maxWidth="160.0" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
+                  <JFXTimePicker defaultColor="#3d4956" maxWidth="128.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
                   <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />

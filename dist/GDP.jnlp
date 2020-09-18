@@ -8,12 +8,13 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="S&B.jar" size="630474" download="eager" />
+    <jar href="S&B.jar" size="631957" download="eager" />
     <jar href="lib\AnimateFX-1.2.0.jar" size="85823" download="eager" />
     <jar href="lib\commons-beanutils-1.9.4.jar" size="246918" download="eager" />
     <jar href="lib\commons-collections4-4.4.jar" size="751914" download="eager" />
     <jar href="lib\commons-digester-2.1.jar" size="196768" download="eager" />
     <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\controlsfx-8.40.11.jar" size="985420" download="eager" />
     <jar href="lib\ecj-4.2.2.jar" size="1801636" download="eager" />
     <jar href="lib\jasperreports-6.10.0.jar" size="5549687" download="eager" />
     <jar href="lib\jasperreports-fonts-6.10.0.jar" size="2480421" download="eager" />

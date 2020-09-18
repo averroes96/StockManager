@@ -54,9 +54,13 @@ public interface Init {
     
     String SELL_UPDATED = "تعديل البيع" ;
     
+    String BUY_UPDATED = "تعديل الشراء" ;
+    
     String USERNAME_ERROR_MSG_2 = "إسم المستخدم الذي قمت بإدخاله محجوز لحساب باسم حساب اخر";
     
     String SELL_UPDATED_MSG = "تم تعديل هذا البيع بنجاح" ;
+    
+    String BUY_UPDATED_MSG = "تم تعديل هذا الشراء بنجاح" ;
     
     String EMPTY_STOCK = "صفر كمية";
     

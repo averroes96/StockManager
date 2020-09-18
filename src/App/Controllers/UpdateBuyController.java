@@ -16,9 +16,12 @@ import static Include.Common.getDate;
 import static Include.Common.getProductByName;
 import Include.GDPController;
 import Include.Init;
+import static Include.Init.OKAY;
 import animatefx.animation.Swing;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -187,7 +190,7 @@ public class UpdateBuyController extends GDPController implements Initializable,
                         ps.executeUpdate();                         
                     }
                 }
-                customDialog(SELL_UPDATED, SELL_UPDATED_MSG, INFO_SMALL, true, saveButton);                
+                customDialog(BUY_UPDATED, BUY_UPDATED_MSG, INFO_SMALL, true, saveButton);                
 
                         Stage stage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
@@ -212,6 +215,7 @@ public class UpdateBuyController extends GDPController implements Initializable,
         
     }     
     
+    @Override
     public void logOut(ActionEvent event) throws IOException {
 
                         ((Node)event.getSource()).getScene().getWindow().hide();
@@ -264,6 +268,31 @@ public class UpdateBuyController extends GDPController implements Initializable,
         
         Common.controlDigitField(price);
         Common.controlDigitField(quantity);
+    }
+
+    @Override
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        defaultBtn.setDefaultButton(false);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+            defaultBtn.setDefaultButton(true);
+            Label label = (Label)layout.getHeading().get(0);
+            if(label.getText().equals(BUY_UPDATED))
+                saveButton.getScene().getWindow().hide();
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
     }    
     
 }
