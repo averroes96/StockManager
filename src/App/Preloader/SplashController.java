@@ -44,7 +44,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -54,7 +53,6 @@ import javafx.scene.control.Label;
 public class SplashController implements Initializable {
 
     @FXML private JFXSpinner progress;
-    @FXML private Label text;
 
     public static JFXSpinner staticProgress;
 

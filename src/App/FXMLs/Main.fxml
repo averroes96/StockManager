@@ -45,7 +45,7 @@
                   <TableColumn fx:id="nbrSellsCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="عدد المبيعات" />
               </columns>
                <effect>
-                  <DropShadow color="#00000099" />
+                  <DropShadow color="#00000099" height="16.0" radius="7.5" width="16.0" />
                </effect>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -54,7 +54,7 @@
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
             <HBox alignment="CENTER" layoutX="15.0" layoutY="4.0" prefHeight="61.0" prefWidth="970.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
-                  <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="238.0" promptText="بحث" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="238.0" promptText="بحث" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="18.0" />
                      </font>
@@ -233,7 +233,7 @@
                            <children>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="100.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="إسم المنتوج" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="إسم المنتوج" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -250,7 +250,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="سعر البيع" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="سعر البيع" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -267,7 +267,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="الكمية" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="الكمية" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -733,7 +733,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="300.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <JFXTextField fx:id="searchBuy" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-text-fill: #3d4956; -fx-background-color: #eee;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="searchBuy" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-text-fill: #3d4956; -fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -913,7 +913,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" layoutX="15.0" layoutY="1.0" prefHeight="70.0" prefWidth="970.0" spacing="8.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
-                  <JFXTextField fx:id="sellSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-background-color: #eee;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="sellSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

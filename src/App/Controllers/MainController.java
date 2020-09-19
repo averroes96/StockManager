@@ -11,6 +11,7 @@ import static Include.Common.getConnection;
 import static Include.Common.getUser;
 import static Include.Common.initLayout;
 import static Include.Common.setDraggable;
+import Include.GDPController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
 import static Include.Init.OKAY;
@@ -66,7 +67,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -77,7 +77,7 @@ import javafx.util.Callback;
  *
  * @author med
  */
-public class MainController implements Initializable,Init {
+public class MainController extends GDPController implements Initializable,Init {
     
     
     @FXML private Label btn_close;
@@ -105,8 +105,6 @@ public class MainController implements Initializable,Init {
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn;
     
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
     @FXML private VBox infoContainer;
     @FXML private HBox productHB;
     
@@ -120,13 +118,9 @@ public class MainController implements Initializable,Init {
 
     File selectedFile = null;
     
-    private Employer thisEmployer = new Employer();
     
     JasperReporter jr = new JasperReporter();
-    
-    private double xOffset = 0;
-    private double yOffset = 0;
-    
+        
     public void confirmDialog(Object object, String type, String title, String body, String icon){
             
         JFXDialogLayout layout = new JFXDialogLayout();
@@ -211,7 +205,7 @@ public class MainController implements Initializable,Init {
 
     public void getEmployer(Employer employer) {
         
-        thisEmployer = employer ;
+        this.employer = employer ;
         
         if(employer.getAdmin() == 0)
         {
@@ -260,8 +254,8 @@ public class MainController implements Initializable,Init {
 
         
         if (!employersList.isEmpty()) {
-            usersCB.getSelectionModel().select(thisEmployer.getUsername());
-            showEmployer(thisEmployer.getUsername());
+            usersCB.getSelectionModel().select(this.employer.getUsername());
+            showEmployer(this.employer.getUsername());
         }
 
     }        
@@ -421,7 +415,8 @@ public class MainController implements Initializable,Init {
 
     }    
     
-    private boolean checkInputs()
+    @Override
+    public boolean checkInputs()
     {
         if (refField.getText().trim().equals("") && priceField2.getText().trim().equals("") && quantityField.getText().trim().equals("")) {
             JFXDialogLayout layout = new JFXDialogLayout();
@@ -530,7 +525,7 @@ public class MainController implements Initializable,Init {
                 
                 ps = con.prepareStatement(query);
                 ps.setInt(1, Integer.parseInt(idField.getText()));
-                ps.setInt(2, this.thisEmployer.getUserID());
+                ps.setInt(2, this.employer.getUserID());
                 ps.setString(3, sqlDate);                
                 ps.setString(4, refField.getText());
                 ps.setDate(5, Date.valueOf(dateField.getEditor().getText()));
@@ -631,37 +626,37 @@ public class MainController implements Initializable,Init {
         }
         
         if(choosen.getProdPrivs() == 1) prodManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "granted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
                     25, 25, true, true));
         else
             prodManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "notgranted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
                     25, 25, true, true));    
         
         if(choosen.getBuyPrivs() == 1) buyManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "granted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
                     25, 25, true, true)); 
         else
             buyManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "notgranted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
                     25, 25, true, true));           
 
     
         if(choosen.getSellPrivs() == 1) sellManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "granted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
                     25, 25, true, true)); 
         else
             sellManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "notgranted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
                     25, 25, true, true));           
 
 
         if(choosen.getUserPrivs() == 1) userManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "granted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
                     25, 25, true, true)); 
         else
             userManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "notgranted.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
                     25, 25, true, true));        
 
         }
@@ -1025,7 +1020,7 @@ public class MainController implements Initializable,Init {
                 
                selectedEmployer.delete();
             
-            if(this.thisEmployer.getUsername().equals(selectedEmployer.getUsername())){
+            if(this.employer.getUsername().equals(selectedEmployer.getUsername())){
                 
                         this.addProd.getScene().getWindow().hide();
                         
@@ -1039,15 +1034,7 @@ public class MainController implements Initializable,Init {
                         stage.setScene(scene);
                         stage.setMinHeight(350);
                         stage.setMinWidth(450);
-                        stage.show();
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                        });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                        });                         
+                        stage.show();                     
                 
             }
             else{
@@ -1057,8 +1044,8 @@ public class MainController implements Initializable,Init {
             usersCB.setItems(employersList);
             
         if (!employersList.isEmpty()) {
-            usersCB.getSelectionModel().select(thisEmployer.getUsername());
-            showEmployer(thisEmployer.getUsername());
+            usersCB.getSelectionModel().select(this.employer.getUsername());
+            showEmployer(this.employer.getUsername());
         }
             JFXDialogLayout layout = new JFXDialogLayout();
             initLayout(layout, EMPLOYER_DELETED, EMPLOYER_DELETED_MSG, INFO_SMALL);
@@ -1160,7 +1147,7 @@ public class MainController implements Initializable,Init {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewProduct.fxml"));
                 Pane root = (Pane)loader.load();
                 NewProductController npControl = (NewProductController)loader.getController();
-                npControl.getEmployer(thisEmployer);
+                npControl.getEmployer(this.employer);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -1185,7 +1172,7 @@ public class MainController implements Initializable,Init {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "RemovedProducts.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             RemovedProductsController rpControl = (RemovedProductsController)loader.getController();
-                            rpControl.getInfo(this.thisEmployer);
+                            rpControl.getInfo(this.employer);
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             //stage.initStyle(StageStyle.TRANSPARENT);
@@ -1288,21 +1275,14 @@ public class MainController implements Initializable,Init {
                             AnchorPane root = (AnchorPane)loader.load();
                             UpdateSellController usControl = (UpdateSellController)loader.getController();
                             usControl.fillFields(sell);
-                            usControl.getData(thisEmployer,sell);
+                            usControl.getData(employer,sell);
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             //stage.initStyle(StageStyle.TRANSPARENT);
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.show();
-                            root.setOnMousePressed((MouseEvent event1) -> {
-                                xOffset = event1.getSceneX();
-                                yOffset = event1.getSceneY();
-                            });
-                            root.setOnMouseDragged((MouseEvent event1) -> {
-                                stage.setX(event1.getScreenX() - xOffset);
-                                stage.setY(event1.getScreenY() - yOffset);
-                            });
+
                             } catch (IOException ex) {
                                 exceptionLayout(ex);
                             }
@@ -1366,7 +1346,7 @@ public class MainController implements Initializable,Init {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewSell.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         NewSellController nsControl = (NewSellController)loader.getController();
-                        nsControl.getEmployer(thisEmployer);
+                        nsControl.getEmployer(this.employer);
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         //stage.initStyle(StageStyle.TRANSPARENT);
@@ -1422,7 +1402,7 @@ public class MainController implements Initializable,Init {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewEmployer.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         NewEmployerController nsControl = (NewEmployerController)loader.getController();
-                        nsControl.getEmployer(thisEmployer);
+                        nsControl.getEmployer(this.employer);
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         //stage.initStyle(StageStyle.TRANSPARENT);
@@ -1447,7 +1427,7 @@ public class MainController implements Initializable,Init {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
-                            ueControl.getInfo(thisEmployer,employer);
+                            ueControl.getInfo(this.employer,employer);
                             ueControl.fillFields(employer);                            
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -1479,7 +1459,7 @@ public class MainController implements Initializable,Init {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ExEmployers.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ExEmployersController ueControl = (ExEmployersController)loader.getController();
-                            ueControl.getInfo(this.thisEmployer);
+                            ueControl.getInfo(this.employer);
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             //stage.initStyle(StageStyle.TRANSPARENT);
@@ -1556,7 +1536,7 @@ public class MainController implements Initializable,Init {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateBuy.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         UpdateBuyController ubControl = (UpdateBuyController)loader.getController();
-                        ubControl.setRequirements(thisEmployer,buy);
+                        ubControl.setRequirements(employer, buy);
                         ubControl.fillFields(buy);
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -1627,7 +1607,7 @@ public class MainController implements Initializable,Init {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewQuantity.fxml"));
                 Pane root = (Pane)loader.load();
                 NewQuantityController npControl = (NewQuantityController)loader.getController();
-                npControl.getEmployer(thisEmployer);
+                npControl.getEmployer(this.employer);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -1707,9 +1687,7 @@ public class MainController implements Initializable,Init {
                 scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setResizable(false);
                 stage.showAndWait();
-                setDraggable(root,stage);
                 
             } catch (IOException ex) {
                 exceptionLayout(ex);

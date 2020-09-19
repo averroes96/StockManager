@@ -139,11 +139,11 @@ public class BuyStatsController implements Initializable,Init {
 
             series.getData().forEach((data) -> {
                 data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
-                    Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
+                    Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue().floatValue())));
                 });
-                });
+            });
 
-            series.setName("عدد المشراءات حسب اليوم");
+            series.setName("عدد المشتريات حسب اليوم");
 
             query = "SELECT date(buy_date), SUM(buy_price) FROM buy INNER JOIN product ON product.prod_id = buy.prod_id INNER JOIN user ON user.user_id = buy.user_id " + whereClause + "Group by date(buy_date) " ;
 
@@ -241,7 +241,7 @@ public class BuyStatsController implements Initializable,Init {
             loadDialog(layout, btnIncluded);
     }
 
-    public static void search(JFXTextField field, ObservableList<Buy> list, TableView table)
+    public void search(JFXTextField field, ObservableList<Buy> list, TableView table)
     {
         
         String keyword = field.getText();
@@ -259,8 +259,6 @@ public class BuyStatsController implements Initializable,Init {
         }
       
     }    
-        
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -286,7 +284,7 @@ public class BuyStatsController implements Initializable,Init {
         prodField.setItems(nameList);
         prodField.getSelectionModel().selectFirst();
 
-        getData("الكل",startDate.getEditor().getText(),endDate.getEditor().getText());
+        getData(ALL, startDate.getEditor().getText(), endDate.getEditor().getText());
 
         search.setOnAction(Action -> {
             
@@ -300,21 +298,21 @@ public class BuyStatsController implements Initializable,Init {
                 if(endDate.getValue().equals(LocalDate.now())){
                     switch(interv){
                         case 7:
-                            interval.setText("مبيعات آخر أسبوع");
+                            interval.setText(LAST_WEEK_BUYS);
                             break;
                         case 30:
-                            interval.setText("مبيعات آخر شهر");
+                            interval.setText(LAST_MONTH_BUYS);
                             break;
                         case 365:
-                            interval.setText("مبيعات آخر عام");
+                            interval.setText(LAST_YEAR_BUYS);
                             break;
                         default:
-                            interval.setText("مبيعات آخر " + interv + " يوم");
+                            interval.setText("مشتريات آخر " + interv + " يوم");
                             break;
                     }
                 }
                 else{
-                    interval.setText("مبيعات " + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                    interval.setText(BUYS + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
                 }
 
                 buysTable.getItems().clear();

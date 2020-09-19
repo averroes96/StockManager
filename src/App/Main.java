@@ -10,6 +10,8 @@ import Include.Init;
 import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,25 @@ import javafx.stage.Stage;
  * @author med
  */
 public class Main extends Application implements Init {
+    
+    private void loadView(Locale locale, Stage stage) throws IOException {
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setResources(ResourceBundle.getBundle("App.Bundles.bundle", locale));
+            //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
+            Parent root = fxmlLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
+            // replace the content
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());          
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+
+            stage.setScene(scene);
+            stage.setMinHeight(350);
+            stage.setMinWidth(450);        
+            stage.show();
+            
+    }
 
     @Override
     public void init() throws IOException {
@@ -45,19 +66,10 @@ public class Main extends Application implements Init {
     @Override
     public void start(Stage stage) throws Exception {
         
-        
         init();
-        
-        Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());          
-        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-        stage.setScene(scene);
-        stage.setMinHeight(350);
-        stage.setMinWidth(450);        
-        stage.show();
+
+        loadView(new Locale("ar", "AR"), stage);
+
     }
 
     /**

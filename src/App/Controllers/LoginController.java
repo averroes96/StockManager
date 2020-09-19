@@ -188,7 +188,7 @@ public class LoginController implements Initializable,Init {
             else{
                 
                 JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
+                initLayout(layout, USER_INFO, USER_INFO_MESSAGE, ERROR_SMALL);                
                 
                 loadDialog(layout);       
                 

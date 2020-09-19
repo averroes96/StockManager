@@ -40,6 +40,8 @@ public interface Init {
     
     String SELL_ADDED = "تم إضافة البيع" ;
     
+    String ALL = "الكل" ;
+    
     String SELL_ADDED_MESSAGE = "تم إضافة البيع إلى قاعدة البيانات بنجاح" ;
     
     String UNKNOWN_ERROR = "خطأ تقني";
@@ -79,6 +81,22 @@ public interface Init {
     String NO_PRODUCTS_FOUND_MESSAGE = "لا يوجد منتوجات في قاعدة البيانات.. قم بإضافة منتوجات جديدة لإضافة بيع جديد";
     
     String QTE_ADDED = "تم إضافة الكمية";
+    
+    String BUYS = "مشتريات" ;
+    
+    String SELLS = "مبيعات" ;
+    
+    String LAST_WEEK_BUYS = "مشتريات آخر أسبوع" ;
+    
+    String LAST_MONTH_BUYS = "مشتريات آخر شهر" ;
+    
+    String LAST_YEAR_BUYS = "مشتريات آخر عام" ;
+    
+    String LAST_WEEK_SELLS = "مبيعات آخر أسبوع" ;
+    
+    String LAST_MONTH_SELLS = "مبيعات آخر شهر" ;
+    
+    String LAST_YEAR_SELLS = "مبيعات آخر سنة" ;
     
     String QTE_ADDED_MSG = "تم إضافة وتعديل كمية المنتج بنجاح";
     
@@ -199,6 +217,8 @@ public interface Init {
     String ILLEGAL_INTERVAL_MSG = "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية" ;
     
     String ARE_U_SURE = "هل أنت متأكد؟";
+    
+    String WRONG_CREDENTIALS = "كلمة المرور أو إسم المستخدم خاطئ.. حاول مجددا";
     
     String DELETE = "تأكيد حذف";
     

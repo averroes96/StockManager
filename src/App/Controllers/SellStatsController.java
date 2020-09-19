@@ -10,10 +10,17 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
+import static Include.Common.initLayout;
 import Include.Init;
+import static Include.Init.ERROR_SMALL;
+import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
+import animatefx.animation.ZoomIn;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +36,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -37,7 +43,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class
@@ -54,12 +62,47 @@ public class SellStatsController implements Initializable,Init {
     @FXML private JFXDatePicker startDate,endDate;
     @FXML private LineChart nbrSellsChart;
     @FXML private BarChart sumSellsChart;
-    @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageBuyLabel,averageQteLabel,averagePriceLabel;
-    
-    SpecialAlert alert = new SpecialAlert();
-    
+    @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageSellLabel,averageQteLabel,averagePriceLabel,interval;
+    @FXML private JFXTextField filterSearch;
+    @FXML private StackPane stackPane, filterPane;
+    @FXML private JFXDialog dialog;
+    @FXML private ImageView filterBtn;
+        
     ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     ObservableList<String> nameList = getAllProducts(1);
+    
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(OKAY);
+        btn.setDefaultButton(true);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
+    }
+    
+    public void exceptionLayout(Exception e){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            
+            loadDialog(layout, true);
+    }
+
+    public void customDialog(String title, String body, String icon, boolean btnIncluded){
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, title, body, icon);
+            
+            loadDialog(layout, btnIncluded);
+    }
 
     private void getData(String name, String start, String end, String sortingType){
         
@@ -195,7 +238,7 @@ public class SellStatsController implements Initializable,Init {
             
             while(stats2.next()){
                 
-            averageBuyLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " بيع" : "0 بيع");
+            averageSellLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " بيع" : "0 بيع");
             averageQteLabel.setText(stats2.getString("aqd") != null?  stats2.getString("aqd") + " قطعة" : "0 قطع");
             averagePriceLabel.setText(stats2.getString("asd") != null?  stats2.getString("asd") + " دج" : "0 دج");
             
@@ -206,9 +249,7 @@ public class SellStatsController implements Initializable,Init {
             con.close();
         }
         catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
+            exceptionLayout(e);
         }         
         
     }
@@ -238,50 +279,92 @@ public class SellStatsController implements Initializable,Init {
         prodField.setItems(nameList);
         prodField.getSelectionModel().selectFirst();
         
-        getData("الكل",startDate.getEditor().getText(),endDate.getEditor().getText(), "day");
+        getData(ALL ,startDate.getEditor().getText(),endDate.getEditor().getText(), "day");
         
         search.setOnAction(Action -> {
-            
-            System.out.println(endDate.getValue().compareTo(startDate.getValue()));
-            
-        if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
-            
-            if(endDate.getValue().compareTo(startDate.getValue()) <= 1  || endDate.getValue().compareTo(startDate.getValue()) <= 30 ){
-                
-                sellsTable.getItems().clear();
-                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"day");            
+                        
+            if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+
+                    int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
+
+                    if(endDate.getValue().equals(LocalDate.now())){
+                        switch(interv){
+                            case 7:
+                                interval.setText(LAST_WEEK_SELLS);
+                                break;
+                            case 30:
+                                interval.setText(LAST_MONTH_SELLS);
+                                break;
+                            case 365:
+                                interval.setText(LAST_YEAR_SELLS);
+                                break;
+                            default:
+                                interval.setText("مبيعات آخر " + interv + " يوم");
+                                break;
+                        }
+                    }
+                    else{
+                        interval.setText(BUYS + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                    }
+
+                if(endDate.getValue().compareTo(startDate.getValue()) <= 1  || endDate.getValue().compareTo(startDate.getValue()) <= 30 ){
+
+                    sellsTable.getItems().clear();
+                    getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"day");            
+
+                }
+                else if(endDate.getValue().compareTo(startDate.getValue()) <= 3  ){
+
+                    sellsTable.getItems().clear();
+                    getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"week");                 
+
+                }
+                else if(endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear() <= 12 ){
+
+                    sellsTable.getItems().clear();
+                    getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"month");                 
+
+                }            
+                else
+                {              
+                    customDialog(LARGE_INTERVAL, LARGE_INTERVAL_MSG, INFO_SMALL, true);                
+                }
+
 
             }
-            else if(endDate.getValue().compareTo(startDate.getValue()) <= 3  ){
-              
-                sellsTable.getItems().clear();
-                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"week");                 
-                
-            }
-            else if(endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear() <= 12 ){
-              
-                sellsTable.getItems().clear();
-                getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"month");                 
-                
-            }            
-            else
-            {              
-               
-            alert.show(LARGE_INTERVAL, "المجال المسموح به يجب أن يكون أصغر من 365 يوما", Alert.AlertType.WARNING,false);                
-                
-            }
-                
-    
-        }
-        else {
-            
-            alert.show(ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, Alert.AlertType.WARNING,false);
-            
-        }             
-          
-            
+            else {
+                customDialog(LARGE_INTERVAL, LARGE_INTERVAL_MSG, INFO_SMALL, true);  
+            }             
+           
         });
         
+        filterSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            search(filterSearch, sellsList, sellsTable);
+        });
+        
+        filterBtn.setOnMouseClicked(value -> {
+            filterPane.setVisible(true);
+            new ZoomIn(filterPane).play();
+        });        
     }
+    
+    public void search(JFXTextField field, ObservableList<Sell> list, TableView table)
+    {
+        
+        String keyword = field.getText();
+        
+        if (keyword.trim().equals("")) {
+            table.setItems(list);
+        }
+        
+        else {
+            ObservableList<Sell> filteredBuys = FXCollections.observableArrayList();
+            list.stream().filter((sell) -> (sell.getProduct().getName().toLowerCase().contains(keyword.toLowerCase()) || sell.getSeller().toLowerCase().contains(keyword.toLowerCase()))).forEachOrdered((sell) -> {
+                filteredBuys.add(sell);
+            });
+            table.setItems(filteredBuys);
+        }
+      
+    }   
     
 }
