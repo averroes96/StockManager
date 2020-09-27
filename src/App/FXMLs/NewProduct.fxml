@@ -133,14 +133,14 @@
                   </Label>
                </children>
             </VBox>
-            <JFXButton fx:id="addProduct" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" maxWidth="220.0" prefHeight="42.0" prefWidth="220.0" ripplerFill="BLACK" style="-fx-background-color: tomato;" text="إضافة المنتوج" textFill="#3d4956">
+            <JFXButton fx:id="addProduct" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" maxWidth="220.0" prefHeight="42.0" prefWidth="220.0" ripplerFill="BLACK" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_add_60px.png" />
+                        <Image url="@../images/small/icons8_add_24px.png" />
                      </image>
                   </ImageView>
                </graphic>

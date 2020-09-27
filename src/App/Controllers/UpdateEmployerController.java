@@ -7,10 +7,8 @@ import static Include.Common.AnimateField;
 import static Include.Common.adminsCount;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
-import static Include.Common.setDraggable;
 import Include.GDPController;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
@@ -161,7 +159,7 @@ public class UpdateEmployerController extends GDPController implements Initializ
         return true;
     }    
 
-    public void updateEmployer(ActionEvent event) {
+    public void updateEmployer(ActionEvent event) throws SQLException {
 
         if (checkInputs()) {
             if(!admin.isSelected() && adminsCount() == 1 && selectedEmployer.getAdmin() == 1){
@@ -302,7 +300,11 @@ public class UpdateEmployerController extends GDPController implements Initializ
         });        
         
         save.setOnAction(Action -> {
-            updateEmployer(Action);
+            try {
+                updateEmployer(Action);
+            } catch (SQLException ex) {
+                exceptionLayout(ex, save);
+            }
         });
         
         cancel.setOnAction(Action -> {
@@ -321,7 +323,6 @@ public class UpdateEmployerController extends GDPController implements Initializ
                 stage.setMinHeight(700);
                 stage.setMinWidth(1000);
                 stage.show();
-                setDraggable(root, stage);
             } catch (IOException ex) {
                 exceptionLayout(ex, save);
             }

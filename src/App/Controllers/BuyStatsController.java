@@ -8,9 +8,6 @@ import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.ZoomIn;
 import animatefx.animation.ZoomOut;
 import com.jfoenix.controls.JFXButton;
@@ -65,43 +62,44 @@ public class BuyStatsController implements Initializable,Init {
     @FXML private ImageView filterBtn;
 
     ObservableList<Buy> buysList = FXCollections.observableArrayList();
-    ObservableList<String> nameList = getAllProducts(1);
+    ObservableList<String> nameList = null;
     @FXML ObservableList<BarChart.Data> barList = FXCollections.observableArrayList();
 
     private void getData(String name, String start, String end){
-
-        Connection con = getConnection();
-        String whereClause = "" ;
-        String query ;
-
-        if(!name.equals("الكل")){
-            whereClause = "WHERE name = '" + name + "' " ;
-        }
-
-        if(!start.equals("")){
-            if(whereClause.equals("")){
-                whereClause = "WHERE date(buy_date) >= '" + start + "' " ;
-            }
-            else
-                whereClause += "AND date(buy_date) >= '" + start + "' " ;
-        }
-
-        if(!end.equals("")){
-            if(whereClause.equals("")){
-                whereClause = "WHERE date(buy_date) <= '" + end + "' " ;
-            }
-            else
-                whereClause += "AND date(buy_date) <= '" + end + "' " ;
-        }
-
-
-        query = "SELECT * FROM buy INNER JOIN product ON product.prod_id = buy.prod_id INNER JOIN user ON user.user_id = buy.user_id " + whereClause ;
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        
 
         try {
+
+            Connection con = getConnection();
+            String whereClause = "" ;
+            String query ;
+
+            if(!name.equals("الكل")){
+                whereClause = "WHERE name = '" + name + "' " ;
+            }
+
+            if(!start.equals("")){
+                if(whereClause.equals("")){
+                    whereClause = "WHERE date(buy_date) >= '" + start + "' " ;
+                }
+                else
+                    whereClause += "AND date(buy_date) >= '" + start + "' " ;
+            }
+
+            if(!end.equals("")){
+                if(whereClause.equals("")){
+                    whereClause = "WHERE date(buy_date) <= '" + end + "' " ;
+                }
+                else
+                    whereClause += "AND date(buy_date) <= '" + end + "' " ;
+            }
+
+
+            query = "SELECT * FROM buy INNER JOIN product ON product.prod_id = buy.prod_id INNER JOIN user ON user.user_id = buy.user_id " + whereClause ;
+
+            PreparedStatement st;
+            ResultSet rs;
+
             st = con.prepareStatement(query);
             rs = st.executeQuery(query);
 
@@ -262,6 +260,12 @@ public class BuyStatsController implements Initializable,Init {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        try {
+            nameList = getAllProducts(0);
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("buyID"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("product"));

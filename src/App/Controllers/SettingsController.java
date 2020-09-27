@@ -37,39 +37,25 @@
  *
  * Contributor(s):
  */
-package Include;
+package App.Controllers;
 
-
-import static Include.Common.getConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
+ * FXML Controller class
  *
  * @author user
  */
-public class DBRoutines implements Init {
-    
-    
-    public static void updateBuyMoy(int prodID) throws SQLException{
-        
-            String query = "UPDATE product_stats "
-                    + "SET buy_moy_price = "
-                    + "( SELECT AVG(buy_unit_price) "
-                    + "FROM buy "
-                    + "WHERE buy.prod_id = product_stats.prod_id "
-                    + "AND product_stats.prod_id = ? )" 
-                    ;
-            
-            try (Connection con = getConnection()) {
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, prodID);
-                
-                ps.executeUpdate();
-            }    
-        
-    }
+public class SettingsController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
     
 }

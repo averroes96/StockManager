@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Main.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Preloader/SplashController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/SellStatsController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/BuyStatsController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/FXMLs/Login.fxml</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/GDPController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/LoginController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/MainController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Preloader/MyPreLoader.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/Init.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Bundles/bundle_ar_AR.properties</file>
-        </group>
-    </open-files>
 </project-private>

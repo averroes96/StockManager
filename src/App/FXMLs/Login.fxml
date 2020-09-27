@@ -30,7 +30,7 @@
                   </JFXTextField>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_user_96px.png" />
+                        <Image url="@../images/small/icons8_user_24px.png" />
                      </image>
                   </ImageView>
                </children>
@@ -44,7 +44,7 @@
                   </JFXPasswordField>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_password_96px.png" />
+                        <Image url="@../images/medium/icons8_password_1_48px.png" />
                      </image>
                   </ImageView>
                </children>
@@ -60,7 +60,7 @@
                          
                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_login_128px.png" />
+                              <Image url="@../images/small/icons8_login_rounded_24px.png" />
                            </image>
                         </ImageView>             
                          

@@ -14,17 +14,6 @@ import static Include.Common.getProductByName;
 import static Include.Common.initLayout;
 import Include.GDPController;
 import Include.Init;
-import static Include.Init.BUY_DELETED;
-import static Include.Init.BUY_DELETED_MSG;
-import static Include.Init.CONNECTION_ERROR;
-import static Include.Init.CONNECTION_ERROR_MESSAGE;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.IMAGES_PATH;
-import static Include.Init.INVALID_QTE;
-import static Include.Init.INVALID_QTE_MSG;
-import static Include.Init.SELL_ADDED;
-import static Include.Init.SELL_ADDED_MESSAGE;
-import static Include.Init.UNKNOWN_ERROR;
 import JR.JasperReporter;
 import animatefx.animation.Pulse;
 import animatefx.animation.SlideInDown;
@@ -61,6 +50,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -92,15 +82,15 @@ public class NewQuantityController extends GDPController implements Initializabl
     
     public void getAllProducts(){
         
-        Connection con = getConnection();
-        
-        String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
-
-        Statement st;
-        ResultSet rs;
-        
-
         try {
+        
+            Connection con = getConnection();
+
+            String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
+
+            Statement st;
+            ResultSet rs;
+        
             st = con.createStatement();
             rs = st.executeQuery(query);
 
@@ -201,6 +191,7 @@ public class NewQuantityController extends GDPController implements Initializabl
     }
     
     
+    @Override
     public void logOut(ActionEvent event) throws IOException {
 
                         ((Node)event.getSource()).getScene().getWindow().hide();
@@ -319,14 +310,18 @@ public class NewQuantityController extends GDPController implements Initializabl
             
             Thread th = new Thread(() -> {
             
-                String selectedBuys = "";
-
-                selectedBuys = buysTable.getItems().stream().map((buy) ->  buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
-                selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
-                jr.params.put("selectedBuys", selectedBuys);                        
-                jr.ShowReport("buy","");     
-                dialog.close();
-                stackPane.setVisible(false);
+                try {
+                    String selectedBuys = "";
+                    
+                    selectedBuys = buysTable.getItems().stream().map((buy) ->  buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
+                    selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
+                    jr.params.put("selectedBuys", selectedBuys);
+                    jr.ShowReport("buy","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex, addQteBtn);
+                }
 
             });
             

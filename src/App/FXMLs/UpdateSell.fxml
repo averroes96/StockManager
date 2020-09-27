@@ -129,7 +129,7 @@
                   </JFXDatePicker>
                </children>
             </HBox>
-            <JFXButton fx:id="saveButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+            <JFXButton fx:id="saveButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                      <image>

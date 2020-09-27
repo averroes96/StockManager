@@ -54,7 +54,7 @@ public class ProductHistoryController implements Initializable,Init {
     @FXML private JFXDialog dialog;
         
     ObservableList<ProdHistory> historyList = FXCollections.observableArrayList();
-    ObservableList<String> nameList = getAllProducts(1);
+    ObservableList<String> nameList = null;
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
@@ -85,62 +85,61 @@ public class ProductHistoryController implements Initializable,Init {
     
     private void getAllHistory(String name, String start, String end){
         
-        Connection con = getConnection();
-        String whereClause = "" ;
-        String query ;
-        
-        if(!name.equals("الكل")){
-            whereClause = "WHERE name = '" + name + "' " ;
-        }
-        
-        if(!start.equals("")){
-            if(whereClause.equals("")){
-                whereClause = "WHERE date(change_date) >= '" + start + "' " ;
-            }
-            else
-                whereClause += "AND date(change_date) >= '" + start + "' " ;
-        }
-        
-        if(!end.equals("")){
-            if(whereClause.equals("")){
-                whereClause = "WHERE date(change_date) <= '" + end + "' " ;
-            }
-            else
-                whereClause += "AND date(change_date) <= '" + end + "' " ;
-        }        
-
-        
-        query = "SELECT * FROM product_history INNER JOIN product ON product.prod_id = product_history.prod_id INNER JOIN user ON user.user_id = product_history.user_id " + whereClause ;
-
-        PreparedStatement st;
-        ResultSet rs;
-        
-
         try {
-            st = con.prepareStatement(query);
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
+        
+            try (Connection con = getConnection()) {
+                String whereClause = "" ;
+                String query ;
                 
-                ProdHistory history = new ProdHistory();
+                if(!name.equals("الكل")){
+                    whereClause = "WHERE name = '" + name + "' " ;
+                }
                 
-                history.setDate(rs.getTimestamp("change_date").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
-                history.setProdHistID(rs.getInt("prod_hist_id"));
-                history.setProduct(rs.getString("name"));
-                history.setUser(rs.getString("username"));
-                history.setNewDate(rs.getString("new_date"));
-                history.setOldDate(rs.getString("old_date"));
-                history.setNewName(rs.getString("new_name"));
-                history.setOldName(rs.getString("old_name"));
-                history.setNewPrice(rs.getInt("new_price"));
-                history.setOldPrice(rs.getInt("old_price"));
-                history.setNewQte(rs.getInt("new_qte"));
-                history.setOldQte(rs.getInt("old_qte"));
+                if(!start.equals("")){
+                    if(whereClause.equals("")){
+                        whereClause = "WHERE date(change_date) >= '" + start + "' " ;
+                    }
+                    else
+                        whereClause += "AND date(change_date) >= '" + start + "' " ;
+                }
                 
-                historyList.add(history);
+                if(!end.equals("")){
+                    if(whereClause.equals("")){
+                        whereClause = "WHERE date(change_date) <= '" + end + "' " ;
+                    }
+                    else
+                        whereClause += "AND date(change_date) <= '" + end + "' " ;
+                }
+                
+                
+                query = "SELECT * FROM product_history INNER JOIN product ON product.prod_id = product_history.prod_id INNER JOIN user ON user.user_id = product_history.user_id " + whereClause ;
+                
+                PreparedStatement st;
+                ResultSet rs;
+                
+                st = con.prepareStatement(query);
+                rs = st.executeQuery(query);
+                
+                while (rs.next()) {
+                    
+                    ProdHistory history = new ProdHistory();
+                    
+                    history.setDate(rs.getTimestamp("change_date").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
+                    history.setProdHistID(rs.getInt("prod_hist_id"));
+                    history.setProduct(rs.getString("name"));
+                    history.setUser(rs.getString("username"));
+                    history.setNewDate(rs.getString("new_date"));
+                    history.setOldDate(rs.getString("old_date"));
+                    history.setNewName(rs.getString("new_name"));
+                    history.setOldName(rs.getString("old_name"));
+                    history.setNewPrice(rs.getInt("new_price"));
+                    history.setOldPrice(rs.getInt("old_price"));
+                    history.setNewQte(rs.getInt("new_qte"));
+                    history.setOldQte(rs.getInt("old_qte"));
+                    
+                    historyList.add(history);
+                }
             }
-
-            con.close();
         }
         catch (SQLException e) {
             exceptionLayout(e);
@@ -203,6 +202,12 @@ public class ProductHistoryController implements Initializable,Init {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        try {
+            nameList = getAllProducts(1);
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
         
         idCol.setCellValueFactory(new PropertyValueFactory<>("prodHistID"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("product"));

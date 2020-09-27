@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="GDP.jnlp">
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Stock Manager.jnlp">
   <information>
-    <title>GDP</title>
+    <title>Stock Manager</title>
     <vendor>Averroes</vendor>
     <description>null</description>
     <offline-allowed/>
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="S&B.jar" size="638446" download="eager" />
+    <jar href="StockManager.jar" size="360189" download="eager" />
     <jar href="lib\AnimateFX-1.2.0.jar" size="85823" download="eager" />
     <jar href="lib\commons-beanutils-1.9.4.jar" size="246918" download="eager" />
     <jar href="lib\commons-collections4-4.4.jar" size="751914" download="eager" />
@@ -22,9 +22,9 @@
     <jar href="lib\jfoenix-8.0.8.jar" size="2708772" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>
-  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="GDP" >
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Stock Manager" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="App.Main"  name="GDP" />
+  <jfx:javafx-desc  width="800" height="600" main-class="App.Main"  name="Stock Manager" />
   <update check="always"/>
 </jnlp>

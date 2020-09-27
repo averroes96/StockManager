@@ -10,7 +10,6 @@ import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import static Include.Common.saveSelectedImage;
-import static Include.Common.setDraggable;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
 import static Include.Init.OKAY;
@@ -162,23 +161,21 @@ public class NewProductController implements Initializable,Init {
     }
     
     private boolean checkProdName(){
-        Connection con = getConnection();
-        String query = "SELECT * FROM product WHERE name = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        
         try {
-            st = con.prepareStatement(query);
-            st.setString(1, nameField.getText());
-            rs = st.executeQuery();
-            int count = 0;
-            while (rs.next()) {
-                ++count;  
+            int count;
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM product WHERE name = ?";
+                PreparedStatement st;
+                ResultSet rs;
+                st = con.prepareStatement(query);
+                st.setString(1, nameField.getText());
+                rs = st.executeQuery();
+                count = 0;
+                while (rs.next()) {
+                    ++count;
+                }  
             }
-            
-
-            con.close();
             return count == 0;
 
 
@@ -219,7 +216,6 @@ public class NewProductController implements Initializable,Init {
                         stage.setMinHeight(700);
                         stage.setMinWidth(1000);
                         stage.show(); 
-                        setDraggable(root, stage);
             
     } 
 
@@ -267,7 +263,7 @@ public class NewProductController implements Initializable,Init {
                 
 
             }
-            catch (NumberFormatException | SQLException e) {
+            catch (NumberFormatException | SQLException | IOException e) {
                 exceptionLayout(e);
             }
                         JFXDialogLayout layout = new JFXDialogLayout();
@@ -295,7 +291,7 @@ public class NewProductController implements Initializable,Init {
         
         imgField.setText("");
         imgField.setGraphic(new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "product_default.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
                     60, 60, true, true)));       
         
         imgField.setOnMouseClicked(sAction -> {

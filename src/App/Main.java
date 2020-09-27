@@ -17,6 +17,7 @@ import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -31,15 +32,19 @@ public class Main extends Application implements Init {
             fxmlLoader.setResources(ResourceBundle.getBundle("App.Bundles.bundle", locale));
             //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
             Parent root = fxmlLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
+            
             // replace the content
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());          
             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            System.out.println(APP_ICON);
 
             stage.setScene(scene);
             stage.setMinHeight(350);
-            stage.setMinWidth(450);        
+            stage.setMinWidth(450);
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream(APP_ICON)));
+            
             stage.show();
             
     }

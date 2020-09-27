@@ -12,9 +12,6 @@ import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -69,7 +66,7 @@ public class SellStatsController implements Initializable,Init {
     @FXML private ImageView filterBtn;
         
     ObservableList<Sell> sellsList = FXCollections.observableArrayList();
-    ObservableList<String> nameList = getAllProducts(1);
+    ObservableList<String> nameList = null;
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
@@ -106,147 +103,108 @@ public class SellStatsController implements Initializable,Init {
 
     private void getData(String name, String start, String end, String sortingType){
         
-        Connection con = getConnection();
-        String whereClause = "" ;
-        String query ;
-        
-        if(!name.equals("الكل")){
-            whereClause = "WHERE name = '" + name + "' " ;
-        }
-        
-        if(!start.equals("")){
-            if(whereClause.equals("")){
-                whereClause = "WHERE date(sell_date) >= '" + start + "' " ;
-            }
-            else
-                whereClause += "AND date(sell_date) >= '" + start + "' " ;
-        }
-        
-        if(!end.equals("")){
-            if(whereClause.equals("")){
-                whereClause = "WHERE date(sell_date) <= '" + end + "' " ;
-            }
-            else
-                whereClause += "AND date(sell_date) <= '" + end + "' " ;
-        }        
-
-        
-        query = "SELECT * FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause ;
-
-        PreparedStatement st;
-        ResultSet rs;
-        
 
         try {
-            st = con.prepareStatement(query);
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                
-                Sell sell = new Sell();
-                sell.setSellID(rs.getInt("sell_id"));
-                sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
-                sell.setTotalPrice(rs.getInt("sell.sell_price"));
-                sell.setSellDate(rs.getTimestamp("sell_date").toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd h.mm a")));
-                sell.setSellQuantity(rs.getInt("sell_quantity"));
-                sell.setSellName(rs.getString("name"));
-                sell.setSeller(rs.getString("username"));  
-
-                sellsList.add(sell);                
-                
-            }
-            
-            String query1="",query2="" ;
-            
-            switch(sortingType){
-                
-                case "day" :
-                    query1 = "SELECT date(sell_date) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;                    
-                    query2 = "SELECT date(sell_date) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
-                    break;
-                case "week" :
-                    query1 = "SELECT extract( week from sell_date ) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;                    
-                    query2 = "SELECT extract( week from sell_date ) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
-                    break;
-                case "month" :
-                    query1 = "SELECT extract( month from sell_date ) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;                    
-                    query2 = "SELECT extract( month from sell_date ) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
-                    break;                   
+        
+            try (Connection con = getConnection()) {
+                String whereClause = "" ;
+                String query ;
+                if(!name.equals("الكل")){
+                    whereClause = "WHERE name = '" + name + "' " ;
+                }       if(!start.equals("")){
+                    if(whereClause.equals("")){
+                        whereClause = "WHERE date(sell_date) >= '" + start + "' " ;
+                    }
+                    else
+                        whereClause += "AND date(sell_date) >= '" + start + "' " ;
+                }       if(!end.equals("")){
+                    if(whereClause.equals("")){
+                        whereClause = "WHERE date(sell_date) <= '" + end + "' " ;
+                    }
+                    else
+                        whereClause += "AND date(sell_date) <= '" + end + "' " ;
+                }       query = "SELECT * FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause ;
+                PreparedStatement st;
+                ResultSet rs;
+                st = con.prepareStatement(query);
+                rs = st.executeQuery(query);
+                while (rs.next()) {                   
                     
-            }
-            
-
-            sumSellsChart.getData().clear();
-            XYChart.Series<String,Integer> series = new XYChart.Series<>();
-
+                    Sell sell = new Sell();
+                    sell.setSellID(rs.getInt("sell_id"));
+                    sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
+                    sell.setTotalPrice(rs.getInt("sell.sell_price"));
+                    sell.setSellDate(rs.getTimestamp("sell_date").toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd h.mm a")));
+                    sell.setSellQuantity(rs.getInt("sell_quantity"));
+                    sell.setSellName(rs.getString("name"));
+                    sell.setSeller(rs.getString("username"));
+                    
+                    sellsList.add(sell);
+                    
+                }   String query1="",query2="" ;
+                switch(sortingType){
+                    
+                    case "day" :
+                        query1 = "SELECT date(sell_date) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                        query2 = "SELECT date(sell_date) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                        break;
+                    case "week" :
+                        query1 = "SELECT extract( week from sell_date ) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                        query2 = "SELECT extract( week from sell_date ) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                        break;
+                    case "month" :
+                        query1 = "SELECT extract( month from sell_date ) as first_field, count(*) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                        query2 = "SELECT extract( month from sell_date ) as first_field, SUM(sell.sell_price) FROM sell INNER JOIN product ON product.prod_id = sell.prod_id INNER JOIN user ON user.user_id = sell.user_id " + whereClause + "Group by first_field " ;
+                        break;
+                        
+                }   sumSellsChart.getData().clear();
+                XYChart.Series<String,Integer> series = new XYChart.Series<>();
                 st = con.prepareStatement(query1);
                 rs = st.executeQuery();
-
-
                 while (rs.next()) {
 
                     series.getData().add(new XYChart.Data<>(rs.getString("first_field"),rs.getInt("count(*)")));
-
-                    }
-
-                
-            sumSellsChart.getData().addAll(series);
-
-            series.getData().forEach((data) -> {
-                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
-                    Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue())));
+                    
+                }
+                sumSellsChart.getData().addAll(series);
+                series.getData().forEach((data) -> {
+                    data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
+                        Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue())));
+                    });
                 });
-                });
-            
-            series.setName("عدد المبيعات حسب اليوم");
-            
-
-            nbrSellsChart.getData().clear();
-            XYChart.Series<String,Integer> lineSeries = new XYChart.Series<>();
-
+                series.setName("عدد المبيعات حسب اليوم");
+                nbrSellsChart.getData().clear();
+                XYChart.Series<String,Integer> lineSeries = new XYChart.Series<>();
                 st = con.prepareStatement(query2);
                 rs = st.executeQuery();
-
-
                 while (rs.next()) {
 
                     lineSeries.getData().add(new XYChart.Data<>(rs.getString("first_field"),rs.getInt("SUM(sell.sell_price)")));
 
                 }
-
-            nbrSellsChart.getData().addAll(lineSeries);
-
-            lineSeries.getData().forEach((data) -> {
-                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
-                    Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
+                nbrSellsChart.getData().addAll(lineSeries);
+                lineSeries.getData().forEach((data) -> {
+                    data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent event1) -> {
+                        Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
+                    });
                 });
-                });
-            
-            lineSeries.setName("المبلغ الإجمالي حسب اليوم");
-            
-            ResultSet stats1 = getAllFrom("COUNT(sell_id), SUM(sell_quantity), SUM(sell.sell_price)", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause,"");
-            
-            while(stats1.next()){
-                
-            idCountLabel.setText(stats1.getString("COUNT(sell_id)") != null?  stats1.getString("COUNT(sell_id)") + " بيع" : "0 بيع");
-            qteCountLabel.setText(stats1.getString("SUM(sell_quantity)") != null?  stats1.getString("SUM(sell_quantity)") + " قطعة" : "0 قطع");
-            priceSumLabel.setText(stats1.getString("SUM(sell.sell_price)") != null?  stats1.getString("SUM(sell.sell_price)") + " دج" : "0 دج");
-            
+                lineSeries.setName("المبلغ الإجمالي حسب اليوم");
+                ResultSet stats1 = getAllFrom("COUNT(sell_id), SUM(sell_quantity), SUM(sell.sell_price)", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause,"");
+                while(stats1.next()){
+                    
+                    idCountLabel.setText(stats1.getString("COUNT(sell_id)") != null?  stats1.getString("COUNT(sell_id)") + " بيع" : "0 بيع");
+                    qteCountLabel.setText(stats1.getString("SUM(sell_quantity)") != null?  stats1.getString("SUM(sell_quantity)") + " قطعة" : "0 قطع");
+                    priceSumLabel.setText(stats1.getString("SUM(sell.sell_price)") != null?  stats1.getString("SUM(sell.sell_price)") + " دج" : "0 دج");
+                    
+                }   ResultSet stats2 = getAllFrom("COUNT(sell_id)/datediff('" + end + "','" + start + "') as abd, SUM(sell_quantity)/datediff('" + end + "','" + start + "') as aqd, SUM(sell.sell_price)/datediff('" + end + "','" + start + "') as asd", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause,"");
+                while(stats2.next()){
+                    
+                    averageSellLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " بيع" : "0 بيع");
+                    averageQteLabel.setText(stats2.getString("aqd") != null?  stats2.getString("aqd") + " قطعة" : "0 قطع");
+                    averagePriceLabel.setText(stats2.getString("asd") != null?  stats2.getString("asd") + " دج" : "0 دج");
+                    
+                }
             }
-            
-            ResultSet stats2 = getAllFrom("COUNT(sell_id)/datediff('" + end + "','" + start + "') as abd, SUM(sell_quantity)/datediff('" + end + "','" + start + "') as aqd, SUM(sell.sell_price)/datediff('" + end + "','" + start + "') as asd", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause,"");
-            
-            while(stats2.next()){
-                
-            averageSellLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " بيع" : "0 بيع");
-            averageQteLabel.setText(stats2.getString("aqd") != null?  stats2.getString("aqd") + " قطعة" : "0 قطع");
-            averagePriceLabel.setText(stats2.getString("asd") != null?  stats2.getString("asd") + " دج" : "0 دج");
-            
-            }            
-            
-            
-
-            con.close();
         }
         catch (SQLException e) {
             exceptionLayout(e);
@@ -257,6 +215,12 @@ public class SellStatsController implements Initializable,Init {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        try {
+            nameList = getAllProducts(1);
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
         
         idCol.setCellValueFactory(new PropertyValueFactory<>("sellID"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));

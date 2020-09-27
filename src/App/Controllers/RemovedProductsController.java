@@ -9,11 +9,7 @@ import Data.Employer;
 import Data.Product;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
-import static Include.Common.setDraggable;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -113,36 +109,34 @@ public class RemovedProductsController implements Initializable,Init {
                         stage.setMinHeight(600);
                         stage.setMinWidth(1000);
                         stage.show();
-                        setDraggable(root, stage);
                         
             
     }
     
     public void FillTheTable(){
         
-        Connection con = getConnection();
-        
-        String query = "SELECT * FROM product WHERE on_hold = 1";
-
-        Statement st;
-        ResultSet rs;
-        
-
         try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                Product product = new Product();
-                product.setName(rs.getString("name"));
-                product.setProdID(rs.getInt("prod_id"));
-                product.setProdQuantity(rs.getInt("prod_quantity"));
-                product.setSellPrice(rs.getInt("sell_price"));
-
-                removedList.add(product);
+        
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM product WHERE on_hold = 1";
+                
+                Statement st;
+                ResultSet rs;
+                
+                
+                st = con.createStatement();
+                rs = st.executeQuery(query);
+                
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setName(rs.getString("name"));
+                    product.setProdID(rs.getInt("prod_id"));
+                    product.setProdQuantity(rs.getInt("prod_quantity"));
+                    product.setSellPrice(rs.getInt("sell_price"));
+                    
+                    removedList.add(product);
+                }
             }
-
-            con.close();
         }
         catch (SQLException e) {
             exceptionLayout(e);

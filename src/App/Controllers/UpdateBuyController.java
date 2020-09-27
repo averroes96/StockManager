@@ -65,24 +65,22 @@ public class UpdateBuyController extends GDPController implements Initializable,
 
     public void getAllProducts(){
         
-        Connection con = getConnection();
-        
-        String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
-
-        Statement st;
-        ResultSet rs;
-        
-
         try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-
-                nameList.add(rs.getString("name"));
+        
+            try (Connection con = getConnection()) {
+                String query = "SELECT name FROM product WHERE on_hold = 0 ORDER BY prod_id ASC";
+                
+                Statement st;
+                ResultSet rs;
+                
+                st = con.createStatement();
+                rs = st.executeQuery(query);
+                
+                while (rs.next()) {
+                    
+                    nameList.add(rs.getString("name"));
+                }
             }
-
-            con.close();
         }
         catch (SQLException e) {
             exceptionLayout(e, saveButton);
@@ -102,10 +100,14 @@ public class UpdateBuyController extends GDPController implements Initializable,
     
     public void fillFields(Buy buy){
         
-        nameBox.getSelectionModel().select(buy.getProduct()); 
-        quantity.setText(String.valueOf(buy.getBuyQte()));
-        price.setText(String.valueOf(buy.getBuyPrice()));
-        date.getEditor().setText(getDate(buy.getBuyID(), "buy"));
+        try {
+            nameBox.getSelectionModel().select(buy.getProduct());
+            quantity.setText(String.valueOf(buy.getBuyQte()));
+            price.setText(String.valueOf(buy.getBuyPrice()));
+            date.getEditor().setText(getDate(buy.getBuyID(), "buy"));
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveButton);
+        }
 
     }
 

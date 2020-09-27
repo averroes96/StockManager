@@ -79,7 +79,7 @@
                      <children>
                         <JFXButton fx:id="printBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3d4956;" text="طباعة" textFill="#eeeeee">
                            <graphic>
-                              <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/small/icons8_print_32px.png" />
                                  </image>
@@ -148,9 +148,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <graphic>
-                        <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_add_48px.png" />
+                              <Image url="@../images/small/icons8_add_24px.png" />
                            </image>
                         </ImageView>
                      </graphic>

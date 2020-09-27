@@ -63,24 +63,25 @@ public class ChangePassController extends GDPController implements Initializable
     }
     
     private boolean checkPassword(){
-    
-        Connection con = getConnection();
-        String query = "SELECT password FROM user WHERE user_id = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        
         try {
-            st = con.prepareStatement(query);
-            st.setInt(1, employer.getUserID());
-            rs = st.executeQuery();
-            
-            if (rs.next()) {
+    
+            try (Connection con = getConnection()) {
+                String query = "SELECT password FROM user WHERE user_id = ?";
                 
-                return rs.getString("password").equals(current.getText());
+                PreparedStatement st;
+                ResultSet rs;
                 
+                st = con.prepareStatement(query);
+                st.setInt(1, employer.getUserID());
+                rs = st.executeQuery();
+                
+                if (rs.next()) {
+                    
+                    return rs.getString("password").equals(current.getText());
+                    
+                }
             }
-            con.close();
             
         }
         catch (SQLException e) {

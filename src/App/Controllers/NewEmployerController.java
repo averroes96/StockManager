@@ -6,7 +6,6 @@
 package App.Controllers;
 
 import Data.Employer;
-import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.animateBtn;
 import static Include.Common.getConnection;
@@ -190,24 +189,23 @@ public class NewEmployerController implements Initializable,Init {
     }     
     
     public int usernameExist(){
-       
-        Connection con = getConnection();
-        String query = "SELECT * FROM user WHERE username = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        
         try {
-            st = con.prepareStatement(query);
-            st.setString(1, username.getText());
-            rs = st.executeQuery();
-            int count = 0;
-            
-            while (rs.next()) {
-                ++count;
-                
+       
+            int count;
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM user WHERE username = ?";
+                PreparedStatement st;
+                ResultSet rs;
+                st = con.prepareStatement(query);
+                st.setString(1, username.getText());
+                rs = st.executeQuery();
+                count = 0;
+                while (rs.next()) {
+                    ++count;
+                    
+                }
             }
-            con.close();
             
             return count;
 
@@ -239,7 +237,6 @@ public class NewEmployerController implements Initializable,Init {
                         stage.setMinHeight(700);
                         stage.setMinWidth(1000);
                         stage.show();
-                        Common.setDraggable(root, stage);
     }
 
     @FXML
@@ -319,7 +316,7 @@ public class NewEmployerController implements Initializable,Init {
 
 
             }
-            catch (NumberFormatException | SQLException e) {
+            catch (NumberFormatException | SQLException | IOException e) {
                 exceptionLayout(e);
             }
         }

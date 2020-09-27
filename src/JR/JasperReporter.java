@@ -7,11 +7,10 @@ package JR;
 
 import static Include.Common.getConnection;
 import Include.Init;
-import Include.SpecialAlert;
 import java.awt.HeadlessException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
-import javafx.scene.control.Alert;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -26,51 +25,18 @@ import net.sf.jasperreports.swing.JRViewer;
  */
 public class JasperReporter extends JFrame implements Init{
     
-    SpecialAlert alert = new SpecialAlert();
-    public HashMap params = new HashMap() ; 
+    public HashMap params = new HashMap() ;
+    public Connection conn;
     
 
     public JasperReporter() throws HeadlessException {
         
     }
+    
+    public void setReportDetails(String path) throws JRException, SQLException{
+        
+                    conn = getConnection();
 
-    public void ShowReport(String type,String query){
-        
-        Connection conn = getConnection();
-        
-        switch (type) {
-            case "sellsReport":
-                try {
-                    JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/sellDay.jrxml"));
-                    JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
-                    JRViewer viewer = new JRViewer(jp);
-                    viewer.setOpaque(true);
-                    viewer.setVisible(true);
-                    
-                    this.add(viewer);
-                    this.setSize(900, 500);
-                    this.setVisible(true);
-                } catch (JRException ex) {
-                    alert.show(JR_ERROR, ex.getMessage(), Alert.AlertType.ERROR, true);
-                }       break;
-            case "productsReport":
-                System.getProperty("user.dir");
-                try {
-                    
-                    JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/products.jrxml"));
-                    JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
-                    JRViewer viewer = new JRViewer(jp);
-                    viewer.setOpaque(true);
-                    viewer.setVisible(true);
-                    
-                    this.add(viewer);
-                    this.setSize(900, 500);
-                    this.setVisible(true);
-                } catch (JRException ex) {
-                    alert.show(JR_ERROR, ex.getMessage(), Alert.AlertType.ERROR, true);
-                }       break;
-            case "sellBill":
-                try {
                     JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/sellBill.jrxml"));
                     JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
                     JRViewer viewer = new JRViewer(jp);
@@ -80,65 +46,51 @@ public class JasperReporter extends JFrame implements Init{
                     this.add(viewer);
                     this.setSize(900, 500);
                     this.setVisible(true);
+        
+    }
+
+    public void ShowReport(String type,String query) throws SQLException, JRException{
+        
+        
+        switch (type) {
+            case "sellsReport":
+                
+                    setReportDetails("/JR/sellDay.jrxml");
+                    break;
                     
-                } catch (JRException ex) {
-                    alert.show(JR_ERROR, ex.getMessage(), Alert.AlertType.ERROR, true);
-                }       break;
+            case "productsReport":
+                    
+                    setReportDetails("/JR/products.jrxml");
+                    break;
+                    
+            case "sellBill":
+                
+                    setReportDetails("/JR/sellBill.jrxml");
+                    break;
+                    
             case "employersList":
-                try {
-                    JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/EmployersList.jrxml"));
-                    JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
-                    JRViewer viewer = new JRViewer(jp);
-                    viewer.setOpaque(true);
-                    viewer.setVisible(true);
+                
+                    setReportDetails("/JR/EmployersList.jrxml");
+                    break;
                     
-                    this.add(viewer);
-                    this.setSize(900, 500);
-                    this.setVisible(true);
-                    
-                } catch (JRException ex) {
-                    alert.show(JR_ERROR, ex.getMessage(), Alert.AlertType.ERROR, true);
-                }       break;
             case "buy":
-                try {
-                    JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/buyBill.jrxml"));
-                    JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
-                    JRViewer viewer = new JRViewer(jp);
-                    viewer.setOpaque(true);
-                    viewer.setVisible(true);
+                
+                    setReportDetails("/JR/buyBill.jrxml");
+                    break;
                     
-                    this.add(viewer);
-                    this.setSize(900, 500);
-                    this.setVisible(true);
-                    
-                } catch (JRException ex) {
-                    alert.show(JR_ERROR, ex.getMessage(), Alert.AlertType.ERROR, true);
-                }       break;
             case "buys":
-                try {
                     JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/buyDay.jrxml"));
-                    JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
-                    JRViewer viewer = new JRViewer(jp);
-                    viewer.setOpaque(true);
-                    viewer.setVisible(true);
+                    setReportDetails("/JR/buyDay.jrxml");
+                    break;
                     
-                    this.add(viewer);
-                    this.setSize(900, 500);
-                    this.setVisible(true);
-                    
-                } catch (JRException ex) {
-                    alert.show(JR_ERROR, ex.getMessage(), Alert.AlertType.ERROR, true);
-                }       break;                
             default:
                 break;
-                
-                
+            
         }
         
 
         
     }
-    
     
     
 }

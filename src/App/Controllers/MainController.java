@@ -10,12 +10,8 @@ import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import static Include.Common.getUser;
 import static Include.Common.initLayout;
-import static Include.Common.setDraggable;
 import Include.GDPController;
 import Include.Init;
-import static Include.Init.IMAGES_PATH;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.FadeIn;
@@ -72,6 +68,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -405,9 +402,9 @@ public class MainController extends GDPController implements Initializable,Init 
                 
                 productsTable.refresh();
             }
-            catch (NumberFormatException | SQLException ex) {
+            catch (NumberFormatException | SQLException | IOException ex) {
                 JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, UNKNOWN_ERROR, LOAD_IMAGE_ERROR, ERROR_SMALL);                
+                initLayout(layout, UNKNOWN_ERROR, ex.getLocalizedMessage(), ERROR_SMALL);                
 
                 loadDialog(layout, true);                    
             }
@@ -581,7 +578,7 @@ public class MainController extends GDPController implements Initializable,Init 
         if (data.get(index).getImageURL() == null) {
             productImg.setText("");
             productImg.setGraphic(new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "product_default.png"),
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
                     60, 60, true, true)));
         }
         else {
@@ -602,77 +599,81 @@ public class MainController extends GDPController implements Initializable,Init 
     private void showEmployer(String username)
     {
         
-        new ZoomOut(infoContainer).play();
-        new ZoomIn(infoContainer).play();
-        Employer choosen = getUser(username);
-        if(choosen != null){
-        fullnameLabel.setText(choosen.getFullname());
-        if(!choosen.getPhone().trim().equals("")) 
-            phoneLabel.setText(choosen.getPhone()) ;
-        else 
-            phoneLabel.setText("لا يوجد رقم هاتف");
-        
-        if (choosen.getImage().trim().equals("") ) {
-            userImage.setText("");
-            userImage.setGraphic(new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
-                    64, 64, true, true)));
+        try {
+            new ZoomOut(infoContainer).play();
+            new ZoomIn(infoContainer).play();
+            Employer choosen = getUser(username);
+            if(choosen != null){
+                fullnameLabel.setText(choosen.getFullname());
+                if(!choosen.getPhone().trim().equals(""))
+                    phoneLabel.setText(choosen.getPhone()) ;
+                else
+                    phoneLabel.setText("لا يوجد رقم هاتف");
+                
+                if (choosen.getImage().trim().equals("") ) {
+                    userImage.setText("");
+                    userImage.setGraphic(new ImageView(new Image(
+                            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+                            64, 64, true, true)));
+                }
+                else {
+                    userImage.setText("");
+                    userImage.setGraphic(new ImageView(new Image(
+                            new File(choosen.getImage()).toURI().toString(),
+                            220, 200, true, true)));
+                }
+                
+                if(choosen.getProdPrivs() == 1) prodManager.setImage(new Image(
+                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
+                        25, 25, true, true));
+                else
+                    prodManager.setImage(new Image(
+                            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
+                            25, 25, true, true));
+                
+                if(choosen.getBuyPrivs() == 1) buyManager.setImage(new Image(
+                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
+                        25, 25, true, true));
+                else
+                    buyManager.setImage(new Image(
+                            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
+                            25, 25, true, true));
+                
+                
+                if(choosen.getSellPrivs() == 1) sellManager.setImage(new Image(
+                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
+                        25, 25, true, true));
+                else
+                    sellManager.setImage(new Image(
+                            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
+                            25, 25, true, true));
+                
+                
+                if(choosen.getUserPrivs() == 1) userManager.setImage(new Image(
+                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
+                        25, 25, true, true));
+                else
+                    userManager.setImage(new Image(
+                            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
+                            25, 25, true, true));
+                
+            }
+            
+            if((choosen.getBuyPrivs() + choosen.getProdPrivs() + choosen.getSellPrivs() + choosen.getUserPrivs()) == 0){
+                userStatus.setVisible(true);
+            }
+            else{
+                userStatus.setVisible(false);
+            }
+            
+            
+            if(!choosen.getLastLogged().equals(""))
+                lastLogged.setText(choosen.getLastLogged());
+            else
+                lastLogged.setText("لم يتم تسجيل الدخول بعد");
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
         }
-        else {
-            userImage.setText("");
-            userImage.setGraphic(new ImageView(new Image(
-                    new File(choosen.getImage()).toURI().toString(),
-                    220, 200, true, true)));
-        }
-        
-        if(choosen.getProdPrivs() == 1) prodManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
-                    25, 25, true, true));
-        else
-            prodManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
-                    25, 25, true, true));    
-        
-        if(choosen.getBuyPrivs() == 1) buyManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
-                    25, 25, true, true)); 
-        else
-            buyManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
-                    25, 25, true, true));           
-
-    
-        if(choosen.getSellPrivs() == 1) sellManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
-                    25, 25, true, true)); 
-        else
-            sellManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
-                    25, 25, true, true));           
-
-
-        if(choosen.getUserPrivs() == 1) userManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/granted.png"),
-                    25, 25, true, true)); 
-        else
-            userManager.setImage(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "small/notgranted.png"),
-                    25, 25, true, true));        
-
-        }
-        
-        if((choosen.getBuyPrivs() + choosen.getProdPrivs() + choosen.getSellPrivs() + choosen.getUserPrivs()) == 0){
-            userStatus.setVisible(true);
-        }
-        else{
-           userStatus.setVisible(false); 
-        }
-        
-        
-        if(!choosen.getLastLogged().equals("")) 
-            lastLogged.setText(choosen.getLastLogged());
-        else
-            lastLogged.setText("لم يتم تسجيل الدخول بعد");
   
     }    
        
@@ -748,13 +749,13 @@ public class MainController extends GDPController implements Initializable,Init 
     
     private void getAllSells(String selectedDate)
     {
-        Connection con = getConnection();
-        String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
-
-        PreparedStatement st;
-        ResultSet rs;
-
         try {
+            Connection con = getConnection();
+            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
+            
+            PreparedStatement st;
+            ResultSet rs;
+            
             st = con.prepareStatement(query);
             st.setString(1,selectedDate);
             rs = st.executeQuery();
@@ -779,30 +780,26 @@ public class MainController extends GDPController implements Initializable,Init 
                 product.setImageURL(rs.getString("image_url")); 
                 
                 sell.setProduct(product);
-                sell.setSellName(rs.getString("name")); 
-
+                sell.setSellName(rs.getString("name"));
+                
                 sellsList.add(sell);
             }
 
             con.close();
-        }
-        catch (SQLException e) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
         }
     }
     
     private void getAllBuys(String selectedDate)
     {
-        Connection con = getConnection();
-        String query = "SELECT * FROM buy INNER JOIN product ON buy.prod_id = product.prod_id INNER JOIN user ON buy.user_id = user.user_id WHERE date(buy_date) = ? ORDER BY time(buy_date) ASC";
-
-        PreparedStatement st;
-        ResultSet rs;
-
         try {
+            Connection con = getConnection();
+            String query = "SELECT * FROM buy INNER JOIN product ON buy.prod_id = product.prod_id INNER JOIN user ON buy.user_id = user.user_id WHERE date(buy_date) = ? ORDER BY time(buy_date) ASC";
+            
+            PreparedStatement st;
+            ResultSet rs;
+            
             st = con.prepareStatement(query);
             st.setString(1,selectedDate);
             rs = st.executeQuery();
@@ -815,45 +812,42 @@ public class MainController extends GDPController implements Initializable,Init 
                 buy.setBuyDate(rs.getTime("buy_date").toString());
                 buy.setBuyQte(rs.getInt("buy_qte"));
                 buy.setProduct(rs.getString("name"));
-                buy.setUser(rs.getString("username"));  
-
+                buy.setUser(rs.getString("username"));
+                
                 buysList.add(buy);
             }
 
             con.close();
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
         }
-        catch (SQLException e) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-        }
+        
     }    
     
     public void getSellStats(String selectedDate, String type){
         
-        new FadeIn(revQte).play();
-        new FadeIn(revSum).play();
-        new FadeIn(revTotal).play();
-        
-        new FadeIn(sellsTable).play();
-        
-        Connection con = getConnection();
-        String query = "";
-        PreparedStatement st;
-        ResultSet rs;        
-        if(selectedDate.equals("")){
-            
-                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell";
-        }
-        else{
-            query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell WHERE date(sell_date) = ? ";
-        }
-
         try {
+            new FadeIn(revQte).play();
+            new FadeIn(revSum).play();
+            new FadeIn(revTotal).play();
+            
+            new FadeIn(sellsTable).play();
+            
+            Connection con = getConnection();
+            String query = "";
+            PreparedStatement st;
+            ResultSet rs;
+            if(selectedDate.equals("")){
+                
+                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell";
+            }
+            else{
+                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell WHERE date(sell_date) = ? ";
+            }
+            
             st = con.prepareStatement(query);
             if(!selectedDate.equals("")){
-            st.setString(1,selectedDate);
+                st.setString(1,selectedDate);
             }
             rs = st.executeQuery();
             
@@ -872,41 +866,37 @@ public class MainController extends GDPController implements Initializable,Init 
             revSum.setText(String.valueOf(priceSum) + " دج");
             revTotal.setText(String.valueOf(totals) + " بيع");
             revQte.setText(String.valueOf(qtes) + " قطعة");
-            con.close();
+            con.close();       
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
         }
-        catch (SQLException e) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-        }        
         
     }
     
     public void getBuyStats(String selectedDate, String type){
         
-        new FadeIn(buyDayQte).play();
-        new FadeIn(buyDaySum).play();
-        new FadeIn(buyDayTotal).play();        
-        
-        new FadeIn(buysTable).play();
-        
-        Connection con = getConnection();
-        String query = "";
-        PreparedStatement st;
-        ResultSet rs;        
-        if(selectedDate.equals("")){
-            
-            query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
-        }
-        else{
-            query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
-        }
-
         try {
+            new FadeIn(buyDayQte).play();
+            new FadeIn(buyDaySum).play();
+            new FadeIn(buyDayTotal).play();
+            
+            new FadeIn(buysTable).play();
+            
+            Connection con = getConnection();
+            String query = "";
+            PreparedStatement st;
+            ResultSet rs;
+            if(selectedDate.equals("")){
+                
+                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
+            }
+            else{
+                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
+            }
+            
             st = con.prepareStatement(query);
             if(!selectedDate.equals("")){
-            st.setString(1,selectedDate);
+                st.setString(1,selectedDate);
             }
             rs = st.executeQuery();
             
@@ -925,14 +915,10 @@ public class MainController extends GDPController implements Initializable,Init 
             buyDayTotal.setText(String.valueOf(totals) + " بيع");
             buyDayQte.setText(String.valueOf(qtes) + " قطعة");
             
-            con.close();
+            con.close();       
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
         }
-        catch (SQLException e) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-        }        
         
     }     
   
@@ -1000,8 +986,8 @@ public class MainController extends GDPController implements Initializable,Init 
 
             while (rs.next()) {
                 
-                String employer = rs.getString("username");
-                employersList.add(employer);
+                String emp = rs.getString("username");
+                employersList.add(emp);
             }
 
         }
@@ -1154,7 +1140,6 @@ public class MainController extends GDPController implements Initializable,Init 
                 //stage.initStyle(StageStyle.TRANSPARENT);                
                 scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                 
                 stage.show();
-                setDraggable(root,stage);
                 
                 
             } catch (IOException ex) {
@@ -1180,7 +1165,6 @@ public class MainController extends GDPController implements Initializable,Init 
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);                         
                             stage.show();
-                            setDraggable(root,stage);                            
                             
                         } catch (IOException ex) {
                             exceptionLayout(ex);
@@ -1206,7 +1190,6 @@ public class MainController extends GDPController implements Initializable,Init 
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setResizable(false);
                             stage.showAndWait();
-                            setDraggable(root,stage);                          
                         } catch (IOException ex) {
                             exceptionLayout(ex);
                         }
@@ -1227,7 +1210,6 @@ public class MainController extends GDPController implements Initializable,Init 
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.showAndWait();
-                            setDraggable(root,stage);                            
                         } catch (IOException ex) {
                             exceptionLayout(ex);
                         }            
@@ -1354,7 +1336,6 @@ public class MainController extends GDPController implements Initializable,Init 
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                        setDraggable(root,stage); 
                         
             } catch (IOException ex) {
                 exceptionLayout(ex);
@@ -1410,7 +1391,6 @@ public class MainController extends GDPController implements Initializable,Init 
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                        setDraggable(root,stage);
                         
             } catch (IOException ex) {
                 exceptionLayout(ex);
@@ -1421,14 +1401,14 @@ public class MainController extends GDPController implements Initializable,Init 
         updateEmployer.setOnAction(Action -> {
             
                         try {
-                            Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
+                            Employer emp = getUser(usersCB.getSelectionModel().getSelectedItem());
                             ((Node)Action.getSource()).getScene().getWindow().hide();
                             Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
-                            ueControl.getInfo(this.employer,employer);
-                            ueControl.fillFields(employer);                            
+                            ueControl.getInfo(this.employer, emp);
+                            ueControl.fillFields(emp);                            
                             Scene scene = new Scene(root);
                             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                             //stage.initStyle(StageStyle.TRANSPARENT);
@@ -1436,17 +1416,20 @@ public class MainController extends GDPController implements Initializable,Init 
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.show();
-                            setDraggable(root,stage);                           
                             
-                        } catch (IOException ex) {
+                        } catch (IOException | SQLException ex) {
                             exceptionLayout(ex);
                         }
         });
 
         deleteEmployer.setOnAction(Action -> {
 
-                Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
-                confirmDialog(employer, "employer", DELETE + " " + employer.getFullname(), ARE_U_SURE, INFO_SMALL);
+            try {
+                Employer emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                confirmDialog(emp, "employer", DELETE + " " + emp.getFullname(), ARE_U_SURE, INFO_SMALL);
+            } catch (SQLException ex) {
+                exceptionLayout(ex);
+            }
 
         });
         
@@ -1467,7 +1450,6 @@ public class MainController extends GDPController implements Initializable,Init 
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);                         
                             stage.show();
-                            setDraggable(root,stage);                          
                             
                         } catch (IOException ex) {
                             exceptionLayout(ex);
@@ -1478,12 +1460,12 @@ public class MainController extends GDPController implements Initializable,Init 
         changePass.setOnAction(Action -> {
             
                         try {
-                            Employer employer = getUser(usersCB.getSelectionModel().getSelectedItem());
+                            Employer emp = getUser(usersCB.getSelectionModel().getSelectedItem());
                             Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ChangePassController erControl = (ChangePassController)loader.getController();
-                            erControl.getEmployer(employer);
+                            erControl.getEmployer(emp);
                             Scene scene = new Scene(root);
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
                             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
@@ -1491,7 +1473,7 @@ public class MainController extends GDPController implements Initializable,Init 
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.showAndWait();
                              
-                        } catch (IOException ex) {
+                        } catch (IOException | SQLException ex) {
                             exceptionLayout(ex);
                         }
         });
@@ -1544,7 +1526,7 @@ public class MainController extends GDPController implements Initializable,Init 
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
                         stage.setScene(scene);
                         stage.show();
-                        setDraggable(root,stage);
+                        
             } catch (IOException ex) {
                 exceptionLayout(ex);
             }                        
@@ -1612,9 +1594,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 stage.setScene(scene);
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                 //stage.initStyle(StageStyle.TRANSPARENT);                               
-                stage.show();
-                setDraggable(root,stage);
-                
+                stage.show();                
                 
                 } catch (IOException ex) {
                     exceptionLayout(ex);
@@ -1703,10 +1683,14 @@ public class MainController extends GDPController implements Initializable,Init 
             
             Thread th = new Thread(() -> {
       
-            jr.params.put("sell_date", sellDateField.getEditor().getText());
-            jr.ShowReport("sellsReport","");
-            dialog.close();
-            stackPane.setVisible(false);
+                try {
+                    jr.params.put("sell_date", sellDateField.getEditor().getText());
+                    jr.ShowReport("sellsReport","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex);
+                }
             
             });
             
@@ -1721,10 +1705,14 @@ public class MainController extends GDPController implements Initializable,Init 
             
             Thread th = new Thread(() -> {
             
-            jr.params.put("buyDate", buyDateField.getEditor().getText());
-            jr.ShowReport("buys","");
-            dialog.close();
-            stackPane.setVisible(false);
+                try {
+                    jr.params.put("buyDate", buyDateField.getEditor().getText());
+                    jr.ShowReport("buys","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex);
+                }
             
             });
             
@@ -1739,9 +1727,13 @@ public class MainController extends GDPController implements Initializable,Init 
             
             Thread th = new Thread(() -> {
             
-                jr.ShowReport("productsReport","");
-                dialog.close();
-                stackPane.setVisible(false);
+                try {
+                    jr.ShowReport("productsReport","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex);
+                }
 
             });
             
@@ -1755,14 +1747,18 @@ public class MainController extends GDPController implements Initializable,Init 
             
             Thread th = new Thread(() -> {
             
-            String selectedSells = "";
-                        
-            selectedSells = sellsTable.getSelectionModel().getSelectedItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
-            selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
-            jr.params.put("selectedSells", selectedSells);                        
-            jr.ShowReport("sellBill","");   
-            dialog.close();
-            stackPane.setVisible(false);
+                try {
+                    String selectedSells = "";
+                    
+                    selectedSells = sellsTable.getSelectionModel().getSelectedItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
+                    selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
+                    jr.params.put("selectedSells", selectedSells);
+                    jr.ShowReport("sellBill","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex);
+                }
             
             });
             
@@ -1777,9 +1773,13 @@ public class MainController extends GDPController implements Initializable,Init 
             
             Thread th = new Thread(() -> {
             
-                jr.ShowReport("employersList","");
-                dialog.close();
-                stackPane.setVisible(false);
+                try {
+                    jr.ShowReport("employersList","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex);
+                }
             
             });
             
@@ -1794,14 +1794,18 @@ public class MainController extends GDPController implements Initializable,Init 
             
             Thread th = new Thread(() -> {
                 
-            String selectedBuys = "";
-            
-            selectedBuys = buysTable.getSelectionModel().getSelectedItems().stream().map((buy) -> buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
-            selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
-            jr.params.put("selectedBuys", selectedBuys);                        
-            jr.ShowReport("buy","");                  
-            dialog.close();
-            stackPane.setVisible(false);
+                try {
+                    String selectedBuys = "";
+                    
+                    selectedBuys = buysTable.getSelectionModel().getSelectedItems().stream().map((buy) -> buy.getBuyID() + ",").reduce(selectedBuys, String::concat);
+                    selectedBuys = selectedBuys.substring(0, selectedBuys.length() - 1);
+                    jr.params.put("selectedBuys", selectedBuys);
+                    jr.ShowReport("buy","");
+                    dialog.close();
+                    stackPane.setVisible(false);
+                } catch (SQLException | JRException ex) {
+                    exceptionLayout(ex);
+                }
             
             });
             
@@ -1888,7 +1892,6 @@ public class MainController extends GDPController implements Initializable,Init 
                         stage.setMinHeight(350);
                         stage.setMinWidth(450);                        
                         stage.show();
-                        setDraggable(root,stage);
                         
         }
         

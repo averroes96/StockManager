@@ -28,9 +28,9 @@
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="770.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="200.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="776.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="200.0">
                <image>
-                  <Image url="@../images/up.png" />
+                  <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
             <TableView fx:id="productsTable" layoutX="15.0" layoutY="70.0" maxWidth="1.7976931348623157E308" prefHeight="312.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
@@ -70,9 +70,9 @@
                      </font>
                <graphic>
                    
-                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_view_96px.png" />
+                        <Image url="@../images/small/icons8_activity_history_24px.png" />
                      </image>
                   </ImageView>             
                    
@@ -86,9 +86,9 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_delete_file_96px.png" />
+                              <Image url="@../images/small/icons8_delete_bin_24px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -101,9 +101,9 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_print_file_96px.png" />
+                              <Image url="@../images/small/icons8_print_file_24px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -116,9 +116,9 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_new_copy_96px.png" />
+                              <Image url="@../images/medium/icons8_product_48px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -397,9 +397,9 @@
          </children></AnchorPane>
       <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="546.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="546.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/up.png" />
+                  <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
             <HBox alignment="TOP_CENTER" layoutX="50.0" layoutY="75.0" prefHeight="530.0" prefWidth="900.0" spacing="32.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
@@ -434,7 +434,7 @@
                                           <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
                                        </effect>
                                     </Label>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="517.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="517.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/small/icons8_user_24px.png" />
                                        </image>
@@ -447,7 +447,7 @@
                                           <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
                                        </effect>
                                     </Label>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="517.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="517.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/small/icons8_iphone_32px.png" />
                                        </image>
@@ -466,9 +466,9 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                     <graphic>
-                                                       <ImageView fitHeight="18.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                       <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                           <image>
-                                                             <Image url="@../images/icons8_picture_60px.png" />
+                                                             <Image url="@../images/small/icons8_male_user_32px.png" />
                                                           </image>
                                                        </ImageView>
                                                     </graphic>                           
@@ -491,7 +491,7 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                     <graphic>
-                                                       <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                       <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                           <image>
                                                              <Image url="@../images/small/icons8_access_32px.png" />
                                                           </image>
@@ -543,7 +543,7 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                     <graphic>
-                                                       <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                       <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                           <image>
                                                              <Image url="@../images/small/icons8_login_32px.png" />
                                                           </image>
@@ -584,7 +584,7 @@
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/small/icons8_male_user_32px.png" />
+                                          <Image url="@../images/small/icons8_name_32px.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>                     
@@ -601,9 +601,9 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                        <graphic>
-                                          <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/icons8_bulleted_list_60px.png" />
+                                                <Image url="@../images/small/icons8_user_menu_female_32px_1.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -613,7 +613,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                        <graphic>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/small/icons8_edit_profile_32px.png" />
                                              </image>
@@ -625,7 +625,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                        <graphic>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/small/icons8_key_32px.png" />
                                              </image>
@@ -637,7 +637,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                        <graphic>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/small/icons8_unavailable_32px.png" />
                                              </image>
@@ -659,7 +659,7 @@
                         <JFXButton id="menu-btn" fx:id="exBtn" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="الحسابات السابقة" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                   <graphic>
       
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                            <Image url="@../images/small/icons8_user_folder_24px.png" />
                                         </image>
@@ -670,7 +670,7 @@
                         <JFXButton id="menu-btn" fx:id="addEmployerButton" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="حساب جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                   <graphic>
       
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                            <Image url="@../images/small/icons8_user_24px.png" />
                                         </image>
@@ -681,7 +681,7 @@
                         <JFXButton id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                   <graphic>
       
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                            <Image url="@../images/small/icons8_print_file_24px.png" />
                                         </image>
@@ -724,9 +724,9 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="321.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="650.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="321.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="650.0">
                <image>
-                  <Image url="@../images/up.png" />
+                  <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="970.0" spacing="8.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
@@ -740,7 +740,7 @@
                         </JFXTextField>
                         <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_search_48px.png" />
+                              <Image url="@../images/medium/icons8_search_48px.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -906,9 +906,9 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>               
             </TableView>
-            <ImageView fitHeight="40.0" fitWidth="27.0" layoutX="100.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="100.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0">
                <image>
-                  <Image url="@../images/up.png" />
+                  <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER_RIGHT" layoutX="15.0" layoutY="1.0" prefHeight="70.0" prefWidth="970.0" spacing="8.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
@@ -918,15 +918,15 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXTextField>
-                  <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_search_48px.png" />
+                        <Image url="@../images/medium/icons8_search_48px.png" />
                      </image>
                   </ImageView>
                   <JFXButton id="menu-btn" fx:id="newSellButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="بيع جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
-                               <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
                                      <Image url="@../images/small/icons8_sell_32px.png" />
                                   </image>
@@ -937,7 +937,7 @@
                   <JFXButton id="menu-btn" fx:id="sellStats" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="إحصائيات" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
-                                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
                                      <Image url="@../images/small/icons8_statistics_32px_1.png" />
                                   </image>
@@ -948,7 +948,7 @@
                   <JFXButton id="menu-btn" fx:id="printSells" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
-                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
                                      <Image url="@../images/small/icons8_print_file_24px.png" />
                                   </image>
@@ -961,7 +961,7 @@
                         <JFXButton id="menu-btn" fx:id="newBillBtn" alignment="CENTER" contentDisplay="RIGHT" layoutY="8.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="154.0" ripplerFill="TOMATO" text="فاتورة" textFill="#3d4956">
                                   <graphic>
       
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                            <Image url="@../images/small/icons8_check_32px.png" />
                                         </image>

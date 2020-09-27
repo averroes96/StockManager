@@ -24,32 +24,10 @@
       <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
    </effect>
    <children>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/product_default.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="201.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/icons8_end_60px_2.png" />
-         </image>
-      </ImageView>
       <HBox alignment="TOP_RIGHT" prefHeight="370.0" prefWidth="884.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0">
          <children>
-            <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="230.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="230.0" spacing="8.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تخصيصات" textFill="#3d4956" VBox.vgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/medium/icons8_mail_filter_48px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="200.0" spacing="8.0">
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -57,7 +35,7 @@
                               <Image url="@../images/medium/icons8_product_48px.png" />
                            </image>
                         </ImageView>
-                        <ChoiceBox fx:id="prodField" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="166.0" HBox.hgrow="ALWAYS">
+                        <ChoiceBox fx:id="prodField" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="91.0" HBox.hgrow="ALWAYS">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -77,7 +55,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="272.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      </children>
                      <VBox.margin>
                         <Insets left="8.0" right="8.0" />
@@ -109,12 +87,12 @@
                      <graphic>
                       <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                            <Image url="@../images/icons8_search_48px.png" />
+                            <Image url="@../images/medium/icons8_search_48px.png" />
                          </image>
                       </ImageView>      
                      </graphic>
                      <VBox.margin>
-                        <Insets top="8.0" />
+                        <Insets top="32.0" />
                      </VBox.margin>         
                   </JFXButton>
                </children>
@@ -135,7 +113,7 @@
             </TableView>
          </children>
       </HBox>
-      <HBox alignment="CENTER" fillHeight="false" layoutY="402.0" prefHeight="192.0" prefWidth="884.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
+      <HBox alignment="CENTER" layoutX="8.0" layoutY="410.0" prefHeight="176.0" prefWidth="884.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
          <children>
             <VBox fx:id="nameVB" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>

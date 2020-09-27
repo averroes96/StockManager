@@ -8,7 +8,6 @@ package Include;
 import Data.Employer;
 import Data.Product;
 import Data.Sell;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
@@ -16,6 +15,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -29,14 +29,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,8 +46,6 @@ import javafx.util.StringConverter;
  */
 public class Common implements Init {
     
-    
-    private static final SpecialAlert alert = new SpecialAlert();
     
     final static String dateFormat = "yyyy-MM-dd";
     
@@ -70,7 +66,7 @@ public class Common implements Init {
         });
     }
     
-    public static ObservableList<String> getAllProducts(int all){
+    public static ObservableList<String> getAllProducts(int all) throws SQLException{
         
         ObservableList<String> names = FXCollections.observableArrayList();
        
@@ -87,8 +83,6 @@ public class Common implements Init {
         Statement st;
         ResultSet rs;
         
-
-        try {
             st = con.createStatement();
             rs = st.executeQuery(query);
 
@@ -98,12 +92,6 @@ public class Common implements Init {
             }
 
             con.close();
-        }
-        catch (SQLException e) {
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
-        }
         
         return names;
         
@@ -134,18 +122,12 @@ public class Common implements Init {
     }
     
 
-    public static Connection getConnection()
+    public static Connection getConnection() throws SQLException
     {
         Connection con;
-        try {
 
             con = DriverManager.getConnection(DB_NAME_WITH_ENCODING, USER, PASSWORD);
             return con;
-        }
-        catch (SQLException ex) {
-            alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
-            return null;            
-        }
     }
     
     public static String generateImagePath(File selectedFile)
@@ -164,11 +146,10 @@ public class Common implements Init {
     }
     
     
-    public static String saveSelectedImage(File selectedFile)
+    public static String saveSelectedImage(File selectedFile) throws FileNotFoundException, IOException
     {
 
         String createImagePath = Common.generateImagePath(selectedFile);
-        try {
 
             FileOutputStream out;
             try (FileInputStream in = new FileInputStream(selectedFile)) {
@@ -179,10 +160,7 @@ public class Common implements Init {
                 }
             }
             out.close();
-        }
-        catch(IOException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-        }
+
 
         return createImagePath;
     }
@@ -220,9 +198,8 @@ public class Common implements Init {
         return converter;
     }   
     
-    public static int adminsCount(){
+    public static int adminsCount() throws SQLException{
     
-        try {
             int count;
             try (Connection con = getConnection()) {
                 count = 0;
@@ -237,10 +214,6 @@ public class Common implements Init {
             }
             
             return count;
-        } catch (SQLException ex) {
-            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
-            return 0;
-        }
     
     
     }
@@ -251,7 +224,7 @@ public class Common implements Init {
         
     }
 
-    public static int getPrice(String name){
+    public static int getPrice(String name) throws SQLException{
         
         Connection con = getConnection();
         String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
@@ -259,8 +232,7 @@ public class Common implements Init {
 
         PreparedStatement st;
         ResultSet rs;
-
-        try {
+        
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
@@ -274,17 +246,11 @@ public class Common implements Init {
             con.close();
             
             return targetedPrice;
-
-
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return 0;
-        }         
+      
         
     }
     
-    public static int getQuantity(String name){
+    public static int getQuantity(String name) throws SQLException{
         
         Connection con = getConnection();
         String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
@@ -293,7 +259,6 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;
 
-        try {
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
@@ -308,16 +273,9 @@ public class Common implements Init {
             
             return targetedPrice;
 
-
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return 0;
-        }         
-        
     }    
 
-    public static boolean refExist(String ref){
+    public static boolean refExist(String ref) throws SQLException{
         
         Connection con = getConnection();
         String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
@@ -326,7 +284,6 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;
 
-        try {
             st = con.prepareStatement(query);
             st.setString(1, ref);
             rs = st.executeQuery();
@@ -340,17 +297,11 @@ public class Common implements Init {
             con.close();
             
             return found;
-
-
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return false;
-        }         
+       
         
     }
     
-    public static Product getProductByName(String name){
+    public static Product getProductByName(String name) throws SQLException{
         
         Product product = new Product();
         Connection con = getConnection();
@@ -359,7 +310,6 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;
 
-        try {
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
@@ -382,16 +332,10 @@ public class Common implements Init {
                 return null;
             else
                 return product;
-
-
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return null;
-        }               
+              
     }
     
-    public static Product getProductByID(int ID){
+    public static Product getProductByID(int ID) throws SQLException{
         
         Product product = new Product();
         Connection con = getConnection();
@@ -400,7 +344,6 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;
 
-        try {
             st = con.prepareStatement(query);
             st.setInt(1, ID);
             rs = st.executeQuery();
@@ -423,17 +366,11 @@ public class Common implements Init {
                 return null;
             else
                 return product;
-
-
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return null;
-        }               
+          
     }    
 
 
-    public static Employer getUser(String name){
+    public static Employer getUser(String name) throws SQLException{
         
         Employer employer = new Employer();
         Connection con = getConnection();
@@ -442,7 +379,6 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;
 
-        try {
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
@@ -474,17 +410,10 @@ public class Common implements Init {
             if(count == 0)
                 return null;
             else
-                return employer;
-
-
-        }
-        catch (SQLException e) {
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return null;
-        }               
+                return employer;              
     }
     
-    public  Sell getSell(int sellID){
+    public  Sell getSell(int sellID) throws SQLException{
         
         Connection con = getConnection();
         String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON user.user_id = sell.user_id WHERE sell.sell_id = ? ORDER BY sell.sell_date";
@@ -493,7 +422,6 @@ public class Common implements Init {
         ResultSet rs;
         Sell sell = new Sell();        
 
-        try {
             st = con.prepareStatement(query);
             st.setInt(1,sellID);
             rs = st.executeQuery();
@@ -517,17 +445,12 @@ public class Common implements Init {
             }
 
             con.close();
-        }
-        catch (SQLException e){ 
             
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-
-        }       
         return sell;
         
     }
     
-        public static String getDate(int ID, String type){
+        public static String getDate(int ID, String type) throws SQLException{
         
         Connection con = getConnection();
         String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
@@ -535,7 +458,6 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;  
 
-        try {
             st = con.prepareStatement(query);
             st.setInt(1,ID);
             rs = st.executeQuery();
@@ -547,18 +469,12 @@ public class Common implements Init {
             }
 
             con.close();
-        }
-        catch (SQLException e){ 
             
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return null;
-        }       
         return null;
     }
     
-    public static void updateLastLogged(String username){
+    public static void updateLastLogged(String username) throws SQLException{
         
-        try {
             String query = "UPDATE user SET last_logged_in = ? WHERE username = ?" ;
             
             try (Connection con = getConnection()) {
@@ -575,14 +491,10 @@ public class Common implements Init {
                 
                 ps.executeUpdate();
             }
-            
-        } catch (SQLException ex) {
-             alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
-        }
         
     }
     
-    public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause, String ordering){
+    public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause, String ordering) throws SQLException{
         
         Connection con = getConnection();
         String query = "SELECT " + select + " FROM " + tableName + " " + additions + " " + whereClause + " " + ordering;
@@ -590,18 +502,9 @@ public class Common implements Init {
         PreparedStatement st;
         ResultSet rs;
                 
-
-        try {
             st = con.prepareStatement(query);
             return rs = st.executeQuery();
-            
-        }
-        catch (SQLException e){ 
-            
-            alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-            return null;
-        }     
-        
+
     }
     
     public static void AnimateField(JFXTextField field, Label status, String formula){
@@ -650,31 +553,12 @@ public class Common implements Init {
         
     }
     
-    public static void setDraggable(Pane root, Stage stage){
+    public void startStage(Node current, String fxmlName){
         
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                });        
+        
         
     }
     
-    public static void setDraggable(AnchorPane root, Stage stage){
-        
-                        root.setOnMousePressed((MouseEvent event) -> {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                });
-                        root.setOnMouseDragged((MouseEvent event) -> {
-                            stage.setX(event.getScreenX() - xOffset);
-                            stage.setY(event.getScreenY() - yOffset);
-                });        
-        
-    }
      
     
     

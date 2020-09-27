@@ -8,11 +8,8 @@ package App.Controllers;
 import Data.Employer;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
-import static Include.Common.setDraggable;
 import static Include.Common.updateLastLogged;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import animatefx.animation.ZoomIn;
@@ -77,37 +74,37 @@ public class LoginController implements Initializable,Init {
 
     public Employer getUser(String username, String password)
     {
-        Connection con = getConnection();
-        String query = "SELECT * FROM user INNER JOIN privs ON user.user_id = privs.user_id WHERE username = ? AND password = ?";
-
-        PreparedStatement ps;
-        ResultSet rs;
-
         try {
-            ps = con.prepareStatement(query);
-            ps.setString(1, username);        
-            ps.setString(2, password);
             
-            rs = ps.executeQuery();
-            
-                Employer employer = new Employer();            
-
-            while (rs.next()) {
-
-                employer.setUserID(rs.getInt("user_id"));
-                employer.setFullname(rs.getString("fullname"));
-                employer.setAdmin(rs.getInt("admin"));
-                employer.setBuyPrivs(rs.getInt("manage_buys"));
-                employer.setProdPrivs(rs.getInt("manage_products"));
-                employer.setSellPrivs(rs.getInt("manage_sells"));
-                employer.setUserPrivs(rs.getInt("manage_users"));
-                employer.setPassword(password);
-                employer.setUsername(username);
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM user INNER JOIN privs ON user.user_id = privs.user_id WHERE username = ? AND password = ?";
                 
-                return employer;
+                PreparedStatement ps;
+                ResultSet rs;
+                
+                ps = con.prepareStatement(query);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                
+                rs = ps.executeQuery();
+                
+                Employer employer = new Employer();
+                
+                while (rs.next()) {
+                    
+                    employer.setUserID(rs.getInt("user_id"));
+                    employer.setFullname(rs.getString("fullname"));
+                    employer.setAdmin(rs.getInt("admin"));
+                    employer.setBuyPrivs(rs.getInt("manage_buys"));
+                    employer.setProdPrivs(rs.getInt("manage_products"));
+                    employer.setSellPrivs(rs.getInt("manage_sells"));
+                    employer.setUserPrivs(rs.getInt("manage_users"));
+                    employer.setPassword(password);
+                    employer.setUsername(username);
+                    
+                    return employer;
+                }
             }
-
-            con.close();
         }
         catch (SQLException e) {
             try {
@@ -162,9 +159,8 @@ public class LoginController implements Initializable,Init {
     }
     
     @FXML
-    public void login(ActionEvent event) throws IOException{
+    public void login(ActionEvent event) throws IOException, SQLException{
         
-        try {
             if(exists(username.getText().trim(),password.getText().trim())){
                 updateLastLogged(username.getText().trim());                
                 ((Node)event.getSource()).getScene().getWindow().hide();
@@ -181,7 +177,6 @@ public class LoginController implements Initializable,Init {
                 stage.setMinHeight(700);
                 stage.setMinWidth(1000);
                 stage.show();
-                setDraggable(root,stage);
 
                 
             }
@@ -195,15 +190,7 @@ public class LoginController implements Initializable,Init {
                 //alert.show(USER_INFO, USER_INFO_MESSAGE, Alert.AlertType.ERROR,false);
                         
             }
-        } catch (SQLException ex) {
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
-                
-                loadDialog(layout);                
-                //alert.show(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, Alert.AlertType.ERROR,true);
-        }
-        
-        
+
     }
     
     
@@ -222,13 +209,12 @@ public class LoginController implements Initializable,Init {
         loginButton.setOnAction(Action ->{
             try {
                 login(Action);
-            } catch (IOException ex) {
+            } catch (IOException | SQLException ex) {
 
                 JFXDialogLayout layout = new JFXDialogLayout();
                 initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
                 
-                loadDialog(layout);        
-            //alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
+                loadDialog(layout);
             }
         });
         

@@ -107,7 +107,7 @@
       
                                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
-                                           <Image url="@../images/icons8_save_60px.png" />
+                                           <Image url="@../images/small/icons8_save_close_24px.png" />
                                         </image>
                                      </ImageView>             
       

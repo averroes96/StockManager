@@ -291,7 +291,7 @@
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_search_48px.png" />
+                              <Image url="@../images/medium/icons8_search_48px.png" />
                            </image>
                         </ImageView>
                      </graphic>

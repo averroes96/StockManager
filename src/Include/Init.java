@@ -34,6 +34,8 @@ public interface Init {
     
     String FXMLS_PATH = "/App/FXMLs/" ;
     
+    String APP_ICON = "/App/images/app_icon.png";
+    
     String CONNECTION_ERROR = "خطأ خلال محاولة الإتصال بقاعدة البيانات";
     
     String CONNECTION_ERROR_MESSAGE = "تعذر الإتصال بقاعدة البيانات، تأكد من أن السرفر يعمل وحاول مجددا";

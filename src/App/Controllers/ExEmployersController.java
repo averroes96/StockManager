@@ -9,9 +9,6 @@ import Data.Employer;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.FlipInX;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -126,29 +123,27 @@ public class ExEmployersController implements Initializable,Init {
     
     public void FillTheTable(){
         
-        Connection con = getConnection();
-        
-        String query = "SELECT * FROM user WHERE active = 0";
-
-        Statement st;
-        ResultSet rs;
-        
-
         try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                Employer employer = new Employer();
-                employer.setUserID(rs.getInt("user_id"));
-                employer.setFullname(rs.getString("fullname"));
-                employer.setUsername(rs.getString("username"));
-                employer.setAdmin(rs.getInt("admin"));
-
-                exList.add(employer);
+        
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM user WHERE active = 0";
+                
+                Statement st;
+                ResultSet rs;
+                
+                st = con.createStatement();
+                rs = st.executeQuery(query);
+                
+                while (rs.next()) {
+                    Employer employer = new Employer();
+                    employer.setUserID(rs.getInt("user_id"));
+                    employer.setFullname(rs.getString("fullname"));
+                    employer.setUsername(rs.getString("username"));
+                    employer.setAdmin(rs.getInt("admin"));
+                    
+                    exList.add(employer);
+                }
             }
-
-            con.close();
         }
         catch (SQLException e) {
             exceptionLayout(e);

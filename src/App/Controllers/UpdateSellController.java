@@ -7,7 +7,6 @@ import Data.Sell;
 import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
-import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
 import static Include.Common.getProductByName;
@@ -15,15 +14,6 @@ import static Include.Common.getQuantity;
 import Include.CommonMethods;
 import Include.GDPController;
 import Include.Init;
-import static Include.Init.INVALID_PRICE;
-import static Include.Init.INVALID_PRICE_MSG;
-import static Include.Init.INVALID_QTE;
-import static Include.Init.INVALID_QTE_MSG;
-import static Include.Init.NOT_ENOUGH_QUANTITY;
-import static Include.Init.NOT_ENOUGH_QUANTITY_MSG;
-import static Include.Init.OKAY;
-import static Include.Init.ZERO_QTE;
-import static Include.Init.ZERO_QTE_MSG;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
@@ -64,16 +54,20 @@ public class UpdateSellController extends GDPController implements Initializable
     @FXML private Label priceStatus,qteStatus;
     @FXML private ChoiceBox nameBox;
     
-    ObservableList<String> nameList = getAllProducts(0);
+    ObservableList<String> nameList = null;
     
     Sell sell = new Sell();        
 
     public void fillFields(Sell selectedSell){
         
-        nameBox.getSelectionModel().select(selectedSell.getProduct().getName()); 
-        quantity.setText(String.valueOf(selectedSell.getSellQuantity()));
-        price.setText(String.valueOf(selectedSell.getTotalPrice() / selectedSell.getSellQuantity()));
-        date.getEditor().setText(getDate(selectedSell.getSellID(),"sell"));
+        try {
+            nameBox.getSelectionModel().select(selectedSell.getProduct().getName());
+            quantity.setText(String.valueOf(selectedSell.getSellQuantity()));
+            price.setText(String.valueOf(selectedSell.getTotalPrice() / selectedSell.getSellQuantity()));
+            date.getEditor().setText(getDate(selectedSell.getSellID(),"sell"));
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveButton);
+        }
 
     }
     
@@ -95,9 +89,7 @@ public class UpdateSellController extends GDPController implements Initializable
                         stage.setScene(scene);
                         stage.setMinHeight(700);
                         stage.setMinHeight(1000);
-                        stage.show();
-                        Common.setDraggable(root, stage);
-                        
+                        stage.show();                        
             
     }    
     
@@ -115,18 +107,19 @@ public class UpdateSellController extends GDPController implements Initializable
     public boolean checkInputs()
     {
         
-        Product oldProduct = getProductByName(this.sell.getSellName());
-        Product newProduct = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());        
-                
-        if (price.getText().trim().equals("") || quantity.getText().trim().equals("") )  {
-            customDialog(MISSING_FIELDS, MISSING_FIELDS, INFO_SMALL, true, saveButton);
-            return false;
-        }
+        try {
+            Product oldProduct = getProductByName(this.sell.getSellName());
+            Product newProduct = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
+            
+            if (price.getText().trim().equals("") || quantity.getText().trim().equals("") )  {
+                customDialog(MISSING_FIELDS, MISSING_FIELDS, INFO_SMALL, true, saveButton);
+                return false;
+            }
             if(quantity.getText().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(quantity.getText()) > 0){
                 if(oldProduct.getName().equals(newProduct.getName())){
                     if(oldProduct.getProdQuantity() + this.sell.getSellQuantity() - Integer.parseInt(quantity.getText())  >= 0){
                         if(price.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(price.getText()) > 0)
-                        return true;
+                            return true;
                         else{
                             customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, saveButton);
                             return false;
@@ -140,7 +133,7 @@ public class UpdateSellController extends GDPController implements Initializable
                 else{
                     if(newProduct.getProdQuantity() - Integer.parseInt(quantity.getText())  >= 0){
                         if(price.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(price.getText()) > 0)
-                        return true;
+                            return true;
                         else{
                             customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, saveButton);
                             return false;
@@ -148,15 +141,19 @@ public class UpdateSellController extends GDPController implements Initializable
                     }
                     else{
                         customDialog(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, INFO_SMALL, true, saveButton);
-                        return false;                    
+                        return false;
                     }                    
                 }
               
             }
             else{
                 customDialog(INVALID_QTE, INVALID_QTE_MSG, INFO_SMALL, true, saveButton);
-                return false;                
+                return false;
             }        
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveButton);
+            return false;
+        }
     }
            
         
@@ -238,8 +235,12 @@ public class UpdateSellController extends GDPController implements Initializable
         
         nameBox.setOnAction(event -> {
             
-            if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
-                customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, saveButton);
+            try {
+                if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
+                    customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, saveButton);
+                }
+            } catch (SQLException ex) {
+                exceptionLayout(ex, saveButton);
             }
             
         });

@@ -51,6 +51,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -71,7 +72,7 @@ public class NewSellController extends GDPController implements Initializable,In
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     
-    private final ObservableList<String> nameList = getAllProducts(0);        
+    private ObservableList<String> nameList = null;        
 
     public void getEmployer(Employer employer){
         
@@ -88,9 +89,10 @@ public class NewSellController extends GDPController implements Initializable,In
             return false;
         }
             if(qteField.getText().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(qteField.getText()) > 0){
+            try {
                 if(getProductByName(nameBox.getSelectionModel().getSelectedItem().toString()).getProdQuantity() - Integer.parseInt(qteField.getText()) >= 0){
                     if(priceField.getText().trim().matches("^[1-9]?[0-9]{1,7}$"))
-                    return true;
+                        return true;
                     else{
                         customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, addSell);
                         return false;
@@ -100,6 +102,10 @@ public class NewSellController extends GDPController implements Initializable,In
                     customDialog(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, INFO_SMALL, true, addSell);
                     return false;                    
                 }
+            } catch (SQLException ex) {
+                exceptionLayout(ex, addSell);
+                return false;
+            }
               
             }
             else{
@@ -111,8 +117,12 @@ public class NewSellController extends GDPController implements Initializable,In
     private void resetWindow()
     {
         
-                priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
-                qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()))); 
+        try {
+            priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString()))); 
+            qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString())));
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addSell);
+        }
         
     }
     
@@ -255,6 +265,12 @@ public class NewSellController extends GDPController implements Initializable,In
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        try {
+            nameList = getAllProducts(0);
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addSell);
+        }
+        
         idCol.setCellValueFactory(new PropertyValueFactory<>("sellID"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));
@@ -306,16 +322,31 @@ public class NewSellController extends GDPController implements Initializable,In
         
         nameBox.getSelectionModel().select(0);
         
-        priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
-        qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()))); 
+        try {
+            priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addSell);
+        }
+        try { 
+            qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString())));
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addSell);
+        }
 
         nameBox.setOnAction(event -> {
             
-            if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
-                customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, addSell);
+            try {
+
+                if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
+                    customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, addSell);
+                }
+
+                priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
+                qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString())));
+                
+            } catch (SQLException ex) {
+                exceptionLayout(ex, addSell);
             }
-            priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
-            qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()))); 
             
         });
                 
@@ -346,14 +377,18 @@ public class NewSellController extends GDPController implements Initializable,In
             
             Thread th = new Thread(() -> {
             
-                String selectedSells = "";
-
-                selectedSells = sellsTable.getItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
-                selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
-                jr.params.put("selectedSells", selectedSells);                        
-                jr.ShowReport("sellBill","");
-                dialog.close();
-                stackPane.setVisible(false);
+              try {
+                  String selectedSells = "";
+                  
+                  selectedSells = sellsTable.getItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
+                  selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
+                  jr.params.put("selectedSells", selectedSells);
+                  jr.ShowReport("sellBill","");
+                  dialog.close();
+                  stackPane.setVisible(false);
+              } catch (SQLException | JRException ex) {
+                  exceptionLayout(ex, addSell);
+              }
             });
             
             th.start();          

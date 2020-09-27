@@ -6,15 +6,12 @@
 package Data;
 
 import static Include.Common.getConnection;
-import static Include.Init.UNKNOWN_ERROR;
-import Include.SpecialAlert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Alert;
 
 /**
  *
@@ -32,7 +29,6 @@ public class Employer {
     private String password;
     private int prodPrivs,userPrivs,buyPrivs,sellPrivs;
     
-    private static final SpecialAlert alert = new SpecialAlert();
 
     public Employer() {
 
@@ -156,9 +152,9 @@ public class Employer {
                 }
     }
     
-    public static int getAdminCount(){
+    public static int getAdminCount() throws SQLException{
         
-        try {
+
             int count;
             try (Connection con = getConnection()) {
                 count = 0;
@@ -170,13 +166,10 @@ public class Employer {
                     count = rs.getInt("count(*)");
                     
                 }
+                con.close();
             }
-            
-            return count;
-        } catch (SQLException ex) {
-            alert.show(UNKNOWN_ERROR, ex.getMessage(), Alert.AlertType.ERROR,true);
-            return 0;
-        }        
+
+            return count;      
         
     }
     
