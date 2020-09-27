@@ -62,3 +62,8 @@ This is JavaFX inventory manager app - IN ARABIC -
 
 ### If you like it
 Please give a ⭐️ to this repo
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Currently...
+Working on Internationalization..
