@@ -29,16 +29,15 @@ public class Main extends Application implements Init {
     private void loadView(Locale locale, Stage stage) throws IOException {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setResources(ResourceBundle.getBundle("App.Bundles.bundle", locale));
+            ResourceBundle bundle = ResourceBundle.getBundle("App.Bundles.bundle", locale);
             //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
-            Parent root = fxmlLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
+            Parent root = fxmlLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"), bundle);
             
             // replace the content
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
             scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());          
             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-            System.out.println(APP_ICON);
 
             stage.setScene(scene);
             stage.setMinHeight(350);
@@ -73,7 +72,7 @@ public class Main extends Application implements Init {
         
         init();
 
-        loadView(new Locale("ar", "AR"), stage);
+        loadView(new Locale("ar", "DZ"), stage);
 
     }
 

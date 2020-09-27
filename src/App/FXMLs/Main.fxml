@@ -35,14 +35,13 @@
             </ImageView>
             <TableView fx:id="productsTable" layoutX="15.0" layoutY="70.0" maxWidth="1.7976931348623157E308" prefHeight="312.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
-                <TableColumn fx:id="id" maxWidth="100.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
-                <TableColumn fx:id="prodName" maxWidth="300.0" minWidth="175.0" prefWidth="-1.0" text="إسم المنتوج" />
-                  <TableColumn fx:id="prodQuantity" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="الكمية" />
-                  <TableColumn fx:id="sellProd" maxWidth="150.0" minWidth="100.0" prefWidth="-1.0" text="سعر البيع" />
-                  <TableColumn fx:id="addDate" maxWidth="200.0" minWidth="150.0" prefWidth="-1.0" text="تاريخ الإضافة" />
-                  <TableColumn fx:id="lastChange" maxWidth="250.0" minWidth="200.0" prefWidth="-1.0" text="آخر تعديل" />
-                  <TableColumn fx:id="nbrBuysCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="عدد الشراءات" />
-                  <TableColumn fx:id="nbrSellsCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="عدد المبيعات" />
+                <TableColumn fx:id="prodName" maxWidth="300.0" minWidth="175.0" prefWidth="-1.0" text="%product" />
+                  <TableColumn fx:id="prodQuantity" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="%quantity" />
+                  <TableColumn fx:id="sellProd" maxWidth="150.0" minWidth="100.0" prefWidth="-1.0" text="%sell_price" />
+                  <TableColumn fx:id="addDate" maxWidth="200.0" minWidth="150.0" prefWidth="-1.0" text="%add_date" />
+                  <TableColumn fx:id="lastChange" maxWidth="250.0" minWidth="200.0" prefWidth="-1.0" text="%last_edit" />
+                  <TableColumn fx:id="nbrBuysCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="%buys" />
+                  <TableColumn fx:id="nbrSellsCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="%sells" />
               </columns>
                <effect>
                   <DropShadow color="#00000099" height="16.0" radius="7.5" width="16.0" />
@@ -54,7 +53,7 @@
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
             <HBox alignment="CENTER" layoutX="15.0" layoutY="4.0" prefHeight="61.0" prefWidth="970.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
-                  <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="238.0" promptText="بحث" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="238.0" promptText="%search" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="18.0" />
                      </font>
@@ -64,7 +63,7 @@
                         <Image url="@../images/medium/icons8_search_48px.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="menu-btn" fx:id="viewHistory" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="التعديلات" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="viewHistory" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%edits" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -81,7 +80,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>                       
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="removedProduct" contentDisplay="RIGHT" layoutX="485.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="المحذوفات" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="removedProduct" contentDisplay="RIGHT" layoutX="485.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%trash" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -96,7 +95,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="printProducts" contentDisplay="RIGHT" layoutX="310.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="printProducts" contentDisplay="RIGHT" layoutX="310.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -111,7 +110,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="addProd" contentDisplay="RIGHT" layoutX="135.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="منتوج جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="addProd" contentDisplay="RIGHT" layoutX="135.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%new_product" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -140,23 +139,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Label>
-                        <JFXButton fx:id="updateImage" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="230.0" ripplerFill="RED" style="-fx-background-color: #3d4956;" text="تعديل الصورة" textFill="#eeeeee">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                               
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/small/icons8_rotate_camera_32px_1.png" />
-                                 </image>
-                              </ImageView>             
-                               
-                           </graphic>                  
-                        </JFXButton>
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="242.0" prefWidth="673.0" style="-fx-background-color: #eee;" HBox.hgrow="ALWAYS">
@@ -168,7 +150,7 @@
                         </Label>
                         <VBox alignment="CENTER" prefHeight="226.0" prefWidth="286.0" spacing="16.0">
                            <children>
-                              <JFXButton fx:id="updateProduct" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="تأكيد" textFill="#dddddd">
+                              <JFXButton fx:id="updateProduct" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="%confirm" textFill="#dddddd">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -185,7 +167,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>                              
                               </JFXButton>
-                              <JFXButton fx:id="productStats" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="إحصائيات" textFill="#3d4956">
+                              <JFXButton fx:id="productStats" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="%statistics" textFill="#3d4956">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -202,7 +184,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>                              
                               </JFXButton>
-                              <JFXButton fx:id="deleteProduct" buttonType="RAISED" contentDisplay="RIGHT" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="حذف" textFill="WHITE">
+                              <JFXButton fx:id="deleteProduct" buttonType="RAISED" contentDisplay="RIGHT" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="%delete" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -219,7 +201,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>                              
                               </JFXButton>
-                              <Label fx:id="emptyQte" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="250.0" style="-fx-padding: 5; -fx-background-radius: 5; -fx-background-color: red; -fx-font-size: 14;" text="ملاحظة : كمية هذا المنتوج صغيرة !" textFill="WHITE">
+                              <Label fx:id="emptyQte" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="250.0" style="-fx-padding: 5; -fx-background-radius: 5; -fx-background-color: red; -fx-font-size: 14;" text="%empty_quantity_note" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -233,7 +215,7 @@
                            <children>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="100.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="إسم المنتوج" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="%product" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -250,7 +232,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="سعر البيع" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -267,7 +249,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="الكمية" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -319,7 +301,7 @@
          <children>
             <HBox alignment="CENTER_RIGHT" layoutX="76.0" layoutY="34.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="المبيعات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%sells" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -331,7 +313,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="المشتريات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%buys" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -343,7 +325,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="الحسابات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -355,7 +337,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="المنتوجات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%products" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>

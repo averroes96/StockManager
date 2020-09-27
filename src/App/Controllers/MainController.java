@@ -35,6 +35,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -85,7 +86,7 @@ public class MainController extends GDPController implements Initializable,Init 
     @FXML private TableColumn<Buy, Integer> buyIDCol,buyQteCol,buyPriceCol,buyTotalCol ;
     @FXML private TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
     @FXML private TableColumn<Product, String> prodName,addDate,lastChange ;
-    @FXML private TableColumn<Product, Integer> sellProd,prodQuantity,id,nbrSellsCol,nbrBuysCol ; 
+    @FXML private TableColumn<Product, Integer> sellProd,prodQuantity,nbrSellsCol,nbrBuysCol ; 
     @FXML private TableColumn<Sell, Integer> sellID,sellQuantity,sellTotalCol,sellPrice ;
     @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
     @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
@@ -98,7 +99,7 @@ public class MainController extends GDPController implements Initializable,Init 
     @FXML public Pane billPane,billPane1;
     @FXML private JFXTextField searchField,refField,priceField2,quantityField,sellSearch ;
     @FXML private JFXDatePicker dateField,sellDateField;
-    @FXML private JFXButton updateImage,viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
+    @FXML private JFXButton viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn;
     
@@ -1084,7 +1085,6 @@ public class MainController extends GDPController implements Initializable,Init 
         sellDateField.getEditor().setText(String.valueOf(LocalDate.now()));
         buyDateField.getEditor().setText(String.valueOf(LocalDate.now())); 
         
-        id.setCellValueFactory(new PropertyValueFactory<>("prodID"));
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodQuantity.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
         sellProd.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
@@ -1106,10 +1106,6 @@ public class MainController extends GDPController implements Initializable,Init 
             if (newSelection != null) {
                 showProduct(productsTable.getSelectionModel().getSelectedIndex());
             }
-        });
-
-        updateImage.setOnAction(Action -> {
-            updateImage();
         });
         
         productImg.setOnMouseClicked(value -> {
@@ -1882,12 +1878,14 @@ public class MainController extends GDPController implements Initializable,Init 
             
                         ((Node)event.getSource()).getScene().getWindow().hide();
                         Stage stage = new Stage();
-                        AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"));
+                        ResourceBundle bundle = ResourceBundle.getBundle("App.Bundles.bundle", new Locale("ar", "DZ"));
+                        AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"), bundle);
                         Scene scene = new Scene(root);
                         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                         //stage.initStyle(StageStyle.TRANSPARENT);
                         scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
+                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
+                        stage.getIcons().add(new Image(MainController.class.getResourceAsStream(APP_ICON)));
                         stage.setScene(scene);
                         stage.setMinHeight(350);
                         stage.setMinWidth(450);                        

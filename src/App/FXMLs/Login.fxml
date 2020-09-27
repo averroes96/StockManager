@@ -23,33 +23,32 @@
          <children>
             <HBox fx:id="usernameHB" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
                <children>
-                  <JFXTextField fx:id="username" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="username" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="%username" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXTextField>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/small/icons8_user_24px.png" />
-                     </image>
-                  </ImageView>
+                     </image></ImageView>
                </children>
             </HBox>
             <HBox fx:id="passwordHB" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="300.0">
                <children>
-                  <JFXPasswordField fx:id="password" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="كلمة المرور" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXPasswordField fx:id="password" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="%password" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #bbb; -fx-padding: 0;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXPasswordField>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/medium/icons8_password_1_48px.png" />
                      </image>
                   </ImageView>
                </children>
             </HBox>
-            <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="40.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato; -fx-background-radius: 20;" text="دخول" textFill="#3d4956">
+            <JFXButton fx:id="loginButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="40.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato; -fx-background-radius: 20;" text="%enter" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -58,7 +57,7 @@
                </cursor>
                      <graphic>
                          
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/small/icons8_login_rounded_24px.png" />
                            </image>

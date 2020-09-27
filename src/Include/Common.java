@@ -47,12 +47,10 @@ import javafx.util.StringConverter;
 public class Common implements Init {
     
     
-    final static String dateFormat = "yyyy-MM-dd";
+    final static String DATEFORMAT = "yyyy-MM-dd";
     
-    final static String datetimeFormat = "yyyy-MM-dd HH:mm:ss" ;
+    final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss" ;
     
-    private static double xOffset = 0;
-    private static double yOffset = 0;
     
     public static void controlDigitField(TextField field){
         field.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -70,19 +68,18 @@ public class Common implements Init {
         
         ObservableList<String> names = FXCollections.observableArrayList();
        
-        Connection con = getConnection();
-        
-        String query = "SELECT name FROM product";
-        
-        if(all == 1){
-            names.add("الكل");
-        }else{
-            query += " WHERE on_hold = 0" ;
-        }        
-
-        Statement st;
-        ResultSet rs;
-        
+        try (Connection con = getConnection()) {
+            String query = "SELECT name FROM product";
+            
+            if(all == 1){
+                names.add("الكل");
+            }else{
+                query += " WHERE on_hold = 0" ;
+            }
+            
+            Statement st;
+            ResultSet rs;
+            
             st = con.createStatement();
             rs = st.executeQuery(query);
 
@@ -90,8 +87,7 @@ public class Common implements Init {
 
                 names.add(rs.getString("name"));
             }
-
-            con.close();
+        }
         
         return names;
         
@@ -177,7 +173,7 @@ public class Common implements Init {
     public static StringConverter dateFormatter()
     {
         StringConverter converter = new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(dateFormat);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATEFORMAT);
 
             @Override
             public String toString(LocalDate date) {
@@ -226,13 +222,12 @@ public class Common implements Init {
 
     public static int getPrice(String name) throws SQLException{
         
-        Connection con = getConnection();
-        String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
-        int targetedPrice = 0;
-
-        PreparedStatement st;
-        ResultSet rs;
-        
+        int targetedPrice;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
+            targetedPrice = 0;
+            PreparedStatement st;
+            ResultSet rs;
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
@@ -242,8 +237,7 @@ public class Common implements Init {
                 targetedPrice = rs.getInt("sell_price");
                 
             }
-            
-            con.close();
+        }
             
             return targetedPrice;
       
@@ -252,13 +246,12 @@ public class Common implements Init {
     
     public static int getQuantity(String name) throws SQLException{
         
-        Connection con = getConnection();
-        String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
-        int targetedPrice = 0;
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        int targetedPrice;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
+            targetedPrice = 0;
+            PreparedStatement st;
+            ResultSet rs;
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
@@ -268,8 +261,7 @@ public class Common implements Init {
                 targetedPrice = rs.getInt("prod_quantity");
                 
             }
-            
-            con.close();
+        }
             
             return targetedPrice;
 
@@ -277,24 +269,21 @@ public class Common implements Init {
 
     public static boolean refExist(String ref) throws SQLException{
         
-        Connection con = getConnection();
-        String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
-        boolean found = false ;
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        boolean found;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
+            found = false;
+            PreparedStatement st;
+            ResultSet rs;
             st = con.prepareStatement(query);
             st.setString(1, ref);
             rs = st.executeQuery();
             int count = 0;
-            
             if(rs.next()){
                 
                 found = true;
             }
-            
-            con.close();
+        }
             
             return found;
        
@@ -304,16 +293,15 @@ public class Common implements Init {
     public static Product getProductByName(String name) throws SQLException{
         
         Product product = new Product();
-        Connection con = getConnection();
-        String query = "SELECT * FROM product WHERE name = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        int count;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE name = ?";
+            PreparedStatement st;
+            ResultSet rs;
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
-            int count = 0;
+            count = 0;
             while (rs.next()) {
                 product.setAddDate(rs.getDate("add_date").toString());
                 product.setName(rs.getString("name"));
@@ -325,9 +313,7 @@ public class Common implements Init {
                 ++count;
                 
             }
-            
-
-            con.close();
+        }
             if(count == 0)
                 return null;
             else
@@ -338,16 +324,15 @@ public class Common implements Init {
     public static Product getProductByID(int ID) throws SQLException{
         
         Product product = new Product();
-        Connection con = getConnection();
-        String query = "SELECT * FROM product WHERE prod_id = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        int count;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE prod_id = ?";
+            PreparedStatement st;
+            ResultSet rs;
             st = con.prepareStatement(query);
             st.setInt(1, ID);
             rs = st.executeQuery();
-            int count = 0;
+            count = 0;
             while (rs.next()) {
                 product.setAddDate(rs.getDate("add_date").toString());
                 product.setName(rs.getString("name"));
@@ -359,9 +344,7 @@ public class Common implements Init {
                 ++count;
                 
             }
-            
-
-            con.close();
+        }
             if(count == 0)
                 return null;
             else
@@ -373,22 +356,21 @@ public class Common implements Init {
     public static Employer getUser(String name) throws SQLException{
         
         Employer employer = new Employer();
-        Connection con = getConnection();
-        String query = "SELECT * FROM user INNER join privs ON user.user_id = privs.user_id WHERE username = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
+        int count;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM user INNER join privs ON user.user_id = privs.user_id WHERE username = ?";
+            PreparedStatement st;
+            ResultSet rs;
             st = con.prepareStatement(query);
             st.setString(1, name);
             rs = st.executeQuery();
-            int count = 0;
+            count = 0;
             while (rs.next()) {
                 
                 employer.setAdmin(rs.getInt("admin"));
                 employer.setFullname(rs.getString("fullname"));
                 if(rs.getString("image") != null){
-                employer.setImage(rs.getString("image"));
+                    employer.setImage(rs.getString("image"));
                 }
                 employer.setPassword(rs.getString("password"));
                 employer.setUserID(rs.getInt("user_id"));
@@ -399,14 +381,12 @@ public class Common implements Init {
                 employer.setSellPrivs(rs.getInt("manage_sells"));
                 employer.setUserPrivs(rs.getInt("manage_users"));
                 if(rs.getString("last_logged_in") != null){
-                employer.setLastLogged(rs.getTimestamp("last_logged_in").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
+                    employer.setLastLogged(rs.getTimestamp("last_logged_in").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
                 }
                 ++count;
                 
             }
-            
-
-            con.close();
+        }
             if(count == 0)
                 return null;
             else
@@ -415,17 +395,15 @@ public class Common implements Init {
     
     public  Sell getSell(int sellID) throws SQLException{
         
-        Connection con = getConnection();
-        String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON user.user_id = sell.user_id WHERE sell.sell_id = ? ORDER BY sell.sell_date";
-
-        PreparedStatement st;
-        ResultSet rs;
-        Sell sell = new Sell();        
-
+        Sell sell;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON user.user_id = sell.user_id WHERE sell.sell_id = ? ORDER BY sell.sell_date";
+            PreparedStatement st;
+            ResultSet rs;
+            sell = new Sell();
             st = con.prepareStatement(query);
             st.setInt(1,sellID);
             rs = st.executeQuery();
-
             while (rs.next()) {
 
                 sell.setSellID(rs.getInt("sell_id"));
@@ -443,8 +421,7 @@ public class Common implements Init {
                 sell.setSellName(rs.getString("name"));
 
             }
-
-            con.close();
+        }
             
         return sell;
         
@@ -452,12 +429,12 @@ public class Common implements Init {
     
         public static String getDate(int ID, String type) throws SQLException{
         
-        Connection con = getConnection();
-        String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
-
-        PreparedStatement st;
-        ResultSet rs;  
-
+        try (Connection con = getConnection()) {
+            String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
+            
+            PreparedStatement st;
+            ResultSet rs;
+            
             st = con.prepareStatement(query);
             st.setInt(1,ID);
             rs = st.executeQuery();
@@ -467,8 +444,7 @@ public class Common implements Init {
                 return rs.getString("date("+ type + "_date)");
 
             }
-
-            con.close();
+        }
             
         return null;
     }
@@ -482,7 +458,7 @@ public class Common implements Init {
                 
                 java.util.Date date = new java.util.Date();
                 
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(datetimeFormat);
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATETIME_FORMAT);
                 
                 String sqlDate = sdf.format(date);
                 

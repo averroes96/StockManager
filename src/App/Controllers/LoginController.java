@@ -6,16 +6,15 @@
 package App.Controllers;
 
 import Data.Employer;
+import Include.Common;
 import static Include.Common.getConnection;
-import static Include.Common.initLayout;
 import static Include.Common.updateLastLogged;
+import Include.GDPController;
 import Include.Init;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,7 +34,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -42,35 +41,32 @@ import javafx.stage.Stage;
  *
  * @author med
  */
-public class LoginController implements Initializable,Init {
+public class LoginController extends GDPController implements Initializable,Init {
     
     @FXML private JFXTextField username;
     @FXML private JFXPasswordField password;
     @FXML private JFXButton loginButton;
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
     @FXML private Label title;
     @FXML private HBox usernameHB, passwordHB;
     
-    public void loadDialog(JFXDialogLayout layout){
+    private ResourceBundle bundle;
+    
+    public String getAppName(){
         
-        stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
-        btn.setDefaultButton(true);
-        btn.setOnAction(Action -> {
-            dialog.close();
-            stackPane.setVisible(false);
-            btn.setDefaultButton(false);
-            loginButton.setDefaultButton(true);
-        });
-        loginButton.setDefaultButton(false);
-        layout.setActions(btn);
-        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
-        dialog.setOverlayClose(false);
-        dialog.show();
+        try {
+            ResultSet rs = Common.getAllFrom("*", "settings", " WHERE setting_name = 'app_name'", "", "");
+            
+            while(rs.next()){ 
+                return rs.getString("setting_value");
+                        }
+        } catch (SQLException ex) {
+            exceptionLayout(ex, loginButton);
+            return null;
+        }
         
+        return null;
     }
-
+    
 
     public Employer getUser(String username, String password)
     {
@@ -88,21 +84,21 @@ public class LoginController implements Initializable,Init {
                 
                 rs = ps.executeQuery();
                 
-                Employer employer = new Employer();
+                Employer emp = new Employer();
                 
                 while (rs.next()) {
                     
-                    employer.setUserID(rs.getInt("user_id"));
-                    employer.setFullname(rs.getString("fullname"));
-                    employer.setAdmin(rs.getInt("admin"));
-                    employer.setBuyPrivs(rs.getInt("manage_buys"));
-                    employer.setProdPrivs(rs.getInt("manage_products"));
-                    employer.setSellPrivs(rs.getInt("manage_sells"));
-                    employer.setUserPrivs(rs.getInt("manage_users"));
-                    employer.setPassword(password);
-                    employer.setUsername(username);
+                    emp.setUserID(rs.getInt("user_id"));
+                    emp.setFullname(rs.getString("fullname"));
+                    emp.setAdmin(rs.getInt("admin"));
+                    emp.setBuyPrivs(rs.getInt("manage_buys"));
+                    emp.setProdPrivs(rs.getInt("manage_products"));
+                    emp.setSellPrivs(rs.getInt("manage_sells"));
+                    emp.setUserPrivs(rs.getInt("manage_users"));
+                    emp.setPassword(password);
+                    emp.setUsername(username);
                     
-                    return employer;
+                    return emp;
                 }
             }
         }
@@ -110,12 +106,7 @@ public class LoginController implements Initializable,Init {
             try {
                 Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqld.exe"); 
             } catch (IOException ex) {
-                
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
-                
-                loadDialog(layout);                  
-                //alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
+                exceptionLayout(e, loginButton);
             }
         }
         return null;
@@ -145,13 +136,7 @@ public class LoginController implements Initializable,Init {
             try {
                 Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqld.exe"); 
             } catch (IOException e) {
-                
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
-                
-                loadDialog(layout);          
-                //alert.show(UNKNOWN_ERROR, e.getMessage(), Alert.AlertType.ERROR,true);
-                
+                exceptionLayout(e, loginButton);
             }
             return false;
         }
@@ -165,7 +150,8 @@ public class LoginController implements Initializable,Init {
                 updateLastLogged(username.getText().trim());                
                 ((Node)event.getSource()).getScene().getWindow().hide();
                 Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
+                ResourceBundle bundle = ResourceBundle.getBundle("App.Bundles.bundle", new Locale("ar", "DZ"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
                 MainController mControl = (MainController)loader.getController();
                 mControl.getEmployer(getUser(username.getText(), password.getText()));
@@ -181,14 +167,7 @@ public class LoginController implements Initializable,Init {
                 
             }
             else{
-                
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, USER_INFO, USER_INFO_MESSAGE, ERROR_SMALL);                
-                
-                loadDialog(layout);       
-                
-                //alert.show(USER_INFO, USER_INFO_MESSAGE, Alert.AlertType.ERROR,false);
-                        
+                customDialog(USER_INFO, USER_INFO_MESSAGE, ERROR_SMALL, true, loginButton);                                        
             }
 
     }
@@ -198,23 +177,21 @@ public class LoginController implements Initializable,Init {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+                
         new ZoomIn(usernameHB).play();
         new ZoomIn(passwordHB).play();
         new ZoomIn(loginButton).play();
         new ZoomIn(title).play();
         
+        title.setText(getAppName());
+                                
         AnimationFX loginBtnAnim = new Shake(loginButton);
         
         loginButton.setOnAction(Action ->{
             try {
                 login(Action);
             } catch (IOException | SQLException ex) {
-
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL);                
-                
-                loadDialog(layout);
+                customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true, loginButton);
             }
         });
         
