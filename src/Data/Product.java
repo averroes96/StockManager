@@ -5,10 +5,16 @@
  */
 package Data;
 
+import static Include.Common.getAllFrom;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -143,6 +149,39 @@ public class Product extends RecursiveTreeObject<Product> {
         int hash = 3;
         hash = 71 * hash + Objects.hashCode(this.name);
         return hash;
+    }
+    
+    public static ObservableList getActiveProducts() throws SQLException{
+        
+        ObservableList<Product> data = FXCollections.observableArrayList();
+        
+        ResultSet rs;
+
+        rs = getAllFrom("*","product","","WHERE on_hold = 0","ORDER BY add_date DESC");
+
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProdID(rs.getInt("prod_id"));
+                product.setName(rs.getString("name"));
+                product.setSellPrice(rs.getInt("sell_price"));
+                product.setAddDate(rs.getDate("add_date").toString());
+                product.setProdQuantity(rs.getInt("prod_quantity"));
+                product.setImageURL(rs.getString("image_url"));
+                product.setNbrBuys(rs.getInt("nbrBuys"));
+                product.setNbrSells(rs.getInt("nbrSells"));
+                
+                if(rs.getTimestamp("last_change") != null){
+                    product.setLastChange(rs.getTimestamp("last_change").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
+                }
+                else
+                    product.setLastChange("/");
+                data.add(product);
+            }
+            
+        return data;
+            
+            
+        
     }
 
     

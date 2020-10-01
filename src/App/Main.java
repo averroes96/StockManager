@@ -6,6 +6,7 @@
 package App;
 
 import App.Preloader.MyPreLoader;
+import static Include.Common.getAppLang;
 import Include.Init;
 import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
@@ -29,7 +30,7 @@ public class Main extends Application implements Init {
     private void loadView(Locale locale, Stage stage) throws IOException {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            ResourceBundle bundle = ResourceBundle.getBundle("App.Bundles.bundle", locale);
+            ResourceBundle bundle = ResourceBundle.getBundle(BUNDLES_PATH, locale);
             //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
             Parent root = fxmlLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"), bundle);
             
@@ -72,7 +73,7 @@ public class Main extends Application implements Init {
         
         init();
 
-        loadView(new Locale("ar", "DZ"), stage);
+        loadView(new Locale(getAppLang()[0], getAppLang()[1]), stage);
 
     }
 

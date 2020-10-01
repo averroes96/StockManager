@@ -3,13 +3,16 @@ package App.Controllers;
 import Data.Buy;
 import Data.Employer;
 import Data.Product;
+import static Data.Product.getActiveProducts;
 import Data.Sell;
 import Include.Common;
+import static Include.Common.controlDigitField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import static Include.Common.getUser;
 import static Include.Common.initLayout;
+import static Include.Common.startStage;
 import Include.GDPController;
 import Include.Init;
 import JR.JasperReporter;
@@ -34,8 +37,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -83,11 +84,11 @@ public class MainController extends GDPController implements Initializable,Init 
     @FXML private TableView<Product> productsTable ;
     @FXML private TableView<Sell> sellsTable ;
     @FXML private TableView<Buy> buysTable ;
-    @FXML private TableColumn<Buy, Integer> buyIDCol,buyQteCol,buyPriceCol,buyTotalCol ;
+    @FXML private TableColumn<Buy, Integer> buyQteCol,buyPriceCol,buyTotalCol ;
     @FXML private TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
     @FXML private TableColumn<Product, String> prodName,addDate,lastChange ;
     @FXML private TableColumn<Product, Integer> sellProd,prodQuantity,nbrSellsCol,nbrBuysCol ; 
-    @FXML private TableColumn<Sell, Integer> sellID,sellQuantity,sellTotalCol,sellPrice ;
+    @FXML private TableColumn<Sell, Integer> sellQuantity,sellTotalCol,sellPrice ;
     @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
     @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
     @FXML public ChoiceBox<String> usersCB ;
@@ -111,12 +112,8 @@ public class MainController extends GDPController implements Initializable,Init 
     ObservableList<String> employersList = FXCollections.observableArrayList();
     ObservableList<Buy> buysList = FXCollections.observableArrayList(); 
     
-    
     final String dateFormat = "yyyy-MM-dd";
-
     File selectedFile = null;
-    
-    
     JasperReporter jr = new JasperReporter();
         
     public void confirmDialog(Object object, String type, String title, String body, String icon){
@@ -125,7 +122,7 @@ public class MainController extends GDPController implements Initializable,Init 
         initLayout(layout, title, body, icon);
             
         stackPane.setVisible(true);
-        JFXButton yesBtn = new JFXButton("نعم");
+        JFXButton yesBtn = new JFXButton(bundle.getString("yes"));
         yesBtn.setDefaultButton(true);
         yesBtn.setOnAction(Action -> {
             dialog.close();
@@ -149,7 +146,7 @@ public class MainController extends GDPController implements Initializable,Init 
                     break;
             }
         });
-        JFXButton noBtn = new JFXButton("لا");
+        JFXButton noBtn = new JFXButton(bundle.getString("no"));
         noBtn.setCancelButton(true);
         noBtn.setOnAction(Action -> {
             dialog.close();
@@ -168,7 +165,7 @@ public class MainController extends GDPController implements Initializable,Init 
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
         btn.setDefaultButton(true);
         btn.setOnAction(Action -> {
             dialog.close();
@@ -186,7 +183,7 @@ public class MainController extends GDPController implements Initializable,Init 
     
     public void exceptionLayout(Exception e){
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            initLayout(layout, bundle.getString("unknown_error"), e.getLocalizedMessage(), ERROR_SMALL);
             
             loadDialog(layout, true);
     }
@@ -194,7 +191,7 @@ public class MainController extends GDPController implements Initializable,Init 
     private void onJasperReportLoading(){
         
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, PLEASE_WAIT, REPORT_WAIT_MESSAGE, WAIT_SMALL);
+            initLayout(layout, bundle.getString("please_wait"), bundle.getString("report_wait_msg"), WAIT_SMALL);
             
             loadDialog(layout, false);
             
@@ -258,46 +255,15 @@ public class MainController extends GDPController implements Initializable,Init 
 
     }        
     
-
     public void fillTheTable()
     {
-
-        ResultSet rs;
-        
-
         try {
-            rs = getAllFrom("*","product","","WHERE on_hold = 0","ORDER BY add_date DESC");
-
-            while (rs.next()) {
-                Product product = new Product();
-                product.setProdID(rs.getInt("prod_id"));
-                product.setName(rs.getString("name"));
-                product.setSellPrice(rs.getInt("sell_price"));
-                product.setAddDate(rs.getDate("add_date").toString());
-                product.setProdQuantity(rs.getInt("prod_quantity"));
-                product.setImageURL(rs.getString("image_url"));
-                product.setNbrBuys(rs.getInt("nbrBuys"));
-                product.setNbrSells(rs.getInt("nbrSells"));
-                
-                if(rs.getTimestamp("last_change") != null){
-                    product.setLastChange(rs.getTimestamp("last_change").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
-                }
-                else
-                    product.setLastChange("/");
-                data.add(product);
-            }
-
+            data = getActiveProducts();
         }
-        catch (SQLException e) {
-            
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);            
-            
+        catch (SQLException e) {            
+            exceptionLayout(e);
         }
     }
-    
     
     private void search(String tableName)
     {
@@ -358,7 +324,7 @@ public class MainController extends GDPController implements Initializable,Init 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, INFO_MESSAGE, INFO_MSG, INFO_SMALL);                
+            initLayout(layout, bundle.getString("info_msg"), bundle.getString("select_product_msg"), INFO_SMALL);                
                 
             loadDialog(layout, true);               
             return;
@@ -370,9 +336,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 new FileChooser.ExtensionFilter("Select a .JPG .PNG .GIF image", "*.jpg", "*.png", "*.gif")
         );
 
-       
         selectedFile = fileChooser.showOpenDialog(null);
-
        
         if (selectedFile != null) {
             
@@ -404,10 +368,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 productsTable.refresh();
             }
             catch (NumberFormatException | SQLException | IOException ex) {
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, UNKNOWN_ERROR, ex.getLocalizedMessage(), ERROR_SMALL);                
-
-                loadDialog(layout, true);                    
+                exceptionLayout(ex);
             }
         }
 
@@ -416,35 +377,14 @@ public class MainController extends GDPController implements Initializable,Init 
     @Override
     public boolean checkInputs()
     {
-        if (refField.getText().trim().equals("") && priceField2.getText().trim().equals("") && quantityField.getText().trim().equals("")) {
+        if (refField.getText().trim().equals("") || priceField2.getText().trim().equals("") || quantityField.getText().trim().equals("")) {
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, MISSING_FIELDS, "إسم وأسعار المنتج غير مملوءة", ERROR_SMALL);                
+            initLayout(layout, bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL);                
 
-            loadDialog(layout, true);     
-        }
-        else if (refField.getText().trim().equals("")) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, MISSING_FIELDS, "قم بإدخال إسم المنتج من فضلك", ERROR_SMALL);                
-
-            loadDialog(layout, true);               
+            loadDialog(layout, true);
             return false;
-        }
-        else if (priceField2.getText().trim().equals("")) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, MISSING_FIELDS, "من فضلك قم بإدخال أسعار المنتج", ERROR_SMALL);                
-
-            loadDialog(layout, true);                
-            return false;
-        }
-        else if (quantityField.getText().trim().equals("")) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, MISSING_FIELDS, "من فضلك قم بإدخال أسعار المنتج", ERROR_SMALL);                
-
-            loadDialog(layout, true);   
-            return false;
-        }        
+        }     
         
-
         try {
             Integer.parseInt(priceField2.getText());
             if(priceField2.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(priceField2.getText()) > 0){
@@ -453,7 +393,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 }
                 else{
                     JFXDialogLayout layout = new JFXDialogLayout();
-                    initLayout(layout, INVALID_QTE, INVALID_QTE_MSG, ERROR_SMALL);                
+                    initLayout(layout, bundle.getString("invalid_qte"), bundle.getString("invalid_qte_msg"), ERROR_SMALL);                
 
                     loadDialog(layout, true);                     
                     return false;
@@ -461,18 +401,14 @@ public class MainController extends GDPController implements Initializable,Init 
             }
             else{
                     JFXDialogLayout layout = new JFXDialogLayout();
-                    initLayout(layout, INVALID_PRICE, "من فضلك قم بإدخال أسعار صالحة", ERROR_SMALL);                
+                    initLayout(layout, bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL);                
 
                     loadDialog(layout, true);                     
                     return false;
             }
         }
         catch (NumberFormatException e) {
-                    
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, INVALID_PRICE, "من فضلك قم بإدخال أسعار صالحة", ERROR_SMALL);                
-
-            loadDialog(layout, true);             
+            exceptionLayout(e);
             return false;
         }
     }    
@@ -483,7 +419,7 @@ public class MainController extends GDPController implements Initializable,Init 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, INFO_MESSAGE, INFO_MSG1, INFO_SMALL);                
+            initLayout(layout, bundle.getString("invalid_price"), bundle.getString("invalid_price"), INFO_SMALL);                
 
             loadDialog(layout, true);               
             return;
@@ -550,19 +486,14 @@ public class MainController extends GDPController implements Initializable,Init 
             productsTable.refresh();
 
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, PRODUCT_UPDATED, PRODUCT_UPDATED_MSG, INFO_SMALL);                
+            initLayout(layout, bundle.getString("product_updated"), bundle.getString("product_updated_msg"), INFO_SMALL);                
 
             loadDialog(layout, true);
             
         
         }
         catch (NumberFormatException | SQLException e) {
-            
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
-
-            loadDialog(layout, true);
-            
+            exceptionLayout(e);
         }
     }   
     
@@ -1056,13 +987,6 @@ public class MainController extends GDPController implements Initializable,Init 
 
         }
     }
-
-    @FXML
-    public void minimize(MouseEvent event){
-        
-        ((Stage)((Label)event.getSource()).getScene().getWindow()).setIconified(true);
-        
-    }
     
     @FXML
     public void close(MouseEvent event){
@@ -1070,20 +994,7 @@ public class MainController extends GDPController implements Initializable,Init 
         System.exit(0);
     }
     
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       
-        
-        stackPane.setVisible(false);
-        
-        fillTheTable();
-
-        dateField.setConverter(dateFormatter());
-        sellDateField.setConverter(dateFormatter());
-        buyDateField.setConverter(dateFormatter()); 
-        sellDateField.getEditor().setText(String.valueOf(LocalDate.now()));
-        buyDateField.getEditor().setText(String.valueOf(LocalDate.now())); 
+    public void initProductsTable(){ 
         
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodQuantity.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
@@ -1091,8 +1002,29 @@ public class MainController extends GDPController implements Initializable,Init 
         addDate.setCellValueFactory(new PropertyValueFactory<>("AddDate"));
         lastChange.setCellValueFactory(new PropertyValueFactory<>("lastChange"));
 
-        productsTable.setItems(data);
-        productsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        productsTable.setItems(data);        
+        
+    }
+    
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        bundle = rb;
+        stackPane.setVisible(false);
+        
+        dateField.setConverter(dateFormatter());
+        sellDateField.setConverter(dateFormatter());
+        buyDateField.setConverter(dateFormatter()); 
+        sellDateField.getEditor().setText(String.valueOf(LocalDate.now()));
+        buyDateField.getEditor().setText(String.valueOf(LocalDate.now())); 
+        
+        fillTheTable();
+        initProductsTable();
+        
+        controlDigitField(priceField2);
+        controlDigitField(quantityField);
+        
         searchField.textProperty().addListener((obs, oldText, newText) -> {
             search("products");
         });
@@ -1114,29 +1046,21 @@ public class MainController extends GDPController implements Initializable,Init 
         
         updateProduct.setOnAction(Action -> {
             updateProduct();
-            //new Shake(updateProduct).play();
         });        
        
         deleteProduct.setOnAction(Action -> {
-            confirmDialog(null, "product", DELETE, ARE_U_SURE, INFO_SMALL);
+            confirmDialog(null, "product", bundle.getString("delete"), bundle.getString("are_u_sure"), INFO_SMALL);
         });
         
         addProd.setOnAction(Action -> {
             try {
                 
                 ((Node)Action.getSource()).getScene().getWindow().hide();
-                Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewProduct.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewProduct.fxml"), bundle);
                 Pane root = (Pane)loader.load();
                 NewProductController npControl = (NewProductController)loader.getController();
                 npControl.getEmployer(this.employer);
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                //stage.initStyle(StageStyle.TRANSPARENT);                
-                scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                 
-                stage.show();
-                
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
                 
             } catch (IOException ex) {
                 exceptionLayout(ex);
@@ -1149,18 +1073,11 @@ public class MainController extends GDPController implements Initializable,Init 
                         try {            
 
                             ((Node)Action.getSource()).getScene().getWindow().hide();
-                            Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "RemovedProducts.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             RemovedProductsController rpControl = (RemovedProductsController)loader.getController();
                             rpControl.getInfo(this.employer);
-                            Scene scene = new Scene(root);
-                            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                            //stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
-                            stage.setScene(scene);                         
-                            stage.show();
+                            startStage(root, (int)root.getWidth(), (int)root.getHeight());
                             
                         } catch (IOException ex) {
                             exceptionLayout(ex);
@@ -1218,7 +1135,6 @@ public class MainController extends GDPController implements Initializable,Init 
         getAllSells(sellDateField.getEditor().getText());
         getSellStats(sellDateField.getEditor().getText(),"");
         
-        sellID.setCellValueFactory(new PropertyValueFactory<>("sellID"));
         sellQuantity.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
         sellRef.setCellValueFactory(new PropertyValueFactory<>("sellName"));
         sellPrice.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
@@ -1480,7 +1396,6 @@ public class MainController extends GDPController implements Initializable,Init 
         getAllBuys(buyDateField.getEditor().getText());
         getBuyStats(buyDateField.getEditor().getText(),"");
         
-        buyIDCol.setCellValueFactory(new PropertyValueFactory<>("buyID"));
         buyTotalCol.setCellValueFactory(new PropertyValueFactory<>("buyTotalPrice"));
         buyQteCol.setCellValueFactory(new PropertyValueFactory<>("buyQte"));
         buyUserCol.setCellValueFactory(new PropertyValueFactory<>("user"));
@@ -1877,19 +1792,8 @@ public class MainController extends GDPController implements Initializable,Init 
         else if(event.getTarget() == btn_close){
             
                         ((Node)event.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
-                        ResourceBundle bundle = ResourceBundle.getBundle("App.Bundles.bundle", new Locale("ar", "DZ"));
                         AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"), bundle);
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
-                        stage.getIcons().add(new Image(MainController.class.getResourceAsStream(APP_ICON)));
-                        stage.setScene(scene);
-                        stage.setMinHeight(350);
-                        stage.setMinWidth(450);                        
-                        stage.show();
+                        startStage(root, 450, 350);
                         
         }
         

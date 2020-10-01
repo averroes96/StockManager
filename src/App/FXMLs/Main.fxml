@@ -390,7 +390,7 @@
                      <children>
                         <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: tomato;" styleClass="box-top-pane" VBox.vgrow="SOMETIMES">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="معلومات عن الحساب" textFill="#3d4956">
+                              <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="%user_info" textFill="#3d4956">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -434,7 +434,7 @@
                                           <Image url="@../images/small/icons8_iphone_32px.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="userStatus" alignment="CENTER" focusTraversable="false" layoutY="447.0" prefHeight="20.0" prefWidth="600.0" text="هذا الحساب لا يمكنه الولوج للتطبيق لأنه لا يمتلك أية صلاحيات" textAlignment="CENTER" textFill="RED">
+                                    <Label fx:id="userStatus" alignment="CENTER" focusTraversable="false" layoutY="447.0" prefHeight="20.0" prefWidth="600.0" text="%no_permissions_note" textAlignment="CENTER" textFill="RED">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
@@ -443,7 +443,7 @@
                                        <children>
                                           <Pane prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: tomato;" styleClass="box-top-pane">
                                              <children>
-                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-1.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20 20 0 0;" text="الصورة الشخصية" textFill="#3d4956">
+                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-1.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20 20 0 0;" text="%user_picture" textFill="#3d4956">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -468,7 +468,7 @@
                                        <children>
                                           <Pane prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: tomato;" styleClass="box-top-pane">
                                              <children>
-                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-1.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-radius: 20 20 0 0;" text="الصلاحيات" textFill="#3d4956">
+                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-1.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-radius: 20 20 0 0;" text="%permissions" textFill="#3d4956">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -484,34 +484,42 @@
                                           </Pane>
                                           <VBox alignment="CENTER" prefHeight="90.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Pane prefHeight="209.0" prefWidth="210.0" style="-fx-background-color: #eee;">
+                                                <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 0 0 8 8; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المنتوجات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                                         <font>
-                                                            <Font name="Arial Bold" size="14.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة الحسابات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                                         <font>
-                                                            <Font name="Arial Bold" size="14.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المبيعات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                                         <font>
-                                                            <Font name="Arial Bold" size="14.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fill="#3d4956" layoutX="86.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إدارة المشتريات" textAlignment="RIGHT" wrappingWidth="99.0">
-                                                         <font>
-                                                            <Font name="Arial Bold" size="14.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <ImageView fx:id="prodManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
-                                                      <ImageView fx:id="userManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" />
-                                                      <ImageView fx:id="sellManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
-                                                      <ImageView fx:id="buyManager" fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%product_management" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="14.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%user_management" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="14.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%sell_management" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="14.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%buy_management" textAlignment="RIGHT" wrappingWidth="99.0">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="14.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <ImageView fx:id="prodManager" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="userManager" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="sellManager" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="buyManager" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </children>
+                                                      </VBox>
                                                    </children>
-                                                </Pane>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                        </children>
@@ -520,7 +528,7 @@
                                        <children>
                                           <Pane prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: tomato;" styleClass="box-top-pane">
                                              <children>
-                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-6.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-radius: 20 20 0 0;" text="آخر نسجيل دخول" textFill="#3d4956">
+                                                <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" layoutY="-6.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-radius: 20 20 0 0;" text="%last_login" textFill="#3d4956">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -559,7 +567,7 @@
                      <children>
                         <VBox prefHeight="80.0" prefWidth="200.0" styleClass="box">
                            <children>
-                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-radius: 20 20 0 0;" text="إسم المستخدم" textFill="#3d4956">
+                              <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-radius: 20 20 0 0;" text="%username" textFill="#3d4956">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -578,7 +586,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="100.0" spacing="8.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="خيارات" textFill="#3d4956">
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="%options" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -590,7 +598,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Label>
-                                    <JFXButton id="menu-btn" fx:id="updateEmployer" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="تعديل" textFill="#3d4956">
+                                    <JFXButton id="menu-btn" fx:id="updateEmployer" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="%edit" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -602,7 +610,7 @@
                                           </ImageView>
                                        </graphic>                       
                                     </JFXButton>
-                                    <JFXButton id="menu-btn" fx:id="changePass" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="تغيير كلمة المرور" textFill="#3d4956">
+                                    <JFXButton id="menu-btn" fx:id="changePass" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="%change_password" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -614,7 +622,7 @@
                                           </ImageView>
                                        </graphic>
                                     </JFXButton>
-                                    <JFXButton id="menu-btn" fx:id="deleteEmployer" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="تعطيل الحساب" textFill="#3d4956">
+                                    <JFXButton id="menu-btn" fx:id="deleteEmployer" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="220.0" text="%deactivate_user" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -638,7 +646,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="75.0" prefWidth="600.0">
                      <children>
-                        <JFXButton id="menu-btn" fx:id="exBtn" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="الحسابات السابقة" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                        <JFXButton id="menu-btn" fx:id="exBtn" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="%ex_users" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                   <graphic>
       
                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -649,7 +657,7 @@
       
                                               </graphic>                      
                         </JFXButton>
-                        <JFXButton id="menu-btn" fx:id="addEmployerButton" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="حساب جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                        <JFXButton id="menu-btn" fx:id="addEmployerButton" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="%new_user" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                   <graphic>
       
                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -660,7 +668,7 @@
       
                                               </graphic>                  
                         </JFXButton>
-                        <JFXButton id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                        <JFXButton id="menu-btn" fx:id="printEmployers" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                   <graphic>
       
                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -689,15 +697,14 @@
          <children>
             <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="74.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
-                <TableColumn fx:id="buyIDCol" maxWidth="100.0" minWidth="50.0" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="buyProdCol" maxWidth="250.0" minWidth="150.0" prefWidth="175.0" text="المنتوج" />
-                  <TableColumn fx:id="buyDateCol" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" text="التوقيت" />
-                  <TableColumn fx:id="buyPriceCol" maxWidth="120.0" minWidth="75.0" prefWidth="100.0" text="السعر" />
-                  <TableColumn fx:id="buyQteCol" maxWidth="100.0" minWidth="50.0" prefWidth="75.0" text="الكمية" />
-                  <TableColumn fx:id="buyTotalCol" maxWidth="200.0" minWidth="100.0" prefWidth="120.0" text="السعر الإجمالي" />
-                  <TableColumn fx:id="buyUserCol" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="المستخدم" />
-                  <TableColumn fx:id="buyAction1" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="تعديل" />
-                  <TableColumn fx:id="buyAction2" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="حذف" />
+                <TableColumn fx:id="buyProdCol" maxWidth="250.0" minWidth="150.0" prefWidth="175.0" text="%product" />
+                  <TableColumn fx:id="buyDateCol" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" text="%timing" />
+                  <TableColumn fx:id="buyPriceCol" maxWidth="120.0" minWidth="75.0" prefWidth="100.0" text="%price" />
+                  <TableColumn fx:id="buyQteCol" maxWidth="100.0" minWidth="50.0" prefWidth="75.0" text="%quantity" />
+                  <TableColumn fx:id="buyTotalCol" maxWidth="200.0" minWidth="100.0" prefWidth="120.0" text="%total" />
+                  <TableColumn fx:id="buyUserCol" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="%user" />
+                  <TableColumn fx:id="buyAction1" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="%edit" />
+                  <TableColumn fx:id="buyAction2" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="%delete" />
               </columns>
                <effect>
                   <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
@@ -715,7 +722,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="300.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <JFXTextField fx:id="searchBuy" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-text-fill: #3d4956; -fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="searchBuy" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="250.0" promptText="%search" style="-fx-text-fill: #3d4956; -fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -727,7 +734,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <JFXButton id="menu-btn" fx:id="newBuyBtn" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="شراء جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="newBuyBtn" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%new_buy" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -736,7 +743,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="buyStatBtn" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="إحصائيات" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="buyStatBtn" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%statistics" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -745,7 +752,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="printBuys" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="printBuys" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -756,7 +763,7 @@
                   </JFXButton>
                   <Pane fx:id="billPane1" prefHeight="55.0" prefWidth="150.0" stylesheets="@../Layout/buttons.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <JFXButton id="menu-btn" fx:id="printBuy" alignment="CENTER" contentDisplay="RIGHT" layoutY="8.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="فاتورة" textFill="#3d4956">
+                        <JFXButton id="menu-btn" fx:id="printBuy" alignment="CENTER" contentDisplay="RIGHT" layoutY="8.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%bill" textFill="#3d4956">
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -773,7 +780,7 @@
                <children>
                   <VBox prefHeight="89.0" prefWidth="200.0" styleClass="box">
                      <children>
-                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تاريخ الشراء" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%buy_date" textFill="#3d4956" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -869,15 +876,14 @@
          <children>
             <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="73.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
-                <TableColumn fx:id="sellID" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="ID" />
-                <TableColumn fx:id="sellRef" maxWidth="300.0" minWidth="175.0" prefWidth="-1.0" text="المنتوج" />
-                  <TableColumn fx:id="sellDateCol" maxWidth="200.0" minWidth="125.0" prefWidth="-1.0" text="التوقيت" />
-                  <TableColumn fx:id="sellPrice" maxWidth="150.0" minWidth="100.0" prefWidth="-1.0" text="سعر البيع" />
-                  <TableColumn fx:id="sellQuantity" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="الكمية" />
-                  <TableColumn fx:id="sellTotalCol" maxWidth="150.0" minWidth="120.0" prefWidth="-1.0" text="السعر الإجمالي" />
-                  <TableColumn fx:id="seller" maxWidth="250.0" minWidth="150.0" prefWidth="-1.0" text="المستخدم" />
-                  <TableColumn fx:id="sellActions" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="تعديل" />
-                  <TableColumn fx:id="sellActions2" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="حذف" />
+                <TableColumn fx:id="sellRef" maxWidth="300.0" minWidth="175.0" prefWidth="-1.0" text="%product" />
+                  <TableColumn fx:id="sellDateCol" maxWidth="200.0" minWidth="125.0" prefWidth="-1.0" text="%timing" />
+                  <TableColumn fx:id="sellPrice" maxWidth="150.0" minWidth="100.0" prefWidth="-1.0" text="%price" />
+                  <TableColumn fx:id="sellQuantity" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="%quantity" />
+                  <TableColumn fx:id="sellTotalCol" maxWidth="150.0" minWidth="120.0" prefWidth="-1.0" text="%total" />
+                  <TableColumn fx:id="seller" maxWidth="250.0" minWidth="150.0" prefWidth="-1.0" text="%user" />
+                  <TableColumn fx:id="sellActions" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="%edit" />
+                  <TableColumn fx:id="sellActions2" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="%delete" />
               </columns>
                <cursor>
                </cursor>
@@ -895,7 +901,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" layoutX="15.0" layoutY="1.0" prefHeight="70.0" prefWidth="970.0" spacing="8.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
-                  <JFXTextField fx:id="sellSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="250.0" promptText="بحث" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="sellSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="250.0" promptText="%search" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -905,7 +911,7 @@
                         <Image url="@../images/medium/icons8_search_48px.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="menu-btn" fx:id="newSellButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="بيع جديد" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="newSellButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%new_sell" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -916,7 +922,7 @@
 
                             </graphic>                   
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="sellStats" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="إحصائيات" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="sellStats" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%statistics" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
                                      <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -927,7 +933,7 @@
 
                                   </graphic>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="printSells" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="طباعة" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="printSells" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="150.0" ripplerFill="TOMATO" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
                             <graphic>
 
                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -940,7 +946,7 @@
                   </JFXButton>
                   <Pane fx:id="billPane" prefHeight="44.0" prefWidth="142.0" stylesheets="@../Layout/buttons.css" HBox.hgrow="ALWAYS">
                      <children>                   
-                        <JFXButton id="menu-btn" fx:id="newBillBtn" alignment="CENTER" contentDisplay="RIGHT" layoutY="8.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="154.0" ripplerFill="TOMATO" text="فاتورة" textFill="#3d4956">
+                        <JFXButton id="menu-btn" fx:id="newBillBtn" alignment="CENTER" contentDisplay="RIGHT" layoutY="8.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="154.0" ripplerFill="TOMATO" text="%bill" textFill="#3d4956">
                                   <graphic>
       
                                                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -958,7 +964,7 @@
                <children>
                   <VBox prefHeight="89.0" prefWidth="200.0" styleClass="box">
                      <children>
-                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تاريخ البيع" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%sell_date" textFill="#3d4956" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

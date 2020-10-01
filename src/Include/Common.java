@@ -29,7 +29,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -50,6 +51,23 @@ public class Common implements Init {
     final static String DATEFORMAT = "yyyy-MM-dd";
     
     final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss" ;
+    
+    public static String[] getAppLang() throws SQLException{
+        
+        return getSettingValue("app_language").split("_");
+        
+    }
+
+    public static String getSettingValue(String setting_name) throws SQLException{
+        
+            ResultSet rs = Common.getAllFrom("*", "settings", " WHERE setting_name = '" + setting_name + "'", "", "");
+            
+            while(rs.next()){ 
+                return rs.getString("setting_value");         
+            }
+        
+        return null;
+    }    
     
     
     public static void controlDigitField(TextField field){
@@ -529,9 +547,16 @@ public class Common implements Init {
         
     }
     
-    public void startStage(Node current, String fxmlName){
+    public static void startStage(Parent root, int minWidth, int minHeight){
         
-        
+        Scene scene = new Scene(root);
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
+        stage.setScene(scene);
+        stage.setMinHeight(minHeight);
+        stage.setMinWidth(minWidth);
+        stage.show();  
         
     }
     

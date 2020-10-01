@@ -36,6 +36,8 @@ public interface Init {
     
     String APP_ICON = "/App/images/app_icon.png";
     
+    String BUNDLES_PATH = "App.Bundles.bundle" ;
+    
     String CONNECTION_ERROR = "خطأ خلال محاولة الإتصال بقاعدة البيانات";
     
     String CONNECTION_ERROR_MESSAGE = "تعذر الإتصال بقاعدة البيانات، تأكد من أن السرفر يعمل وحاول مجددا";

@@ -5,11 +5,11 @@ import Data.Employer;
 import static Include.Common.initLayout;
 import static Include.Init.ERROR_SMALL;
 import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,6 +25,7 @@ public abstract class GDPController {
     @FXML public JFXDialog dialog;
     
     public Employer employer = new Employer();
+    public ResourceBundle bundle;
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
         
@@ -49,7 +50,7 @@ public abstract class GDPController {
     
     public void exceptionLayout(Exception e, Button defaultBtn){
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            initLayout(layout, bundle.getString("unknown_error"), e.getLocalizedMessage(), ERROR_SMALL);
             
             loadDialog(layout, true, defaultBtn);
     }
