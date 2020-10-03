@@ -1,7 +1,7 @@
 
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.adminsCount;
@@ -52,12 +52,12 @@ public class UpdateEmployerController extends GDPController implements Initializ
     
     String currentImage = "";
     
-    Employer selectedEmployer = new Employer();
+    User selectedEmployer = new User();
     
     File selectedFile = null;
    
 
-    public void getInfo(Employer employer, Employer selected){
+    public void getInfo(User employer, User selected){
         
         this.employer = employer;
         this.selectedEmployer = selected;
@@ -70,7 +70,7 @@ public class UpdateEmployerController extends GDPController implements Initializ
         }
     }
     
-    public void fillFields(Employer selectedEmployer){       
+    public void fillFields(User selectedEmployer){       
         
         fullname.setText(selectedEmployer.getFullname());
         

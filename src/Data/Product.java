@@ -6,7 +6,10 @@
 package Data;
 
 import static Include.Common.getAllFrom;
+import static Include.Common.getConnection;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -149,6 +152,20 @@ public class Product extends RecursiveTreeObject<Product> {
         int hash = 3;
         hash = 71 * hash + Objects.hashCode(this.name);
         return hash;
+    }
+    
+    public void toTrash() throws SQLException{
+        
+            try (Connection con = getConnection()) {
+                String query = "UPDATE product SET on_hold = 1 WHERE prod_id = ?";
+                
+                PreparedStatement ps = con.prepareStatement(query);
+                
+                ps.setInt(1, this.getProdID());
+                
+                ps.executeUpdate();
+            }
+        
     }
     
     public static ObservableList getActiveProducts() throws SQLException{

@@ -5,6 +5,7 @@
  */
 package Data;
 
+import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author med
  */
-public class Employer {
+public class User {
 
     private SimpleIntegerProperty userID ;
     private SimpleStringProperty fullname;
@@ -30,7 +33,7 @@ public class Employer {
     private int prodPrivs,userPrivs,buyPrivs,sellPrivs;
     
 
-    public Employer() {
+    public User() {
 
         this.userID = new SimpleIntegerProperty(0);
         this.fullname = new SimpleStringProperty("");
@@ -40,6 +43,10 @@ public class Employer {
         this.password = "";
         this.username = "";
         this.image = new SimpleStringProperty("");
+        prodPrivs = 0;
+        userPrivs = 0;
+        buyPrivs = 0;
+        sellPrivs = 0;
     }
 
     public int getUserID() {
@@ -170,6 +177,24 @@ public class Employer {
             }
 
             return count;      
+        
+    }
+    
+    public static ObservableList getActiveUsers() throws SQLException{
+        
+        ObservableList<String> data = FXCollections.observableArrayList();
+        
+        ResultSet rs;
+
+        rs = getAllFrom("username","user","","WHERE active != 0","");
+
+            while (rs.next()) {
+                
+                String emp = rs.getString("username");
+                data.add(emp);
+            }
+        
+        return data;
         
     }
     

@@ -5,9 +5,9 @@
  */
 package Include;
 
-import Data.Employer;
 import Data.Product;
 import Data.Sell;
+import Data.User;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
@@ -47,10 +47,6 @@ import javafx.util.StringConverter;
  */
 public class Common implements Init {
     
-    
-    final static String DATEFORMAT = "yyyy-MM-dd";
-    
-    final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss" ;
     
     public static String[] getAppLang() throws SQLException{
         
@@ -371,9 +367,9 @@ public class Common implements Init {
     }    
 
 
-    public static Employer getUser(String name) throws SQLException{
+    public static User getUser(String name) throws SQLException{
         
-        Employer employer = new Employer();
+        User employer = new User();
         int count;
         try (Connection con = getConnection()) {
             String query = "SELECT * FROM user INNER join privs ON user.user_id = privs.user_id WHERE username = ?";

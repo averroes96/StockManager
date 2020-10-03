@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import Include.Init;
@@ -46,19 +46,19 @@ import javafx.util.Callback;
  */
 public class ExEmployersController implements Initializable,Init {
 
-    @FXML TableView<Employer> exTable;
-    @FXML TableColumn<Employer,Integer> id;
-    @FXML TableColumn<Employer,String> fullname,username;
+    @FXML TableView<User> exTable;
+    @FXML TableColumn<User,Integer> id;
+    @FXML TableColumn<User,String> fullname,username;
     @FXML TableColumn action1;
     @FXML Button returnBtn;
     @FXML private StackPane stackPane;
     @FXML private JFXDialog dialog;
     
-    ObservableList<Employer> exList = FXCollections.observableArrayList();
+    ObservableList<User> exList = FXCollections.observableArrayList();
         
-    Employer admin = new Employer();
+    User admin = new User();
     
-    public void getInfo(Employer employer){
+    public void getInfo(User employer){
         
         this.admin = employer;
         
@@ -91,7 +91,7 @@ public class ExEmployersController implements Initializable,Init {
     }    
     
     
-    public void restore(Employer selected) {
+    public void restore(User selected) {
     
         try {
                        
@@ -135,7 +135,7 @@ public class ExEmployersController implements Initializable,Init {
                 rs = st.executeQuery(query);
                 
                 while (rs.next()) {
-                    Employer employer = new Employer();
+                    User employer = new User();
                     employer.setUserID(rs.getInt("user_id"));
                     employer.setFullname(rs.getString("fullname"));
                     employer.setUsername(rs.getString("username"));
@@ -184,10 +184,10 @@ public class ExEmployersController implements Initializable,Init {
         
         action1.setCellValueFactory(new PropertyValueFactory<>("action1"));        
                    
-        Callback<TableColumn<Employer, String>, TableCell<Employer, String>> cellFactory
+        Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory
                 =                 //
-    (final TableColumn<Employer, String> param) -> {
-        final TableCell<Employer, String> cell = new TableCell<Employer, String>() {
+    (final TableColumn<User, String> param) -> {
+        final TableCell<User, String> cell = new TableCell<User, String>() {
             
             final Button reassign = new Button("تشغيل");
             
@@ -199,7 +199,7 @@ public class ExEmployersController implements Initializable,Init {
                     setText(null);
                 } else {
                     reassign.setOnAction(event -> {
-                        Employer selected = getTableView().getItems().get(getIndex());
+                        User selected = getTableView().getItems().get(getIndex());
                         restore(selected);
                         new FlipInX(exTable).play();
                     });

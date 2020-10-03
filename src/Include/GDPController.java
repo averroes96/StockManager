@@ -1,7 +1,7 @@
 
 package Include;
 
-import Data.Employer;
+import Data.User;
 import static Include.Common.initLayout;
 import static Include.Init.ERROR_SMALL;
 import static Include.Init.OKAY;
@@ -24,7 +24,7 @@ public abstract class GDPController {
     @FXML public StackPane stackPane;
     @FXML public JFXDialog dialog;
     
-    public Employer employer = new Employer();
+    public User employer = new User();
     public ResourceBundle bundle;
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){

@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import static Include.Common.getConnection;
 import Include.GDPController;
 import Include.Init;
@@ -33,7 +33,7 @@ public class ChangePassController extends GDPController implements Initializable
     @FXML public JFXPasswordField current,newPass,repeat;
     @FXML public JFXButton save;
             
-    public void getEmployer(Employer emp){
+    public void getEmployer(User emp){
         this.employer = emp;
     }
     

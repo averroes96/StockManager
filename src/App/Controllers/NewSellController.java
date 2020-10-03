@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import Data.Product;
 import Data.Sell;
 import static Include.Common.animateBtn;
@@ -74,7 +74,7 @@ public class NewSellController extends GDPController implements Initializable,In
     
     private ObservableList<String> nameList = null;        
 
-    public void getEmployer(Employer employer){
+    public void getEmployer(User employer){
         
         this.employer = employer; 
     }            

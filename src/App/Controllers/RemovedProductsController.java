@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import Data.Product;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
@@ -56,9 +56,9 @@ public class RemovedProductsController implements Initializable,Init {
     
     ObservableList<Product> removedList = FXCollections.observableArrayList();
         
-    Employer admin = new Employer();
+    User admin = new User();
     
-    public void getInfo(Employer employer){
+    public void getInfo(User employer){
         
         this.admin = employer;
         

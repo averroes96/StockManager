@@ -1,7 +1,7 @@
 
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import Data.Product;
 import Data.Sell;
 import Include.Common;
@@ -94,7 +94,7 @@ public class UpdateSellController extends GDPController implements Initializable
     }    
     
     
-    public void getData(Employer employer,Sell sell){
+    public void getData(User employer,Sell sell){
         
         this.employer = employer;
         this.sell = sell;

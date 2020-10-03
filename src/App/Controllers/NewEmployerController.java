@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import static Include.Common.AnimateField;
 import static Include.Common.animateBtn;
 import static Include.Common.getConnection;
@@ -64,11 +64,11 @@ public class NewEmployerController implements Initializable,Init {
     @FXML private StackPane stackPane;
     @FXML private JFXDialog dialog;    
     
-    Employer employer = new Employer();
+    User employer = new User();
     
     File selectedFile = null;
     
-    public void getEmployer(Employer employer){
+    public void getEmployer(User employer){
         this.employer = employer;
     }
     

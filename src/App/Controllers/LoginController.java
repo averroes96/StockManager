@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import static Include.Common.getConnection;
 import static Include.Common.getSettingValue;
 import static Include.Common.startStage;
@@ -47,7 +47,7 @@ public class LoginController extends GDPController implements Initializable,Init
     @FXML private Label title;
     @FXML private HBox usernameHB, passwordHB;
 
-    public Employer getUser(String username, String password)
+    public User getUser(String username, String password)
     {
         try {
             
@@ -63,7 +63,7 @@ public class LoginController extends GDPController implements Initializable,Init
                 
                 rs = ps.executeQuery();
                                
-                Employer emp = new Employer();
+                User emp = new User();
                 
                 while (rs.next()) {
                                         

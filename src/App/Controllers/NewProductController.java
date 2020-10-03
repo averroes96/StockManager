@@ -5,7 +5,7 @@
  */
 package App.Controllers;
 
-import Data.Employer;
+import Data.User;
 import static Include.Common.AnimateField;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
@@ -61,7 +61,7 @@ public class NewProductController implements Initializable,Init {
         
         File selectedFile = null;
     
-        public Employer employer = new Employer();
+        public User employer = new User();
         
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
@@ -92,7 +92,7 @@ public class NewProductController implements Initializable,Init {
     }
 
     
-    public void getEmployer(Employer employer){
+    public void getEmployer(User employer){
         
         this.employer = employer; 
     }

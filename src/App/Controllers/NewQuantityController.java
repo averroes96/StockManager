@@ -6,7 +6,7 @@
 package App.Controllers;
 
 import Data.Buy;
-import Data.Employer;
+import Data.User;
 import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
@@ -75,7 +75,7 @@ public class NewQuantityController extends GDPController implements Initializabl
     
     ObservableList<String> nameList = FXCollections.observableArrayList();
         
-    public void getEmployer(Employer employer){
+    public void getEmployer(User employer){
         
         this.employer = employer; 
     }

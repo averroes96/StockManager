@@ -1,14 +1,15 @@
 package App.Controllers;
 
 import Data.Buy;
-import Data.Employer;
 import Data.Product;
 import static Data.Product.getActiveProducts;
 import Data.Sell;
+import static Data.Sell.getSellsByDate;
+import Data.User;
+import static Data.User.getActiveUsers;
 import Include.Common;
 import static Include.Common.controlDigitField;
 import static Include.Common.dateFormatter;
-import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import static Include.Common.getUser;
 import static Include.Common.initLayout;
@@ -112,9 +113,16 @@ public class MainController extends GDPController implements Initializable,Init 
     ObservableList<String> employersList = FXCollections.observableArrayList();
     ObservableList<Buy> buysList = FXCollections.observableArrayList(); 
     
-    final String dateFormat = "yyyy-MM-dd";
     File selectedFile = null;
     JasperReporter jr = new JasperReporter();
+    
+    public void customDialog(String title, String body, String icon, boolean btnIncluded){
+        
+            JFXDialogLayout layout = new JFXDialogLayout();
+            initLayout(layout, title, body, icon);
+            
+            loadDialog(layout, btnIncluded);
+    }
         
     public void confirmDialog(Object object, String type, String title, String body, String icon){
             
@@ -131,7 +139,7 @@ public class MainController extends GDPController implements Initializable,Init 
             if(null != type)
                 switch (type) {
                 case "employer":
-                    deleteEmployer((Employer) object);
+                    deleteEmployer((User) object);
                     break;
                 case "buy":
                     deleteBuy((Buy) object);
@@ -182,23 +190,17 @@ public class MainController extends GDPController implements Initializable,Init 
     }
     
     public void exceptionLayout(Exception e){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, bundle.getString("unknown_error"), e.getLocalizedMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
+        customDialog( bundle.getString("unknown_error"), e.getLocalizedMessage(), ERROR_SMALL, true);
     }
 
     private void onJasperReportLoading(){
         
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, bundle.getString("please_wait"), bundle.getString("report_wait_msg"), WAIT_SMALL);
+        customDialog( bundle.getString("please_wait"), bundle.getString("report_wait_msg"), WAIT_SMALL, false);
             
-            loadDialog(layout, false);
-            
-            jr = new JasperReporter();
+        jr = new JasperReporter();
     }
 
-    public void getEmployer(Employer employer) {
+    public void getEmployer(User employer) {
         
         this.employer = employer ;
         
@@ -323,10 +325,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, bundle.getString("info_msg"), bundle.getString("select_product_msg"), INFO_SMALL);                
-                
-            loadDialog(layout, true);               
+            customDialog(bundle.getString("info_msg"),  bundle.getString("select_product_msg"), INFO_SMALL, true);           
             return;
         }
 
@@ -378,10 +377,7 @@ public class MainController extends GDPController implements Initializable,Init 
     public boolean checkInputs()
     {
         if (refField.getText().trim().equals("") || priceField2.getText().trim().equals("") || quantityField.getText().trim().equals("")) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL);                
-
-            loadDialog(layout, true);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true);
             return false;
         }     
         
@@ -392,19 +388,13 @@ public class MainController extends GDPController implements Initializable,Init 
                     return true;
                 }
                 else{
-                    JFXDialogLayout layout = new JFXDialogLayout();
-                    initLayout(layout, bundle.getString("invalid_qte"), bundle.getString("invalid_qte_msg"), ERROR_SMALL);                
-
-                    loadDialog(layout, true);                     
+                    customDialog(bundle.getString("invalid_qte"), bundle.getString("invalid_qte_msg"), ERROR_SMALL, true);                  
                     return false;
                 }
             }
             else{
-                    JFXDialogLayout layout = new JFXDialogLayout();
-                    initLayout(layout, bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL);                
-
-                    loadDialog(layout, true);                     
-                    return false;
+                customDialog(bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL, true);                     
+                return false;
             }
         }
         catch (NumberFormatException e) {
@@ -418,10 +408,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, bundle.getString("invalid_price"), bundle.getString("invalid_price"), INFO_SMALL);                
-
-            loadDialog(layout, true);               
+            customDialog(bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL, true);              
             return;
         }
         
@@ -484,13 +471,9 @@ public class MainController extends GDPController implements Initializable,Init 
             selectedProduct.setLastChange(javaDate);
             
             productsTable.refresh();
-
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, bundle.getString("product_updated"), bundle.getString("product_updated_msg"), INFO_SMALL);                
-
-            loadDialog(layout, true);
             
-        
+            customDialog(bundle.getString("product_updated"), bundle.getString("product_updated_msg"), INFO_SMALL, true);
+
         }
         catch (NumberFormatException | SQLException e) {
             exceptionLayout(e);
@@ -534,13 +517,13 @@ public class MainController extends GDPController implements Initializable,Init 
         try {
             new ZoomOut(infoContainer).play();
             new ZoomIn(infoContainer).play();
-            Employer choosen = getUser(username);
+            User choosen = getUser(username);
             if(choosen != null){
                 fullnameLabel.setText(choosen.getFullname());
                 if(!choosen.getPhone().trim().equals(""))
                     phoneLabel.setText(choosen.getPhone()) ;
                 else
-                    phoneLabel.setText("لا يوجد رقم هاتف");
+                    phoneLabel.setText(bundle.getString("no_phone"));
                 
                 if (choosen.getImage().trim().equals("") ) {
                     userImage.setText("");
@@ -602,7 +585,7 @@ public class MainController extends GDPController implements Initializable,Init 
             if(!choosen.getLastLogged().equals(""))
                 lastLogged.setText(choosen.getLastLogged());
             else
-                lastLogged.setText("لم يتم تسجيل الدخول بعد");
+                lastLogged.setText(bundle.getString("null_login"));
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -624,35 +607,21 @@ public class MainController extends GDPController implements Initializable,Init 
 
         if(productsTable.getSelectionModel().getSelectedItem() == null)
         {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, INFO_MESSAGE, INFO_MSG, INFO_SMALL);                
-
-            loadDialog(layout, true);             
+            customDialog(bundle.getString("info_msg"), bundle.getString("select_product_msg_3"), INFO_SMALL, true);       
             return;
         }
 
         Product selectedProduct = (Product) productsTable.getSelectionModel().getSelectedItem();
         
         try {
-
-            try (Connection con = getConnection()) {
-                String query = "UPDATE product SET on_hold = 1 WHERE prod_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, selectedProduct.getProdID());
-                
-                ps.executeUpdate();
-            }
+            
+            selectedProduct.toTrash();
             
             data.remove(selectedProduct);
             
             productsTable.refresh();
             
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, PRODUCT_DELETED, PRODUCT_DELETED_MSG, ERROR_SMALL);                
-
-            loadDialog(layout, true); 
+            customDialog(bundle.getString("product_deleted"), bundle.getString("product_deleted_msg"), INFO_SMALL, true);
             
             if(data.size() > 0) {
                 showNextProduct();
@@ -670,10 +639,7 @@ public class MainController extends GDPController implements Initializable,Init 
             
         }
         catch (SQLException e) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);                
-
-            loadDialog(layout, true); 
+            exceptionLayout(e);
         }
         
         
@@ -682,42 +648,7 @@ public class MainController extends GDPController implements Initializable,Init 
     private void getAllSells(String selectedDate)
     {
         try {
-            Connection con = getConnection();
-            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
-            
-            PreparedStatement st;
-            ResultSet rs;
-            
-            st = con.prepareStatement(query);
-            st.setString(1,selectedDate);
-            rs = st.executeQuery();
-
-            while (rs.next()) {
-                Sell sell = new Sell();
-                sell.setSellID(rs.getInt("sell_id"));
-                sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
-                sell.setTotalPrice(rs.getInt("sell.sell_price"));
-                sell.setSellDate(rs.getTime("sell_date").toString());
-                sell.setSellQuantity(rs.getInt("sell_quantity"));
-                sell.setSeller(rs.getString("username"));
-                
-                Product product = new Product();
-                product.setProdID(rs.getInt("prod_id"));
-                product.setName(rs.getString("name"));               
-                product.setSellPrice(rs.getInt("product.sell_price"));
-                product.setProdQuantity(rs.getInt("prod_quantity"));
-                product.setAddDate(rs.getDate("add_date").toString());
-                product.setNbrBuys(rs.getInt("nbrBuys"));
-                product.setNbrSells(rs.getInt("nbrSells"));
-                product.setImageURL(rs.getString("image_url")); 
-                
-                sell.setProduct(product);
-                sell.setSellName(rs.getString("name"));
-                
-                sellsList.add(sell);
-            }
-
-            con.close();
+            sellsList = getSellsByDate(selectedDate);
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -911,80 +842,54 @@ public class MainController extends GDPController implements Initializable,Init 
     
     private void getAllEmployers()
     {
-        ResultSet rs;
 
         try {
-            rs = getAllFrom("username","user","","WHERE active != 0","");
-
-            while (rs.next()) {
-                
-                String emp = rs.getString("username");
-                employersList.add(emp);
-            }
-
+            employersList = getActiveUsers();
         }
         catch (SQLException e) {          
             exceptionLayout(e);
         }
     }  
 
-    private void deleteEmployer(Employer selectedEmployer)
+    private void deleteEmployer(User selectedEmployer)
     {
 
         try {
             
             
-            if( Employer.getAdminCount() > 1 || selectedEmployer.getAdmin() != 1){            
+            if( User.getAdminCount() > 1 || selectedEmployer.getAdmin() != 1){            
                 
-               selectedEmployer.delete();
+                selectedEmployer.delete();
             
-            if(this.employer.getUsername().equals(selectedEmployer.getUsername())){
-                
-                        this.addProd.getScene().getWindow().hide();
-                        
-                        Stage stage = new Stage();
-                        AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"));
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.setMinHeight(350);
-                        stage.setMinWidth(450);
-                        stage.show();                     
-                
-            }
-            else{
-            
-            usersCB.getItems().clear();
-            getAllEmployers();
-            usersCB.setItems(employersList);
-            
-        if (!employersList.isEmpty()) {
-            usersCB.getSelectionModel().select(this.employer.getUsername());
-            showEmployer(this.employer.getUsername());
-        }
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, EMPLOYER_DELETED, EMPLOYER_DELETED_MSG, INFO_SMALL);
-            
-            loadDialog(layout, true);
-            
-            }
-            }
-            else{
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, LAST_ADMIN, LAST_ADMIN_MSG, ERROR_SMALL);
+                if(this.employer.getUsername().equals(selectedEmployer.getUsername())){
 
-                loadDialog(layout, true);
-                
+                            this.addProd.getScene().getWindow().hide();
+                            AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"), bundle);
+                            startStage(root, 450, 350);
+
+                }
+                else{
+
+                    usersCB.getItems().clear();
+                    getAllEmployers();
+                    usersCB.setItems(employersList);
+
+                    if (!employersList.isEmpty()) {
+                        usersCB.getSelectionModel().select(this.employer.getUsername());
+                        showEmployer(this.employer.getUsername());
+                    }
+
+                    customDialog(bundle.getString("user_deleted"), bundle.getString("user_deleted_msg"), INFO_SMALL, true);
+
+                }
+            }
+            else{
+                customDialog(bundle.getString("last_admin"), bundle.getString("last_admin_msg"), INFO_SMALL, true); 
             }
             
         }
         catch (IOException | SQLException e) {
-
             exceptionLayout(e);
-
         }
     }
     
@@ -1279,7 +1184,7 @@ public class MainController extends GDPController implements Initializable,Init 
        
         getAllEmployers();
         
-            usersCB.setItems(employersList);
+        usersCB.setItems(employersList);
         
         usersCB.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -1291,18 +1196,11 @@ public class MainController extends GDPController implements Initializable,Init 
             
             try {                
                         ((Node)Action.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewEmployer.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewEmployer.fxml"), bundle);
                         AnchorPane root = (AnchorPane)loader.load();
                         NewEmployerController nsControl = (NewEmployerController)loader.getController();
                         nsControl.getEmployer(this.employer);
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.show();
+                        startStage(root, (int)root.getWidth(), (int)root.getHeight());
                         
             } catch (IOException ex) {
                 exceptionLayout(ex);
@@ -1313,21 +1211,14 @@ public class MainController extends GDPController implements Initializable,Init 
         updateEmployer.setOnAction(Action -> {
             
                         try {
-                            Employer emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                            User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
                             ((Node)Action.getSource()).getScene().getWindow().hide();
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"), bundle);
                             AnchorPane root = (AnchorPane)loader.load();
                             UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
                             ueControl.getInfo(this.employer, emp);
-                            ueControl.fillFields(emp);                            
-                            Scene scene = new Scene(root);
-                            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                            //stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
-                            stage.setScene(scene);
-                            stage.show();
+                            ueControl.fillFields(emp);
+                            startStage(root, (int)root.getWidth(), (int)root.getHeight());
                             
                         } catch (IOException | SQLException ex) {
                             exceptionLayout(ex);
@@ -1337,8 +1228,8 @@ public class MainController extends GDPController implements Initializable,Init 
         deleteEmployer.setOnAction(Action -> {
 
             try {
-                Employer emp = getUser(usersCB.getSelectionModel().getSelectedItem());
-                confirmDialog(emp, "employer", DELETE + " " + emp.getFullname(), ARE_U_SURE, INFO_SMALL);
+                User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                confirmDialog(emp, "employer", bundle.getString("delete") + " " + emp.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
             } catch (SQLException ex) {
                 exceptionLayout(ex);
             }
@@ -1350,18 +1241,11 @@ public class MainController extends GDPController implements Initializable,Init 
                         try {            
 
                             ((Node)Action.getSource()).getScene().getWindow().hide();
-                            Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ExEmployers.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ExEmployersController ueControl = (ExEmployersController)loader.getController();
                             ueControl.getInfo(this.employer);
-                            Scene scene = new Scene(root);
-                            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                            //stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
-                            stage.setScene(scene);                         
-                            stage.show();
+                            startStage(root, (int)root.getWidth(), (int)root.getHeight());
                             
                         } catch (IOException ex) {
                             exceptionLayout(ex);
@@ -1372,15 +1256,13 @@ public class MainController extends GDPController implements Initializable,Init 
         changePass.setOnAction(Action -> {
             
                         try {
-                            Employer emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                            User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
                             Stage stage = new Stage();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"));
                             AnchorPane root = (AnchorPane)loader.load();
                             ChangePassController erControl = (ChangePassController)loader.getController();
                             erControl.getEmployer(emp);
                             Scene scene = new Scene(root);
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.showAndWait();

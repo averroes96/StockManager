@@ -6,7 +6,7 @@
 package App.Controllers;
 
 import Data.Buy;
-import Data.Employer;
+import Data.User;
 import Data.Product;
 import Include.Common;
 import static Include.Common.AnimateField;
@@ -89,7 +89,7 @@ public class UpdateBuyController extends GDPController implements Initializable,
     }      
         
     
-    public void setRequirements(Employer employer, Buy buy){
+    public void setRequirements(User employer, Buy buy){
         
         this.employer = employer;
         this.buy = buy;

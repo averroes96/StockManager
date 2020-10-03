@@ -14,6 +14,10 @@ public interface Init {
     
     // AlertDialog icons
     
+    String DATEFORMAT = "yyyy-MM-dd";
+    
+    String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss" ;
+    
     String WAIT_SMALL = "wait_small.png";
     
     String ERROR_SMALL = "error_small.png";
