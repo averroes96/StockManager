@@ -27,6 +27,9 @@
 	<field name="password" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="last_logged_in" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="image" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>

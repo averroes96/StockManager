@@ -37,7 +37,7 @@ public class JasperReporter extends JFrame implements Init{
         
                     conn = getConnection();
 
-                    JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream("/JR/sellBill.jrxml"));
+                    JasperReport report = JasperCompileManager.compileReport(ClassLoader.class.getResourceAsStream(path));
                     JasperPrint jp = JasperFillManager.fillReport(report, params,conn);
                     JRViewer viewer = new JRViewer(jp);
                     viewer.setOpaque(true);

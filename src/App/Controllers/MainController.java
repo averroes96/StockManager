@@ -5,6 +5,7 @@ import Data.Product;
 import static Data.Product.getActiveProducts;
 import Data.Sell;
 import static Data.Sell.getSellsByDate;
+import static Data.Sell.getTodayStats;
 import Data.User;
 import static Data.User.getActiveUsers;
 import Include.Common;
@@ -687,7 +688,7 @@ public class MainController extends GDPController implements Initializable,Init 
         
     }    
     
-    public void getSellStats(String selectedDate, String type){
+    public void getSellStats(String selectedDate){
         
         try {
             new FadeIn(revQte).play();
@@ -696,40 +697,17 @@ public class MainController extends GDPController implements Initializable,Init 
             
             new FadeIn(sellsTable).play();
             
-            Connection con = getConnection();
-            String query = "";
-            PreparedStatement st;
-            ResultSet rs;
-            if(selectedDate.equals("")){
-                
-                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell";
-            }
-            else{
-                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell WHERE date(sell_date) = ? ";
-            }
-            
-            st = con.prepareStatement(query);
-            if(!selectedDate.equals("")){
-                st.setString(1,selectedDate);
-            }
-            rs = st.executeQuery();
-            
-            int priceSum = 0;
-            int totals = 0;
-            int qtes = 0;
+            ResultSet rs = getTodayStats(selectedDate);
 
             while (rs.next()) {
                 
-                priceSum = rs.getInt("SUM(sell_price)");
-                totals = rs.getInt("count(*)");
-                qtes = rs.getInt("SUM(sell_quantity)");
+                revSum.setText(String.valueOf(rs.getInt("SUM(sell_price)")) + " دج");
+                revTotal.setText(String.valueOf(rs.getInt("count(*)")) + " بيع");
+                revQte.setText(String.valueOf(rs.getInt("SUM(sell_quantity)")) + " قطعة");
                 
             }
             
-            revSum.setText(String.valueOf(priceSum) + " دج");
-            revTotal.setText(String.valueOf(totals) + " بيع");
-            revQte.setText(String.valueOf(qtes) + " قطعة");
-            con.close();       
+
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -745,40 +723,39 @@ public class MainController extends GDPController implements Initializable,Init 
             
             new FadeIn(buysTable).play();
             
-            Connection con = getConnection();
-            String query = "";
-            PreparedStatement st;
-            ResultSet rs;
-            if(selectedDate.equals("")){
+            try (Connection con = getConnection()) {
+                String query = "";
+                PreparedStatement st;
+                ResultSet rs;
+                if(selectedDate.equals("")){
+                    
+                    query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
+                }
+                else{
+                    query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
+                }
                 
-                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
-            }
-            else{
-                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
-            }
-            
-            st = con.prepareStatement(query);
-            if(!selectedDate.equals("")){
-                st.setString(1,selectedDate);
-            }
-            rs = st.executeQuery();
-            
-            int priceSum = 0;
-            int totals = 0;
-            int qtes = 0;
-
-            while (rs.next()) {
+                st = con.prepareStatement(query);
+                if(!selectedDate.equals("")){
+                    st.setString(1,selectedDate);
+                }
+                rs = st.executeQuery();
                 
-                priceSum = rs.getInt("SUM(buy_price)");
-                totals = rs.getInt("count(*)");
-                qtes = rs.getInt("SUM(buy_qte)");
+                int priceSum = 0;
+                int totals = 0;
+                int qtes = 0;
+                
+                while (rs.next()) {
+                    
+                    priceSum = rs.getInt("SUM(buy_price)");
+                    totals = rs.getInt("count(*)");
+                    qtes = rs.getInt("SUM(buy_qte)");
+                }
+                
+                buyDaySum.setText(String.valueOf(priceSum) + " دج");
+                buyDayTotal.setText(String.valueOf(totals) + " بيع");
+                buyDayQte.setText(String.valueOf(qtes) + " قطعة");
             }
-            
-            buyDaySum.setText(String.valueOf(priceSum) + " دج");
-            buyDayTotal.setText(String.valueOf(totals) + " بيع");
-            buyDayQte.setText(String.valueOf(qtes) + " قطعة");
-            
-            con.close();       
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -795,17 +772,12 @@ public class MainController extends GDPController implements Initializable,Init 
             data.clear();
             fillTheTable();
             productsTable.setItems(data);
-
             sellsList.remove(selectedSell);
-            
             sellsTable.refresh();
             
-            getSellStats(sellDateField.getEditor().getText(),"");
+            getSellStats(sellDateField.getEditor().getText());
             
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, SELL_DELETED, SELL_DELETED_MESSAGE, INFO_SMALL);
-            
-            loadDialog(layout, true);
+            customDialog(bundle.getString("sell_deleted"), bundle.getString("sell_deleted_msg"), INFO_SMALL, true);
             
         }
         catch (SQLException e) {
@@ -826,7 +798,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
                     buysTable.refresh();
 
-                    getSellStats(buyDateField.getEditor().getText(),"");
+                    getBuyStats(buyDateField.getEditor().getText(), "");
                     
                     JFXDialogLayout layout = new JFXDialogLayout();
                     initLayout(layout, BUY_DELETED, BUY_DELETED_MSG, INFO_SMALL);
@@ -855,8 +827,7 @@ public class MainController extends GDPController implements Initializable,Init 
     {
 
         try {
-            
-            
+
             if( User.getAdminCount() > 1 || selectedEmployer.getAdmin() != 1){            
                 
                 selectedEmployer.delete();
@@ -899,7 +870,7 @@ public class MainController extends GDPController implements Initializable,Init 
         System.exit(0);
     }
     
-    public void initProductsTable(){ 
+    private void initProductsTable(){ 
         
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodQuantity.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
@@ -908,6 +879,98 @@ public class MainController extends GDPController implements Initializable,Init 
         lastChange.setCellValueFactory(new PropertyValueFactory<>("lastChange"));
 
         productsTable.setItems(data);        
+        
+    }
+    
+    private void initSellsTable(){
+        
+        sellQuantity.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
+        sellRef.setCellValueFactory(new PropertyValueFactory<>("sellName"));
+        sellPrice.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+        seller.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        sellDateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
+        sellTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+        sellActions.setCellValueFactory(new PropertyValueFactory<>("sellActions"));
+        Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory
+                =                 //
+        (final TableColumn<Sell, String> param) -> {
+            final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
+
+                final Button update = new Button();
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } 
+                    else {
+                        update.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/edit_small_white.png", 24, 24, false, false)));
+                        update.setOnAction(event -> {
+
+                                Sell sell = getTableView().getItems().get(getIndex());
+                                try {
+
+                                ((Node)event.getSource()).getScene().getWindow().hide();
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"), bundle);
+                                AnchorPane root = (AnchorPane)loader.load();
+                                UpdateSellController usControl = (UpdateSellController)loader.getController();
+                                usControl.fillFields(sell);
+                                usControl.getData(employer,sell);
+                                startStage(root,(int)root.getWidth(), (int)root.getHeight());
+
+                                } catch (IOException ex) {
+                                    exceptionLayout(ex);
+                                }
+                        });
+                        update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                        setGraphic(update);
+                        setText(null);               
+
+                    }
+                }
+            };
+            return cell;
+        };
+            
+        sellActions.setCellFactory(cellFactory);
+        
+        sellActions2.setCellValueFactory(new PropertyValueFactory<>("sellActions2"));        
+                   
+        Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory2
+                =                 //
+        (final TableColumn<Sell, String> param) -> {
+            final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
+
+                final Button delete = new Button();
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
+                        delete.setOnAction(event -> {
+                            Sell sell = getTableView().getItems().get(getIndex());
+                            confirmDialog(sell, "sell", DELETE, ARE_U_SURE, INFO_SMALL);
+                        });
+                        delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                        setGraphic(delete);
+                        setText(null);               
+
+                    }
+                }
+            };
+            return cell;
+        };
+        
+        sellActions2.setCellFactory(cellFactory2);        
+        
+        sellsTable.setItems(sellsList);
+                
         
     }
     
@@ -1038,102 +1101,9 @@ public class MainController extends GDPController implements Initializable,Init 
         // SELLS TAB
         
         getAllSells(sellDateField.getEditor().getText());
-        getSellStats(sellDateField.getEditor().getText(),"");
+        getSellStats(sellDateField.getEditor().getText());
         
-        sellQuantity.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
-        sellRef.setCellValueFactory(new PropertyValueFactory<>("sellName"));
-        sellPrice.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        seller.setCellValueFactory(new PropertyValueFactory<>("seller"));
-        sellDateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
-        sellTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
-        sellActions.setCellValueFactory(new PropertyValueFactory<>("sellActions"));
-        Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory
-                =                 //
-    (final TableColumn<Sell, String> param) -> {
-        final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
-            
-            final Button update = new Button();
-            
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                } 
-                else {
-                    update.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/edit_small_white.png", 24, 24, false, false)));
-                    update.setOnAction(event -> {
-                       
-                            Sell sell = getTableView().getItems().get(getIndex());
-                            try {
-                            
-                            ((Node)event.getSource()).getScene().getWindow().hide();
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"));
-                            AnchorPane root = (AnchorPane)loader.load();
-                            UpdateSellController usControl = (UpdateSellController)loader.getController();
-                            usControl.fillFields(sell);
-                            usControl.getData(employer,sell);
-                            Scene scene = new Scene(root);
-                            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                            //stage.initStyle(StageStyle.TRANSPARENT);
-                            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());
-                            stage.setScene(scene);
-                            stage.show();
-
-                            } catch (IOException ex) {
-                                exceptionLayout(ex);
-                            }
-                    });
-                    update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
-                    setGraphic(update);
-                    setText(null);               
-                    
-                }
-            }
-        };
-        return cell;
-    };
-            
-        sellActions.setCellFactory(cellFactory);
-        
-        sellActions2.setCellValueFactory(new PropertyValueFactory<>("sellActions2"));        
-                   
-        Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory2
-                =                 //
-    (final TableColumn<Sell, String> param) -> {
-        final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
-            
-            final Button delete = new Button();
-            
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
-                    delete.setOnAction(event -> {
-                        Sell sell = getTableView().getItems().get(getIndex());
-                        confirmDialog(sell, "sell", DELETE, ARE_U_SURE, INFO_SMALL);
-                    });
-                    delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
-                    setGraphic(delete);
-                    setText(null);               
-                    
-                }
-            }
-        };
-        return cell;
-    };
-        
-   
-        
-        sellActions2.setCellFactory(cellFactory2);        
-        
-        sellsTable.setItems(sellsList);
+        initSellsTable();
         
         newSellButton.setOnAction(Action -> {
             
@@ -1141,18 +1111,11 @@ public class MainController extends GDPController implements Initializable,Init 
             
             try {                
                         ((Node)Action.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewSell.fxml"));
                         AnchorPane root = (AnchorPane)loader.load();
                         NewSellController nsControl = (NewSellController)loader.getController();
                         nsControl.getEmployer(this.employer);
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.show();
+                        startStage(root, (int)root.getWidth(), (int)root.getHeight());
                         
             } catch (IOException ex) {
                 exceptionLayout(ex);
@@ -1160,10 +1123,7 @@ public class MainController extends GDPController implements Initializable,Init 
             
             }
             else{
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, NO_PRODUCTS_FOUND, NO_PRODUCTS_FOUND_MESSAGE, ERROR_SMALL);                
-
-                loadDialog(layout, true);
+                customDialog(bundle.getString("no_products_found"), bundle.getString("no_products_found_msg"), ERROR_SMALL, true);
             }
 
         });
@@ -1176,7 +1136,7 @@ public class MainController extends GDPController implements Initializable,Init 
         sellDateField.setOnAction(Action -> {
             sellsTable.getItems().clear();
             getAllSells(sellDateField.getEditor().getText());
-            getSellStats(sellDateField.getEditor().getText(),"");
+            getSellStats(sellDateField.getEditor().getText());
             sellsTable.setItems(sellsList);
         });        
 
@@ -1806,6 +1766,5 @@ public class MainController extends GDPController implements Initializable,Init 
         });        
         
     }
-  
     
 }

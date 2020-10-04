@@ -529,6 +529,9 @@
                                                                </children>
                                                             </HBox>
                                                          </children>
+                                                         <padding>
+                                                            <Insets bottom="8.0" top="8.0" />
+                                                         </padding>
                                                       </VBox>
                                                    </children>
                                                 </HBox>

@@ -199,4 +199,28 @@ public class Sell {
             return data;
         
     }
+    
+    public static ResultSet getTodayStats(String selectedDate) throws SQLException{
+        
+            Connection con = getConnection();
+            String query = "";
+            PreparedStatement st;
+            ResultSet rs;
+            if(selectedDate.equals("")){
+                
+                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell";
+            }
+            else{
+                query = "SELECT count(*), SUM(sell_price), SUM(sell_quantity) FROM sell WHERE date(sell_date) = ? ";
+            }
+            
+            st = con.prepareStatement(query);
+            if(!selectedDate.equals("")){
+                st.setString(1,selectedDate);
+            }
+            rs = st.executeQuery();
+            
+            return rs;
+        
+    }
 }
