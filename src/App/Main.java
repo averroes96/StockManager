@@ -62,7 +62,7 @@ public class Main extends Application implements Init {
         
         if(!directory.exists()){
             directory.mkdir();
-        }
+        }      
 
         LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(100));
         // load all (database start, check update for application, ...and more)

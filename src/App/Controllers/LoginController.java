@@ -167,7 +167,7 @@ public class LoginController extends GDPController implements Initializable,Init
             try {
                 login(Action);
             } catch (IOException | SQLException ex) {
-                customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true, loginButton);
+                customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, loginButton);
             }
         });
         

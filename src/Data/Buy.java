@@ -4,9 +4,12 @@ import static Include.Common.getConnection;
 import static Include.Common.getProductByName;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -119,8 +122,63 @@ public class Buy {
         
     }
     
+    public static ObservableList getBuysByDate(String selectedDate) throws SQLException{
+        
+        ObservableList<Buy> data = FXCollections.observableArrayList();
+        
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM buy INNER JOIN product ON buy.prod_id = product.prod_id INNER JOIN user ON buy.user_id = user.user_id WHERE date(buy_date) = ? ORDER BY time(buy_date) ASC";
+            
+            PreparedStatement st;
+            ResultSet rs;
+            
+            st = con.prepareStatement(query);
+            st.setString(1,selectedDate);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Buy buy = new Buy();
+                buy.setBuyID(rs.getInt("buy_id"));
+                buy.setBuyPrice(rs.getInt("buy.buy_unit_price"));
+                buy.setBuyTotalPrice(rs.getInt("buy.buy_price"));
+                buy.setBuyDate(rs.getTime("buy_date").toString());
+                buy.setBuyQte(rs.getInt("buy_qte"));
+                buy.setProduct(rs.getString("name"));
+                buy.setUser(rs.getString("username"));
+                
+                data.add(buy);
+            }
+            
+            return data;
+        } 
+        
+        
+    }
     
     
-    
+    public static ResultSet getTodayStats(String selectedDate) throws SQLException{
+        
+            Connection con = getConnection();
+            String query = "";
+            PreparedStatement st;
+            ResultSet rs;
+            if(selectedDate.equals("")){
+                
+                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy";
+            }
+            else{
+                query = "SELECT count(*), SUM(buy_price), SUM(buy_qte) FROM buy WHERE date(buy_date) = ? ";
+            }
+            
+            st = con.prepareStatement(query);
+            if(!selectedDate.equals("")){
+                st.setString(1,selectedDate);
+            }
+            rs = st.executeQuery();
+            
+            return rs;
+        
+    }
+
     
 }

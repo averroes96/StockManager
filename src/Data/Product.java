@@ -196,8 +196,24 @@ public class Product extends RecursiveTreeObject<Product> {
             }
             
         return data;
-            
-            
+                    
+    }
+    
+    public static boolean nameExists(String name) throws SQLException{
+        
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE name = ?";
+            PreparedStatement st;
+            ResultSet rs;
+            st = con.prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return true;
+            }  
+        }
+        
+        return false;
         
     }
 

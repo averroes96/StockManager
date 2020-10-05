@@ -36,6 +36,8 @@ public interface Init {
     
     String UPLOADED_FILE_PATH = "C:/gdp-uploads/";
     
+    String STOARAGE_PATH = "/App/Storage/";
+    
     String FXMLS_PATH = "/App/FXMLs/" ;
     
     String APP_ICON = "/App/images/app_icon.png";

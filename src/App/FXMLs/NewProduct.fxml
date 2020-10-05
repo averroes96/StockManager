@@ -41,7 +41,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="منتوج جديد" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%new_product" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -60,7 +60,7 @@
       </HBox>
       <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="90.0" prefHeight="575.0" prefWidth="568.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
          <children>
-            <Text fill="TOMATO" strokeType="OUTSIDE" strokeWidth="0.0" text="ملاحظة : في حالة عدم تحديد الكمية سيتم تلقائيا إنشاء المنتوج بـ 0 كمية " textAlignment="CENTER" wrappingWidth="600.0000007152557">
+            <Text fill="TOMATO" strokeType="OUTSIDE" strokeWidth="0.0" text="%no_qte_selected_note" textAlignment="CENTER" wrappingWidth="600.0000007152557">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -75,7 +75,7 @@
             </Label>
             <HBox alignment="CENTER" maxWidth="768.0" prefHeight="80.0" prefWidth="256.0" spacing="8.0">
                <children>
-                  <JFXTextField fx:id="nameField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="الإسم" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="nameField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="%name" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -91,7 +91,7 @@
                <children>
                   <HBox alignment="CENTER" maxWidth="768.0" prefHeight="48.0" prefWidth="256.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="sellField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="سعر البيع" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="sellField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -114,7 +114,7 @@
                <children>
                   <HBox alignment="CENTER" maxWidth="768.0" prefHeight="48.0" prefWidth="256.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="768.0" prefHeight="48.0" prefWidth="224.0" promptText="الكمية" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="768.0" prefHeight="48.0" prefWidth="224.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -133,7 +133,7 @@
                   </Label>
                </children>
             </VBox>
-            <JFXButton fx:id="addProduct" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" maxWidth="220.0" prefHeight="42.0" prefWidth="220.0" ripplerFill="BLACK" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
+            <JFXButton fx:id="addProduct" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" maxWidth="220.0" prefHeight="42.0" prefWidth="220.0" ripplerFill="BLACK" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -144,6 +144,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
          </children>
       </VBox>
