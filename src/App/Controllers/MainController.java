@@ -38,6 +38,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -1092,18 +1094,17 @@ public class MainController extends GDPController implements Initializable,Init 
         
         removedProduct.setOnAction(Action -> {
             
-                        try {            
-
-                            ((Node)Action.getSource()).getScene().getWindow().hide();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "RemovedProducts.fxml"));
-                            AnchorPane root = (AnchorPane)loader.load();
-                            RemovedProductsController rpControl = (RemovedProductsController)loader.getController();
-                            rpControl.getInfo(this.employer);
-                            startStage(root, (int)root.getWidth(), (int)root.getHeight());
-                            
-                        } catch (IOException ex) {
-                            exceptionLayout(ex);
-                        }                            
+            try {
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "RemovedProducts.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                RemovedProductsController rpControl = (RemovedProductsController)loader.getController();
+                rpControl.getInfo(this.employer);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                                                   
         
         });
 

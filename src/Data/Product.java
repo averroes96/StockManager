@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -156,16 +157,44 @@ public class Product extends RecursiveTreeObject<Product> {
     
     public void toTrash() throws SQLException{
         
-            try (Connection con = getConnection()) {
-                String query = "UPDATE product SET on_hold = 1 WHERE prod_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, this.getProdID());
-                
-                ps.executeUpdate();
-            }
+        try (Connection con = getConnection()) {
+            String query = "UPDATE product SET on_hold = 1 WHERE prod_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getProdID());
+
+            ps.executeUpdate();
+        }
         
+    }
+    
+    public void restore() throws SQLException {
+                           
+        try (Connection con = getConnection()) {
+            String query = "UPDATE product SET on_hold = 0 WHERE prod_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getProdID());
+
+            ps.executeUpdate();
+        }       
+        
+    }
+    
+    public void delete() throws SQLException {
+        
+        try (Connection con = getConnection()) {
+            String query = "DELETE FROM product WHERE prod_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getProdID());
+
+            ps.executeUpdate();
+        }    
+    
     }
     
     public static ObservableList getActiveProducts() throws SQLException{
@@ -197,6 +226,35 @@ public class Product extends RecursiveTreeObject<Product> {
             
         return data;
                     
+    }
+    
+    public static ObservableList getRemovedProducts() throws SQLException{
+        
+        ObservableList<Product> data = FXCollections.observableArrayList();
+        
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE on_hold = 1";
+
+            Statement st;
+            ResultSet rs;
+
+
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Product product = new Product();
+                product.setName(rs.getString("name"));
+                product.setProdID(rs.getInt("prod_id"));
+                product.setProdQuantity(rs.getInt("prod_quantity"));
+                product.setSellPrice(rs.getInt("sell_price"));
+
+                data.add(product);
+            }
+        }
+        
+        return data;
+        
     }
     
     public static boolean nameExists(String name) throws SQLException{

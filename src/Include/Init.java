@@ -24,6 +24,8 @@ public interface Init {
     
     String INFO_SMALL = "info_small.png";
 
+    String QUESTION_SMALL = "question_small.png";
+    
     String DB_NAME = "jdbc:mysql://127.0.0.1/gdp";
     
     String ENCODING = "?useUnicode=yes&characterEncoding=UTF-8";
