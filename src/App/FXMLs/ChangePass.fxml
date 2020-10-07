@@ -19,7 +19,7 @@
    <children>
       <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="48.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center;" text="تغيير كلمة المرور" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center;" text="%change_password" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -46,7 +46,7 @@
          <children>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
                <children>
-                  <JFXPasswordField fx:id="current" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="كلمة السر الحالية" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                  <JFXPasswordField fx:id="current" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="%current_password" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -68,7 +68,7 @@
             </Label>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
                <children>
-                  <JFXPasswordField fx:id="newPass" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="كلمة السر الجديدة" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                  <JFXPasswordField fx:id="newPass" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="%new_password" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -87,7 +87,7 @@
             </Label>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="16.0">
                <children>
-                  <JFXPasswordField fx:id="repeat" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText=" إعادة كلمة السر الجديدة" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                  <JFXPasswordField fx:id="repeat" alignment="CENTER_RIGHT" focusColor="TOMATO" prefHeight="42.0" prefWidth="250.0" promptText="%repeat_password" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -102,7 +102,7 @@
                   <Insets bottom="16.0" />
                </VBox.margin>
             </HBox>
-            <JFXButton fx:id="save" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+            <JFXButton fx:id="save" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
                                   <graphic>
       
                                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">

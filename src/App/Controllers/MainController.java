@@ -784,7 +784,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
             if( User.getAdminCount() > 1 || selectedEmployer.getAdmin() != 1){            
                 
-                selectedEmployer.delete();
+                selectedEmployer.toTrash();
             
                 if(this.employer.getUsername().equals(selectedEmployer.getUsername())){
 
@@ -1287,7 +1287,7 @@ public class MainController extends GDPController implements Initializable,Init 
                         try {
                             User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
                             Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"), bundle);
                             AnchorPane root = (AnchorPane)loader.load();
                             ChangePassController erControl = (ChangePassController)loader.getController();
                             erControl.getEmployer(emp);

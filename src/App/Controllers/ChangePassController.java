@@ -6,7 +6,6 @@
 package App.Controllers;
 
 import Data.User;
-import static Include.Common.getConnection;
 import Include.GDPController;
 import Include.Init;
 import static Include.Init.OKAY;
@@ -15,9 +14,6 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -30,8 +26,11 @@ import javafx.scene.control.Label;
  * @author med
  */
 public class ChangePassController extends GDPController implements Initializable,Init {
-    @FXML public JFXPasswordField current,newPass,repeat;
-    @FXML public JFXButton save;
+    
+    @FXML private JFXPasswordField current,newPass,repeat;
+    @FXML private JFXButton save;
+    
+    private static int TRY_COUNT = 3;
             
     public void getEmployer(User emp){
         this.employer = emp;
@@ -62,51 +61,20 @@ public class ChangePassController extends GDPController implements Initializable
         
     }
     
-    private boolean checkPassword(){
-        
-        try {
-    
-            try (Connection con = getConnection()) {
-                String query = "SELECT password FROM user WHERE user_id = ?";
-                
-                PreparedStatement st;
-                ResultSet rs;
-                
-                st = con.prepareStatement(query);
-                st.setInt(1, employer.getUserID());
-                rs = st.executeQuery();
-                
-                if (rs.next()) {
-                    
-                    return rs.getString("password").equals(current.getText());
-                    
-                }
-            }
-            
-        }
-        catch (SQLException e) {
-            exceptionLayout(e, save);
-            return false;
-        }
-        
-        return false;
-    
-    }
-    
     
     @Override
     public boolean checkInputs()
     {
         if (current.getText().trim().equals("") || newPass.getText().trim().equals("") || repeat.getText().trim().equals("")) {
-            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, INFO_SMALL, true, save);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true, save);
             return false;
         }
         else if(!newPass.getText().matches("^[a-zA-Z0-9._-]{7,30}$")){
-            customDialog(PASSWORD_ERROR, PASSWORD_ERROR_MSG, INFO_SMALL, true, save);
+            customDialog(bundle.getString("wrong_password"), bundle.getString("password_error_msg"), ERROR_SMALL, true, save);
             return false;              
         }
         else if(!newPass.getText().equals(repeat.getText())){
-            customDialog(PASSWORD_ERROR, PASSWORD_ERROR_MSG_2, INFO_SMALL, true, save);
+            customDialog(bundle.getString("wrong_password"), bundle.getString("passwords_do_not_match"), ERROR_SMALL, true, save);
             return false;           
         }
         
@@ -116,35 +84,21 @@ public class ChangePassController extends GDPController implements Initializable
     public void changePassword(){
         
         if (checkInputs()) {
-            
-            if(checkPassword()){
-            try {
-
-                try (Connection con = getConnection()) {
-                    if(con == null) {
-                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, INFO_SMALL, true, save);
-                    }
+            try {      
+                if(employer.checkPassword(current.getText())){
                     
-                    PreparedStatement ps;
-                    
-                    
-                    ps = con.prepareStatement("UPDATE user SET password = ? WHERE user_id = ?");
-                    
-                    ps.setString(1, newPass.getText());
-                    ps.setInt(2, employer.getUserID());
-                    
-                    ps.executeUpdate();
-                }
+                    employer.changePassword(newPass.getText());
+                    customDialog(bundle.getString("password_updated"), bundle.getString("password_updated_msg"), INFO_SMALL, true, save);
                 
-                customDialog(PASSWORD_UPDATED, PASSWORD_UPDATED_MSG, INFO_SMALL, true, save);
-
+                }
+                else{
+                    customDialog(bundle.getString("wrong_password"), bundle.getString("wrong_password_msg"), ERROR_SMALL, true, save);
+                    TRY_COUNT--;
+                    System.out.println(TRY_COUNT);
+                }
             }
             catch (NumberFormatException | SQLException e) {
                 exceptionLayout(e, save);
-            }
-        }
-            else{
-                customDialog(WRONG_PASSWORD, WRONG_PASSWORD_MSG, INFO_SMALL, true, save);
             }
         }        
         
@@ -152,9 +106,13 @@ public class ChangePassController extends GDPController implements Initializable
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        bundle = rb;
+        
         save.setOnAction(value -> {
             changePassword();
         });
+        
     }    
     
 }

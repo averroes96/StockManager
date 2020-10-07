@@ -145,8 +145,46 @@ public class User {
         this.lastLogged = new SimpleStringProperty(lastLogged);
     }
     
+    public boolean checkPassword(String password) throws SQLException{
+        
+        try (Connection con = getConnection()) {
+            String query = "SELECT password FROM user WHERE user_id = ?";
+
+            PreparedStatement st;
+            ResultSet rs;
+
+            st = con.prepareStatement(query);
+            st.setInt(1, this.getUserID());
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+
+                return rs.getString("password").equals(password);
+
+            }
+        }
+
+    return false;
     
-    public void delete() throws SQLException{
+    }
+
+    public void changePassword(String newpass) throws SQLException{
+        
+        Connection con = getConnection();
+        
+        PreparedStatement ps;
+
+        ps = con.prepareStatement("UPDATE user SET password = ? WHERE user_id = ?");
+
+        ps.setString(1, newpass);
+        ps.setInt(2, this.getUserID());
+
+        ps.executeUpdate();        
+        
+    }
+    
+    
+    public void toTrash() throws SQLException{
         
                 try (Connection con = getConnection()) {
                     String query = "UPDATE user SET active = 0 WHERE user_id = ?";
@@ -158,6 +196,8 @@ public class User {
                     ps.executeUpdate();
                 }
     }
+    
+    // Static methods
     
     public static int getAdminCount() throws SQLException{
         
