@@ -50,7 +50,7 @@
                   </HBox>
                   <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ البداية" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="%start_date" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -66,7 +66,7 @@
                   </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="122.0" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ النهاية" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="%end_date" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -80,7 +80,7 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
                   </VBox>
-                  <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="بحث" textFill="#3d4956">
+                  <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="%search" textFill="#3d4956">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -99,10 +99,9 @@
             </VBox>
             <TableView fx:id="historyTable" focusTraversable="false" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="prodCol" maxWidth="350.0" minWidth="175.0" prefWidth="175.0" text="المنتوج" />
-                  <TableColumn fx:id="userCol" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="المستخدم" />
-                  <TableColumn fx:id="dateCol" maxWidth="400.0" minWidth="200.0" prefWidth="200.0" text="تاريخ التعديل" />
+                <TableColumn fx:id="prodCol" maxWidth="350.0" minWidth="175.0" prefWidth="175.0" text="%product" />
+                  <TableColumn fx:id="userCol" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="%username" />
+                  <TableColumn fx:id="dateCol" maxWidth="400.0" minWidth="200.0" prefWidth="200.0" text="%edit_date" />
               </columns>
                <effect>
                   <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
@@ -115,9 +114,9 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="8.0" layoutY="410.0" prefHeight="176.0" prefWidth="884.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
          <children>
-            <VBox fx:id="nameVB" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+            <VBox fx:id="nameVB" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="الإسم" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%name" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -129,21 +128,25 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="newName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="oldName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="newName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                           <font>
+                              <Font name="Consolas Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="oldName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
-            <VBox fx:id="dateVB" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+            <VBox fx:id="dateVB" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تاريخ الإضافة" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%add_date" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -155,21 +158,25 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="newDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="oldDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="newDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                           <font>
+                              <Font name="Consolas Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="oldDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
-            <VBox fx:id="priceVB" alignment="TOP_CENTER" layoutX="110.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+            <VBox fx:id="priceVB" alignment="TOP_CENTER" layoutX="110.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="السعر" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%price" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -181,21 +188,25 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="newPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="oldPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="newPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                           <font>
+                              <Font name="Consolas Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="oldPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
-            <VBox fx:id="qteVB" alignment="TOP_CENTER" layoutX="144.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" spacing="8.0" styleClass="box" HBox.hgrow="ALWAYS">
+            <VBox fx:id="qteVB" alignment="TOP_CENTER" layoutX="144.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="الكمية" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%quantity" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -207,16 +218,20 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="newQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="oldQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Label>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="newQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
+                           <font>
+                              <Font name="Consolas Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="oldQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

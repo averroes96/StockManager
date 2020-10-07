@@ -1110,40 +1110,42 @@ public class MainController extends GDPController implements Initializable,Init 
 
         productStats.setOnAction(Action -> {
             
-                        try {
-                            
-                            Product product = productsTable.getSelectionModel().getSelectedItem();
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductStats.fxml"));
-                            AnchorPane root = (AnchorPane)loader.load();
-                            ProdStatController psControl = (ProdStatController)loader.getController();
-                            psControl.setProduct(product);
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.setResizable(false);
-                            stage.showAndWait();
-                        } catch (IOException ex) {
-                            exceptionLayout(ex);
-                        }
+            try {
+
+                Product product = productsTable.getSelectionModel().getSelectedItem();
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductStats.fxml"));
+                AnchorPane root = (AnchorPane)loader.load();
+                ProdStatController psControl = (ProdStatController)loader.getController();
+                psControl.setProduct(product);
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
+                stage.setResizable(false);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                exceptionLayout(ex);
+            }
         });
 
         viewHistory.setOnAction(Action ->{
             
-                        try {
-                            
-                            Product product = productsTable.getSelectionModel().getSelectedItem();
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductHistory.fxml"));
-                            AnchorPane root = (AnchorPane)loader.load();
-                            ProductHistoryController phControl = (ProductHistoryController)loader.getController();
-                            Scene scene = new Scene(root);                           
-                            stage.setScene(scene);
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.showAndWait();
-                        } catch (IOException ex) {
-                            exceptionLayout(ex);
-                        }            
+            try {
+
+                Product product = productsTable.getSelectionModel().getSelectedItem();
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductHistory.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                ProductHistoryController phControl = (ProductHistoryController)loader.getController();
+                Scene scene = new Scene(root);                           
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
+                stage.showAndWait();
+            } catch (IOException ex) {
+                exceptionLayout(ex);
+            }            
             
         });
         

@@ -2,19 +2,14 @@
 package App.Controllers;
 
 import Data.ProdHistory;
+import Data.Product;
 import static Include.Common.dateFormatter;
-import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
-import static Include.Common.initLayout;
+import Include.GDPController;
 import Include.Init;
-import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +27,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -40,47 +34,18 @@ import javafx.scene.layout.VBox;
  *
  * @author user
  */
-public class ProductHistoryController implements Initializable,Init {
+public class ProductHistoryController extends GDPController implements Initializable,Init {
     
     @FXML private Label oldQte,newQte,oldName,newName,oldDate,newDate,oldPrice,newPrice;
     @FXML private JFXButton search;
     @FXML private TableView<ProdHistory> historyTable;
-    @FXML private TableColumn<ProdHistory, Integer> idCol;
     @FXML private TableColumn<ProdHistory, String> prodCol,userCol,dateCol;
     @FXML private ChoiceBox<String> prodField ;
     @FXML private JFXDatePicker startDate,endDate;
     @FXML private VBox nameVB,dateVB,priceVB,qteVB;
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
         
     ObservableList<ProdHistory> historyList = FXCollections.observableArrayList();
     ObservableList<String> nameList = null;
-    
-    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
-        
-        stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
-        btn.setDefaultButton(true);
-        btn.setOnAction(Action -> {
-            dialog.close();
-            stackPane.setVisible(false);
-            btn.setDefaultButton(false);
-        });
-        if(btnIncluded){
-            layout.setActions(btn);
-        }    
-        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
-        dialog.setOverlayClose(false);
-        dialog.show();
-        
-    }
-    
-    public void exceptionLayout(Exception e){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-    }
 
     
     private void getAllHistory(String name, String start, String end){
@@ -91,7 +56,7 @@ public class ProductHistoryController implements Initializable,Init {
                 String whereClause = "" ;
                 String query ;
                 
-                if(!name.equals("الكل")){
+                if(!name.equals(bundle.getString("all"))){
                     whereClause = "WHERE name = '" + name + "' " ;
                 }
                 
@@ -142,7 +107,7 @@ public class ProductHistoryController implements Initializable,Init {
             }
         }
         catch (SQLException e) {
-            exceptionLayout(e);
+            exceptionLayout(e, search);
         }
         if(!historyTable.getItems().isEmpty())
             setValues(historyTable.getItems().get(0));
@@ -200,23 +165,31 @@ public class ProductHistoryController implements Initializable,Init {
         
     }
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    private void initTable(){
         
-        try {
-            nameList = getAllProducts(1);
-        } catch (SQLException ex) {
-            exceptionLayout(ex);
-        }
-        
-        idCol.setCellValueFactory(new PropertyValueFactory<>("prodHistID"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("product"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("user"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         
         historyTable.setItems(historyList);
-        getAllHistory("الكل","","");
-        historyTable.getSelectionModel().selectFirst();
+        getAllHistory(bundle.getString("all"),"","");
+        historyTable.getSelectionModel().selectFirst();        
+        
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        bundle = rb;
+        
+        initTable();
+        
+        try {
+            nameList = Product.getActiveProducts();
+            nameList.add(0, bundle.getString("all"));
+        } catch (SQLException ex) {
+            exceptionLayout(ex, search);
+        }
         
         startDate.setConverter(dateFormatter());
         endDate.setConverter(dateFormatter());
@@ -243,14 +216,18 @@ public class ProductHistoryController implements Initializable,Init {
             new ZoomIn(historyTable).play();
 
             if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
-                historyTable.getItems().clear();
-                getAllHistory(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());            
-            }
+                
+                if(startDate.getValue().compareTo(LocalDate.now()) <= 0){
+                    historyTable.getItems().clear();
+                    getAllHistory(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());            
+                }
+                else{
+                    customDialog(bundle.getString("invalid_interval"), bundle.getString("invalid_interval_msg"), INFO_SMALL, true, search);         
+                }
+                }
+                
             else {
-                JFXDialogLayout layout = new JFXDialogLayout();
-                initLayout(layout, ILLEGAL_INTERVAL, ILLEGAL_INTERVAL_MSG, ERROR_SMALL);
-
-                loadDialog(layout, true);            
+                customDialog(bundle.getString("illegal_interval"), bundle.getString("illegal_interval_msg"), INFO_SMALL, true, search);         
             }             
                       
         });
