@@ -197,6 +197,34 @@ public class User {
                 }
     }
     
+    public void restore() throws SQLException{
+        
+        try (Connection con = getConnection()) {
+            String query = "UPDATE user SET active = 1 WHERE user_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getUserID());
+
+            ps.executeUpdate();
+        }        
+        
+    }
+    
+    public void delete() throws SQLException{
+        
+        try (Connection con = getConnection()) {
+            String query = "DELETE FROM user WHERE user_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getUserID());
+
+            ps.executeUpdate();
+        }        
+        
+    }
+    
     // Static methods
     
     public static int getAdminCount() throws SQLException{
@@ -220,19 +248,18 @@ public class User {
         
     }
     
-    public static ObservableList getActiveUsers() throws SQLException{
+    public static ObservableList getUsers(int status) throws SQLException{
         
         ObservableList<String> data = FXCollections.observableArrayList();
         
         ResultSet rs;
-
-        rs = getAllFrom("username","user","","WHERE active != 0","");
-
-            while (rs.next()) {
-                
-                String emp = rs.getString("username");
-                data.add(emp);
-            }
+        
+            rs = getAllFrom("username","user","","WHERE active = " + status,"");
+        
+        while (rs.next()) {
+            String emp = rs.getString("username");
+            data.add(emp);
+        }
         
         return data;
         

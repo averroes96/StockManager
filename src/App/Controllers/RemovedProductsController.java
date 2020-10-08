@@ -46,7 +46,6 @@ import javafx.util.Callback;
 public class RemovedProductsController extends GDPController implements Initializable,Init {
 
     @FXML private TableView<Product> removedTable;
-    @FXML private TableColumn<Product,Integer> idCol,qteCol,priceCol;
     @FXML private TableColumn<Product,String> nameCol;
     @FXML private TableColumn action, action1;
     @FXML private Button returnBtn;
@@ -108,7 +107,7 @@ public class RemovedProductsController extends GDPController implements Initiali
         MainController mControl = (MainController)loader.getController();
         mControl.getEmployer(employer);
         mControl.returnMenu("products");
-        startStage(root, (int)root.getMinWidth(), (int)root.getMinHeight());
+        startStage(root, (int)root.getWidth(), (int)root.getHeight());
             
     }  
     
@@ -122,11 +121,7 @@ public class RemovedProductsController extends GDPController implements Initiali
             exceptionLayout(e, returnBtn);
         }   
         
-        idCol.setCellValueFactory(new PropertyValueFactory<>("prodID"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        qteCol.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));        
         action.setCellValueFactory(new PropertyValueFactory<>("action"));        
                    
         Callback<TableColumn<Product, String>, TableCell<Product, String>> cellFactory
@@ -221,7 +216,6 @@ public class RemovedProductsController extends GDPController implements Initiali
             removedTable.setItems(filteredData);
         }           
         
-         
     }  
     
     @Override

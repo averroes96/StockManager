@@ -5,7 +5,7 @@ import Data.Product;
 import static Data.Product.getActiveProducts;
 import Data.Sell;
 import Data.User;
-import static Data.User.getActiveUsers;
+import static Data.User.getUsers;
 import Include.Common;
 import static Include.Common.controlDigitField;
 import static Include.Common.dateFormatter;
@@ -770,7 +770,7 @@ public class MainController extends GDPController implements Initializable,Init 
     {
 
         try {
-            employersList = getActiveUsers();
+            employersList = getUsers(ACTIVE);
         }
         catch (SQLException e) {          
             exceptionLayout(e);
@@ -1267,18 +1267,17 @@ public class MainController extends GDPController implements Initializable,Init 
         
         exBtn.setOnAction(Action -> {
             
-                        try {            
 
-                            ((Node)Action.getSource()).getScene().getWindow().hide();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ExEmployers.fxml"));
-                            AnchorPane root = (AnchorPane)loader.load();
-                            ExEmployersController ueControl = (ExEmployersController)loader.getController();
-                            ueControl.getInfo(this.employer);
-                            startStage(root, (int)root.getWidth(), (int)root.getHeight());
-                            
-                        } catch (IOException ex) {
-                            exceptionLayout(ex);
-                        }                            
+            try {
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ExEmployers.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                ExEmployersController ueControl = (ExEmployersController)loader.getController();
+                ueControl.getInfo(this.employer);                          
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
         });
 

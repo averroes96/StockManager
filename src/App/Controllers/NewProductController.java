@@ -55,11 +55,9 @@ public class NewProductController extends GDPController implements Initializable
 
     
     public void getEmployer(User employer){
-        
         this.employer = employer; 
     }
     
-    @FXML    
     private void chooseImage()
     {
         FileChooser fileChooser = new FileChooser();
@@ -148,7 +146,6 @@ public class NewProductController extends GDPController implements Initializable
             
     } 
 
-    @FXML
     private void insertProduct()
     {
         if (checkInputs()) {

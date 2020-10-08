@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="StockManager.jar" size="365589" download="eager" />
+    <jar href="StockManager.jar" size="367742" download="eager" />
     <jar href="lib\AnimateFX-1.2.0.jar" size="85823" download="eager" />
     <jar href="lib\commons-beanutils-1.9.4.jar" size="246918" download="eager" />
     <jar href="lib\commons-collections4-4.4.jar" size="751914" download="eager" />

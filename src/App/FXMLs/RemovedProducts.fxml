@@ -31,12 +31,9 @@
    <children>
       <TableView fx:id="removedTable" focusTraversable="false" layoutX="24.0" layoutY="75.0" prefHeight="350.0" prefWidth="550.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="128.0">
          <columns>
-            <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="nameCol" maxWidth="1.7976931348623157E308" minWidth="175.0" prefWidth="175.0" text="إسم المنتوج" />
-            <TableColumn fx:id="qteCol" maxWidth="150.0" minWidth="75.0" prefWidth="75.0" text="الكمية" />
-            <TableColumn fx:id="priceCol" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="سعر البيع" />
-            <TableColumn fx:id="action" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="تفعيل" />
-            <TableColumn fx:id="action1" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="حذف" />
+            <TableColumn fx:id="nameCol" maxWidth="1.7976931348623157E308" minWidth="175.0" prefWidth="175.0" text="%name" />
+            <TableColumn fx:id="action" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%activate" />
+            <TableColumn fx:id="action1" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%delete" />
          </columns>
          <effect>
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
@@ -59,7 +56,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="المنتوجات المحذوفة" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%deleted_products" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

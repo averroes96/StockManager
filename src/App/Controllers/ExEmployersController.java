@@ -6,20 +6,19 @@
 package App.Controllers;
 
 import Data.User;
-import static Include.Common.getConnection;
 import static Include.Common.initLayout;
+import static Include.Common.startStage;
+import Include.GDPController;
 import Include.Init;
+import static Include.Init.IMAGES_PATH;
 import animatefx.animation.FlipInX;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,15 +27,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -44,183 +42,215 @@ import javafx.util.Callback;
  *
  * @author med
  */
-public class ExEmployersController implements Initializable,Init {
+public class ExEmployersController extends GDPController implements Initializable,Init {
 
     @FXML TableView<User> exTable;
-    @FXML TableColumn<User,Integer> id;
     @FXML TableColumn<User,String> fullname,username;
-    @FXML TableColumn action1;
+    @FXML TableColumn action1, action2;
+    @FXML JFXTextField searchField;
     @FXML Button returnBtn;
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;
     
     ObservableList<User> exList = FXCollections.observableArrayList();
-        
-    User admin = new User();
     
-    public void getInfo(User employer){
-        
-        this.admin = employer;
-        
-    }
-    
-    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
-        
+    public void confirmDialog(Object object, String type, String title, String body, String icon){
+            
+        JFXDialogLayout layout = new JFXDialogLayout();
+        initLayout(layout, title, body, icon);
+            
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
-        btn.setDefaultButton(true);
-        btn.setOnAction(Action -> {
+        JFXButton yesBtn = new JFXButton(bundle.getString("yes"));
+        yesBtn.setDefaultButton(true);
+        yesBtn.setOnAction(Action -> {
             dialog.close();
             stackPane.setVisible(false);
-            btn.setDefaultButton(false);
+            yesBtn.setDefaultButton(false);
+            User user = (User) object;
+            try {
+                user.delete();
+            } catch (SQLException ex) {
+                exceptionLayout(ex, returnBtn);
+            }
+            exList.remove(user);
+            exTable.refresh();
         });
-        if(btnIncluded){
-            layout.setActions(btn);
-        }    
+        JFXButton noBtn = new JFXButton(bundle.getString("no"));
+        noBtn.setCancelButton(true);
+        noBtn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            noBtn.setCancelButton(false);
+        });        
+        
+        layout.setActions(yesBtn, noBtn);
+        
         dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
         dialog.setOverlayClose(false);
         dialog.show();
-        
+    
     }
     
-    public void exceptionLayout(Exception e){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
+    public void getInfo(User employer){
+        this.employer = employer;
     }    
-    
     
     public void restore(User selected) {
     
         try {
-                       
-
-            try (Connection con = getConnection()) {
-                String query = "UPDATE user SET active = 1 WHERE user_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, selected.getUserID());
-                
-                ps.executeUpdate();
-            }
             
+            selected.restore();
             exList.remove(selected);
-            
             exTable.refresh();
             
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, EMPLOYER_ASSIGNED, EMPLOYER_ASSIGNED_MSG, INFO_SMALL);
-            
-            loadDialog(layout, true);
+            customDialog(bundle.getString("user_activated"), bundle.getString("user_activated_msg"), INFO_SMALL, true, returnBtn);
         }
         catch (SQLException e) {
-            exceptionLayout(e);
+            exceptionLayout(e, returnBtn);
         }        
     
     }    
     
-    public void FillTheTable(){
+    public void fillList(){
         
         try {
-        
-            try (Connection con = getConnection()) {
-                String query = "SELECT * FROM user WHERE active = 0";
-                
-                Statement st;
-                ResultSet rs;
-                
-                st = con.createStatement();
-                rs = st.executeQuery(query);
-                
-                while (rs.next()) {
-                    User employer = new User();
-                    employer.setUserID(rs.getInt("user_id"));
-                    employer.setFullname(rs.getString("fullname"));
-                    employer.setUsername(rs.getString("username"));
-                    employer.setAdmin(rs.getInt("admin"));
-                    
-                    exList.add(employer);
-                }
-            }
+            exList = User.getUsers(NOT_ACTIVE);
         }
         catch (SQLException e) {
-            exceptionLayout(e);
+            exceptionLayout(e, returnBtn);
         }        
         
     }
     
-    public void cancel(ActionEvent event) throws IOException {
+    @Override
+    public void logOut(ActionEvent event) throws IOException {
 
-                        ((Node)event.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource( FXML_PATH + "Main.fxml"));
-                        AnchorPane root = (AnchorPane)loader.load();
-                        MainController mControl = (MainController)loader.getController();
-                        mControl.getEmployer(admin);
-                        mControl.returnMenu("employers");
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.setMinHeight(600);
-                        stage.setMinWidth(1000);
-                        stage.show();            
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource( FXML_PATH + "Main.fxml"), bundle);
+        AnchorPane root = (AnchorPane)loader.load();
+        MainController mControl = (MainController)loader.getController();
+        mControl.getEmployer(employer);
+        mControl.returnMenu("employers");
+        startStage(root, (int)root.getWidth(), (int)root.getHeight());
             
-    }    
+    } 
+    
+    public void initTable(){
+        
+        fullname.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        username.setCellValueFactory(new PropertyValueFactory<>("username"));
+        action1.setCellValueFactory(new PropertyValueFactory<>("action1"));        
+                   
+        Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory
+                =                 //
+        (final TableColumn<User, String> param) -> {
+            final TableCell<User, String> cell = new TableCell<User, String>() {
+
+                final Button reassign = new Button(bundle.getString("activate"));
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        reassign.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/active_small_grey.png", 24, 24, false, false)));
+                        reassign.setOnAction(event -> {
+                            User selected = getTableView().getItems().get(getIndex());
+                            restore(selected);
+                            new FlipInX(exTable).play();
+                        });
+                        reassign.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                        setGraphic(reassign);
+                        setText(null);               
+
+                    }
+                }
+
+
+            };
+            return cell;
+        }; 
+
+        action1.setCellFactory(cellFactory);
+        
+        action2.setCellValueFactory(new PropertyValueFactory<>("action1"));        
+                   
+        Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory1
+                =                 //
+        (final TableColumn<User, String> param) -> {
+            final TableCell<User, String> cell = new TableCell<User, String>() {
+
+                final Button delete = new Button();
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
+                        delete.setOnAction(event -> {
+                            User selected = getTableView().getItems().get(getIndex());
+                            confirmDialog(selected, "", bundle.getString("delete"), bundle.getString("are_u_sure"), QUESTION_SMALL);
+                        });
+                        delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                        setGraphic(delete);
+                        setText(null);               
+
+                    }
+                }  
+
+            };
+            return cell;
+        }; 
+
+        action1.setCellFactory(cellFactory1);  
+        
+        exTable.setItems(exList);        
+        
+    }
+    
+    private void search()
+    {
+        
+        String keyword = searchField.getText();
+
+        if (keyword.trim().equals("")) {
+            exTable.setItems(exList);
+        }
+        else {
+            ObservableList<User> filteredData = FXCollections.observableArrayList();
+            exList.stream().filter((user) -> (user.getUsername().toLowerCase().contains(keyword.toLowerCase()) || user.getFullname().toLowerCase().contains(keyword.toLowerCase()))).forEachOrdered((user) -> {
+                filteredData.add(user);
+             });
+            exTable.setItems(filteredData);
+        }           
+        
+    }  
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        FillTheTable();
-       
-        id.setCellValueFactory(new PropertyValueFactory<>("userID"));
-        fullname.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        username.setCellValueFactory(new PropertyValueFactory<>("username"));
+        bundle = rb;
         
-        action1.setCellValueFactory(new PropertyValueFactory<>("action1"));        
-                   
-        Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory
-                =                 //
-    (final TableColumn<User, String> param) -> {
-        final TableCell<User, String> cell = new TableCell<User, String>() {
-            
-            final Button reassign = new Button("تشغيل");
-            
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    reassign.setOnAction(event -> {
-                        User selected = getTableView().getItems().get(getIndex());
-                        restore(selected);
-                        new FlipInX(exTable).play();
-                    });
-                    reassign.setStyle("-fx-background-color : green; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
-                    setGraphic(reassign);
-                    setText(null);               
-                    
-                }
+        fillList();
+        
+        initTable();
+        
+        searchField.textProperty().addListener((obs, oldText, newText) -> {
+            search();
+        });
+        
+        returnBtn.setOnAction(value -> {
+            try {
+                logOut(value);
+            } catch (IOException ex) {
+                exceptionLayout(ex, returnBtn);
             }
-
-
-        };
-        return cell;
-    }; 
+        });
         
-    action1.setCellFactory(cellFactory);    
-        
-        exTable.setItems(exList);
-        
-        
-        // TODO
     }    
     
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -15,14 +16,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ExEmployersController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ExEmployersController">
    <children>
-      <TableView fx:id="exTable" focusTraversable="false" layoutX="25.0" layoutY="78.0" prefHeight="294.0" prefWidth="550.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="80.0">
+      <TableView fx:id="exTable" focusTraversable="false" layoutX="25.0" layoutY="78.0" prefHeight="340.0" prefWidth="568.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
         <columns>
-          <TableColumn fx:id="id" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="fullname" maxWidth="1024.0" minWidth="175.0" prefWidth="200.0" text="الإسم الكامل" />
-            <TableColumn fx:id="username" maxWidth="512.0" minWidth="175.0" prefWidth="200.0" text="إسم المستخدم" />
-            <TableColumn fx:id="action1" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="تفعيل" />
+          <TableColumn fx:id="fullname" maxWidth="1024.0" minWidth="175.0" prefWidth="200.0" text="%name" />
+            <TableColumn fx:id="username" maxWidth="512.0" minWidth="175.0" prefWidth="200.0" text="%username" />
+            <TableColumn fx:id="action1" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="%activate" />
+            <TableColumn fx:id="action2" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="%delete" />
         </columns>
          <effect>
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
@@ -33,7 +34,7 @@
       </TableView>
       <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#cancel" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -45,7 +46,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="الحسابات المحذوفة" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%ex_users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -67,6 +68,20 @@
             <JFXDialog fx:id="dialog" />
          </children>
       </StackPane>
+      <HBox alignment="CENTER" layoutX="26.0" layoutY="75.0" prefHeight="60.0" prefWidth="668.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" minWidth="128.0" prefHeight="40.0" prefWidth="256.0" promptText="%search" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Simplified Arabic Bold" size="18.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/medium/icons8_search_48px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@../Layout/custom.css" />
