@@ -17,7 +17,6 @@ This is JavaFX inventory manager app.
 - [x] Print sell/buy information
 - [x] Print any bill of selected buys/sells
 
------------------------------------------------------------------------------------------------
 ## IDE
 [Netbeans](https://netbeans.org/)
 
