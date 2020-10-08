@@ -1,5 +1,5 @@
 # GDP
-This is JavaFX inventory manager app - IN ARABIC -
+This is JavaFX inventory manager app.
 
 ## Features:
 - [x] Consult/Add/Update/Delete products.
@@ -17,8 +17,7 @@ This is JavaFX inventory manager app - IN ARABIC -
 - [x] Print sell/buy information
 - [x] Print any bill of selected buys/sells
 
-
-
+-----------------------------------------------------------------------------------------------
 ## IDE
 [Netbeans](https://netbeans.org/)
 
@@ -33,10 +32,15 @@ This is JavaFX inventory manager app - IN ARABIC -
 
 ## Admin login : 
   - Username : admin
-  - Password : admin
+  - Password : password
   
-## Important :
+## Installation
+- `git clone "https://github.com/averroes96/StockManager"` or download the repository as a zip
+- Import the repository to NetBeans
 - Import 'gdpDB/gdp.sql' using xampp's phpMyAdmin to MySQL server.  
+- Download the mentionned libraries and then Import them into your netBeans project
+
+--------------------------------------------------------------------------------------------------------
 
 ## Screenshots
 
