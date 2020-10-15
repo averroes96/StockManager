@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -27,7 +28,7 @@
       <URL value="@../Layout/custom.css" />
    </stylesheets>
    <children>
-      <HBox alignment="CENTER_RIGHT" layoutY="57.0" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_RIGHT" layoutY="57.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#logOut" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
                <graphic>
@@ -65,14 +66,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <Label fx:id="imgField" focusTraversable="false" prefHeight="192.0" prefWidth="224.0" style="-fx-background-color: white; -fx-alignment: center;">
-               <effect>
-                  <DropShadow color="#00000066" height="15.0" radius="7.0" width="15.0" />
-               </effect>
+            <Circle fx:id="productIV" fill="WHITE" radius="100.0" stroke="#3d4956" strokeType="INSIDE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Label>
+            </Circle>
             <HBox alignment="CENTER" maxWidth="768.0" prefHeight="80.0" prefWidth="256.0" spacing="8.0">
                <children>
                   <JFXTextField fx:id="nameField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="%name" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">

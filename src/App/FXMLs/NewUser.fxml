@@ -18,13 +18,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="675.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewEmployerController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewUserController">
    <children>
-      <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="67.0" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="67.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,7 +37,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="حساب جديد" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%new_user" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -56,41 +57,38 @@
             </Label>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="-15.0" prefHeight="569.0" prefWidth="568.0" spacing="16.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="88.0" prefHeight="603.0" prefWidth="568.0" spacing="16.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
          <children>
-            <Label fx:id="image" focusTraversable="false" prefHeight="160.0" prefWidth="192.0" style="-fx-alignment: center; -fx-background-color: white;">
-               <effect>
-                  <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
-               </effect>
+            <Circle fx:id="userIV" fill="WHITE" radius="100.0" stroke="#3d4956" strokeType="INSIDE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Label>
+            </Circle>
             <HBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="288.0" prefWidth="200.0" spacing="8.0">
                <children>
                   <VBox fx:id="privs" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="250.0" spacing="24.0">
                      <children>
-                        <JFXToggleButton fx:id="admin" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="120.0" text="أدمن" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#dddddd" unToggleColor="#999999" unToggleLineColor="#dddddd">
+                        <JFXToggleButton fx:id="admin" contentDisplay="RIGHT" focusTraversable="false" prefHeight="60.0" prefWidth="120.0" text="%admin" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#dddddd" unToggleColor="#999999" unToggleLineColor="#dddddd">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXToggleButton>
-                        <JFXCheckBox fx:id="products" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="130.0" text="إدارة المنتوجات" textFill="#3d4956">
+                        <JFXCheckBox fx:id="products" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="130.0" text="%product_management" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXCheckBox>
-                        <JFXCheckBox fx:id="users" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" layoutX="74.0" layoutY="127.0" prefHeight="30.0" prefWidth="130.0" text="إدارة الحسابات" textFill="#3d4956">
+                        <JFXCheckBox fx:id="users" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" layoutX="74.0" layoutY="127.0" prefHeight="30.0" prefWidth="130.0" text="%user_management" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXCheckBox>
-                        <JFXCheckBox fx:id="buys" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" layoutX="74.0" layoutY="187.0" prefHeight="30.0" prefWidth="130.0" text="إدارة المشتريات" textFill="#3d4956">
+                        <JFXCheckBox fx:id="buys" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" layoutX="74.0" layoutY="187.0" prefHeight="30.0" prefWidth="130.0" text="%buy_management" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXCheckBox>
-                        <JFXCheckBox fx:id="sells" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" layoutX="72.0" layoutY="187.0" prefHeight="30.0" prefWidth="130.0" text="إدارة المشتريات" textFill="#3d4956">
+                        <JFXCheckBox fx:id="sells" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" layoutX="72.0" layoutY="187.0" prefHeight="30.0" prefWidth="130.0" text="%sell_management" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -101,7 +99,7 @@
                      <children>
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="8.0">
                            <children>
-                              <JFXTextField fx:id="fullname" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="الإسم الكامل" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="fullname" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="%fullname" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -126,7 +124,7 @@
                         </Label>
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="8.0">
                            <children>
-                              <JFXTextField fx:id="phone" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="الهاتف" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="phone" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="%phone" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -148,7 +146,7 @@
                         </Label>
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="8.0">
                            <children>
-                              <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="إسم المستخدم" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="username" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="%username" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -168,7 +166,7 @@
                         </HBox>
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="200.0" spacing="8.0">
                            <children>
-                              <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="كلمة المرور" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="250.0" promptText="%password" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -187,7 +185,7 @@
                   </VBox>
                </children>
             </HBox>
-            <JFXButton fx:id="save" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="192.0" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
+            <JFXButton fx:id="saveBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="192.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

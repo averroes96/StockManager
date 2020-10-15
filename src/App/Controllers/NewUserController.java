@@ -9,18 +9,16 @@ import Data.User;
 import static Include.Common.AnimateField;
 import static Include.Common.animateBtn;
 import static Include.Common.getConnection;
-import static Include.Common.initLayout;
 import static Include.Common.saveSelectedImage;
+import static Include.Common.startStage;
+import Include.GDPController;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
 import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.BounceIn;
 import animatefx.animation.Tada;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -37,77 +35,37 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author med
  */
-public class NewEmployerController implements Initializable,Init {
+public class NewUserController extends GDPController implements Initializable,Init {
 
-    @FXML Button cancel;
-    @FXML JFXButton save;
-    @FXML JFXTextField fullname,phone,username;
-    @FXML JFXPasswordField password;
-    @FXML JFXCheckBox products,users,sells,buys;
-    @FXML Label image,fullnameStatus,phoneStatus;
-    @FXML JFXToggleButton admin ;
-    @FXML private StackPane stackPane;
-    @FXML private JFXDialog dialog;    
-    
-    User employer = new User();
-    
+    @FXML private Button returnBtn;
+    @FXML private JFXButton saveBtn;
+    @FXML private JFXTextField fullname,phone,username;
+    @FXML private JFXPasswordField password;
+    @FXML private JFXCheckBox products,users,sells,buys;
+    @FXML private Label fullnameStatus,phoneStatus;
+    @FXML private JFXToggleButton admin ;
+    @FXML private Circle userIV;
+        
     File selectedFile = null;
     
     public void getEmployer(User employer){
         this.employer = employer;
     }
     
-    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
-        
-        stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
-        btn.setDefaultButton(true);
-        save.setDefaultButton(false);
-        btn.setOnAction(Action -> {
-            dialog.close();
-            stackPane.setVisible(false);
-            btn.setDefaultButton(false);
-            save.setDefaultButton(true);
-        });
-        if(btnIncluded){
-            layout.setActions(btn);
-        }    
-        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
-        dialog.setOverlayClose(false);
-        dialog.show();
-        
-    }
-    
-    public void exceptionLayout(Exception e){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
-            
-            loadDialog(layout, true);
-    }
 
-    public void customDialog(String title, String body, String icon, boolean btnIncluded){
-            JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, title, body, icon);
-            
-            loadDialog(layout, btnIncluded);
-    }
-    
-    @FXML    
     public void chooseImage()
     {
         FileChooser fileChooser = new FileChooser();
@@ -116,46 +74,48 @@ public class NewEmployerController implements Initializable,Init {
                 new FileChooser.ExtensionFilter("Select a .JPG .PNG .GIF image", "*.jpg", "*.png", "*.gif")
         );
 
-        selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(saveBtn.getScene().getWindow());
 
         if (selectedFile != null) {
             try {
-                image.setText("");
-                image.setGraphic(new ImageView(new Image(
-                        selectedFile.toURI().toString(), 192, 160, true, true)));
+                userIV.setFill(new ImagePattern(new Image(
+                        selectedFile.toURI().toString(),
+                        userIV.getCenterX(), userIV.getCenterY(), false, false)));
+                new BounceIn(userIV).play();                
             }
             catch (Exception e) {
-                exceptionLayout(e);
+                exceptionLayout(e, saveBtn);
             }
         }
 
     }     
 
-    private boolean checkInputs()
+    @Override
+    public boolean checkInputs()
     {
         if (fullname.getText().trim().equals("")) {
-            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL, true);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true, saveBtn);
             return false;
         }
         else if(!fullname.getText().matches("^[\\p{L} .'-]+$")){
-            customDialog(UNVALID_NAME, UNVALID_NAME_MSG, ERROR_SMALL, true);
+            customDialog(bundle.getString("invalid_name"), bundle.getString("invalid_name_msg"), ERROR_SMALL, true, saveBtn);
             return false;              
         }        
         else if(username.getText().trim().equals("") || password.getText().trim().equals("")){
-            customDialog(MISSING_FIELDS, MISSING_FIELDS_MSG, ERROR_SMALL, true);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true, saveBtn);
             return false;            
             
         }
         else if(!username.getText().trim().matches("^[a-zA-Z0-9._-]{5,30}$")){
-            customDialog(USERNAME_ERROR, USERNAME_ERROR_MSG, ERROR_SMALL, true);
+            customDialog(bundle.getString("invalid_username"), bundle.getString("invalid_username_msg"), ERROR_SMALL, true, saveBtn);
             return false;              
         }
         else if(!password.getText().trim().matches("^[a-zA-Z0-9._-]{7,30}$")){
-            customDialog(PASSWORD_ERROR, PASSWORD_ERROR_MSG, ERROR_SMALL, true);
+            customDialog(bundle.getString("invalid_password"), bundle.getString("invalid_password_msg"), ERROR_SMALL, true, saveBtn);
             return false;              
         }
         else if(!phone.getText().trim().matches("^[5-7]?[0-9]{10}$") && !phone.getText().equals("")){
-            customDialog(UNVALID_PHONE, UNVALID_PHONE_MSG, ERROR_SMALL, true);
+            customDialog(bundle.getString("invalid_phone"), bundle.getString("invalid_phone_msg"), ERROR_SMALL, true, saveBtn);
             return false;              
         }
         
@@ -179,77 +139,37 @@ public class NewEmployerController implements Initializable,Init {
         phone.setText("");
         username.setText("");
         password.setText(""); 
-            image.setText("");
-            ImageView img = new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
-                    64, 64, true, true));
-            image.setGraphic(img);  
+        userIV.setFill(new ImagePattern(new Image(
+            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+            96, 96, true, true))); 
         selectedFile = null;
         
     }     
     
-    public int usernameExist(){
-        
-        try {
-       
-            int count;
-            try (Connection con = getConnection()) {
-                String query = "SELECT * FROM user WHERE username = ?";
-                PreparedStatement st;
-                ResultSet rs;
-                st = con.prepareStatement(query);
-                st.setString(1, username.getText());
-                rs = st.executeQuery();
-                count = 0;
-                while (rs.next()) {
-                    ++count;
-                    
-                }
-            }
-            
-            return count;
-
-
-        }
-        catch (SQLException e) {
-            exceptionLayout(e);
-            return 0;
-        }       
-       
-   } 
     
     @FXML
-    public void cancel(ActionEvent event) throws IOException {
+    @Override
+    public void logOut(ActionEvent event) throws IOException {
 
                         ((Node)event.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Main.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Main.fxml"), bundle);
                         AnchorPane root = (AnchorPane)loader.load();
                         MainController mControl = (MainController)loader.getController();
                         mControl.getEmployer(employer);
                         mControl.returnMenu("employers");
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.setMinHeight(700);
-                        stage.setMinWidth(1000);
-                        stage.show();
+                        startStage(root, (int)root.getWidth(), (int)root.getHeight());
     }
 
-    @FXML
-    private void insertEmployer()
+    private void insertEmployer() throws SQLException
     {
         if (checkInputs()) {
             
-            if(usernameExist() == 0){
+            if(!User.usernameExist(username.getText())){
             try {
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, ERROR_SMALL, true);
+                        customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, saveBtn);
                     }
                     
                     PreparedStatement ps;
@@ -263,8 +183,6 @@ public class NewEmployerController implements Initializable,Init {
                         ps = con.prepareStatement("INSERT INTO user(fullname, telephone, admin, username, password, image) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
                         ps.setString(6, createImagePath);
                     }
-                    
-                    
                     
                     ps.setString(1, fullname.getText());
                     ps.setString(2, phone.getText());
@@ -301,28 +219,25 @@ public class NewEmployerController implements Initializable,Init {
                             }
                         }
                         else {
-                            JFXDialogLayout layout = new JFXDialogLayout();
-                            initLayout(layout, UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL);
-
-                            loadDialog(layout, true);                            
+                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL, true, saveBtn);
                         }
                     }
 
                         con.close();
                     
                 }
-                customDialog(USER_ADDED, USER_ADDED_MSG, INFO_SMALL, true);                
+                customDialog(bundle.getString("user_added"), bundle.getString("user_added_msg"), INFO_SMALL, true, saveBtn);                
                 resetWindow();
 
 
             }
             catch (NumberFormatException | SQLException | IOException e) {
-                exceptionLayout(e);
+                exceptionLayout(e, saveBtn);
             }
         }
-            else{
-                customDialog(USERNAME_ERROR, USERNAME_ERROR_MSG_2, INFO_SMALL, true);
-            }
+        else{
+            customDialog(bundle.getString("username_exists"), bundle.getString("username_exists_msg"), INFO_SMALL, true, saveBtn);
+        }
         }
 
     }        
@@ -331,66 +246,74 @@ public class NewEmployerController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        admin.setOnAction(Action ->{
-            
-        if(admin.isSelected()){
-            
-            products.setSelected(true);
-            products.setDisable(true);
-            new Tada(products).play();
-            
-            users.setSelected(true);
-            users.setDisable(true);
-            new Tada(users).play();
-            
-            sells.setSelected(true);
-            sells.setDisable(true);
-            new Tada(sells).play();
-            
-            buys.setSelected(true);
-            buys.setDisable(true);
-            new Tada(buys).play();
-            
-        }
-        else{
-            
-            products.setDisable(false);
-            users.setDisable(false);
-            sells.setDisable(false);
-            buys.setDisable(false);
-            
-        }            
-            
+        bundle = rb;
+        
+        userIV.setFill(new ImagePattern(new Image(
+            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+            96, 96, true, true)));         
+        
+        admin.setOnAction(Action ->{           
+            previligesAction();
         });
         
-        image.setOnMouseClicked(Action -> {
+        userIV.setOnMouseClicked(Action -> {
             chooseImage();
-            new BounceIn(image).play();
         });
         
-        cancel.setOnAction(Action ->{
+        returnBtn.setOnAction(Action ->{
             try {
-                cancel(Action);
+                logOut(Action);
             } catch (IOException ex) {
-                exceptionLayout(ex);
+                exceptionLayout(ex, saveBtn);
             }
         });
         
-        save.setOnAction(Action -> {
-            insertEmployer();
+        saveBtn.setOnAction(Action -> {
+            try {
+                insertEmployer();
+            } catch (SQLException ex) {
+                exceptionLayout(ex, saveBtn);
+            }
         });
-        
-            image.setText("");
-            ImageView img = new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
-                    64, 64, true, true));
-            image.setGraphic(img); 
+         
             
         AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
         AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
         
-        animateBtn(save);
+        animateBtn(saveBtn);
         
     }    
+
+    private void previligesAction() {
+        
+            if(admin.isSelected()){
+
+                products.setSelected(true);
+                products.setDisable(true);
+                new Tada(products).play();
+
+                users.setSelected(true);
+                users.setDisable(true);
+                new Tada(users).play();
+
+                sells.setSelected(true);
+                sells.setDisable(true);
+                new Tada(sells).play();
+
+                buys.setSelected(true);
+                buys.setDisable(true);
+                new Tada(buys).play();
+
+            }
+            else{
+
+                products.setDisable(false);
+                users.setDisable(false);
+                sells.setDisable(false);
+                buys.setDisable(false);
+
+            }
+            
+    }
     
 }

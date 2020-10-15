@@ -34,8 +34,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 
@@ -48,8 +49,9 @@ public class NewProductController extends GDPController implements Initializable
     
     
     @FXML private JFXTextField nameField,sellField,qteField;
-    @FXML private Label imgField,sellStatus,qteStatus;
+    @FXML private Label sellStatus,qteStatus;
     @FXML private JFXButton addProduct;
+    @FXML private Circle productIV;
         
     File selectedFile = null;
 
@@ -66,13 +68,13 @@ public class NewProductController extends GDPController implements Initializable
                 new FileChooser.ExtensionFilter("Select a .JPG .PNG .GIF image", "*.jpg", "*.png", "*.gif")
         );
 
-        selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(addProduct.getScene().getWindow());
 
         if (selectedFile != null) {
             try {
-                imgField.setText("");
-                imgField.setGraphic(new ImageView(new Image(
-                        selectedFile.toURI().toString(), 224, 224, true, true)));
+            productIV.setFill(new ImagePattern(new Image(
+                    selectedFile.toURI().toString(),
+                    productIV.getCenterX(), productIV.getCenterY(), true, true)));
             }
             catch (Exception e) {
                 exceptionLayout(e, addProduct);
@@ -86,7 +88,7 @@ public class NewProductController extends GDPController implements Initializable
     public boolean checkInputs()
     {
         if (nameField.getText().trim().equals("") || sellField.getText().trim().equals("") || qteField.getText().trim().equals("") ) {
-            customDialog(bundle.getString("mssing_fields"), bundle.getString("mssing_fields"), INFO_SMALL, true, addProduct);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("mssing_fields"), INFO_SMALL, true, addProduct);
             return false;
         }
         else if (nameField.getText().length() >= 50) {
@@ -126,10 +128,9 @@ public class NewProductController extends GDPController implements Initializable
         nameField.setText("");
         sellField.setText("");
         qteField.setText(""); 
-        imgField.setText("");
-        imgField.setGraphic(new ImageView(new Image(
+        productIV.setFill(new ImagePattern(new Image(
             ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
-            60, 60, true, true)));
+            64, 64, false, false)));        
         selectedFile = null;
     }    
   
@@ -219,12 +220,11 @@ public class NewProductController extends GDPController implements Initializable
         
         AnimationFX addBtnAnim = new Shake(addProduct);
         
-        imgField.setText("");
-        imgField.setGraphic(new ImageView(new Image(
-                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
-                    60, 60, true, true)));       
+        productIV.setFill(new ImagePattern(new Image(
+            ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
+            64, 64, true, true)));     
         
-        imgField.setOnMouseClicked(sAction -> {
+        productIV.setOnMouseClicked(Action -> {
             chooseImage();
         });
 

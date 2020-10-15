@@ -54,7 +54,7 @@ public class Main extends Application implements Init {
         
         LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(0));
         
-        Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqld.exe");
+        //Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqld.exe");
         
         LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(50));
         

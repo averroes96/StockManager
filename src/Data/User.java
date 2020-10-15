@@ -265,4 +265,24 @@ public class User {
         
     }
     
+    public static boolean usernameExist(String username) throws SQLException{
+               
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM user WHERE username = ?";
+                PreparedStatement st;
+                ResultSet rs;
+                st = con.prepareStatement(query);
+                st.setString(1, username);
+                rs = st.executeQuery();
+                while(rs.next())
+                    return true;
+            }
+            
+            return false;
+
+
+             
+       
+   }     
+    
 }

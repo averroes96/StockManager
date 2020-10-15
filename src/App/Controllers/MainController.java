@@ -68,6 +68,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -96,7 +98,7 @@ public class MainController extends GDPController implements Initializable,Init 
     @FXML public ChoiceBox<String> usersCB ;
     @FXML private TextField searchBuy ;
     @FXML public DatePicker buyDateField;
-    @FXML private Label productImg,fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged,userImage; 
+    @FXML private Label fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged; 
     @FXML public Button seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane,billPane1;
@@ -108,6 +110,7 @@ public class MainController extends GDPController implements Initializable,Init 
     
     @FXML private VBox infoContainer;
     @FXML private HBox productHB;
+    @FXML private Circle productIV,userIV;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
@@ -336,7 +339,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 new FileChooser.ExtensionFilter("Select a .JPG .PNG .GIF image", "*.jpg", "*.png", "*.gif")
         );
 
-        selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(addProd.getScene().getWindow());
        
         if (selectedFile != null) {
             
@@ -361,8 +364,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
                 selectedProduct.setImageURL(createImagePath);
 
-                productImg.setText("");
-                productImg.setGraphic(new ImageView(new Image(
+                productIV.setFill(new ImagePattern(new Image(
                     selectedFile.toURI().toString(), 150, 150, true, true)));
                 
                 productsTable.refresh();
@@ -492,16 +494,14 @@ public class MainController extends GDPController implements Initializable,Init 
         idField.setText(String.valueOf(data.get(index).getProdID()));        
 
         if (data.get(index).getImageURL() == null) {
-            productImg.setText("");
-            productImg.setGraphic(new ImageView(new Image(
+            productIV.setFill(new ImagePattern(new Image(
                     ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
-                    60, 60, true, true)));
+                    64, 64, false, false)));
         }
         else {
-            productImg.setText("");
-            productImg.setGraphic(new ImageView(new Image(
+            productIV.setFill(new ImagePattern(new Image(
                     new File(data.get(index).getImageURL()).toURI().toString(),
-                    220, 170, true, true)));
+                    productIV.getCenterX(), productIV.getCenterY(), false, false)));
         }        
         
         if(data.get(index).getProdQuantity() < 10){
@@ -526,17 +526,15 @@ public class MainController extends GDPController implements Initializable,Init 
                 else
                     phoneLabel.setText(bundle.getString("no_phone"));
                 
-                if (choosen.getImage().trim().equals("") ) {
-                    userImage.setText("");
-                    userImage.setGraphic(new ImageView(new Image(
+                if (choosen.getImage().trim().equals("")) {
+                    userIV.setFill(new ImagePattern(new Image(
                             ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
-                            64, 64, true, true)));
+                            userIV.getCenterX(), userIV.getCenterY(), false, false)));
                 }
                 else {
-                    userImage.setText("");
-                    userImage.setGraphic(new ImageView(new Image(
+                    userIV.setFill(new ImagePattern(new Image(
                             new File(choosen.getImage()).toURI().toString(),
-                            220, 200, true, true)));
+                            userIV.getCenterX(), userIV.getCenterX(), false, false)));
                 }
                 
                 if(choosen.getProdPrivs() == 1) prodManager.setImage(new Image(
@@ -634,8 +632,9 @@ public class MainController extends GDPController implements Initializable,Init 
                 priceField2.setText("");
                 quantityField.setText("");
                 dateField.getEditor().setText("");
-                productImg.setText(NO_IMAGE_FOUND);
-                productImg.setGraphic(null);
+                productIV.setFill(new ImagePattern(new Image(
+                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
+                        60, 60, true, true)));
             }
             
         }
@@ -1064,7 +1063,7 @@ public class MainController extends GDPController implements Initializable,Init 
             }
         });
         
-        productImg.setOnMouseClicked(value -> {
+        productIV.setOnMouseClicked(value -> {
             updateImage();
         });
         
@@ -1223,35 +1222,35 @@ public class MainController extends GDPController implements Initializable,Init 
         
         addEmployerButton.setOnAction(Action -> {
             
-            try {                
-                        ((Node)Action.getSource()).getScene().getWindow().hide();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewEmployer.fxml"), bundle);
-                        AnchorPane root = (AnchorPane)loader.load();
-                        NewEmployerController nsControl = (NewEmployerController)loader.getController();
-                        nsControl.getEmployer(this.employer);
-                        startStage(root, (int)root.getWidth(), (int)root.getHeight());
-                        
+            try {
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewUser.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                NewUserController nsControl = (NewUserController)loader.getController();
+                nsControl.getEmployer(this.employer);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
             } catch (IOException ex) {
-                exceptionLayout(ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
 
         });
 
         updateEmployer.setOnAction(Action -> {
             
-                        try {
-                            User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
-                            ((Node)Action.getSource()).getScene().getWindow().hide();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"), bundle);
-                            AnchorPane root = (AnchorPane)loader.load();
-                            UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
-                            ueControl.getInfo(this.employer, emp);
-                            ueControl.fillFields(emp);
-                            startStage(root, (int)root.getWidth(), (int)root.getHeight());
-                            
-                        } catch (IOException | SQLException ex) {
-                            exceptionLayout(ex);
-                        }
+            try {
+                User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
+                ueControl.getInfo(this.employer, emp);
+                ueControl.fillFields(emp);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
+
+            } catch (IOException | SQLException ex) {
+                exceptionLayout(ex);
+            }
         });
 
         deleteEmployer.setOnAction(Action -> {

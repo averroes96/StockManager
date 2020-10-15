@@ -238,3 +238,9 @@ ListView {
     -fx-effect: dropshadow(three-pass-box, #00000099, 16, 0, 0, 0);
     
 }
+
+.circle {
+    
+    -fx-border-color: #394956
+    
+}
