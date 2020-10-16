@@ -29,10 +29,9 @@ public class Main extends Application implements Init {
     
     private void loadView(Locale locale, Stage stage) throws IOException {
 
-            FXMLLoader fxmlLoader = new FXMLLoader();
             ResourceBundle bundle = ResourceBundle.getBundle(BUNDLES_PATH, locale);
             //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
-            Parent root = fxmlLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"), bundle);
+            Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"), bundle);
             
             // replace the content
             Scene scene = new Scene(root);

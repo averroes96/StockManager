@@ -5,12 +5,12 @@
         <group>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Main.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Data/User.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/NewProductController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/FXMLs/UpdateUser.fxml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/UpdateUserController.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/MainController.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/FXMLs/NewUser.fxml</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Controllers/NewUserController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/Common.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/App/Bundles/bundle_ar_DZ.properties</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/gdp/src/Include/Init.java</file>
         </group>
     </open-files>
 </project-private>

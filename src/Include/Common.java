@@ -72,8 +72,10 @@ public class Common implements Init {
                 Integer.parseInt(newValue);
             }
             catch(NumberFormatException e){
-                if(!newValue.isEmpty())
-                    field.setText(newValue.substring(0, newValue.length() - 1));
+                if(field.getText().trim().isEmpty())
+                    field.setText("");
+                else
+                    field.setText(oldValue);
             }
         });
     }
@@ -207,26 +209,6 @@ public class Common implements Init {
         };
         return converter;
     }   
-    
-    public static int adminsCount() throws SQLException{
-    
-            int count;
-            try (Connection con = getConnection()) {
-                count = 0;
-                String query = "SELECT count(*) FROM user WHERE admin = 1";
-                PreparedStatement ps = con.prepareStatement(query);
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    
-                    count = rs.getInt("count(*)");
-                    
-                }
-            }
-            
-            return count;
-    
-    
-    }
     
     public static void minimize(MouseEvent event){
         

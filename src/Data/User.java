@@ -183,6 +183,31 @@ public class User {
         
     }
     
+    public void activate() throws SQLException{
+        
+        Connection con = getConnection();
+        
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("UPDATE user SET active = 1 WHERE user_id = ?");
+        ps.setInt(1, this.getUserID());
+
+        ps.executeUpdate();
+        
+    }
+    
+    public void unauthorize() throws SQLException{
+        
+        Connection con = getConnection();
+        
+        PreparedStatement ps;
+        
+        ps = con.prepareStatement("UPDATE user SET active = 2 WHERE user_id = ?");
+        ps.setInt(1, this.getUserID());
+
+        ps.executeUpdate();
+        
+    }  
     
     public void toTrash() throws SQLException{
         
@@ -227,7 +252,7 @@ public class User {
     
     // Static methods
     
-    public static int getAdminCount() throws SQLException{
+    public static boolean isLastAdmin() throws SQLException{
         
 
             int count;
@@ -236,15 +261,13 @@ public class User {
                 String query = "SELECT count(*) FROM user WHERE admin = 1";
                 PreparedStatement ps = con.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    
-                    count = rs.getInt("count(*)");
-                    
+                if(rs.next()){
+                    return rs.getInt("count(*)") == 1;
                 }
                 con.close();
             }
 
-            return count;      
+            return false;      
         
     }
     
@@ -278,11 +301,7 @@ public class User {
                     return true;
             }
             
-            return false;
-
-
-             
-       
+            return false;             
    }     
     
 }

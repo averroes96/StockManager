@@ -781,7 +781,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
         try {
 
-            if( User.getAdminCount() > 1 || selectedEmployer.getAdmin() != 1){            
+            if( !User.isLastAdmin() || selectedEmployer.getAdmin() != 1){            
                 
                 selectedEmployer.toTrash();
             
@@ -1230,7 +1230,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 nsControl.getEmployer(this.employer);
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
             } catch (IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                exceptionLayout(ex);
             }
 
 
@@ -1241,9 +1241,9 @@ public class MainController extends GDPController implements Initializable,Init 
             try {
                 User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
                 ((Node)Action.getSource()).getScene().getWindow().hide();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateEmployer.fxml"), bundle);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateUser.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
-                UpdateEmployerController ueControl = (UpdateEmployerController)loader.getController();
+                UpdateUserController ueControl = (UpdateUserController)loader.getController();
                 ueControl.getInfo(this.employer, emp);
                 ueControl.fillFields(emp);
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());

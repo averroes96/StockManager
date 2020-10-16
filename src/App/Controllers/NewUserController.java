@@ -8,6 +8,7 @@ package App.Controllers;
 import Data.User;
 import static Include.Common.AnimateField;
 import static Include.Common.animateBtn;
+import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.saveSelectedImage;
 import static Include.Common.startStage;
@@ -281,6 +282,8 @@ public class NewUserController extends GDPController implements Initializable,In
         AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
         
         animateBtn(saveBtn);
+        
+        controlDigitField(phone);
         
     }    
 
