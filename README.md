@@ -36,7 +36,7 @@ This is JavaFX inventory manager app.
 ## Installation
 - `git clone "https://github.com/averroes96/StockManager"` or download the repository as a zip
 - Import the repository to NetBeans
-- Import 'gdpDB/gdp.sql' using xampp's phpMyAdmin to MySQL server.  
+- Import `db/StockManager.sql` using xampp's phpMyAdmin to MySQL server.  
 - Download the mentionned libraries and then Import them into your netBeans project
 
 --------------------------------------------------------------------------------------------------------
