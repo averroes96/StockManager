@@ -1,7 +1,6 @@
 package Data;
 
 import static Include.Common.getConnection;
-import static Include.Common.getProductByName;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,24 +99,24 @@ public class Buy {
     
     public void delete() throws SQLException{
         
-                    try (Connection con = getConnection()) {
-                        String query = "DELETE FROM buy WHERE buy_id = ?";
-                        
-                        PreparedStatement ps = con.prepareStatement(query);
-                        
-                        ps.setInt(1, this.getBuyID());
-                        
-                        ps.executeUpdate();
-                        
-                        query = "UPDATE product SET prod_quantity = prod_quantity - ? WHERE prod_id = ?";
-                        
-                        ps = con.prepareStatement(query);
-                        
-                        ps.setInt(2, getProductByName(this.getProduct()).getProdID());
-                        ps.setInt(1, this.getBuyQte());
-                        
-                        ps.executeUpdate();
-                    }
+        try (Connection con = getConnection()) {
+            String query = "DELETE FROM buy WHERE buy_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getBuyID());
+
+            ps.executeUpdate();
+
+            query = "UPDATE product SET prod_quantity = prod_quantity - ? WHERE prod_id = ?";
+
+            ps = con.prepareStatement(query);
+
+            ps.setInt(2, Product.getProductByName(this.getProduct()).getProdID());
+            ps.setInt(1, this.getBuyQte());
+
+            ps.executeUpdate();
+        }
         
         
     }

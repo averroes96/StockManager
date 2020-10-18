@@ -199,7 +199,7 @@ public class MainController extends GDPController implements Initializable,Init 
 
     private void onJasperReportLoading(){
         
-        customDialog( bundle.getString("please_wait"), bundle.getString("report_wait_msg"), WAIT_SMALL, false);
+        customDialog(bundle.getString("please_wait"), bundle.getString("report_wait_msg"), WAIT_SMALL, false);
             
         jr = new JasperReporter();
     }
@@ -868,20 +868,20 @@ public class MainController extends GDPController implements Initializable,Init 
                         update.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/edit_small_white.png", 24, 24, false, false)));
                         update.setOnAction(event -> {
 
-                                Sell sell = getTableView().getItems().get(getIndex());
-                                try {
+                            Sell sell = getTableView().getItems().get(getIndex());
+                            try {
 
-                                ((Node)event.getSource()).getScene().getWindow().hide();
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"), bundle);
-                                AnchorPane root = (AnchorPane)loader.load();
-                                UpdateSellController usControl = (UpdateSellController)loader.getController();
-                                usControl.fillFields(sell);
-                                usControl.getData(employer,sell);
-                                startStage(root,(int)root.getWidth(), (int)root.getHeight());
+                            ((Node)event.getSource()).getScene().getWindow().hide();
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"), bundle);
+                            AnchorPane root = (AnchorPane)loader.load();
+                            UpdateSellController usControl = (UpdateSellController)loader.getController();
+                            usControl.fillFields(sell);
+                            usControl.getData(employer,sell);
+                            startStage(root,(int)root.getWidth(), (int)root.getHeight());
 
-                                } catch (IOException ex) {
-                                    exceptionLayout(ex);
-                                }
+                            } catch (IOException ex) {
+                                exceptionLayout(ex);
+                            }
                         });
                         update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                         setGraphic(update);
@@ -1309,18 +1309,18 @@ public class MainController extends GDPController implements Initializable,Init 
         
         newBuyBtn.setOnAction(Action -> {
 
-                try {
-                
-                    ((Node)Action.getSource()).getScene().getWindow().hide();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewQuantity.fxml"));
-                    Pane root = (Pane)loader.load();
-                    NewQuantityController npControl = (NewQuantityController)loader.getController();
-                    npControl.getEmployer(this.employer);
-                    startStage(root, (int)root.getWidth(), (int)root.getHeight());
-                
-                } catch (IOException ex) {
-                    exceptionLayout(ex);
-                }
+            try {
+
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewBuy.fxml"), bundle);
+                Pane root = (Pane)loader.load();
+                NewBuyController npControl = (NewBuyController)loader.getController();
+                npControl.getEmployer(this.employer);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
+
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         });
         

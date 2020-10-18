@@ -35,8 +35,6 @@ public class Main extends Application implements Init {
             
             // replace the content
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-            scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());          
             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
             stage.setScene(scene);

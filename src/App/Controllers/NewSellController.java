@@ -5,15 +5,15 @@
  */
 package App.Controllers;
 
-import Data.User;
 import Data.Product;
+import static Data.Product.getProductByName;
 import Data.Sell;
+import Data.User;
 import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.getPrice;
-import static Include.Common.getProductByName;
 import static Include.Common.getQuantity;
 import static Include.Common.initLayout;
 import Include.CommonMethods;

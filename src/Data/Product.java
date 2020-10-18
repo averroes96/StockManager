@@ -274,6 +274,37 @@ public class Product extends RecursiveTreeObject<Product> {
         return false;
         
     }
+    
+    public static Product getProductByName(String name) throws SQLException{
+        
+        Product product = new Product();
+        int count;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM product WHERE name = ?";
+            PreparedStatement st;
+            ResultSet rs;
+            st = con.prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            count = 0;
+            while (rs.next()) {
+                product.setAddDate(rs.getDate("add_date").toString());
+                product.setName(rs.getString("name"));
+                product.setProdID(rs.getInt("prod_id"));
+                product.setProdQuantity(rs.getInt("prod_quantity"));
+                product.setSellPrice(rs.getInt("sell_price"));
+                product.setNbrBuys(rs.getInt("nbrBuys"));
+                product.setNbrSells(rs.getInt("nbrSells"));
+                ++count;
+                
+            }
+        }
+            if(count == 0)
+                return null;
+            else
+                return product;
+              
+    }
 
     
 }

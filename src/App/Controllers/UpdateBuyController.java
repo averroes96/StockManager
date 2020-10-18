@@ -6,14 +6,14 @@
 package App.Controllers;
 
 import Data.Buy;
-import Data.User;
 import Data.Product;
+import static Data.Product.getProductByName;
+import Data.User;
 import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
-import static Include.Common.getProductByName;
 import Include.GDPController;
 import Include.Init;
 import static Include.Init.OKAY;

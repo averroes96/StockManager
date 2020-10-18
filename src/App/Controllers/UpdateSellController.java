@@ -1,15 +1,15 @@
 
 package App.Controllers;
 
-import Data.User;
 import Data.Product;
+import static Data.Product.getProductByName;
 import Data.Sell;
+import Data.User;
 import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
-import static Include.Common.getProductByName;
 import static Include.Common.getQuantity;
 import Include.CommonMethods;
 import Include.GDPController;
