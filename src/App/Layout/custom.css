@@ -241,6 +241,6 @@ ListView {
 
 .circle {
     
-    -fx-border-color: #394956
-    
+    -fx-border-color: #394956;
 }
+

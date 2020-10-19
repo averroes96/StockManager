@@ -393,27 +393,53 @@ public class Common implements Init {
         
     }
     
-        public static String getDate(int ID, String type) throws SQLException{
-        
-        try (Connection con = getConnection()) {
-            String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
-            
-            PreparedStatement st;
-            ResultSet rs;
-            
-            st = con.prepareStatement(query);
-            st.setInt(1,ID);
-            rs = st.executeQuery();
+    public static String getDate(int ID, String type) throws SQLException{
 
-            while (rs.next()) {
+    try (Connection con = getConnection()) {
+        String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
 
-                return rs.getString("date("+ type + "_date)");
+        PreparedStatement st;
+        ResultSet rs;
 
-            }
+        st = con.prepareStatement(query);
+        st.setInt(1,ID);
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+
+            return rs.getString("date("+ type + "_date)");
+
         }
-            
-        return null;
     }
+
+    return null;
+    
+    }
+    
+    public static String getTime(int ID, String type) throws SQLException{
+
+    try (Connection con = getConnection()) {
+        String query = "SELECT time(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
+
+        PreparedStatement st;
+        ResultSet rs;
+
+        st = con.prepareStatement(query);
+        st.setInt(1,ID);
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+
+            return rs.getString("time("+ type + "_date)");
+
+        }
+    }
+
+    return null;
+    
+    }    
+        
+        
     
     public static void updateLastLogged(String username) throws SQLException{
         

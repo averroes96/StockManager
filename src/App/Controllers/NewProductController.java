@@ -88,7 +88,7 @@ public class NewProductController extends GDPController implements Initializable
     public boolean checkInputs()
     {
         if (nameField.getText().trim().equals("") || sellField.getText().trim().equals("") || qteField.getText().trim().equals("") ) {
-            customDialog(bundle.getString("missing_fields"), bundle.getString("mssing_fields"), INFO_SMALL, true, addProduct);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), INFO_SMALL, true, addProduct);
             return false;
         }
         else if (nameField.getText().length() >= 50) {

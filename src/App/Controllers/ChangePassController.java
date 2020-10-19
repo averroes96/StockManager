@@ -49,7 +49,7 @@ public class ChangePassController extends GDPController implements Initializable
             btn.setDefaultButton(false);
             defaultBtn.setDefaultButton(true);
             Label label = (Label)layout.getHeading().get(0);
-            if(label.getText().equals(PASSWORD_UPDATED))
+            if(label.getText().equals(bundle.getString("password_updated")))
                 save.getScene().getWindow().hide();
         });
         if(btnIncluded){

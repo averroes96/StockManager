@@ -197,6 +197,38 @@ public class Product extends RecursiveTreeObject<Product> {
     
     }
     
+    public void updateQuantity(int quantity, String operator, boolean include) throws SQLException{
+        
+        try (Connection con = getConnection()) {
+        
+            if(include){
+
+                String query = "UPDATE product SET prod_quantity = prod_quantity" + operator + " ?, nbrBuys = nbrBuys " + operator + " 1 WHERE prod_id = ?";
+
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, quantity);
+                ps.setInt(2, this.getProdID());
+
+                ps.executeUpdate();
+
+            }
+            else{
+                
+                String query = "UPDATE product SET prod_quantity = prod_quantity" + operator + " ? WHERE prod_id = ?";
+
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, quantity);
+                ps.setInt(2, this.getProdID());
+
+                ps.executeUpdate();
+
+            }
+        
+        }
+    }
+    
     public static ObservableList getActiveProducts() throws SQLException{
         
         ObservableList<Product> data = FXCollections.observableArrayList();

@@ -967,16 +967,15 @@ public class MainController extends GDPController implements Initializable,Init 
                             try {
 
                                 ((Node)event.getSource()).getScene().getWindow().hide();
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateBuy.fxml"));
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateBuy.fxml"), bundle);
                                 AnchorPane root = (AnchorPane)loader.load();
                                 UpdateBuyController ubControl = (UpdateBuyController)loader.getController();
                                 ubControl.setRequirements(employer, buy);
-                                ubControl.fillFields(buy);
                                 startStage(root,( int)root.getWidth(), (int)root.getHeight());
 
-                            } catch (IOException ex) {
-                                exceptionLayout(ex);
-                            }                        
+                            }   catch (IOException ex) {                   
+                                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                                }                   
                             });
                             update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                             setGraphic(update);
@@ -1326,18 +1325,18 @@ public class MainController extends GDPController implements Initializable,Init 
         
         buyStatBtn.setOnAction(Action -> {
 
-                        try { 
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "BuyStats.fxml"));
-                            AnchorPane root = (AnchorPane)loader.load();
-                            BuyStatsController erControl = (BuyStatsController)loader.getController();
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            stage.showAndWait();
-                             
-                        } catch (IOException ex) {
-                            exceptionLayout(ex);
-                        }
+            try { 
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "BuyStats.fxml"));
+                AnchorPane root = (AnchorPane)loader.load();
+                BuyStatsController erControl = (BuyStatsController)loader.getController();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+            } catch (IOException ex) {
+                exceptionLayout(ex);
+            }
 
         });        
 
