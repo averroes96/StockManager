@@ -10,7 +10,6 @@ import Include.Common;
 import static Include.Common.controlDigitField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
-import static Include.Common.getUser;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
 import Include.GDPController;
@@ -518,7 +517,7 @@ public class MainController extends GDPController implements Initializable,Init 
         try {
             new ZoomOut(infoContainer).play();
             new ZoomIn(infoContainer).play();
-            User choosen = getUser(username);
+            User choosen = User.getUserByName(username);
             if(choosen != null){
                 fullnameLabel.setText(choosen.getFullname());
                 if(!choosen.getPhone().trim().equals(""))
@@ -654,10 +653,11 @@ public class MainController extends GDPController implements Initializable,Init 
         }
     }
     
-    private void getAllBuys(String selectedDate)
+    public void getAllBuys(String selectedDate)
     {
         try {
             buysList = Buy.getBuysByDate(selectedDate);
+            initBuysTable();
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -691,7 +691,7 @@ public class MainController extends GDPController implements Initializable,Init 
     }
     
     public void getBuyStats(String selectedDate){
-        
+                
         try {
             new FadeIn(buyDayQte).play();
             new FadeIn(buyDaySum).play();
@@ -703,9 +703,9 @@ public class MainController extends GDPController implements Initializable,Init 
             
             while (rs.next()) {
                 
-                revSum.setText(String.valueOf(rs.getInt("SUM(buy_price)")) + " دج");
-                revTotal.setText(String.valueOf(rs.getInt("count(*)")) + " بيع");
-                revQte.setText(String.valueOf(rs.getInt("SUM(buy_qte)")) + " قطعة");
+                buyDaySum.setText(String.valueOf(rs.getInt("SUM(buy_price)")) + " " + bundle.getString("currency"));
+                buyDayTotal.setText(String.valueOf(rs.getInt("count(*)")) + " " + bundle.getString("buy"));
+                buyDayQte.setText(String.valueOf(rs.getInt("SUM(buy_qte)")) + " " + bundle.getString("pieces"));
                 
             }
             
@@ -739,31 +739,27 @@ public class MainController extends GDPController implements Initializable,Init 
     }
     
     private void deleteBuy(Buy buy) {
-                try {
-                    
-                    buy.delete();
-                    
-                    data.clear();
-                    fillTheTable();
-                    productsTable.setItems(data);
+        try {
 
-                    buysList.remove(buy);
+            buy.delete();
 
-                    buysTable.refresh();
+            data.clear();
+            fillTheTable();
+            productsTable.setItems(data);
 
-                    getBuyStats(buyDateField.getEditor().getText());
-                    
-                    JFXDialogLayout layout = new JFXDialogLayout();
-                    initLayout(layout, BUY_DELETED, BUY_DELETED_MSG, INFO_SMALL);
+            buysList.remove(buy);
+
+            buysTable.refresh();
+
+            getBuyStats(buyDateField.getEditor().getText());
             
-                    loadDialog(layout, true);
+            customDialog(bundle.getString("buy_deleted"), bundle.getString("buy_deleted_msg"), INFO_SMALL, true); 
 
-                }
-                catch (SQLException e) {
-
-                    exceptionLayout(e);
-                }            
-            }    
+        }
+        catch (SQLException e) {
+            exceptionLayout(e);
+        }            
+    }    
     
     private void getAllEmployers()
     {
@@ -973,8 +969,8 @@ public class MainController extends GDPController implements Initializable,Init 
                                 ubControl.setRequirements(employer, buy);
                                 startStage(root,( int)root.getWidth(), (int)root.getHeight());
 
-                            }   catch (IOException ex) {                   
-                                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                            }   catch (IOException ex) {
+                                    exceptionLayout(ex);
                                 }                   
                             });
                             update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
@@ -1025,6 +1021,8 @@ public class MainController extends GDPController implements Initializable,Init 
         buysTable.setItems(buysList);
 
         buysTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        
+        printBuys.disableProperty().bind(Bindings.size(buysTable.getItems()).isEqualTo(0));
         
     }
     
@@ -1100,7 +1098,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 rpControl.getInfo(this.employer);
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
             } catch (IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                exceptionLayout(ex);
             }
                                                    
         
@@ -1202,7 +1200,6 @@ public class MainController extends GDPController implements Initializable,Init 
                 
             } catch (IOException ex) {
                 exceptionLayout(ex);
-                
             }
             
         });        
@@ -1232,13 +1229,12 @@ public class MainController extends GDPController implements Initializable,Init 
                 exceptionLayout(ex);
             }
 
-
         });
 
         updateEmployer.setOnAction(Action -> {
             
             try {
-                User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                User emp = User.getUserByName(usersCB.getSelectionModel().getSelectedItem());
                 ((Node)Action.getSource()).getScene().getWindow().hide();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateUser.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
@@ -1255,7 +1251,7 @@ public class MainController extends GDPController implements Initializable,Init 
         deleteEmployer.setOnAction(Action -> {
 
             try {
-                User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
+                User emp = User.getUserByName(usersCB.getSelectionModel().getSelectedItem());
                 confirmDialog(emp, "employer", bundle.getString("delete") + " " + emp.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
             } catch (SQLException ex) {
                 exceptionLayout(ex);
@@ -1274,38 +1270,37 @@ public class MainController extends GDPController implements Initializable,Init 
                 ueControl.getInfo(this.employer);                          
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
             } catch (IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                exceptionLayout(ex);
             }
         
         });
 
         changePass.setOnAction(Action -> {
-            
-                        try {
-                            User emp = getUser(usersCB.getSelectionModel().getSelectedItem());
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"), bundle);
-                            AnchorPane root = (AnchorPane)loader.load();
-                            ChangePassController erControl = (ChangePassController)loader.getController();
-                            erControl.getEmployer(emp);
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.showAndWait();
-                             
-                        } catch (IOException | SQLException ex) {
-                            exceptionLayout(ex);
-                        }
+
+            try {
+                User emp = User.getUserByName(usersCB.getSelectionModel().getSelectedItem());
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                ChangePassController erControl = (ChangePassController)loader.getController();
+                erControl.getEmployer(emp);
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (IOException | SQLException ex) {
+                exceptionLayout(ex);
+            }
         });
 
 
         // Buys TAB
         
+        
         getAllBuys(buyDateField.getEditor().getText());
         getBuyStats(buyDateField.getEditor().getText());
-        
-        initBuysTable();
-        
+                        
         newBuyBtn.setOnAction(Action -> {
 
             try {
@@ -1568,9 +1563,9 @@ public class MainController extends GDPController implements Initializable,Init 
         }        
         else if(event.getTarget() == btn_close){
             
-                        ((Node)event.getSource()).getScene().getWindow().hide();
-                        AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"), bundle);
-                        startStage(root, 450, 350);
+            ((Node)event.getSource()).getScene().getWindow().hide();
+            AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "Login.fxml"), bundle);
+            startStage(root, 450, 350);
                         
         }
         

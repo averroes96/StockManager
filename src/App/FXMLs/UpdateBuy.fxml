@@ -121,8 +121,8 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="512.0" spacing="8.0">
                <children>
-                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="128.0" overLay="true" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
-                  <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="256.0" overLay="true" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
+                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="128.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
+                  <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

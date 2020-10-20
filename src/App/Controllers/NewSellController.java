@@ -196,7 +196,7 @@ public class NewSellController extends GDPController implements Initializable,In
 
                         ((Node)event.getSource()).getScene().getWindow().hide();
                         Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
                         AnchorPane root = (AnchorPane)loader.load();
                         MainController mControl = (MainController)loader.getController();
                         mControl.getEmployer(employer);
@@ -264,6 +264,8 @@ public class NewSellController extends GDPController implements Initializable,In
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        bundle = rb;
         
         try {
             nameList = getAllProducts(0);

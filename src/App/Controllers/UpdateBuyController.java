@@ -16,7 +16,6 @@ import static Include.Common.getConnection;
 import static Include.Common.getDate;
 import Include.GDPController;
 import Include.Init;
-import static Include.Init.OKAY;
 import animatefx.animation.Swing;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -86,7 +85,6 @@ public class UpdateBuyController extends GDPController implements Initializable,
     public void fillFields(Buy buy){
         
         try {
-            System.out.println(productCB.getItems().size());
             select(buy.getProduct());
             quantity.setText(String.valueOf(buy.getBuyQte()));
             price.setText(String.valueOf(buy.getBuyPrice()));
@@ -188,6 +186,10 @@ public class UpdateBuyController extends GDPController implements Initializable,
         MainController mControl = (MainController)loader.getController();
         mControl.getEmployer(employer);
         mControl.returnMenu("buys");
+        mControl.getBuyStats(date.getEditor().getText());
+        mControl.getAllBuys(date.getEditor().getText());
+        mControl.buyDateField.getEditor().setText(date.getEditor().getText());
+        mControl.buyDateField.setValue(date.getValue());
         Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
             
     }     
@@ -232,7 +234,7 @@ public class UpdateBuyController extends GDPController implements Initializable,
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
         
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
         btn.setDefaultButton(true);
         defaultBtn.setDefaultButton(false);
         btn.setOnAction(Action -> {

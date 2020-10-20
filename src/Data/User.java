@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -211,15 +212,15 @@ public class User {
     
     public void toTrash() throws SQLException{
         
-                try (Connection con = getConnection()) {
-                    String query = "UPDATE user SET active = 0 WHERE user_id = ?";
-                    
-                    PreparedStatement ps = con.prepareStatement(query);
-                    
-                    ps.setInt(1, this.getUserID());
-                    
-                    ps.executeUpdate();
-                }
+        try (Connection con = getConnection()) {
+            String query = "UPDATE user SET active = 0 WHERE user_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getUserID());
+
+            ps.executeUpdate();
+        }
     }
     
     public void restore() throws SQLException{
@@ -254,10 +255,7 @@ public class User {
     
     public static boolean isLastAdmin() throws SQLException{
         
-
-            int count;
             try (Connection con = getConnection()) {
-                count = 0;
                 String query = "SELECT count(*) FROM user WHERE admin = 1";
                 PreparedStatement ps = con.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
@@ -302,6 +300,46 @@ public class User {
             }
             
             return false;             
-   }     
+   }
+    
+    public static User getUserByName(String name) throws SQLException{
+        
+        User employer = new User();
+        int count;
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM user INNER join privs ON user.user_id = privs.user_id WHERE username = ?";
+            PreparedStatement st;
+            ResultSet rs;
+            st = con.prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            count = 0;
+            while (rs.next()) {
+                
+                employer.setAdmin(rs.getInt("admin"));
+                employer.setFullname(rs.getString("fullname"));
+                if(rs.getString("image") != null){
+                    employer.setImage(rs.getString("image"));
+                }
+                employer.setPassword(rs.getString("password"));
+                employer.setUserID(rs.getInt("user_id"));
+                employer.setPhone(rs.getString("telephone"));
+                employer.setUsername(rs.getString("username"));
+                employer.setBuyPrivs(rs.getInt("manage_buys"));
+                employer.setProdPrivs(rs.getInt("manage_products"));
+                employer.setSellPrivs(rs.getInt("manage_sells"));
+                employer.setUserPrivs(rs.getInt("manage_users"));
+                if(rs.getString("last_logged_in") != null){
+                    employer.setLastLogged(rs.getTimestamp("last_logged_in").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
+                }
+                ++count;
+                
+            }
+        }
+            if(count == 0)
+                return null;
+            else
+                return employer;              
+    }    
     
 }

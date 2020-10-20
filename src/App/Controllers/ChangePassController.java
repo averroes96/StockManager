@@ -8,7 +8,6 @@ package App.Controllers;
 import Data.User;
 import Include.GDPController;
 import Include.Init;
-import static Include.Init.OKAY;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -40,7 +39,7 @@ public class ChangePassController extends GDPController implements Initializable
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
         
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
         btn.setDefaultButton(true);
         defaultBtn.setDefaultButton(false);
         btn.setOnAction(Action -> {

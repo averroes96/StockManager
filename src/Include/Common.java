@@ -7,7 +7,6 @@ package Include;
 
 import Data.Product;
 import Data.Sell;
-import Data.User;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
@@ -317,47 +316,6 @@ public class Common implements Init {
                 return product;
           
     }    
-
-
-    public static User getUser(String name) throws SQLException{
-        
-        User employer = new User();
-        int count;
-        try (Connection con = getConnection()) {
-            String query = "SELECT * FROM user INNER join privs ON user.user_id = privs.user_id WHERE username = ?";
-            PreparedStatement st;
-            ResultSet rs;
-            st = con.prepareStatement(query);
-            st.setString(1, name);
-            rs = st.executeQuery();
-            count = 0;
-            while (rs.next()) {
-                
-                employer.setAdmin(rs.getInt("admin"));
-                employer.setFullname(rs.getString("fullname"));
-                if(rs.getString("image") != null){
-                    employer.setImage(rs.getString("image"));
-                }
-                employer.setPassword(rs.getString("password"));
-                employer.setUserID(rs.getInt("user_id"));
-                employer.setPhone(rs.getString("telephone"));
-                employer.setUsername(rs.getString("username"));
-                employer.setBuyPrivs(rs.getInt("manage_buys"));
-                employer.setProdPrivs(rs.getInt("manage_products"));
-                employer.setSellPrivs(rs.getInt("manage_sells"));
-                employer.setUserPrivs(rs.getInt("manage_users"));
-                if(rs.getString("last_logged_in") != null){
-                    employer.setLastLogged(rs.getTimestamp("last_logged_in").toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h.mm a")));
-                }
-                ++count;
-                
-            }
-        }
-            if(count == 0)
-                return null;
-            else
-                return employer;              
-    }
     
     public  Sell getSell(int sellID) throws SQLException{
         

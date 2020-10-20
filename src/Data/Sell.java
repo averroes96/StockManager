@@ -154,6 +154,13 @@ public class Sell {
                 ps.setInt(1, this.getSellQuantity());
                 
                 ps.executeUpdate();
+                
+                query = "UPDATE product SET nbrSells = nbrSells - 1 WHERE prod_id = ?";
+
+                ps = con.prepareStatement(query);
+                ps.setInt(1, this.getProduct().getProdID());
+                ps.executeUpdate();
+            
             }        
     }
     

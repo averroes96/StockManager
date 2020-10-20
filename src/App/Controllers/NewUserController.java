@@ -15,7 +15,6 @@ import static Include.Common.startStage;
 import Include.GDPController;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
-import static Include.Init.UNKNOWN_ERROR;
 import animatefx.animation.BounceIn;
 import animatefx.animation.Tada;
 import com.jfoenix.controls.JFXButton;
@@ -220,7 +219,7 @@ public class NewUserController extends GDPController implements Initializable,In
                             }
                         }
                         else {
-                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", ERROR_SMALL, true, saveBtn);
+                            customDialog(bundle.getString("unknown_error"), "Creating key failed, no ID obtained.", ERROR_SMALL, true, saveBtn);
                         }
                     }
 

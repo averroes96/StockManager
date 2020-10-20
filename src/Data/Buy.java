@@ -105,16 +105,19 @@ public class Buy {
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, this.getBuyID());
-
             ps.executeUpdate();
 
             query = "UPDATE product SET prod_quantity = prod_quantity - ? WHERE prod_id = ?";
 
             ps = con.prepareStatement(query);
-
             ps.setInt(2, Product.getProductByName(this.getProduct()).getProdID());
             ps.setInt(1, this.getBuyQte());
+            ps.executeUpdate();
+            
+            query = "UPDATE product SET nbrBuys = nbrBuys - 1 WHERE prod_id = ?";
 
+            ps = con.prepareStatement(query);
+            ps.setInt(1, Product.getProductByName(this.getProduct()).getProdID());
             ps.executeUpdate();
         }
         
