@@ -25,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="512.0" prefWidth="1024.0" style="-fx-background-color: #3d4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.BuyStatsController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #3d4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.BuyStatsController">
    <stylesheets>
       <URL value="@../Layout/custom.css" />
       <URL value="@../Layout/buttons.css" />
@@ -40,12 +40,11 @@
                <children>
                   <TableView fx:id="buysTable" focusTraversable="false" layoutX="16.0" layoutY="118.0" prefHeight="370.0" prefWidth="780.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
                     <columns>
-                      <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="prodCol" maxWidth="300.0" minWidth="150.0" prefWidth="175.0" text="المنتوج" />
-                        <TableColumn fx:id="dateCol" maxWidth="300.0" minWidth="150.0" prefWidth="200.0" text="تاريخ الشراء" />
-                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="السعر" />
-                        <TableColumn fx:id="qteCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="الكمية" />
-                        <TableColumn fx:id="userCol" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" text="المستخدم" />
+                      <TableColumn fx:id="prodCol" maxWidth="300.0" minWidth="150.0" prefWidth="175.0" text="%product" />
+                        <TableColumn fx:id="dateCol" maxWidth="300.0" minWidth="150.0" prefWidth="200.0" text="%buy_date" />
+                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%price" />
+                        <TableColumn fx:id="qteCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="%quantity" />
+                        <TableColumn fx:id="userCol" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" text="%user" />
                     </columns>
                      <effect>
                         <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
@@ -54,12 +53,12 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <LineChart fx:id="nbrBuysChart" layoutX="16.0" layoutY="538.0" prefHeight="400.0" prefWidth="1020.0" style="-fx-background-color: #fff;" title="المبلغ الإجمالي" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
+                  <LineChart fx:id="nbrBuysChart" layoutX="16.0" layoutY="538.0" prefHeight="400.0" prefWidth="1020.0" style="-fx-background-color: #fff;" title="%sum" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
                     <xAxis>
-                      <CategoryAxis label="اليوم" side="BOTTOM" tickLabelFill="#3d4956" />
+                      <CategoryAxis label="%day" side="BOTTOM" tickLabelFill="#3d4956" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis label="المبلغ" side="LEFT" tickLabelFill="#3d4956">
+                      <NumberAxis label="%amount" side="LEFT" tickLabelFill="#3d4956">
                            <tickLabelFont>
                               <Font name="System Bold" size="8.0" />
                            </tickLabelFont>
@@ -69,12 +68,12 @@
                         <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
                      </effect>
                   </LineChart>
-                  <BarChart fx:id="sumBuysChart" layoutX="16.0" layoutY="998.0" prefHeight="400.0" prefWidth="1020.0" style="-fx-background-color: #fff;" title="المبيعات" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
+                  <BarChart fx:id="sumBuysChart" layoutX="16.0" layoutY="998.0" prefHeight="400.0" prefWidth="1020.0" style="-fx-background-color: #fff;" title="%buys" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
                     <xAxis>
-                      <CategoryAxis label="اليوم" side="BOTTOM" tickLabelFill="#3d4956" />
+                      <CategoryAxis label="%day" side="BOTTOM" tickLabelFill="#3d4956" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis label="العدد" side="LEFT" tickLabelFill="#3d4956" />
+                      <NumberAxis label="%number" side="LEFT" tickLabelFill="#3d4956" />
                     </yAxis>
                      <effect>
                         <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
@@ -82,7 +81,7 @@
                   </BarChart>
                   <HBox alignment="CENTER_LEFT" layoutX="16.0" layoutY="50.0" prefHeight="64.0" prefWidth="1008.0" spacing="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
                      <children>
-                        <ImageView fx:id="filterBtn" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="filterIV" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/medium/icons8_mail_filter_48px.png" />
                            </image>
@@ -92,7 +91,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="288.0" spacing="8.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXTextField fx:id="filterSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" prefHeight="42.0" prefWidth="256.0" promptText="بحث" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="filterSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" prefHeight="42.0" prefWidth="256.0" promptText="%search" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -108,7 +107,7 @@
                   </HBox>
                   <VBox fx:id="dateVB" alignment="TOP_CENTER" layoutX="16.0" layoutY="1451.0" prefHeight="512.0" prefWidth="1008.0" spacing="8.0" styleClass="box" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="48.0">
                      <children>
-                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="إحصائيات" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%statistics" textFill="#3d4956" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -124,7 +123,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="متوسط الشراء اليومي" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="%buys_average" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -137,7 +136,7 @@
                                           <DropShadow height="16.0" radius="7.5" width="16.0" />
                                        </effect>
                                     </Label>
-                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="متوسط الكمية اليومية" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="%quantity_average" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -150,7 +149,7 @@
                                           <DropShadow height="16.0" radius="7.5" width="16.0" />
                                        </effect>
                                     </Label>
-                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="متوسط المبلغ اليومي" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="%sum_average" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -167,7 +166,7 @@
                               </VBox>
                               <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="عدد الشراءات" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="%buys" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -180,7 +179,7 @@
                                           <DropShadow height="16.0" radius="7.5" width="16.0" />
                                        </effect>
                                     </Label>
-                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="الكمية" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="%quantity" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -193,7 +192,7 @@
                                           <DropShadow height="16.0" radius="7.5" width="16.0" />
                                        </effect>
                                     </Label>
-                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="المبلغ الإجمالي" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" prefHeight="50.0" prefWidth="400.0" text="%sum" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -216,94 +215,95 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <StackPane fx:id="filterPane" prefHeight="512.0" prefWidth="300.0" visible="false" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="128.0">
+      <StackPane fx:id="filterPane" prefHeight="512.0" prefWidth="300.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="230.0" spacing="16.0" styleClass="box" StackPane.alignment="CENTER">
+            <JFXDialog fx:id="dialog2">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تخصيصات" textFill="#3d4956" VBox.vgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/medium/icons8_mail_filter_48px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="200.0" spacing="8.0">
+                  <VBox fx:id="filterVB" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="230.0" spacing="16.0" styleClass="box">
                      <children>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/medium/icons8_product_48px.png" />
-                           </image>
-                        </ImageView>
-                        <ChoiceBox fx:id="prodField" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="166.0" HBox.hgrow="ALWAYS">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <effect>
-                              <DropShadow color="#00000066" height="15.0" radius="7.0" width="15.0" />
-                           </effect>
-                        </ChoiceBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </padding>
-                  </HBox>
-                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ البداية" VBox.vgrow="ALWAYS">
+                        <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="تخصيصات" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_mail_filter_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="200.0" spacing="8.0">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_product_48px.png" />
+                                 </image>
+                              </ImageView>
+                              <ChoiceBox fx:id="prodField" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="166.0" HBox.hgrow="ALWAYS">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow color="#00000066" height="15.0" radius="7.0" width="15.0" />
+                                 </effect>
+                              </ChoiceBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </HBox>
+                        <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ البداية" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="8.0" right="8.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="122.0" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ النهاية" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="8.0" right="8.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                        <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="بحث" textFill="#3d4956">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                        </Label>
-                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_search_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="8.0" />
+                           </VBox.margin>
+                        </JFXButton>
                      </children>
-                     <VBox.margin>
-                        <Insets left="8.0" right="8.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </padding>
                   </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="122.0" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="32.0" prefWidth="230.0" text="تاريخ النهاية" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="8.0" right="8.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </padding>
-                  </VBox>
-                  <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="بحث" textFill="#3d4956">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="195.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/medium/icons8_search_48px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <VBox.margin>
-                        <Insets top="8.0" />
-                     </VBox.margin>
-                  </JFXButton>
                </children>
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-            </VBox>
+            </JFXDialog>
          </children>
       </StackPane>
       <StackPane fx:id="stackPane" layoutX="20.0" layoutY="20.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -313,7 +313,7 @@
       </StackPane>
       <HBox alignment="CENTER_RIGHT" layoutX="30.0" layoutY="87.0" prefHeight="48.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="interval" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center;" text="مشتريات آخر أسبوع" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label fx:id="interval" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center;" text="%last_week_buys" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

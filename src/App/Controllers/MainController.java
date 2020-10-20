@@ -1326,13 +1326,9 @@ public class MainController extends GDPController implements Initializable,Init 
         buyStatBtn.setOnAction(Action -> {
 
             try { 
-                Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "BuyStats.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "BuyStats.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
-                BuyStatsController erControl = (BuyStatsController)loader.getController();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.showAndWait();
+                Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
 
             } catch (IOException ex) {
                 exceptionLayout(ex);
