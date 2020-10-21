@@ -6,15 +6,12 @@
 package App.Controllers;
 
 import Data.Product;
-import static Data.Product.getProductByName;
 import Data.Sell;
 import Data.User;
+import Include.Common;
 import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
-import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
-import static Include.Common.getPrice;
-import static Include.Common.getQuantity;
 import static Include.Common.initLayout;
 import Include.CommonMethods;
 import Include.GDPController;
@@ -39,7 +36,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableCell;
@@ -49,7 +45,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
 
@@ -62,21 +57,20 @@ public class NewSellController extends GDPController implements Initializable,In
     
     
     @FXML private TableView<Sell> sellsTable ;
-    @FXML private TableColumn<Sell,Integer> idCol,priceCol,qteCol;
+    @FXML private TableColumn<Sell,Integer> priceCol,qteCol;
     @FXML private TableColumn<Sell,String> prodCol;
     @FXML private TableColumn actionCol ;    
     @FXML private JFXTextField priceField,qteField;
     @FXML private JFXButton addSell,deleteAll,printBtn;
-    @FXML private ChoiceBox nameBox;
-    @FXML private Button cancel;
+    @FXML private ChoiceBox<Product> productCB;
+    @FXML private Button returnBtn;
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     
-    private ObservableList<String> nameList = null;        
+    private ObservableList<Product> prodList = null;        
 
-    public void getEmployer(User employer){
-        
-        this.employer = employer; 
+    public void getEmployer(User user){
+        this.employer = user; 
     }            
         
     
@@ -85,21 +79,21 @@ public class NewSellController extends GDPController implements Initializable,In
     {
                 
         if (priceField.getText().trim().equals("") || qteField.getText().trim().equals("") ){
-            customDialog(MISSING_FIELDS, MISSING_FIELDS, INFO_SMALL, true, addSell);
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), INFO_SMALL, true, addSell);
             return false;
         }
             if(qteField.getText().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(qteField.getText()) > 0){
             try {
-                if(getProductByName(nameBox.getSelectionModel().getSelectedItem().toString()).getProdQuantity() - Integer.parseInt(qteField.getText()) >= 0){
+                if(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity() - Integer.parseInt(qteField.getText()) >= 0){
                     if(priceField.getText().trim().matches("^[1-9]?[0-9]{1,7}$"))
                         return true;
                     else{
-                        customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, addSell);
+                        customDialog(bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), INFO_SMALL, true, addSell);
                         return false;
                     }                     
                 }
                 else{
-                    customDialog(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, INFO_SMALL, true, addSell);
+                    customDialog(bundle.getString("not_enough_qte"), bundle.getString("not_enough_qte_msg"), INFO_SMALL, true, addSell);
                     return false;                    
                 }
             } catch (SQLException ex) {
@@ -109,33 +103,27 @@ public class NewSellController extends GDPController implements Initializable,In
               
             }
             else{
-                customDialog(INVALID_QTE, INVALID_QTE_MSG, INFO_SMALL, true, addSell);
+                customDialog(bundle.getString("invalid_qte"), bundle.getString("invalid_qte_msg"), INFO_SMALL, true, addSell);
                 return false;                
             }        
     }
     
-    private void resetWindow()
+    private void resetWindow() throws SQLException
     {
-        
-        try {
-            priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString()))); 
-            qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString())));
-        } catch (SQLException ex) {
-            exceptionLayout(ex, addSell);
-        }
-        
+            priceField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getSellPrice())); 
+            qteField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity()));
     }
     
     private void insertSell()
     {
-                int insertedSellID = 0 ;        
+        int insertedSellID = 0 ;        
         
         if (checkInputs()) {
             try {
-                Product product = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
+                Product product = productCB.getSelectionModel().getSelectedItem();
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, INFO_SMALL, true, addSell);
+                        customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), INFO_SMALL, true, addSell);
                     }
                     PreparedStatement ps;
                     ps = con.prepareStatement("INSERT INTO sell(sell_price_unit, sell_price, sell_quantity, sell_date, prod_id, user_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -153,36 +141,29 @@ public class NewSellController extends GDPController implements Initializable,In
                     ps.executeUpdate();
                     try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
-                            
                             insertedSellID = generatedKeys.getInt(1) ;
                         }
                         else {
-                            customDialog(UNKNOWN_ERROR, "Creating key failed, no ID obtained.", INFO_SMALL, true, addSell);
+                            customDialog(bundle.getString("unknown_error"), "Creating key failed, no ID obtained.", INFO_SMALL, true, addSell);
                         }
                     }
-                    ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity - ?, nbrSells = nbrSells + 1 WHERE prod_id = ?");
-                    ps.setInt(1, Integer.parseInt(qteField.getText()));
-                    ps.setInt(2, product.getProdID());
-                    ps.executeUpdate();
+                    product.hasSold(Integer.parseInt(qteField.getText()));
                 }
 
-                Sell AddedSell = new Sell();
-                
-                AddedSell.setProduct(product);
-                AddedSell.setSellName(product.getName());
-                AddedSell.setSellID(insertedSellID);
-                AddedSell.setTotalPrice(Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
-                AddedSell.setSellPrice(Integer.parseInt(priceField.getText()));
-                AddedSell.setSellQuantity(Integer.parseInt(qteField.getText()));
-                
-                sellsList.add(AddedSell);
-                
+                Sell addedSell = new Sell(
+                        insertedSellID, 
+                        Integer.parseInt(priceField.getText()), 
+                        Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()), 
+                        product.getName(),
+                        Integer.parseInt(qteField.getText()),
+                        product
+                );
+                                
+                sellsList.add(addedSell);
                 sellsTable.refresh();
-                
                 resetWindow();                
                 
-                customDialog(SELL_ADDED, SELL_ADDED_MESSAGE, INFO_SMALL, true, addSell);
-
+                customDialog(bundle.getString("sell_added"), bundle.getString("sell_added_msg"), INFO_SMALL, true, addSell);
             }
             catch (NumberFormatException | SQLException e) {
                 exceptionLayout(e, addSell);
@@ -194,22 +175,13 @@ public class NewSellController extends GDPController implements Initializable,In
     @Override
     public void logOut(ActionEvent event) throws IOException {
 
-                        ((Node)event.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
-                        AnchorPane root = (AnchorPane)loader.load();
-                        MainController mControl = (MainController)loader.getController();
-                        mControl.getEmployer(employer);
-                        mControl.returnMenu("sells");
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.setMinHeight(700);
-                        stage.setMinWidth(1000);
-                        stage.show();               
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+        AnchorPane root = (AnchorPane)loader.load();
+        MainController mControl = (MainController)loader.getController();
+        mControl.getEmployer(employer);
+        mControl.returnMenu("sells");
+        Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
             
     }   
     
@@ -217,32 +189,13 @@ public class NewSellController extends GDPController implements Initializable,In
     {        
         try {
 
-            try (Connection con = getConnection()) {
-                String query = "DELETE FROM sell WHERE sell_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, selectedSell.getSellID());
-                
-                ps.executeUpdate();
-                
-                query = "UPDATE product SET prod_quantity = prod_quantity + ?, nbrSells = nbrSells - 1 WHERE prod_id = ?";
-                
-                ps = con.prepareStatement(query);
-                
-                ps.setInt(2, selectedSell.getProduct().getProdID());
-                ps.setInt(1, selectedSell.getSellQuantity());
-                
-                ps.executeUpdate();
-            }
+            selectedSell.delete();
 
             sellsList.remove(selectedSell);
-            
             sellsTable.refresh();
-
             resetWindow();
             
-            customDialog(SELL_DELETED, SELL_DELETED_MESSAGE, INFO_SMALL, true, addSell);
+            customDialog(bundle.getString("sell_deleted"), bundle.getString("sell_deleted_msg"), INFO_SMALL, true, addSell);
             
         }
         catch (SQLException e) {
@@ -255,8 +208,7 @@ public class NewSellController extends GDPController implements Initializable,In
     private void onJasperReportLoading(){
         
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, PLEASE_WAIT, REPORT_WAIT_MESSAGE, WAIT_SMALL);
-            
+            initLayout(layout, bundle.getString("please_wait"), bundle.getString("report_wait_msg"), WAIT_SMALL);
             loadDialog(layout, false , addSell);
             
             jr = new JasperReporter();
@@ -265,15 +217,122 @@ public class NewSellController extends GDPController implements Initializable,In
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        bundle = rb;
-        
         try {
-            nameList = getAllProducts(0);
+            bundle = rb;
+            
+            prodList = Product.getActiveProducts();
+            
+            initTable();
+            
+            addSell.setOnAction(Action -> {
+                insertSell();
+            });
+            
+            productCB.setItems(prodList);
+            
+            productCB.getSelectionModel().select(0);
+            
+            priceField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getSellPrice()));
+            qteField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity()));
+            
+            productCB.setOnAction(event -> {
+                
+                try {
+                    if(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity() == 0){
+                        customDialog(bundle.getString("zero_quantity"), bundle.getString("zero_quantity_msg"), INFO_SMALL, true, addSell);
+                    }
+                    
+                    priceField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getSellPrice()));
+                    qteField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity()));
+                } catch (SQLException ex) {
+                    exceptionLayout(ex, addSell);
+                }
+                
+            });
+            
+            deleteAll.setOnAction(Action ->{
+                
+                deleteAll();
+                customDialog(bundle.getString("sell_deleted"), bundle.getString("sell_deleted_msg"), INFO_SMALL, true, addSell);
+                sellsList.clear();
+                sellsTable.getItems().clear();
+                
+            });
+            
+            returnBtn.setOnAction(value -> {
+                try {
+                    logOut(value);
+                } catch (IOException ex) {    
+                    exceptionLayout(ex, addSell);
+                }
+            });
+            
+            deleteAll.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
+            printBtn.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
+            
+            productCB.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue.isEmpty()){
+                    addSell.setDisable(true);
+                }
+                else{
+                    addSell.setDisable(false);
+                }
+            });
+            
+            
+            printBtn.setOnAction(Action ->{
+                
+                
+                onJasperReportLoading();
+                
+                Thread th = new Thread(() -> {
+                    
+                    try {
+                        String selectedSells = "";
+                        
+                        selectedSells = sellsTable.getItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
+                        selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
+                        jr.params.put("selectedSells", selectedSells);
+                        jr.ShowReport("sellBill","");
+                        dialog.close();
+                        stackPane.setVisible(false);
+                    } catch (SQLException | JRException ex) {
+                        exceptionLayout(ex, addSell);
+                    }
+                });
+                
+                th.start();
+                
+            });
+            
+            controlDigitField(priceField);
+            controlDigitField(qteField);
+            
+            animateBtn(addSell);
         } catch (SQLException ex) {
             exceptionLayout(ex, addSell);
         }
         
-        idCol.setCellValueFactory(new PropertyValueFactory<>("sellID"));
+    }    
+
+    private void deleteAll() {
+        
+        try {
+            Iterator<Sell> myIterator = sellsList.iterator();
+            
+            while(myIterator.hasNext()){
+                Sell selectedSell = myIterator.next();
+                selectedSell.delete();
+            }
+            
+            resetWindow();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addSell);
+        }
+    }
+
+    private void initTable() {
+        
         priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
         prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));
         qteCol.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
@@ -281,166 +340,39 @@ public class NewSellController extends GDPController implements Initializable,In
                    
         Callback<TableColumn<Sell, String>, TableCell<Sell, String>> cellFactory
                 =                 //
-    (final TableColumn<Sell, String> param) -> {
-        final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
-            
-            final Button delete = new Button();
-            
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    delete.setOnAction(event -> {
-                        Sell sell = getTableView().getItems().get(getIndex());
-                        deleteSell(sell);
-                    });
-                    delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
-                    delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
-                    setGraphic(delete);
-                    setText(null);               
-                    
+        (final TableColumn<Sell, String> param) -> {
+            final TableCell<Sell, String> cell = new TableCell<Sell, String>() {
+
+                final Button delete = new Button();
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        delete.setOnAction(event -> {
+                            Sell sell = getTableView().getItems().get(getIndex());
+                            deleteSell(sell);
+                        });
+                        delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
+                        delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
+                        setGraphic(delete);
+                        setText(null);               
+
+                    }
                 }
-            }
+            };
+            return cell;
         };
-        return cell;
-    };
-        
-   
         
         actionCol.setCellFactory(cellFactory);
         
-        sellsTable.setItems(sellsList);       
-        
-        addSell.setOnAction(Action -> {
-            insertSell();
-        });
+        sellsTable.setItems(sellsList);
         
         sellsTable.getSelectionModel().selectFirst();
         
-        nameBox.setItems(nameList);
-        
-        nameBox.getSelectionModel().select(0);
-        
-        try {
-            priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
-        } catch (SQLException ex) {
-            exceptionLayout(ex, addSell);
-        }
-        try { 
-            qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString())));
-        } catch (SQLException ex) {
-            exceptionLayout(ex, addSell);
-        }
-
-        nameBox.setOnAction(event -> {
-            
-            try {
-
-                if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
-                    customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, addSell);
-                }
-
-                priceField.setText(String.valueOf(getPrice(nameBox.getSelectionModel().getSelectedItem().toString())));
-                qteField.setText(String.valueOf(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString())));
-                
-            } catch (SQLException ex) {
-                exceptionLayout(ex, addSell);
-            }
-            
-        });
-                
-        deleteAll.setOnAction(Action ->{
-            
-            deleteAll();            
-            customDialog(SELL_DELETED, SELL_DELETED_MESSAGE, INFO_SMALL, true, addSell);
-            sellsList.clear();
-            sellsTable.getItems().clear();    
-            
-        });
-        
-        cancel.setOnAction(value -> {
-            try {
-                logOut(value);
-            } catch (IOException ex) {
-                exceptionLayout(ex, addSell);
-            }
-        });
-        
-        deleteAll.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
-        printBtn.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
-        
-        printBtn.setOnAction(Action ->{
-            
-            
-          onJasperReportLoading();
-            
-            Thread th = new Thread(() -> {
-            
-              try {
-                  String selectedSells = "";
-                  
-                  selectedSells = sellsTable.getItems().stream().map((sell) -> sell.getSellID() + ",").reduce(selectedSells, String::concat);
-                  selectedSells = selectedSells.substring(0, selectedSells.length() - 1);
-                  jr.params.put("selectedSells", selectedSells);
-                  jr.ShowReport("sellBill","");
-                  dialog.close();
-                  stackPane.setVisible(false);
-              } catch (SQLException | JRException ex) {
-                  exceptionLayout(ex, addSell);
-              }
-            });
-            
-            th.start();          
-        
-        });
-        
-        controlDigitField(priceField);
-        
-        animateBtn(addSell);
-        
-    }    
-
-    private void deleteAll() {
-        
-        Iterator<Sell> myIterator = sellsList.iterator();
-       
-        
-        try {
-
-        while(myIterator.hasNext()){
-            
-            Sell selectedSell = myIterator.next();
-            
-            try (Connection con = getConnection()) {
-                String query = "DELETE FROM sell WHERE sell_id = ?";
-                
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                ps.setInt(1, selectedSell.getSellID());
-                
-                ps.executeUpdate();
-                
-                query = "UPDATE product SET prod_quantity = prod_quantity + ?, nbrSells = nbrSells - 1 WHERE prod_id = ?";
-                
-                ps = con.prepareStatement(query);
-                
-                ps.setInt(2, selectedSell.getProduct().getProdID());
-                ps.setInt(1, selectedSell.getSellQuantity());
-                
-                ps.executeUpdate();
-                
-            }
-            
-        }
-        }
-        catch (SQLException e){
-            exceptionLayout(e, addSell);
-        }
-        
-       resetWindow();
     }
 
 

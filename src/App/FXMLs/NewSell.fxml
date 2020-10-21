@@ -24,7 +24,7 @@
    <children>
       <HBox fx:id="topBar" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,7 +36,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="بيع جيد" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%new_sell" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -62,11 +62,10 @@
                <children>
                   <TableView fx:id="sellsTable" focusTraversable="false" prefHeight="504.0" prefWidth="675.0" style="-fx-background-color: white;">
                      <columns>
-                        <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="prodCol" maxWidth="500.0" minWidth="150.0" prefWidth="150.0" text="المنتوج" />
-                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="السعر" />
-                        <TableColumn fx:id="qteCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="الكمية" />
-                        <TableColumn fx:id="actionCol" maxWidth="250.0" minWidth="100.0" prefWidth="150.0" text="حذف" />
+                        <TableColumn fx:id="prodCol" maxWidth="500.0" minWidth="150.0" prefWidth="150.0" text="%product" />
+                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%price" />
+                        <TableColumn fx:id="qteCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%quantity" />
+                        <TableColumn fx:id="actionCol" maxWidth="250.0" minWidth="100.0" prefWidth="150.0" text="%delete" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -77,7 +76,7 @@
                   </TableView>
                   <HBox alignment="CENTER" prefHeight="156.0" prefWidth="529.0" spacing="16.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <JFXButton fx:id="printBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3d4956;" text="طباعة" textFill="#eeeeee">
+                        <JFXButton fx:id="printBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3d4956;" text="%print" textFill="#eeeeee">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -89,7 +88,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton fx:id="deleteAll" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: red;" text="حذف الكل" textFill="#eeeeee">
+                        <JFXButton fx:id="deleteAll" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: red;" text="%delete_all" textFill="#eeeeee">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -107,14 +106,14 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="488.0" prefWidth="450.0" spacing="16.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ChoiceBox fx:id="nameBox" maxWidth="300.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
+                  <ChoiceBox fx:id="productCB" maxWidth="300.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ChoiceBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -128,7 +127,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="سعر البيع" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -140,7 +139,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="addSell" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="إضافة" textFill="#3d4956">
+                  <JFXButton fx:id="addSell" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

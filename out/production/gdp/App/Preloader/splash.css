@@ -1,0 +1,7 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.jfx-spinner:determinate .percentage{
+    -fx-fill: tomato;
+}

@@ -37,8 +37,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -648,6 +646,7 @@ public class MainController extends GDPController implements Initializable,Init 
     {
         try {
             sellsList = Sell.getSellsByDate(selectedDate);
+            initSellsTable();
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -928,6 +927,8 @@ public class MainController extends GDPController implements Initializable,Init 
         sellsTable.setItems(sellsList);
         
         sellsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        
+        printSells.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
                 
         
     }
@@ -1150,24 +1151,22 @@ public class MainController extends GDPController implements Initializable,Init 
         
         getAllSells(sellDateField.getEditor().getText());
         getSellStats(sellDateField.getEditor().getText());
-        
-        initSellsTable();
-        
+                
         newSellButton.setOnAction(Action -> {
             
             if(productsTable.getItems().size() > 0){
             
             try {                
-                        ((Node)Action.getSource()).getScene().getWindow().hide();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewSell.fxml"));
-                        AnchorPane root = (AnchorPane)loader.load();
-                        NewSellController nsControl = (NewSellController)loader.getController();
-                        nsControl.getEmployer(this.employer);
-                        startStage(root, (int)root.getWidth(), (int)root.getHeight());
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewSell.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                NewSellController nsControl = (NewSellController)loader.getController();
+                nsControl.getEmployer(this.employer);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
                         
-            } catch (IOException ex) {
-                exceptionLayout(ex);
-            }
+            }   catch (IOException ex) {
+                    exceptionLayout(ex);
+                }
             
             }
             else{
@@ -1313,7 +1312,7 @@ public class MainController extends GDPController implements Initializable,Init 
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
 
             } catch (IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                exceptionLayout(ex);
             }
 
         });

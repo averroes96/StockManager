@@ -125,9 +125,6 @@ public class Product extends RecursiveTreeObject<Product> {
         this.lastChange = new SimpleStringProperty(lastChange);
     }
 
-    
-    
-
     @Override
     public String toString() {
         return  name.getValue() ;
@@ -197,6 +194,10 @@ public class Product extends RecursiveTreeObject<Product> {
     
     }
     
+    public boolean isEmpty(){
+        return this.prodQuantity.getValue() == 0;
+    }
+    
     public void updateQuantity(int quantity, String operator, boolean include) throws SQLException{
         
         try (Connection con = getConnection()) {
@@ -228,6 +229,32 @@ public class Product extends RecursiveTreeObject<Product> {
         
         }
     }
+    
+    public int getCurrentQuantity() throws SQLException{
+        
+        int qte = 0;
+        
+        ResultSet rs;
+
+        rs = getAllFrom("prod_quantity","product","","WHERE prod_id = " + this.getProdID(),"");
+        
+
+            while (rs.next()) {
+                qte = rs.getInt("prod_quantity");
+            }
+        return qte;
+    }
+    
+    public void hasSold(int quantity) throws SQLException{
+        
+        try (Connection con = getConnection()) {
+        
+            PreparedStatement ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity - ?, nbrSells = nbrSells + 1 WHERE prod_id = ?");
+            ps.setInt(1, quantity);
+            ps.setInt(2, this.getProdID());
+            ps.executeUpdate();
+        }
+    }    
     
     public static ObservableList getActiveProducts() throws SQLException{
         

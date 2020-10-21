@@ -4,7 +4,6 @@ package Include;
 import Data.User;
 import static Include.Common.initLayout;
 import static Include.Init.ERROR_SMALL;
-import static Include.Init.OKAY;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -30,7 +29,7 @@ public abstract class GDPController {
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
         
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
         btn.setDefaultButton(true);
         defaultBtn.setDefaultButton(false);
         btn.setOnAction(Action -> {

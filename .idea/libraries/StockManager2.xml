@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="StockManager">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/StockManager.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

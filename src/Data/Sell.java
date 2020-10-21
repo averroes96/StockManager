@@ -44,6 +44,17 @@ public class Sell {
         
     }
 
+    public Sell(int sellID, int sellPrice, int totalPrice, String sellName, int sellQuantity, Product product) {
+        this.sellID = new SimpleIntegerProperty(sellID);
+        this.sellPrice = new SimpleIntegerProperty(sellPrice);
+        this.totalPrice = new SimpleIntegerProperty(totalPrice);
+        this.sellName = new SimpleStringProperty(sellName);
+        this.sellQuantity = new SimpleIntegerProperty(sellQuantity);
+        this.product = product;
+    }
+    
+    
+
     public int getSellID() {
         return sellID.getValue();
     }
