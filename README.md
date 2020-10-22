@@ -33,7 +33,7 @@ This is JavaFX inventory manager app.
   - Username : admin
   - Password : password
   
-## Installation
+## Setup
 - `git clone "https://github.com/averroes96/StockManager"` or download the repository as a zip
 - Import the repository to NetBeans
 - Import `db/StockManager.sql` using xampp's phpMyAdmin to MySQL server.  
