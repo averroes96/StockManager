@@ -194,11 +194,11 @@ public class Product extends RecursiveTreeObject<Product> {
     
     }
     
-    public boolean isEmpty(){
-        return this.prodQuantity.getValue() == 0;
+    public boolean isEmpty() throws SQLException{
+        return getCurrentQuantity() == 0;
     }
     
-    public void updateQuantity(int quantity, String operator, boolean include) throws SQLException{
+    public void onBuy(int quantity, String operator, boolean include) throws SQLException{
         
         try (Connection con = getConnection()) {
         
@@ -222,6 +222,40 @@ public class Product extends RecursiveTreeObject<Product> {
 
                 ps.setInt(1, quantity);
                 ps.setInt(2, this.getProdID());
+
+                ps.executeUpdate();
+
+            }
+        
+        }
+    }
+    
+    public void onSell(int quantity, String operator, boolean include) throws SQLException{
+        
+        String not = "+".equals(operator) ? "-" : "+";
+        
+        try (Connection con = getConnection()) {
+        
+            if(include){
+
+                String query = "UPDATE product SET prod_quantity = prod_quantity " + operator + " ?, nbrSells = nbrSells " + not + " 1 WHERE prod_id = ?";
+
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, quantity);
+                ps.setInt(2, getProdID());
+
+                ps.executeUpdate();
+
+            }
+            else{
+                
+                String query = "UPDATE product SET prod_quantity = prod_quantity" + operator + " ? WHERE prod_id = ?";
+
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, quantity);
+                ps.setInt(2, getProdID());
 
                 ps.executeUpdate();
 

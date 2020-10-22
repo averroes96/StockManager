@@ -271,11 +271,15 @@ public class NewSellController extends GDPController implements Initializable,In
             printBtn.disableProperty().bind(Bindings.size(sellsTable.getItems()).isEqualTo(0));
             
             productCB.valueProperty().addListener((observable, oldValue, newValue) -> {
-                if(newValue.isEmpty()){
-                    addSell.setDisable(true);
-                }
-                else{
-                    addSell.setDisable(false);
+                try {
+                    if(newValue.isEmpty()){
+                        addSell.setDisable(true);
+                    }
+                    else{
+                        addSell.setDisable(false);
+                    }
+                } catch (SQLException ex) {
+                    exceptionLayout(ex, addSell);
                 }
             });
             

@@ -89,7 +89,7 @@ public class UpdateBuyController extends GDPController implements Initializable,
             quantity.setText(String.valueOf(buy.getBuyQte()));
             price.setText(String.valueOf(buy.getBuyPrice()));
             date.getEditor().setText(getDate(buy.getBuyID(), "buy"));
-            time.getEditor().setText(Common.getTime(buy.getBuyID(), "buy"));
+            time.getEditor().setText(buy.getTime());
         } catch (SQLException ex) {
             exceptionLayout(ex, saveBtn);
         }
@@ -159,11 +159,11 @@ public class UpdateBuyController extends GDPController implements Initializable,
                     ps.executeUpdate();
                     
                     if(oldProduct.getProdID() == newProduct.getProdID()){
-                        oldProduct.updateQuantity(Integer.parseInt(quantity.getText()) - buy.getBuyQte(), "+", false);
+                        oldProduct.onBuy(Integer.parseInt(quantity.getText()) - buy.getBuyQte(), "+", false);
                     }
                     else{
-                        oldProduct.updateQuantity(buy.getBuyQte(), "-", true);
-                        newProduct.updateQuantity(Integer.parseInt(quantity.getText()), "+", true);                         
+                        oldProduct.onBuy(buy.getBuyQte(), "-", true);
+                        newProduct.onBuy(Integer.parseInt(quantity.getText()), "+", true);                         
                     }
                 }
                 customDialog(bundle.getString("buy_updated"), bundle.getString("buy_updated_msg"), INFO_SMALL, true, saveBtn);                
@@ -250,7 +250,11 @@ public class UpdateBuyController extends GDPController implements Initializable,
                     AnchorPane root = (AnchorPane)loader.load();
                     MainController mControl = (MainController)loader.getController();
                     mControl.getEmployer(this.employer);
-                    mControl.returnMenu("buys");                
+                    mControl.returnMenu("buys");
+                    mControl.getBuyStats(date.getEditor().getText());
+                    mControl.getAllBuys(date.getEditor().getText());
+                    mControl.buyDateField.getEditor().setText(date.getEditor().getText());
+                    mControl.buyDateField.setValue(date.getValue());
                     Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
                 } catch (IOException ex) {
                     exceptionLayout(ex, defaultBtn);

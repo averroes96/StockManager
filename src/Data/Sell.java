@@ -175,6 +175,29 @@ public class Sell {
             }        
     }
     
+    public String getTime() throws SQLException{
+
+        try (Connection con = getConnection()) {
+            String query = "SELECT time(sell_date) FROM sell WHERE sell_id = ?";
+
+            PreparedStatement st;
+            ResultSet rs;
+
+            st = con.prepareStatement(query);
+            st.setInt(1, getSellID());
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                return rs.getString("time(sell_date)");
+
+            }
+        }
+
+    return null;
+    
+    }
+    
     public static ObservableList getSellsByDate(String selectedDate) throws SQLException{
         
             ObservableList<Sell> data = FXCollections.observableArrayList();

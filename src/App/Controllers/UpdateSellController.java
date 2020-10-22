@@ -2,7 +2,6 @@
 package App.Controllers;
 
 import Data.Product;
-import static Data.Product.getProductByName;
 import Data.Sell;
 import Data.User;
 import Include.Common;
@@ -10,15 +9,16 @@ import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
-import static Include.Common.getQuantity;
 import Include.CommonMethods;
 import Include.GDPController;
 import Include.Init;
+import static Include.Init.FXMLS_PATH;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTimePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -31,13 +31,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -51,20 +48,22 @@ public class UpdateSellController extends GDPController implements Initializable
     @FXML private Button returnBtn;
     @FXML private JFXTextField price,quantity;
     @FXML private JFXDatePicker date;
+    @FXML private JFXTimePicker time;
     @FXML private Label priceStatus,qteStatus;
-    @FXML private ChoiceBox nameBox;
+    @FXML private ChoiceBox<Product> productCB;
     
-    ObservableList<String> nameList = null;
+    ObservableList<Product> prodList = null;
     
     Sell sell = new Sell();        
 
     public void fillFields(Sell selectedSell){
         
         try {
-            nameBox.getSelectionModel().select(selectedSell.getProduct().getName());
+            select(sell.getProduct().getName());
             quantity.setText(String.valueOf(selectedSell.getSellQuantity()));
             price.setText(String.valueOf(selectedSell.getTotalPrice() / selectedSell.getSellQuantity()));
             date.getEditor().setText(getDate(selectedSell.getSellID(),"sell"));
+            time.getEditor().setText(sell.getTime());
         } catch (SQLException ex) {
             exceptionLayout(ex, saveButton);
         }
@@ -74,23 +73,18 @@ public class UpdateSellController extends GDPController implements Initializable
     @Override
     public void logOut(ActionEvent event) throws IOException {
 
-                        ((Node)event.getSource()).getScene().getWindow().hide();
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
-                        AnchorPane root = (AnchorPane)loader.load();
-                        MainController mControl = (MainController)loader.getController();
-                        mControl.getEmployer(employer);
-                        mControl.returnMenu("sells");
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        stage.initStyle(StageStyle.TRANSPARENT);
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "custom.css").toExternalForm());
-                        scene.getStylesheets().add(getClass().getResource(LAYOUT_PATH + "buttons.css").toExternalForm());                          
-                        stage.setScene(scene);
-                        stage.setMinHeight(700);
-                        stage.setMinHeight(1000);
-                        stage.show();                        
-            
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+        AnchorPane root = (AnchorPane)loader.load();
+        MainController mControl = (MainController)loader.getController();
+        mControl.getEmployer(employer);
+        mControl.returnMenu("sells");
+        mControl.getSellStats(date.getEditor().getText());
+        mControl.getAllSells(date.getEditor().getText());
+        mControl.sellDateField.getEditor().setText(date.getEditor().getText());
+        mControl.sellDateField.setValue(date.getValue());
+        Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
+        
     }    
     
     
@@ -100,60 +94,67 @@ public class UpdateSellController extends GDPController implements Initializable
         this.sell = sell;
         
         fillFields(sell);        
-    }         
+    }
+    
+    public void getAllProducts(){
+        
+        try {
+            prodList = Product.getActiveProducts();
+        }
+        catch (SQLException e) {
+            exceptionLayout(e, saveButton);
+        } 
+        
+    }
         
 
     @Override
     public boolean checkInputs()
     {
-        
-        try {
-            Product oldProduct = getProductByName(this.sell.getSellName());
-            Product newProduct = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
-            
-            if (price.getText().trim().equals("") || quantity.getText().trim().equals("") )  {
-                customDialog(MISSING_FIELDS, MISSING_FIELDS, INFO_SMALL, true, saveButton);
-                return false;
-            }
-            if(quantity.getText().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(quantity.getText()) > 0){
-                if(oldProduct.getName().equals(newProduct.getName())){
-                    if(oldProduct.getProdQuantity() + this.sell.getSellQuantity() - Integer.parseInt(quantity.getText())  >= 0){
-                        if(price.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(price.getText()) > 0)
-                            return true;
-                        else{
-                            customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, saveButton);
-                            return false;
-                        }                     
-                    }
-                    else{
-                        customDialog(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, INFO_SMALL, true, saveButton);
-                        return false;                    
-                    }
-                }
-                else{
-                    if(newProduct.getProdQuantity() - Integer.parseInt(quantity.getText())  >= 0){
-                        if(price.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(price.getText()) > 0)
-                            return true;
-                        else{
-                            customDialog(INVALID_PRICE, INVALID_PRICE_MSG, INFO_SMALL, true, saveButton);
-                            return false;
-                        }                     
-                    }
-                    else{
-                        customDialog(NOT_ENOUGH_QUANTITY, NOT_ENOUGH_QUANTITY_MSG, INFO_SMALL, true, saveButton);
-                        return false;
-                    }                    
-                }
-              
-            }
-            else{
-                customDialog(INVALID_QTE, INVALID_QTE_MSG, INFO_SMALL, true, saveButton);
-                return false;
-            }        
-        } catch (SQLException ex) {
-            exceptionLayout(ex, saveButton);
+
+        Product oldProduct = sell.getProduct();
+        Product newProduct = productCB.getValue();
+
+        if (price.getText().trim().equals("") || quantity.getText().trim().equals("") )  {
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true, saveButton);
             return false;
         }
+        if(quantity.getText().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(quantity.getText()) > 0){
+            if(oldProduct.getName().equals(newProduct.getName())){
+                if(oldProduct.getProdQuantity() + this.sell.getSellQuantity() - Integer.parseInt(quantity.getText())  >= 0){
+                    if(price.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(price.getText()) > 0)
+                        return true;
+                    else{
+                        customDialog(bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL, true, saveButton);
+                        return false;
+                    }                     
+                }
+                else{
+                    customDialog(bundle.getString("not_enough_qte"), bundle.getString("not_enough_qte_msg"), INFO_SMALL, true, saveButton);
+                    return false;                    
+                }
+            }
+            else{
+                if(newProduct.getProdQuantity() - Integer.parseInt(quantity.getText())  >= 0){
+                    if(price.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(price.getText()) > 0)
+                        return true;
+                    else{
+                        customDialog(bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL, true, saveButton);
+                        return false;
+                    }                     
+                }
+                else{
+                    customDialog(bundle.getString("not_enough_qte"), bundle.getString("not_enough_qte_msg"), INFO_SMALL, true, saveButton);
+                    return false;
+                }                    
+            }
+
+        }
+        else{
+            customDialog(bundle.getString("invalid_qte"), bundle.getString("invalid_qte_msg"), INFO_SMALL, true, saveButton);
+            return false;
+        }        
+        
     }
            
         
@@ -164,63 +165,37 @@ public class UpdateSellController extends GDPController implements Initializable
 
                 try (Connection con = getConnection()) {
                     if(con == null) {
-                        customDialog(CONNECTION_ERROR, CONNECTION_ERROR_MESSAGE, INFO_SMALL, true, saveButton);
+                        customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, saveButton);
                     }
-                    Product oldProduct = getProductByName(this.sell.getSellName());
-                    Product newProduct = getProductByName(nameBox.getSelectionModel().getSelectedItem().toString());
+                    Product oldProduct = sell.getProduct();
+                    Product newProduct = productCB.getValue();
                     PreparedStatement ps;
                     
-                    ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = concat(?,time(sell_date)), user_id = ?, prod_id = ? WHERE sell_id = ?");
+                    ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = concat(?,?), user_id = ?, prod_id = ? WHERE sell_id = ?");
                     
-                    ps.setInt(5, employer.getUserID());
+                    ps.setInt(6, employer.getUserID());
                     ps.setInt(1, Integer.parseInt(quantity.getText()));
                     ps.setInt(2, Integer.parseInt(price.getText()));
                     ps.setInt(3, Integer.parseInt(price.getText()) * Integer.parseInt(quantity.getText()));
-                    ps.setInt(6, newProduct.getProdID());
+                    ps.setInt(7, newProduct.getProdID());
                     ps.setString(4, date.getEditor().getText() + " ");
-                    ps.setInt(7, this.sell.getSellID());
+                    ps.setString(5, time.getEditor().getText());
+                    ps.setInt(8, this.sell.getSellID());
                     ps.executeUpdate();
                     
                     if(oldProduct.getProdID() == newProduct.getProdID()){
-                    
-                    ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity - ? WHERE prod_id = ?");
-                    ps.setInt(1, Integer.parseInt(quantity.getText()) - this.sell.getSellQuantity());
-                    ps.setInt(2, oldProduct.getProdID());
-                    ps.executeUpdate();
-                    
+                        oldProduct.onSell(Integer.parseInt(quantity.getText()) - sell.getSellQuantity(), "-", false);
                     }
                     else{
-                        ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity + ?, nbrSells = nbrSells - 1 WHERE prod_id = ?");
-                        ps.setInt(1, this.sell.getSellQuantity());
-                        ps.setInt(2, oldProduct.getProdID());
-                        ps.executeUpdate();
-
-                        ps = con.prepareStatement("UPDATE product SET prod_quantity = prod_quantity - ?, nbrSells = nbrSells + 1 WHERE prod_id = ?");
-                        ps.setInt(1, Integer.parseInt(quantity.getText()));
-                        ps.setInt(2, newProduct.getProdID());
-                        ps.executeUpdate();                        
+                        oldProduct.onSell(sell.getSellQuantity(), "+", true);
+                        newProduct.onSell(Integer.parseInt(quantity.getText()), "-", true);                        
                     }
                 }
                 
-                customDialog(SELL_UPDATED, SELL_UPDATED_MSG, INFO_SMALL, true, saveButton);                
-
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"));
-                        AnchorPane root = (AnchorPane)loader.load();
-                        MainController mControl = (MainController)loader.getController();
-                        mControl.getEmployer(this.employer);
-                        mControl.returnMenu("sells");
-                        Scene scene = new Scene(root);
-                        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-                        //stage.initStyle(StageStyle.TRANSPARENT);                    
-                        stage.setScene(scene);
-                        stage.setMinHeight(700);
-                        stage.setMinWidth(1000);                      
-                        stage.show();                
-                        ((Node)event.getSource()).getScene().getWindow().hide();                
+                customDialog(bundle.getString("sell_updated"), bundle.getString("sell_updated_msg"), INFO_SMALL, true, saveButton);                               
                 
             }
-            catch (IOException | NumberFormatException | SQLException e) {
+            catch (NumberFormatException | SQLException e) {
                 exceptionLayout(e, saveButton);
             }
         }        
@@ -230,14 +205,18 @@ public class UpdateSellController extends GDPController implements Initializable
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               
-        nameBox.setItems(nameList);
         
-        nameBox.setOnAction(event -> {
+        bundle = rb;
+        
+        getAllProducts();
+               
+        productCB.setItems(prodList);
+        
+        productCB.setOnAction(event -> {
             
             try {
-                if(getQuantity(nameBox.getSelectionModel().getSelectedItem().toString()) == 0){
-                    customDialog(ZERO_QTE, ZERO_QTE_MSG, INFO_SMALL, true, saveButton);
+                if(productCB.getValue().isEmpty()){
+                    customDialog(bundle.getString("zero_quantity"), bundle.getString("zero_quantity_msg"), INFO_SMALL, true, saveButton);
                 }
             } catch (SQLException ex) {
                 exceptionLayout(ex, saveButton);
@@ -282,8 +261,23 @@ public class UpdateSellController extends GDPController implements Initializable
             btn.setDefaultButton(false);
             defaultBtn.setDefaultButton(true);
             Label label = (Label)layout.getHeading().get(0);
-            if(label.getText().equals(SELL_UPDATED))
-                saveButton.getScene().getWindow().hide();
+            if(label.getText().equals(bundle.getString("sell_updated"))){
+                try {
+                    saveButton.getScene().getWindow().hide();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+                    AnchorPane root = (AnchorPane)loader.load();
+                    MainController mControl = (MainController)loader.getController();
+                    mControl.getEmployer(this.employer);
+                    mControl.returnMenu("sells");
+                    mControl.getSellStats(date.getEditor().getText());
+                    mControl.getAllSells(date.getEditor().getText());
+                    mControl.sellDateField.getEditor().setText(date.getEditor().getText());
+                    mControl.sellDateField.setValue(date.getValue());
+                    Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
+                } catch (IOException ex) {
+                    exceptionLayout(ex, defaultBtn);
+                }
+            }
         });
         if(btnIncluded){
             layout.setActions(btn);
@@ -291,6 +285,14 @@ public class UpdateSellController extends GDPController implements Initializable
         dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
         dialog.setOverlayClose(false);
         dialog.show();
+        
+    }
+    
+    private void select(String name){
+        
+        productCB.getItems().stream().filter((product) -> (product.getName().equals(name))).forEachOrdered((product) -> {
+            productCB.getSelectionModel().select(product);
+        });
         
     }
     

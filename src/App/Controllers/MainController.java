@@ -37,6 +37,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,7 +50,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
@@ -94,13 +95,12 @@ public class MainController extends GDPController implements Initializable,Init 
     @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
     @FXML public ChoiceBox<String> usersCB ;
     @FXML private TextField searchBuy ;
-    @FXML public DatePicker buyDateField;
     @FXML private Label fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged; 
     @FXML public Button seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys;
     @FXML private ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane,billPane1;
     @FXML private JFXTextField searchField,refField,priceField2,quantityField,sellSearch ;
-    @FXML private JFXDatePicker dateField,sellDateField;
+    @FXML public JFXDatePicker dateField,sellDateField,buyDateField;
     @FXML private JFXButton viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn;
@@ -642,7 +642,7 @@ public class MainController extends GDPController implements Initializable,Init 
         
     }    
     
-    private void getAllSells(String selectedDate)
+    public void getAllSells(String selectedDate)
     {
         try {
             sellsList = Sell.getSellsByDate(selectedDate);
@@ -866,16 +866,16 @@ public class MainController extends GDPController implements Initializable,Init 
                             Sell sell = getTableView().getItems().get(getIndex());
                             try {
 
-                            ((Node)event.getSource()).getScene().getWindow().hide();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"), bundle);
-                            AnchorPane root = (AnchorPane)loader.load();
-                            UpdateSellController usControl = (UpdateSellController)loader.getController();
-                            usControl.fillFields(sell);
-                            usControl.getData(employer,sell);
-                            startStage(root,(int)root.getWidth(), (int)root.getHeight());
+                                ((Node)event.getSource()).getScene().getWindow().hide();
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateSell.fxml"), bundle);
+                                AnchorPane root = (AnchorPane)loader.load();
+                                UpdateSellController usControl = (UpdateSellController)loader.getController();
+                                usControl.fillFields(sell);
+                                usControl.getData(employer,sell);
+                                startStage(root,(int)root.getWidth(), (int)root.getHeight());
 
                             } catch (IOException ex) {
-                                exceptionLayout(ex);
+                                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         });
                         update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    

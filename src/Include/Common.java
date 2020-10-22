@@ -372,33 +372,8 @@ public class Common implements Init {
 
     return null;
     
-    }
-    
-    public static String getTime(int ID, String type) throws SQLException{
-
-    try (Connection con = getConnection()) {
-        String query = "SELECT time(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
-        st = con.prepareStatement(query);
-        st.setInt(1,ID);
-        rs = st.executeQuery();
-
-        while (rs.next()) {
-
-            return rs.getString("time("+ type + "_date)");
-
-        }
-    }
-
-    return null;
-    
     }    
         
-        
-    
     public static void updateLastLogged(String username) throws SQLException{
         
             String query = "UPDATE user SET last_logged_in = ? WHERE username = ?" ;

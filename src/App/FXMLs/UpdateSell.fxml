@@ -40,7 +40,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="تعديل البيع" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%edit_sell" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -65,7 +65,7 @@
       </HBox>
       <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="456.0" prefWidth="455.0" spacing="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
          <children>
-            <ChoiceBox fx:id="nameBox" maxWidth="384.0" prefHeight="50.0" prefWidth="256.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
+            <ChoiceBox fx:id="productCB" maxWidth="384.0" prefHeight="50.0" prefWidth="256.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -77,7 +77,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="الكمية" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -100,7 +100,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="256.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="سعر البيع" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -121,7 +121,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="512.0" spacing="8.0">
                <children>
-                  <JFXTimePicker defaultColor="#3d4956" maxWidth="128.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
+                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="128.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
                   <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -129,7 +129,7 @@
                   </JFXDatePicker>
                </children>
             </HBox>
-            <JFXButton fx:id="saveButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+            <JFXButton fx:id="saveButton" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                      <image>

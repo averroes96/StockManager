@@ -124,6 +124,29 @@ public class Buy {
         
     }
     
+    public String getTime() throws SQLException{
+
+        try (Connection con = getConnection()) {
+            String query = "SELECT time(buy_date) FROM buy WHERE buy_id = ?";
+
+            PreparedStatement st;
+            ResultSet rs;
+
+            st = con.prepareStatement(query);
+            st.setInt(1, getBuyID());
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                return rs.getString("time(buy_date)");
+
+            }
+        }
+
+    return null;
+    
+    }
+    
     public static ObservableList getBuysByDate(String selectedDate) throws SQLException{
         
         ObservableList<Buy> data = FXCollections.observableArrayList();
