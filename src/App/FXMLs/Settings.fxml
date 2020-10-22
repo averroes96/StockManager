@@ -2,10 +2,12 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -16,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="512.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.UpdateBuyController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="512.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.UpdateBuyController">
    <stylesheets>
       <URL value="@../Layout/buttons.css" />
       <URL value="@../Layout/custom.css" />
@@ -24,7 +26,7 @@
    <children>
       <HBox fx:id="topBar" alignment="CENTER_RIGHT" layoutX="30.0" layoutY="87.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="الإعدادات" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%settings" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -47,13 +49,13 @@
             <DropShadow color="#000000b2" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="456.0" prefWidth="455.0" spacing="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="529.0" prefWidth="480.0" spacing="16.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="96.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
+            <VBox alignment="TOP_CENTER" prefHeight="438.0" prefWidth="480.0" spacing="16.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0">
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="341.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="storeNameTF" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="إسم المحل" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="appNameTF" alignment="CENTER" focusColor="TOMATO" labelFloat="true" maxWidth="360.0" prefHeight="42.0" prefWidth="256.0" promptText="%app_name" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -65,19 +67,47 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" prefHeight="16.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد كمية منتوج صالحة" textFill="WHITE" visible="false">
+                  <VBox alignment="CENTER" prefHeight="96.0" prefWidth="100.0">
+                     <children>
+                        <Label text="%quantity_min_alert" textFill="#3d4956">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="8.0">
+                           <children>
+                              <JFXSlider fx:id="minQteSlider" focusTraversable="false" prefHeight="23.0" prefWidth="256.0" />
+                              <Label prefHeight="42.0" prefWidth="64.0" textFill="#3d4956">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="96.0" prefWidth="100.0" spacing="8.0">
+                     <children>
+                        <Label text="%language" textFill="#3d4956">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="languagesCB" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="256.0">
+                           <effect>
+                              <DropShadow color="#0000004d" height="16.0" radius="7.5" width="16.0" />
+                           </effect>
+                        </ChoiceBox>
+                     </children>
+                  </VBox>
+                  <JFXToggleButton fx:id="animationsTB" prefHeight="42.0" prefWidth="256.0" selected="true" text="%animations" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#999999">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
-                  </Label>
+                  </JFXToggleButton>
                </children>
             </VBox>
-            <JFXToggleButton fx:id="animationsTB" text="Animations" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#999999">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXToggleButton>
-            <JFXButton fx:id="saveBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="حفظ" textFill="#3d4956">
+            <JFXButton fx:id="saveBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" minWidth="160.0" prefHeight="50.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -86,7 +116,7 @@
                   </ImageView>
                </graphic>
                <VBox.margin>
-                  <Insets top="32.0" />
+                  <Insets top="8.0" />
                </VBox.margin>
             </JFXButton>
          </children>

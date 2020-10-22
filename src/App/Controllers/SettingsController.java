@@ -39,23 +39,51 @@
  */
 package App.Controllers;
 
+import Include.GDPController;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 
 /**
  * FXML Controller class
  *
  * @author user
  */
-public class SettingsController implements Initializable {
+public class SettingsController extends GDPController implements Initializable {
+    
+    @FXML private JFXTextField appNameTF;
+    @FXML private JFXSlider minQteSlider;
+    @FXML private ChoiceBox languagesCB;
+    @FXML private JFXToggleButton animationsTB;
+    
+    ObservableList<String> langsList = FXCollections.observableArrayList();
+    MainController parentController;
 
+    public MainController getParentController() {
+        return parentController;
+    }
+
+    public void setParentController(MainController parentController) {
+        this.parentController = parentController;
+    }
+    
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        bundle = rb;
+        
     }    
     
 }
