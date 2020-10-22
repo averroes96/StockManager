@@ -875,7 +875,7 @@ public class MainController extends GDPController implements Initializable,Init 
                                 startStage(root,(int)root.getWidth(), (int)root.getHeight());
 
                             } catch (IOException ex) {
-                                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                                exceptionLayout(ex);
                             }
                         });
                         update.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
@@ -1191,14 +1191,14 @@ public class MainController extends GDPController implements Initializable,Init 
         
             try {
                 Stage stage = new Stage();
-                AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "SellStats.fxml"));
+                AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_PATH + "SellStats.fxml"), bundle);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
                 
             } catch (IOException ex) {
-                exceptionLayout(ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         });        

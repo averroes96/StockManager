@@ -252,7 +252,7 @@ public class UpdateSellController extends GDPController implements Initializable
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
         
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
         btn.setDefaultButton(true);
         defaultBtn.setDefaultButton(false);
         btn.setOnAction(Action -> {

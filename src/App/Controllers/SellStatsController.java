@@ -5,12 +5,13 @@
  */
 package App.Controllers;
 
+import Data.Product;
 import Data.Sell;
 import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
-import static Include.Common.getAllProducts;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
+import Include.GDPController;
 import Include.Init;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
@@ -49,11 +50,10 @@ import javafx.scene.layout.StackPane;
  *
  * @author med
  */
-public class SellStatsController implements Initializable,Init {
+public class SellStatsController extends GDPController implements Initializable,Init {
 
     @FXML private Button search;
     @FXML private TableView<Sell> sellsTable;
-    @FXML private TableColumn<Sell, Integer> idCol;
     @FXML private TableColumn<Sell, String> prodCol,userCol,dateCol,priceCol,qteCol;
     @FXML private ChoiceBox<String> prodField ;
     @FXML private JFXDatePicker startDate,endDate;
@@ -61,8 +61,7 @@ public class SellStatsController implements Initializable,Init {
     @FXML private BarChart sumSellsChart;
     @FXML private Label idCountLabel,qteCountLabel,priceSumLabel,averageSellLabel,averageQteLabel,averagePriceLabel,interval;
     @FXML private JFXTextField filterSearch;
-    @FXML private StackPane stackPane, filterPane;
-    @FXML private JFXDialog dialog;
+    @FXML private StackPane filterPane;
     @FXML private ImageView filterBtn;
         
     ObservableList<Sell> sellsList = FXCollections.observableArrayList();
@@ -71,7 +70,7 @@ public class SellStatsController implements Initializable,Init {
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded){
         
         stackPane.setVisible(true);
-        JFXButton btn = new JFXButton(OKAY);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
         btn.setDefaultButton(true);
         btn.setOnAction(Action -> {
             dialog.close();
@@ -89,7 +88,7 @@ public class SellStatsController implements Initializable,Init {
     
     public void exceptionLayout(Exception e){
             JFXDialogLayout layout = new JFXDialogLayout();
-            initLayout(layout, UNKNOWN_ERROR, e.getMessage(), ERROR_SMALL);
+            initLayout(layout, bundle.getString("unknown_error"), e.getMessage(), ERROR_SMALL);
             
             loadDialog(layout, true);
     }
@@ -103,13 +102,12 @@ public class SellStatsController implements Initializable,Init {
 
     private void getData(String name, String start, String end, String sortingType){
         
-
         try {
         
             try (Connection con = getConnection()) {
                 String whereClause = "" ;
                 String query ;
-                if(!name.equals("الكل")){
+                if(!name.equals(bundle.getString("all"))){
                     whereClause = "WHERE name = '" + name + "' " ;
                 }       if(!start.equals("")){
                     if(whereClause.equals("")){
@@ -172,7 +170,7 @@ public class SellStatsController implements Initializable,Init {
                         Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue())));
                     });
                 });
-                series.setName("عدد المبيعات حسب اليوم");
+                series.setName(bundle.getString("buys_per_day"));
                 nbrSellsChart.getData().clear();
                 XYChart.Series<String,Integer> lineSeries = new XYChart.Series<>();
                 st = con.prepareStatement(query2);
@@ -188,20 +186,20 @@ public class SellStatsController implements Initializable,Init {
                         Tooltip.install(data.getNode(), new Tooltip(data.getYValue().toString()));
                     });
                 });
-                lineSeries.setName("المبلغ الإجمالي حسب اليوم");
+                lineSeries.setName(bundle.getString("sum_per_day"));
                 ResultSet stats1 = getAllFrom("COUNT(sell_id), SUM(sell_quantity), SUM(sell.sell_price)", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause,"");
                 while(stats1.next()){
                     
-                    idCountLabel.setText(stats1.getString("COUNT(sell_id)") != null?  stats1.getString("COUNT(sell_id)") + " بيع" : "0 بيع");
-                    qteCountLabel.setText(stats1.getString("SUM(sell_quantity)") != null?  stats1.getString("SUM(sell_quantity)") + " قطعة" : "0 قطع");
-                    priceSumLabel.setText(stats1.getString("SUM(sell.sell_price)") != null?  stats1.getString("SUM(sell.sell_price)") + " دج" : "0 دج");
+                    idCountLabel.setText(stats1.getString("COUNT(sell_id)") != null?  stats1.getString("COUNT(sell_id)") + " " + bundle.getString("sell") : bundle.getString("zero_sell"));
+                    qteCountLabel.setText(stats1.getString("SUM(sell_quantity)") != null?  stats1.getString("SUM(sell_quantity)") + " " + bundle.getString("pieces") : bundle.getString("zero_pieces"));
+                    priceSumLabel.setText(stats1.getString("SUM(sell.sell_price)") != null?  stats1.getString("SUM(sell.sell_price)") + " " + bundle.getString("currency") : bundle.getString("zero_currency"));
                     
                 }   ResultSet stats2 = getAllFrom("COUNT(sell_id)/datediff('" + end + "','" + start + "') as abd, SUM(sell_quantity)/datediff('" + end + "','" + start + "') as aqd, SUM(sell.sell_price)/datediff('" + end + "','" + start + "') as asd", "sell", "INNER JOIN product ON sell.prod_id = product.prod_id", whereClause,"");
                 while(stats2.next()){
                     
-                    averageSellLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " بيع" : "0 بيع");
-                    averageQteLabel.setText(stats2.getString("aqd") != null?  stats2.getString("aqd") + " قطعة" : "0 قطع");
-                    averagePriceLabel.setText(stats2.getString("asd") != null?  stats2.getString("asd") + " دج" : "0 دج");
+                    averageSellLabel.setText(stats2.getString("abd") != null?  stats2.getString("abd") + " " + bundle.getString("sell") : bundle.getString("zero_sell"));
+                    averageQteLabel.setText(stats2.getString("aqd") != null?  stats2.getString("aqd") + " " + bundle.getString("pieces") : bundle.getString("zero_pieces"));
+                    averagePriceLabel.setText(stats2.getString("asd") != null?  stats2.getString("asd") + " " + bundle.getString("currency") : bundle.getString("zero_currency"));
                     
                 }
             }
@@ -216,22 +214,9 @@ public class SellStatsController implements Initializable,Init {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        try {
-            nameList = getAllProducts(1);
-        } catch (SQLException ex) {
-            exceptionLayout(ex);
-        }
+        bundle = rb;
         
-        idCol.setCellValueFactory(new PropertyValueFactory<>("sellID"));
-        prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));
-        userCol.setCellValueFactory(new PropertyValueFactory<>("seller"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        qteCol.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
-        
-        
-        sellsTable.setItems(sellsList);
-        sellsTable.getSelectionModel().selectFirst();
+        initTable();
         
         startDate.setConverter(dateFormatter());
         endDate.setConverter(dateFormatter());
@@ -243,61 +228,72 @@ public class SellStatsController implements Initializable,Init {
         prodField.setItems(nameList);
         prodField.getSelectionModel().selectFirst();
         
-        getData(ALL ,startDate.getEditor().getText(),endDate.getEditor().getText(), "day");
+        
+        getData(bundle.getString("all") ,startDate.getEditor().getText(),endDate.getEditor().getText(), "day");
         
         search.setOnAction(Action -> {
                         
             if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
 
-                    int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
+                int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
+                    
+                if(startDate.getValue().compareTo(LocalDate.now()) <= 0 || endDate.getValue().compareTo(LocalDate.now()) <= 0){
 
                     if(endDate.getValue().equals(LocalDate.now())){
                         switch(interv){
+                            case 0:
+                                interval.setText(bundle.getString("last_day_sells"));
+                                break;
                             case 7:
-                                interval.setText(LAST_WEEK_SELLS);
+                                interval.setText(bundle.getString("last_week_sells"));
                                 break;
                             case 30:
-                                interval.setText(LAST_MONTH_SELLS);
+                                interval.setText(bundle.getString("last_month_sells"));
                                 break;
                             case 365:
-                                interval.setText(LAST_YEAR_SELLS);
+                                interval.setText(bundle.getString("last_year_sells"));
                                 break;
                             default:
-                                interval.setText("مبيعات آخر " + interv + " يوم");
+                                interval.setText(bundle.getString("sells_of_last") + interv + " " + bundle.getString("day"));
                                 break;
                         }
                     }
                     else{
-                        interval.setText(BUYS + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                        interval.setText(bundle.getString("sells") + " " + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
                     }
 
-                if(endDate.getValue().compareTo(startDate.getValue()) <= 1  || endDate.getValue().compareTo(startDate.getValue()) <= 30 ){
+                    if(endDate.getValue().compareTo(startDate.getValue()) <= 1  || endDate.getValue().compareTo(startDate.getValue()) <= 30 ){
 
-                    sellsTable.getItems().clear();
-                    getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"day");            
+                        sellsTable.getItems().clear();
+                        getData(prodField.getValue(),startDate.getEditor().getText(),endDate.getEditor().getText(),"day");            
 
-                }
-                else if(endDate.getValue().compareTo(startDate.getValue()) <= 3  ){
+                    }
+                    else if(endDate.getValue().compareTo(startDate.getValue()) <= 3  ){
 
-                    sellsTable.getItems().clear();
-                    getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"week");                 
+                        sellsTable.getItems().clear();
+                        getData(prodField.getValue(),startDate.getEditor().getText(),endDate.getEditor().getText(),"week");                 
 
-                }
-                else if(endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear() <= 12 ){
+                    }
+                    else if(endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear() <= 12 ){
 
-                    sellsTable.getItems().clear();
-                    getData(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText(),"month");                 
+                        sellsTable.getItems().clear();
+                        getData(prodField.getValue(),startDate.getEditor().getText(),endDate.getEditor().getText(),"month");                 
 
-                }            
+                    }            
                 else
                 {              
-                    customDialog(LARGE_INTERVAL, LARGE_INTERVAL_MSG, INFO_SMALL, true);                
+                    customDialog(bundle.getString("illegal_interval"), bundle.getString("illegal_interval_msg") , INFO_SMALL, true);                
+                }
+                
+                }
+                else{
+                    customDialog(bundle.getString("invalid_interval"), bundle.getString("invalid_interval_msg"), INFO_SMALL, true, search);
                 }
 
 
             }
             else {
-                customDialog(LARGE_INTERVAL, LARGE_INTERVAL_MSG, INFO_SMALL, true);  
+                customDialog(bundle.getString("illegal_interval"), bundle.getString("illegal_interval_msg") , INFO_SMALL, true); 
             }             
            
         });
@@ -330,5 +326,25 @@ public class SellStatsController implements Initializable,Init {
         }
       
     }   
+
+    private void initTable() {
+        
+        try {
+            nameList = Product.getActiveProductNames(); 
+            nameList.add(0, bundle.getString("all"));
+       } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
+        
+        prodCol.setCellValueFactory(new PropertyValueFactory<>("sellName"));
+        userCol.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+        qteCol.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
+        
+        
+        sellsTable.setItems(sellsList);
+        sellsTable.getSelectionModel().selectFirst();
+    }
     
 }

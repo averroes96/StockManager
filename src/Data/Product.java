@@ -290,7 +290,7 @@ public class Product extends RecursiveTreeObject<Product> {
         }
     }    
     
-    public static ObservableList getActiveProducts() throws SQLException{
+    public static ObservableList<Product> getActiveProducts() throws SQLException{
         
         ObservableList<Product> data = FXCollections.observableArrayList();
         
@@ -315,6 +315,23 @@ public class Product extends RecursiveTreeObject<Product> {
                 else
                     product.setLastChange("/");
                 data.add(product);
+            }
+            
+        return data;
+                    
+    }
+    
+    public static ObservableList<String> getActiveProductNames() throws SQLException{
+        
+        ObservableList<String> data = FXCollections.observableArrayList();
+        
+        ResultSet rs;
+
+        rs = getAllFrom("name","product","","WHERE on_hold = 0","ORDER BY add_date DESC");
+
+            while (rs.next()) {
+                String str = rs.getString("name");;
+                data.add(str);
             }
             
         return data;

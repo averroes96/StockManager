@@ -185,7 +185,7 @@ public class ProductHistoryController extends GDPController implements Initializ
         initTable();
         
         try {
-            nameList = Product.getActiveProducts();
+            nameList = Product.getActiveProductNames();
             nameList.add(0, bundle.getString("all"));
         } catch (SQLException ex) {
             exceptionLayout(ex, search);
@@ -217,7 +217,7 @@ public class ProductHistoryController extends GDPController implements Initializ
 
             if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
                 
-                if(startDate.getValue().compareTo(LocalDate.now()) <= 0){
+                if(startDate.getValue().compareTo(LocalDate.now()) <= 0 || endDate.getValue().compareTo(LocalDate.now()) <= 0){
                     historyTable.getItems().clear();
                     getAllHistory(prodField.getSelectionModel().getSelectedItem(),startDate.getEditor().getText(),endDate.getEditor().getText());            
                 }

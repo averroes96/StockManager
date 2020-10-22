@@ -51,7 +51,7 @@ public class BuyStatsController extends GDPController implements Initializable,I
     @FXML private JFXButton search;
     @FXML private TableView<Buy> buysTable;
     @FXML private TableColumn<Buy, String> prodCol,userCol,dateCol,priceCol,qteCol;
-    @FXML private ChoiceBox<Product> prodField ;
+    @FXML private ChoiceBox<String> prodField ;
     @FXML private JFXDatePicker startDate,endDate;
     @FXML private LineChart nbrBuysChart;
     @FXML private BarChart sumBuysChart;
@@ -63,19 +63,13 @@ public class BuyStatsController extends GDPController implements Initializable,I
     @FXML private VBox filterVB;
 
     ObservableList<Buy> buysList = FXCollections.observableArrayList();
-    ObservableList<Product> nameList = null;
+    ObservableList<String> nameList = null;
     ObservableList<BarChart.Data> barList = FXCollections.observableArrayList();   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
-        
-        try {
-            nameList = Product.getActiveProducts();
-        } catch (SQLException ex) {
-            exceptionLayout(ex);
-        }
 
         initTable();
 
@@ -100,29 +94,39 @@ public class BuyStatsController extends GDPController implements Initializable,I
             if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
                 
                 int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
+                
+                if(startDate.getValue().compareTo(LocalDate.now()) <= 0  || endDate.getValue().compareTo(LocalDate.now()) <= 0){
 
-                if(endDate.getValue().equals(LocalDate.now())){
-                    switch(interv){
-                        case 7:
-                            interval.setText(bundle.getString("last_week_buys"));
-                            break;
-                        case 30:
-                            interval.setText(bundle.getString("last_month_buys"));
-                            break;
-                        case 365:
-                            interval.setText(bundle.getString("last_year_buys"));
-                            break;
-                        default:
-                            interval.setText(bundle.getString("buys_of_last") + interv + bundle.getString("day"));
-                            break;
+                    if(endDate.getValue().equals(LocalDate.now())){
+                        switch(interv){
+                            case 0:
+                                interval.setText(bundle.getString("last_day_buys"));
+                                break;
+                            case 7:
+                                interval.setText(bundle.getString("last_week_buys"));
+                                break;
+                            case 30:
+                                interval.setText(bundle.getString("last_month_buys"));
+                                break;
+                            case 365:
+                                interval.setText(bundle.getString("last_year_buys"));
+                                break;
+                            default:
+                                interval.setText(bundle.getString("buys_of_last") + interv + " " + bundle.getString("day"));
+                                break;
+                        }
                     }
+                    else{
+                        interval.setText(bundle.getString("buys") + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                    }
+
                 }
                 else{
-                    interval.setText(bundle.getString("buys") + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                    customDialog(bundle.getString("invalid_interval"), bundle.getString("invalid_interval_msg"), INFO_SMALL, true, search);
                 }
 
                 buysTable.getItems().clear();
-                getData(prodField.getSelectionModel().getSelectedItem().getName(),startDate.getEditor().getText(),endDate.getEditor().getText());
+                getData(prodField.getValue(),startDate.getEditor().getText(),endDate.getEditor().getText());
 
             }
             else {
@@ -145,6 +149,13 @@ public class BuyStatsController extends GDPController implements Initializable,I
     }
 
     private void initTable() {
+        
+        try {
+            nameList = Product.getActiveProductNames(); 
+            nameList.add(0, bundle.getString("all"));
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
         
         prodCol.setCellValueFactory(new PropertyValueFactory<>("product"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("user"));
