@@ -6,6 +6,7 @@
 package App.Controllers;
 
 import Data.User;
+import Include.Common;
 import static Include.Common.getConnection;
 import static Include.Common.getSettingValue;
 import static Include.Common.startStage;
@@ -29,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +48,7 @@ public class LoginController extends GDPController implements Initializable,Init
     @FXML private JFXButton loginButton;
     @FXML private Label title;
     @FXML private HBox usernameHB, passwordHB;
+    @FXML private AnchorPane anchorPane;
 
     public User getUser(String username, String password)
     {
@@ -142,41 +145,42 @@ public class LoginController extends GDPController implements Initializable,Init
 
     }
     
-    
-    
-    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        bundle = rb;
-                
-        new ZoomIn(usernameHB).play();
-        new ZoomIn(passwordHB).play();
-        new ZoomIn(loginButton).play();
-        new ZoomIn(title).play();
-        
         try {
+            bundle = rb;
+            
+            new ZoomIn(usernameHB).play();
+            new ZoomIn(passwordHB).play();
+            new ZoomIn(loginButton).play();
+            new ZoomIn(title).play();
+            
             title.setText(getSettingValue("app_name"));
+            if(Common.getSettingValue("app_language").equals("ar_DZ"))
+                anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            
+            AnimationFX loginBtnAnim = new Shake(loginButton);
+            
+            loginButton.setOnAction(Action ->{
+                try {
+                    login(Action);
+                } catch (IOException | SQLException ex) {
+                    customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, loginButton);
+                }
+            });
+            
+            loginButton.setOnMouseEntered(value -> {
+                loginBtnAnim.play();
+            });
+            loginButton.setOnMouseExited(value -> {
+                loginBtnAnim.stop();
+            });
+            
         } catch (SQLException ex) {
             exceptionLayout(ex, loginButton);
         }
-                                
-        AnimationFX loginBtnAnim = new Shake(loginButton);
-        
-        loginButton.setOnAction(Action ->{
-            try {
-                login(Action);
-            } catch (IOException | SQLException ex) {
-                customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, loginButton);
-            }
-        });
-        
-        loginButton.setOnMouseEntered(value -> {
-            loginBtnAnim.play();
-        });
-        loginButton.setOnMouseExited(value -> {
-            loginBtnAnim.stop();
-        });
     }    
     
 }

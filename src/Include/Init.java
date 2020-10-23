@@ -63,7 +63,7 @@ public interface Init {
     String FXML_PATH = "/App/FXMLs/";
     
     String LAYOUT_PATH = "/App/Layout/";
-    
+        
     int ACTIVE = 1;
     
     int NOT_ACTIVE = 0;

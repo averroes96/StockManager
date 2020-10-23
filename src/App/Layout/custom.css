@@ -243,3 +243,18 @@ ListView {
     
     -fx-border-color: #394956;
 }
+
+/* Styling the slider thumb */
+.jfx-slider > .thumb {
+     -fx-background-color: tomato;
+}
+
+/* Styling the filled track */
+.jfx-slider > .colored-track {
+     -fx-background-color: tomato;
+}
+
+/* Styling the animated thumb */
+.jfx-slider > .animated-thumb {
+     -fx-background-color: tomato;
+}

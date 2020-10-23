@@ -39,17 +39,24 @@
  */
 package App.Controllers;
 
+import Include.Common;
 import Include.GDPController;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -60,8 +67,11 @@ public class SettingsController extends GDPController implements Initializable {
     
     @FXML private JFXTextField appNameTF;
     @FXML private JFXSlider minQteSlider;
+    @FXML private JFXButton saveBtn;
     @FXML private ChoiceBox languagesCB;
     @FXML private JFXToggleButton animationsTB;
+    @FXML private Label minQteValue;
+    @FXML private AnchorPane anchorPane;
     
     ObservableList<String> langsList = FXCollections.observableArrayList();
     MainController parentController;
@@ -81,9 +91,77 @@ public class SettingsController extends GDPController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        bundle = rb;
+               
+        try {
+            
+            bundle = rb;
+            
+            initFields();
+            initSlider(minQteSlider, minQteValue);
+            
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveBtn);
+        }
+    }
+
+
+    public void initSlider(JFXSlider slider, Label sliderLabel){
+
+        slider.valueProperty().addListener((obs,oldVal,newVal)->{
+            slider.setValue(newVal.intValue());
+        });
+
+        sliderLabel.textProperty().bindBidirectional(slider.valueProperty(), NumberFormat.getIntegerInstance());
         
     }    
+
+    private void initLanguagesList() {
+        
+        langsList.addAll(new String[]{ 
+            bundle.getString("arabic"), 
+            bundle.getString("english"), 
+            bundle.getString("french") 
+        });
+        
+        languagesCB.setItems(langsList);
+    }
+
+    private void getCurrentLanguage() throws SQLException {
+        
+        String currentLang = Common.getSettingValue("app_language");
+        
+        switch(currentLang){
+            case "ar_DZ":
+                languagesCB.getSelectionModel().select(0);
+                break;
+            case "en_DZ":
+                languagesCB.getSelectionModel().select(1);
+                break;
+            case "fr_DZ":
+                languagesCB.getSelectionModel().select(2);
+                break;
+        }
+        
+        if(currentLang.equals("ar_DZ"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        
+    }
+
+    private void initFields() throws SQLException {
+        
+        appNameTF.setText(Common.getSettingValue("app_name"));
+        minQteValue.setText(Common.getSettingValue("min_qte"));
+        minQteSlider.setValue(Double.valueOf(Common.getSettingValue("min_qte")));
+
+        if(Common.getSettingValue("animations").equals("true"))
+            animationsTB.setSelected(true);
+        else
+            animationsTB.setSelected(false);
+
+        initLanguagesList();
+
+        getCurrentLanguage();
+        
+    }
     
 }

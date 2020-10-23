@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="720.0" maxWidth="1000.0" minHeight="700.0" minWidth="900.0" prefHeight="719.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="720.0" maxWidth="1000.0" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
@@ -52,7 +52,7 @@
                </columnResizePolicy>
             </TableView>
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
-            <HBox alignment="CENTER" layoutX="15.0" layoutY="4.0" prefHeight="61.0" prefWidth="970.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="4.0" prefHeight="61.0" prefWidth="970.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
                   <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="238.0" promptText="%search" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
@@ -64,7 +64,7 @@
                         <Image url="@../images/medium/icons8_search_48px.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="menu-btn" fx:id="viewHistory" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%edits" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="viewHistory" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%edits" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -81,7 +81,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>                       
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="removedProduct" contentDisplay="RIGHT" layoutX="485.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%trash" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="removedProduct" layoutX="485.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%trash" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -96,7 +96,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="printProducts" contentDisplay="RIGHT" layoutX="310.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="printProducts" layoutX="310.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -111,7 +111,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton id="menu-btn" fx:id="addProd" contentDisplay="RIGHT" layoutX="135.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%new_product" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                  <JFXButton id="menu-btn" fx:id="addProd" layoutX="135.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="175.0" ripplerFill="RED" text="%new_product" textFill="#3d4956" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -148,7 +148,7 @@
                         </Label>
                         <VBox alignment="CENTER" prefHeight="226.0" prefWidth="286.0" spacing="16.0">
                            <children>
-                              <JFXButton fx:id="updateProduct" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="%confirm" textFill="#dddddd">
+                              <JFXButton fx:id="updateProduct" buttonType="RAISED" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="%confirm" textFill="#dddddd">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -165,7 +165,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>                              
                               </JFXButton>
-                              <JFXButton fx:id="productStats" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="%statistics" textFill="#3d4956">
+                              <JFXButton fx:id="productStats" buttonType="RAISED" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="%statistics" textFill="#3d4956">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -182,7 +182,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>                              
                               </JFXButton>
-                              <JFXButton fx:id="deleteProduct" buttonType="RAISED" contentDisplay="RIGHT" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="%delete" textFill="WHITE">
+                              <JFXButton fx:id="deleteProduct" buttonType="RAISED" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="%delete" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -211,60 +211,60 @@
                         </VBox>
                         <VBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="242.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="100.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="100.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="%product" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </JFXTextField>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/medium/icons8_product_48px.png" />
                                        </image>
                                     </ImageView>
+                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="%product" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </JFXTextField>
                                  </children>
                                  <padding>
                                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                  </padding>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </JFXTextField>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/medium/icons8_price_tag_48px.png" />
                                        </image>
                                     </ImageView>
+                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </JFXTextField>
                                  </children>
                                  <padding>
                                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                  </padding>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </JFXTextField>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
                                        </image>
                                     </ImageView>
+                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </JFXTextField>
                                  </children>
                                  <padding>
                                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                  </padding>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="134.0" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="134.0" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="257.0" HBox.hgrow="ALWAYS">
+                                    <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="257.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -297,7 +297,7 @@
             <DropShadow />
          </effect>
          <children>
-            <HBox alignment="CENTER_RIGHT" layoutX="76.0" layoutY="34.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_LEFT" layoutX="76.0" layoutY="34.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%sells" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
@@ -349,7 +349,7 @@
                   </Button>
                   <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="150.0" spacing="8.0">
                      <children>
-                        <Label layoutX="82.0" layoutY="26.0" onMouseClicked="#selectMenu" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
+                        <Label fx:id="settingsBtn" layoutX="82.0" layoutY="26.0" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

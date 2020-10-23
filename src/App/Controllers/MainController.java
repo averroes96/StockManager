@@ -81,7 +81,7 @@ import net.sf.jasperreports.engine.JRException;
 public class MainController extends GDPController implements Initializable,Init {
     
     
-    @FXML private Label btn_close;
+    @FXML private Label btn_close,settingsBtn;
     @FXML private AnchorPane products, sells, employers,buys;
     @FXML private TableView<Product> productsTable ;
     @FXML private TableView<Sell> sellsTable ;
@@ -1487,6 +1487,22 @@ public class MainController extends GDPController implements Initializable,Init 
             
             th.start();
                       
+        });
+        
+        settingsBtn.setOnMouseClicked((event) -> {
+            try {
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Settings.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                SettingsController sControl = (SettingsController)loader.getController();
+                sControl.setParentController(this);
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                exceptionLayout(ex);
+            }
         });
                 
         updateMenuButtons();
