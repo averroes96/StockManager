@@ -7,7 +7,7 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import animatefx.animation.ZoomOut;
 import com.jfoenix.controls.JFXButton;
@@ -46,7 +46,7 @@ import javafx.scene.layout.VBox;
  *
  * @author user
  */
-public class BuyStatsController extends GDPController implements Initializable,Init {
+public class BuyStatsController extends SMController implements Initializable,Init {
 
     @FXML private JFXButton search;
     @FXML private TableView<Buy> buysTable;

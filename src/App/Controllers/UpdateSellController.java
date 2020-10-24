@@ -10,7 +10,7 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
 import Include.CommonMethods;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import static Include.Init.FXMLS_PATH;
 import com.jfoenix.controls.JFXButton;
@@ -41,7 +41,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author med
  */
-public class UpdateSellController extends GDPController implements Initializable,Init,CommonMethods {
+public class UpdateSellController extends SMController implements Initializable,Init,CommonMethods {
 
     
     @FXML private JFXButton saveButton;

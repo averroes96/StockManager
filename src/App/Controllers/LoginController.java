@@ -11,7 +11,7 @@ import static Include.Common.getConnection;
 import static Include.Common.getSettingValue;
 import static Include.Common.startStage;
 import static Include.Common.updateLastLogged;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
@@ -41,7 +41,7 @@ import javafx.scene.layout.HBox;
  *
  * @author med
  */
-public class LoginController extends GDPController implements Initializable,Init {
+public class LoginController extends SMController implements Initializable,Init {
     
     @FXML private JFXTextField username;
     @FXML private JFXPasswordField password;

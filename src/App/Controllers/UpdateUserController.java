@@ -6,7 +6,7 @@ import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
 import animatefx.animation.BounceIn;
@@ -41,7 +41,7 @@ import javafx.stage.FileChooser;
  *
  * @author med
  */
-public class UpdateUserController extends GDPController implements Initializable,Init {
+public class UpdateUserController extends SMController implements Initializable,Init {
 
     @FXML private Button returnBtn;
     @FXML private JFXTextField fullname,phone;

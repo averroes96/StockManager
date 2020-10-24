@@ -54,64 +54,79 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="438.0" prefWidth="480.0" spacing="16.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="341.0" spacing="8.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="341.0" spacing="8.0">
                      <children>
                         <Label prefHeight="42.0" prefWidth="256.0" text="%app_name" textFill="#3d4956" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="appNameTF" alignment="CENTER" focusColor="TOMATO" prefHeight="42.0" prefWidth="256.0" promptText="%app_name" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXTextField>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="256.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="appNameTF" alignment="CENTER" focusColor="TOMATO" prefHeight="42.0" prefWidth="256.0" promptText="%app_name" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="200.0" spacing="8.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="200.0" spacing="8.0">
                      <children>
                         <Label prefHeight="42.0" prefWidth="256.0" text="%quantity_min_alert" textFill="#3d4956" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <JFXSlider fx:id="minQteSlider" focusTraversable="false" prefHeight="23.0" prefWidth="204.0" HBox.hgrow="ALWAYS">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXSlider>
-                        <Label fx:id="minQteValue" prefHeight="42.0" prefWidth="64.0" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="256.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXSlider fx:id="minQteSlider" focusTraversable="false" prefHeight="23.0" prefWidth="204.0" HBox.hgrow="ALWAYS">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXSlider>
+                              <Label fx:id="minQteValue" alignment="CENTER" prefHeight="42.0" prefWidth="64.0" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="90.0" prefHeight="64.0" prefWidth="200.0" spacing="8.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="90.0" prefHeight="72.0" prefWidth="200.0" spacing="8.0">
                      <children>
                         <Label prefHeight="42.0" prefWidth="256.0" text="%language" textFill="#3d4956" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="languagesCB" focusTraversable="false" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="277.0" HBox.hgrow="ALWAYS">
-                           <effect>
-                              <DropShadow color="#0000004d" height="16.0" radius="7.5" width="16.0" />
-                           </effect>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ChoiceBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="256.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ChoiceBox fx:id="languagesCB" focusTraversable="false" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+                                 <effect>
+                                    <DropShadow color="#0000004d" height="16.0" radius="7.5" width="16.0" />
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <JFXToggleButton fx:id="animationsTB" prefHeight="42.0" prefWidth="256.0" selected="true" text="%animations" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#999999" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
                   </JFXToggleButton>
                </children>
             </VBox>
-            <JFXButton fx:id="saveBtn" buttonType="RAISED" defaultButton="true" minWidth="160.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
+            <JFXButton fx:id="saveBtn" buttonType="RAISED" defaultButton="true" minWidth="160.0" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -12,7 +12,7 @@ import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.saveSelectedImage;
 import static Include.Common.startStage;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
 import animatefx.animation.BounceIn;
@@ -48,7 +48,7 @@ import javafx.stage.FileChooser;
  *
  * @author med
  */
-public class NewUserController extends GDPController implements Initializable,Init {
+public class NewUserController extends SMController implements Initializable,Init {
 
     @FXML private Button returnBtn;
     @FXML private JFXButton saveBtn;

@@ -8,7 +8,7 @@ package App.Controllers;
 import Data.User;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
 import animatefx.animation.FlipInX;
@@ -42,7 +42,7 @@ import javafx.util.Callback;
  *
  * @author med
  */
-public class ExEmployersController extends GDPController implements Initializable,Init {
+public class ExEmployersController extends SMController implements Initializable,Init {
 
     @FXML TableView<User> exTable;
     @FXML TableColumn<User,String> fullname,username;

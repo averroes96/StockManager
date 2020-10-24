@@ -6,7 +6,7 @@
 package App.Controllers;
 
 import Data.User;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -24,7 +24,7 @@ import javafx.scene.control.Label;
  *
  * @author med
  */
-public class ChangePassController extends GDPController implements Initializable,Init {
+public class ChangePassController extends SMController implements Initializable,Init {
     
     @FXML private JFXPasswordField current,newPass,repeat;
     @FXML private JFXButton save;

@@ -12,7 +12,7 @@ import Include.Common;
 import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import JR.JasperReporter;
 import animatefx.animation.Pulse;
@@ -52,7 +52,7 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author med
  */
-public class NewBuyController extends GDPController implements Initializable,Init {
+public class NewBuyController extends SMController implements Initializable,Init {
     
     
     @FXML private TableView<Buy> buysTable ;

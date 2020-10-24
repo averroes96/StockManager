@@ -5,7 +5,7 @@ import Data.ProdHistory;
 import Data.Product;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
@@ -34,7 +34,7 @@ import javafx.scene.layout.VBox;
  *
  * @author user
  */
-public class ProductHistoryController extends GDPController implements Initializable,Init {
+public class ProductHistoryController extends SMController implements Initializable,Init {
     
     @FXML private Label oldQte,newQte,oldName,newName,oldDate,newDate,oldPrice,newPrice;
     @FXML private JFXButton search;

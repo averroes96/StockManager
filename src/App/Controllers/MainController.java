@@ -12,7 +12,7 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
@@ -46,6 +46,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -78,9 +79,10 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author med
  */
-public class MainController extends GDPController implements Initializable,Init {
+public class MainController extends SMController implements Initializable,Init {
     
     
+    @FXML private AnchorPane anchorPane;
     @FXML private Label btn_close,settingsBtn;
     @FXML private AnchorPane products, sells, employers,buys;
     @FXML private TableView<Product> productsTable ;
@@ -202,6 +204,9 @@ public class MainController extends GDPController implements Initializable,Init 
     }
 
     public void getEmployer(User employer) {
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
         this.employer = employer ;
         

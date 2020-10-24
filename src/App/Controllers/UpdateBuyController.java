@@ -14,7 +14,7 @@ import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import animatefx.animation.Swing;
 import com.jfoenix.controls.JFXButton;
@@ -46,7 +46,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author user
  */
-public class UpdateBuyController extends GDPController implements Initializable,Init {
+public class UpdateBuyController extends SMController implements Initializable,Init {
 
     @FXML private JFXButton saveBtn;
     @FXML private Button returnBtn;

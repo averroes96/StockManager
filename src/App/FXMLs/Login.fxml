@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="384.0" prefWidth="550.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.LoginController">
    <children>
-      <VBox fx:id="loginVB" alignment="CENTER" layoutX="75.0" layoutY="62.0" prefHeight="300.0" prefWidth="400.0" spacing="8.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="62.0">
+      <VBox fx:id="loginVB" alignment="CENTER" layoutX="75.0" layoutY="70.0" prefHeight="300.0" prefWidth="400.0" spacing="8.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="70.0">
          <children>
             <HBox fx:id="usernameHB" alignment="CENTER_LEFT" prefHeight="96.0" prefWidth="300.0" spacing="8.0" VBox.vgrow="ALWAYS">
                <children>
@@ -78,7 +78,7 @@
             <JFXDialog fx:id="dialog" maxHeight="300.0" maxWidth="400.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="350.0" prefWidth="400.0" />
          </children>
       </StackPane>
-      <Label fx:id="title" alignment="CENTER" layoutX="195.0" layoutY="14.0" prefHeight="48.0" prefWidth="161.0" text="GDP" textFill="#3d4956" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label fx:id="title" alignment="CENTER" layoutX="195.0" layoutY="14.0" prefHeight="64.0" prefWidth="161.0" text="GDP" textFill="#3d4956" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Arial" size="24.0" />
          </font>

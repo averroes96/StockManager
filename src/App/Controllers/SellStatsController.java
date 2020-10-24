@@ -11,7 +11,7 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
@@ -50,7 +50,7 @@ import javafx.scene.layout.StackPane;
  *
  * @author med
  */
-public class SellStatsController extends GDPController implements Initializable,Init {
+public class SellStatsController extends SMController implements Initializable,Init {
 
     @FXML private Button search;
     @FXML private TableView<Sell> sellsTable;

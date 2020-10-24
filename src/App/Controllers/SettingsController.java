@@ -40,12 +40,15 @@
 package App.Controllers;
 
 import Include.Common;
-import Include.GDPController;
+import Include.Init;
+import Include.SMController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
@@ -63,12 +66,12 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author user
  */
-public class SettingsController extends GDPController implements Initializable {
+public class SettingsController extends SMController implements Initializable, Init {
     
     @FXML private JFXTextField appNameTF;
     @FXML private JFXSlider minQteSlider;
     @FXML private JFXButton saveBtn;
-    @FXML private ChoiceBox languagesCB;
+    @FXML private ChoiceBox<String> languagesCB;
     @FXML private JFXToggleButton animationsTB;
     @FXML private Label minQteValue;
     @FXML private AnchorPane anchorPane;
@@ -126,7 +129,7 @@ public class SettingsController extends GDPController implements Initializable {
         languagesCB.setItems(langsList);
     }
 
-    private void getCurrentLanguage() throws SQLException {
+    private String getCurrentLanguage() throws SQLException {
         
         String currentLang = Common.getSettingValue("app_language");
         
@@ -145,6 +148,8 @@ public class SettingsController extends GDPController implements Initializable {
         if(currentLang.equals("ar_DZ"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
+        return currentLang;
+        
     }
 
     private void initFields() throws SQLException {
@@ -162,6 +167,71 @@ public class SettingsController extends GDPController implements Initializable {
 
         getCurrentLanguage();
         
+        saveBtn.setOnAction((event) -> {
+            updateSettings();
+        });
+        
+    }
+
+    private void updateSettings() {
+        
+        String appName = appNameTF.getText();
+        String minQte = minQteValue.getText();
+        String language = getSelectedLanguage();
+        String animations = animationsTB.isSelected() ? "true" : "false";
+        
+        if(checkInputs()){
+        
+            setSettingValue(appName, "app_name");
+            setSettingValue(minQte, "min_qte");
+            setSettingValue(language, "app_language");
+            setSettingValue(animations, "animations");
+
+            customDialog(bundle.getString("settings_updated"), bundle.getString("settings_updated_msg"), INFO_SMALL, true, saveBtn);
+
+        }
+    }
+
+    private void setSettingValue(String value, String name) {
+        
+        try {
+            Connection con = Common.getConnection();
+            
+            PreparedStatement ps = con.prepareStatement("Update settings SET setting_value = ? WHERE setting_name = ?");
+            ps.setString(1, value);
+            ps.setString(2, name);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveBtn);
+        }
+    }
+
+    private String getSelectedLanguage() {
+        
+        int selected = languagesCB.getSelectionModel().getSelectedIndex();
+        
+        switch(selected){
+            case 0:
+                return "ar_DZ";
+            case 1:
+                return "en_DZ";
+            case 2:
+                return "fr_DZ";
+        }
+        
+        return "";
+        
+    }
+    
+    @Override
+    public boolean checkInputs(){
+        
+        if(appNameTF.getText().trim().isEmpty()){
+            customDialog(bundle.getString("app_name_error"), bundle.getString("app_name_error_msg"), ERROR_SMALL, true, saveBtn);
+            return false;
+        }
+        
+        return true;
     }
     
 }

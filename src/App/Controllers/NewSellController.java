@@ -14,7 +14,7 @@ import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import Include.CommonMethods;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import JR.JasperReporter;
 import com.jfoenix.controls.JFXButton;
@@ -53,7 +53,7 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author med
  */
-public class NewSellController extends GDPController implements Initializable,Init,CommonMethods {
+public class NewSellController extends SMController implements Initializable,Init,CommonMethods {
     
     
     @FXML private TableView<Sell> sellsTable ;

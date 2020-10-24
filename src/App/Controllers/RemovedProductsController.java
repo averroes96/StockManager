@@ -9,7 +9,7 @@ import Data.Product;
 import Data.User;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
 import static Include.Init.INFO_SMALL;
@@ -43,7 +43,7 @@ import javafx.util.Callback;
  *
  * @author user
  */
-public class RemovedProductsController extends GDPController implements Initializable,Init {
+public class RemovedProductsController extends SMController implements Initializable,Init {
 
     @FXML private TableView<Product> removedTable;
     @FXML private TableColumn<Product,String> nameCol;

@@ -12,7 +12,7 @@ import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.saveSelectedImage;
 import static Include.Common.startStage;
-import Include.GDPController;
+import Include.SMController;
 import Include.Init;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
@@ -45,7 +45,7 @@ import javafx.stage.FileChooser;
  *
  * @author med
  */
-public class NewProductController extends GDPController implements Initializable,Init {
+public class NewProductController extends SMController implements Initializable,Init {
     
     
     @FXML private JFXTextField nameField,sellField,qteField;
