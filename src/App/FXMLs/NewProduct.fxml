@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="600.0" style="-fx-background-color: #EEE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewProductController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="675.0" prefWidth="600.0" style="-fx-background-color: #EEE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewProductController">
    <effect>
       <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
    </effect>
@@ -28,21 +28,9 @@
       <URL value="@../Layout/custom.css" />
    </stylesheets>
    <children>
-      <HBox alignment="CENTER_RIGHT" layoutY="57.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_LEFT" layoutY="57.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#logOut" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/medium/icons8_left_3_48px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%new_product" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" text="%new_product" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -57,81 +45,106 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
             </Label>
+            <Button id="menu-btn" fx:id="cancel" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#logOut" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/medium/icons8_left_3_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="90.0" prefHeight="575.0" prefWidth="568.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="86.0" prefHeight="575.0" prefWidth="568.0" spacing="24.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
          <children>
             <Text fill="TOMATO" strokeType="OUTSIDE" strokeWidth="0.0" text="%no_qte_selected_note" textAlignment="CENTER" wrappingWidth="600.0000007152557">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <Circle fx:id="productIV" fill="WHITE" radius="100.0" stroke="#3d4956" strokeType="INSIDE">
+            <Circle fx:id="productIV" fill="WHITE" radius="96.0" stroke="#3d4956" strokeType="INSIDE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Circle>
-            <HBox alignment="CENTER" maxWidth="768.0" prefHeight="80.0" prefWidth="256.0" spacing="8.0">
+            <HBox alignment="CENTER" maxWidth="768.0" prefHeight="96.0" prefWidth="256.0" spacing="8.0">
                <children>
-                  <JFXTextField fx:id="nameField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="%name" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </JFXTextField>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
                         <Image url="@../images/medium/icons8_magazine_48px.png" />
                      </image>
                   </ImageView>
+                  <JFXTextField fx:id="nameField" focusColor="TOMATO" labelFloat="true" prefHeight="48.0" prefWidth="224.0" promptText="%name" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="8.0" />
+                     </padding>
+                  </JFXTextField>
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" maxWidth="768.0" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                <children>
-                  <HBox alignment="CENTER" maxWidth="768.0" prefHeight="48.0" prefWidth="256.0" spacing="8.0">
+                  <VBox alignment="CENTER" maxWidth="384.0" prefHeight="100.0" prefWidth="284.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <JFXTextField fx:id="sellField" alignment="CENTER" focusColor="TOMATO" prefHeight="48.0" prefWidth="224.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxWidth="768.0" prefHeight="48.0" prefWidth="256.0" spacing="8.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_tags_48px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXTextField fx:id="sellField" focusColor="TOMATO" labelFloat="true" prefHeight="48.0" prefWidth="224.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="8.0" />
+                                 </padding>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                        <Label fx:id="sellStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر بيع صالح" textFill="WHITE" visible="false">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
-                        </JFXTextField>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/medium/icons8_tags_48px.png" />
-                           </image>
-                        </ImageView>
+                        </Label>
                      </children>
-                  </HBox>
-                  <Label fx:id="sellStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر بيع صالح" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="330.0" maxWidth="768.0" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
-               <children>
-                  <HBox alignment="CENTER" maxWidth="768.0" prefHeight="48.0" prefWidth="256.0" spacing="8.0">
+                  </VBox>
+                  <VBox alignment="CENTER" maxWidth="384.0" prefHeight="100.0" prefWidth="284.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="768.0" prefHeight="48.0" prefWidth="224.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxWidth="768.0" prefHeight="48.0" prefWidth="256.0" spacing="8.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXTextField fx:id="qteField" focusColor="TOMATO" labelFloat="true" maxWidth="768.0" prefHeight="48.0" prefWidth="224.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-text-fill: #3D4956; -fx-prompt-text-fill: #aaa;" unFocusColor="#cccccc" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="8.0" />
+                                 </padding>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                        <Label fx:id="qteStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال كمية صالحة " textFill="WHITE" visible="false">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
-                        </JFXTextField>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
-                           </image>
-                        </ImageView>
+                        </Label>
                      </children>
-                  </HBox>
-                  <Label fx:id="qteStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال كمية صالحة " textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  </VBox>
                </children>
-            </VBox>
-            <JFXButton fx:id="addProduct" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" maxWidth="220.0" prefHeight="42.0" prefWidth="220.0" ripplerFill="BLACK" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
+            </HBox>
+            <JFXButton fx:id="addProduct" buttonType="RAISED" defaultButton="true" maxWidth="220.0" prefHeight="50.0" prefWidth="220.0" ripplerFill="BLACK" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

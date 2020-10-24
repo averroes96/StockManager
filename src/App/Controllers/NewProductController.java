@@ -12,8 +12,8 @@ import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.saveSelectedImage;
 import static Include.Common.startStage;
-import Include.SMController;
 import Include.Init;
+import Include.SMController;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
@@ -31,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -57,7 +58,7 @@ public class NewProductController extends SMController implements Initializable,
 
     
     public void getEmployer(User employer){
-        this.employer = employer; 
+        this.employer = employer;
     }
     
     private void chooseImage()
@@ -217,6 +218,9 @@ public class NewProductController extends SMController implements Initializable,
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
         AnimationFX addBtnAnim = new Shake(addProduct);
         

@@ -9,10 +9,10 @@ import Data.Product;
 import Data.User;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
-import Include.SMController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
 import static Include.Init.INFO_SMALL;
+import Include.SMController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -27,6 +27,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -222,6 +223,9 @@ public class RemovedProductsController extends SMController implements Initializ
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
         initTable();
         

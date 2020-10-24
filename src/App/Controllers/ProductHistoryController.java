@@ -5,8 +5,8 @@ import Data.ProdHistory;
 import Data.Product;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
-import Include.SMController;
 import Include.Init;
+import Include.SMController;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -22,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -181,6 +182,9 @@ public class ProductHistoryController extends SMController implements Initializa
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
         initTable();
         

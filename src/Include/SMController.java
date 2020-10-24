@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -22,6 +23,7 @@ public abstract class SMController {
     
     @FXML public StackPane stackPane;
     @FXML public JFXDialog dialog;
+    @FXML public AnchorPane anchorPane;
     
     public User employer = new User();
     public ResourceBundle bundle;
@@ -65,7 +67,15 @@ public abstract class SMController {
         return false;
     }
     
-    public void logOut(ActionEvent event)throws IOException{
-        
-    };
+    public void logOut(ActionEvent event)throws IOException{};
+
+    public ResourceBundle getBundle() {
+        return bundle;
+    }
+
+    public void setBundle(ResourceBundle bundle) {
+        this.bundle = bundle;
+    }
+    
+    
 }

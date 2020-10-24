@@ -63,7 +63,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="256.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXTextField fx:id="appNameTF" alignment="CENTER" focusColor="TOMATO" prefHeight="42.0" prefWidth="256.0" promptText="%app_name" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="appNameTF" alignment="CENTER" focusColor="TOMATO" focusTraversable="false" prefHeight="42.0" prefWidth="256.0" promptText="%app_name" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -81,16 +81,16 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="256.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXSlider fx:id="minQteSlider" focusTraversable="false" prefHeight="23.0" prefWidth="204.0" HBox.hgrow="ALWAYS">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </JFXSlider>
                               <Label fx:id="minQteValue" alignment="CENTER" prefHeight="42.0" prefWidth="64.0" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
+                              <JFXSlider fx:id="minQteSlider" focusTraversable="false" prefHeight="23.0" prefWidth="204.0" HBox.hgrow="ALWAYS">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXSlider>
                            </children>
                         </HBox>
                      </children>

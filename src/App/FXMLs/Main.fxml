@@ -130,84 +130,16 @@
             </HBox>
             <HBox fx:id="productHB" alignment="CENTER" layoutX="145.0" layoutY="391.0" prefHeight="230.0" prefWidth="968.0" spacing="8.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="238.0" prefWidth="250.0" spacing="8.0">
-                     <children>
-                        <Circle fx:id="productIV" fill="WHITE" radius="100.0" scaleY="0.95" stroke="#3d4956" strokeType="INSIDE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                     </children>
-                  </VBox>
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="242.0" prefWidth="673.0" style="-fx-background-color: #eee;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="selectedSize" prefHeight="37.0" prefWidth="45.0" style="-fx-alignment: center;" textFill="#3d4956">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <VBox alignment="CENTER" prefHeight="226.0" prefWidth="286.0" spacing="16.0">
+                        <VBox alignment="CENTER" prefHeight="238.0" prefWidth="250.0" spacing="8.0">
                            <children>
-                              <JFXButton fx:id="updateProduct" buttonType="RAISED" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="%confirm" textFill="#dddddd">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                  <graphic>
-      
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                           <Image url="@../images/small/icons8_checkmark_32px.png" />
-                                        </image>
-                                     </ImageView>             
-      
-                                              </graphic>
+                              <Circle fx:id="productIV" fill="WHITE" radius="100.0" scaleY="0.95" stroke="#3d4956" strokeType="INSIDE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
-                                 </cursor>                              
-                              </JFXButton>
-                              <JFXButton fx:id="productStats" buttonType="RAISED" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="%statistics" textFill="#3d4956">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                  <graphic>
-      
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                           <Image url="@../images/small/icons8_statistics_32px_1.png" />
-                                        </image>
-                                     </ImageView>             
-      
-                                              </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>                              
-                              </JFXButton>
-                              <JFXButton fx:id="deleteProduct" buttonType="RAISED" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="%delete" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                  <graphic>
-      
-                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                           <Image url="@../images/small/icons8_delete_32px_1.png" />
-                                        </image>
-                                     </ImageView>             
-      
-                                              </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>                              
-                              </JFXButton>
-                              <Label fx:id="emptyQte" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="250.0" style="-fx-padding: 5; -fx-background-radius: 5; -fx-background-color: red; -fx-font-size: 14;" text="%empty_quantity_note" textFill="WHITE">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Label>
+                                 </cursor>
+                              </Circle>
                            </children>
-                           <padding>
-                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                           </padding>
                         </VBox>
                         <VBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="242.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -264,7 +196,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="134.0" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="257.0" HBox.hgrow="ALWAYS">
+                                    <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="257.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -281,6 +213,68 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
                   </HBox>
+                  <Label fx:id="selectedSize" prefHeight="37.0" prefWidth="45.0" style="-fx-alignment: center;" textFill="#3d4956">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" prefHeight="230.0" prefWidth="326.0" spacing="16.0">
+                     <children>
+                        <JFXButton fx:id="updateProduct" buttonType="RAISED" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="%confirm" textFill="#dddddd">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_checkmark_32px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="productStats" buttonType="RAISED" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="%statistics" textFill="#3d4956">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_statistics_32px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="deleteProduct" buttonType="RAISED" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="%delete" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_delete_32px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <Label fx:id="emptyQte" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="250.0" style="-fx-padding: 5; -fx-background-radius: 5; -fx-background-color: red; -fx-font-size: 14;" text="%empty_quantity_note" textFill="WHITE">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </VBox>
                </children>
             </HBox>
          </children>
@@ -299,7 +293,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" layoutX="76.0" layoutY="34.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button id="menu-btn" fx:id="btn_sells" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%sells" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_sells" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%sells" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -311,7 +305,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_buys" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%buys" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_buys" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%buys" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -323,7 +317,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_employers" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_employers" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -335,7 +329,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_products" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%products" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                  <Button id="menu-btn" fx:id="btn_products" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%products" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
                      </font>
@@ -889,7 +883,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="73.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>

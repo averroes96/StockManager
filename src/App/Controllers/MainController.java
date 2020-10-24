@@ -12,8 +12,8 @@ import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
-import Include.SMController;
 import Include.Init;
+import Include.SMController;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.FadeIn;
@@ -82,7 +82,6 @@ import net.sf.jasperreports.engine.JRException;
 public class MainController extends SMController implements Initializable,Init {
     
     
-    @FXML private AnchorPane anchorPane;
     @FXML private Label btn_close,settingsBtn;
     @FXML private AnchorPane products, sells, employers,buys;
     @FXML private TableView<Product> productsTable ;

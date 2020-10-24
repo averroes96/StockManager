@@ -40,6 +40,7 @@
 package App.Controllers;
 
 import Include.Common;
+import static Include.Common.getAppLang;
 import Include.Init;
 import Include.SMController;
 import com.jfoenix.controls.JFXButton;
@@ -51,6 +52,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,7 +61,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -74,7 +75,6 @@ public class SettingsController extends SMController implements Initializable, I
     @FXML private ChoiceBox<String> languagesCB;
     @FXML private JFXToggleButton animationsTB;
     @FXML private Label minQteValue;
-    @FXML private AnchorPane anchorPane;
     
     ObservableList<String> langsList = FXCollections.observableArrayList();
     MainController parentController;
@@ -182,13 +182,19 @@ public class SettingsController extends SMController implements Initializable, I
         
         if(checkInputs()){
         
-            setSettingValue(appName, "app_name");
-            setSettingValue(minQte, "min_qte");
-            setSettingValue(language, "app_language");
-            setSettingValue(animations, "animations");
-
-            customDialog(bundle.getString("settings_updated"), bundle.getString("settings_updated_msg"), INFO_SMALL, true, saveBtn);
-
+            try {
+                setSettingValue(appName, "app_name");
+                setSettingValue(minQte, "min_qte");
+                setSettingValue(language, "app_language");
+                setSettingValue(animations, "animations");
+                
+                customDialog(bundle.getString("settings_updated"), bundle.getString("settings_updated_msg"), INFO_SMALL, true, saveBtn);
+                
+                bundle = ResourceBundle.getBundle(BUNDLES_PATH, new Locale(getAppLang()[0], getAppLang()[1]));
+                getParentController().setBundle(bundle);
+            } catch (SQLException ex) {
+                exceptionLayout(ex, saveBtn);
+            }
         }
     }
 

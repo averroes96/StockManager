@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ProductHistoryController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ProductHistoryController">
    <effect>
       <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
    </effect>
@@ -28,14 +28,14 @@
          <children>
             <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="230.0" spacing="8.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="48.0" prefWidth="200.0" spacing="8.0">
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" spacing="8.0">
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/medium/icons8_product_48px.png" />
                            </image>
                         </ImageView>
-                        <ChoiceBox fx:id="prodField" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="91.0" HBox.hgrow="ALWAYS">
+                        <ChoiceBox fx:id="prodField" maxWidth="256.0" prefHeight="37.0" prefWidth="91.0" HBox.hgrow="ALWAYS">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -55,14 +55,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="272.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <JFXDatePicker fx:id="startDate" defaultColor="#3d4956" editable="false" maxWidth="272.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="248.0" VBox.vgrow="ALWAYS" />
                      </children>
                      <VBox.margin>
                         <Insets left="8.0" right="8.0" />
                      </VBox.margin>
-                     <padding>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </padding>
                   </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="122.0" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" spacing="8.0">
                      <children>
@@ -71,16 +68,16 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <JFXDatePicker fx:id="endDate" defaultColor="#3d4956" editable="false" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets></JFXDatePicker>
                      </children>
                      <VBox.margin>
                         <Insets left="8.0" right="8.0" />
                      </VBox.margin>
-                     <padding>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </padding>
                   </VBox>
-                  <JFXButton fx:id="search" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="%search" textFill="#3d4956">
+                  <JFXButton fx:id="search" buttonType="RAISED" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: tomato;" text="%search" textFill="#3d4956">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -93,7 +90,10 @@
                      </graphic>
                      <VBox.margin>
                         <Insets top="32.0" />
-                     </VBox.margin>         
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>         
                   </JFXButton>
                </children>
             </VBox>
@@ -116,7 +116,7 @@
          <children>
             <VBox fx:id="nameVB" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%name" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="205.0" style="-fx-background-radius: 20 20 0 0;" text="%name" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -128,7 +128,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0">
                      <children>
                         <Label fx:id="newName" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
                            <font>
@@ -146,7 +146,7 @@
             </VBox>
             <VBox fx:id="dateVB" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%add_date" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%add_date" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -158,7 +158,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0">
                      <children>
                         <Label fx:id="newDate" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
                            <font>
@@ -176,7 +176,7 @@
             </VBox>
             <VBox fx:id="priceVB" alignment="TOP_CENTER" layoutX="110.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%price" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%price" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -188,7 +188,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0">
                      <children>
                         <Label fx:id="newPrice" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
                            <font>
@@ -206,7 +206,7 @@
             </VBox>
             <VBox fx:id="qteVB" alignment="TOP_CENTER" layoutX="144.0" layoutY="10.0" prefHeight="160.0" prefWidth="200.0" styleClass="box" HBox.hgrow="ALWAYS">
                <children>
-                  <Label id="pane-title" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-radius: 20 20 0 0;" text="%quantity" textFill="#3d4956" VBox.vgrow="ALWAYS">
+                  <Label id="pane-title" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="205.0" style="-fx-background-radius: 20 20 0 0;" text="%quantity" textFill="#3d4956" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -218,7 +218,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0">
                      <children>
                         <Label fx:id="newQte" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="190.0" textFill="GREEN">
                            <font>
