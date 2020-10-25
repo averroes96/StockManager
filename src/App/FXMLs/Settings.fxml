@@ -83,7 +83,7 @@
                            <children>
                               <Label fx:id="minQteValue" alignment="CENTER" prefHeight="42.0" prefWidth="64.0" textFill="#3d4956" HBox.hgrow="ALWAYS">
                                  <font>
-                                    <Font name="System Bold" size="14.0" />
+                                    <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
                               <JFXSlider fx:id="minQteSlider" focusTraversable="false" prefHeight="23.0" prefWidth="204.0" HBox.hgrow="ALWAYS">
@@ -104,7 +104,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="256.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ChoiceBox fx:id="languagesCB" focusTraversable="false" maxWidth="256.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+                              <ChoiceBox fx:id="languagesCB" focusTraversable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
                                  <effect>
                                     <DropShadow color="#0000004d" height="16.0" radius="7.5" width="16.0" />
                                  </effect>

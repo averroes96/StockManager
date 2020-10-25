@@ -9,10 +9,12 @@ import static Data.User.getUsers;
 import Include.Common;
 import static Include.Common.controlDigitField;
 import static Include.Common.dateFormatter;
+import static Include.Common.getAppLang;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
 import Include.Init;
+import static Include.Init.BUNDLES_PATH;
 import Include.SMController;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
@@ -36,6 +38,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,6 +120,7 @@ public class MainController extends SMController implements Initializable,Init {
     
     File selectedFile = null;
     JasperReporter jr = new JasperReporter();
+    int MIN_QUANTITY;
     
     public void customDialog(String title, String body, String icon, boolean btnIncluded){
         
@@ -487,6 +491,8 @@ public class MainController extends SMController implements Initializable,Init {
     private void showProduct(int index)
     {
         
+        
+        
         new FadeIn(productHB).play();
         refField.setText(data.get(index).getName());
         quantityField.setText(String.valueOf(data.get(index).getProdQuantity()));
@@ -505,7 +511,7 @@ public class MainController extends SMController implements Initializable,Init {
                     productIV.getCenterX(), productIV.getCenterY(), false, false)));
         }        
         
-        if(data.get(index).getProdQuantity() < 10){
+        if(data.get(index).getProdQuantity() < MIN_QUANTITY){
             emptyQte.setVisible(true);
         }
         else
@@ -1036,9 +1042,17 @@ public class MainController extends SMController implements Initializable,Init {
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        try {
+            MIN_QUANTITY = Integer.parseInt(Common.getSettingValue("min_qte"));
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
 
         if(bundle.getLocale().getLanguage().equals("ar"))
-            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);        
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        else
+            anchorPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         
         dateField.setConverter(dateFormatter());
         sellDateField.setConverter(dateFormatter());
@@ -1506,7 +1520,11 @@ public class MainController extends SMController implements Initializable,Init {
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-            } catch (IOException ex) {
+                if(!stage.isShowing()){
+                    bundle = ResourceBundle.getBundle(BUNDLES_PATH, new Locale(getAppLang()[0], getAppLang()[1]));
+                    initialize(null, bundle);
+                }
+            } catch (IOException | SQLException ex) {
                 exceptionLayout(ex);
             }
         });

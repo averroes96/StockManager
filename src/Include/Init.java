@@ -67,6 +67,8 @@ public interface Init {
     int ACTIVE = 1;
     
     int NOT_ACTIVE = 0;
+    
+    
 
     
 }
