@@ -6,13 +6,12 @@
 package App.Controllers;
 
 import Data.User;
-import Include.Common;
 import static Include.Common.getConnection;
 import static Include.Common.getSettingValue;
 import static Include.Common.startStage;
 import static Include.Common.updateLastLogged;
-import Include.SMController;
 import Include.Init;
+import Include.SMController;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import animatefx.animation.ZoomIn;
@@ -158,7 +157,7 @@ public class LoginController extends SMController implements Initializable,Init 
             new ZoomIn(title).play();
             
             title.setText(getSettingValue("app_name"));
-            if(Common.getSettingValue("app_language").equals("ar_DZ"))
+            if(bundle.getLocale().getLanguage().equals("ar"))
                 anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
             
             AnimationFX loginBtnAnim = new Shake(loginButton);

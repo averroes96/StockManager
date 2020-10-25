@@ -44,6 +44,8 @@ import static Include.Common.getAppLang;
 import Include.Init;
 import Include.SMController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -59,6 +61,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
@@ -188,10 +191,10 @@ public class SettingsController extends SMController implements Initializable, I
                 setSettingValue(language, "app_language");
                 setSettingValue(animations, "animations");
                 
-                customDialog(bundle.getString("settings_updated"), bundle.getString("settings_updated_msg"), INFO_SMALL, true, saveBtn);
-                
                 bundle = ResourceBundle.getBundle(BUNDLES_PATH, new Locale(getAppLang()[0], getAppLang()[1]));
-                getParentController().setBundle(bundle);
+                
+                customDialog(bundle.getString("settings_updated"), bundle.getString("settings_updated_msg"), INFO_SMALL, true, saveBtn);
+                                
             } catch (SQLException ex) {
                 exceptionLayout(ex, saveBtn);
             }
@@ -238,6 +241,33 @@ public class SettingsController extends SMController implements Initializable, I
         }
         
         return true;
+    }
+    
+    @Override
+    public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
+        
+        stackPane.setVisible(true);
+        JFXButton btn = new JFXButton(bundle.getString("okay"));
+        btn.setDefaultButton(true);
+        defaultBtn.setDefaultButton(false);
+        btn.setOnAction(Action -> {
+            dialog.close();
+            stackPane.setVisible(false);
+            btn.setDefaultButton(false);
+            defaultBtn.setDefaultButton(true);
+            Label label = (Label)layout.getHeading().get(0);
+            if(label.getText().equals(bundle.getString("settings_updated"))){
+                getParentController().initialize(null, bundle);
+                saveBtn.getScene().getWindow().hide();
+            }
+        });
+        if(btnIncluded){
+            layout.setActions(btn);
+        }    
+        dialog = new JFXDialog(stackPane, layout , JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.show();
+        
     }
     
 }

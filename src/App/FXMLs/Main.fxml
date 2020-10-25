@@ -29,7 +29,7 @@
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="776.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="200.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="128.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -293,6 +293,18 @@
          <children>
             <HBox alignment="CENTER_LEFT" layoutX="76.0" layoutY="34.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
                <children>
+                  <Button id="menu-btn" fx:id="btn_products" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%products" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Simplified Arabic Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/large/product_large_filled_grey.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button id="menu-btn" fx:id="btn_sells" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%sells" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Simplified Arabic Bold" size="24.0" />
@@ -329,18 +341,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menu-btn" fx:id="btn_products" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%products" textFill="#eeeeee" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Simplified Arabic Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/large/product_large_filled_grey.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="150.0" spacing="8.0">
                      <children>
                         <Label fx:id="settingsBtn" layoutX="82.0" layoutY="26.0" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
@@ -371,7 +371,7 @@
          </children></AnchorPane>
       <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="546.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="768.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -724,7 +724,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="321.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="650.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="544.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -905,7 +905,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>               
             </TableView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="100.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="336.0" layoutY="-18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>

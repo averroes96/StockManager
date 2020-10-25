@@ -1036,7 +1036,9 @@ public class MainController extends SMController implements Initializable,Init {
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
-        stackPane.setVisible(false);
+
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);        
         
         dateField.setConverter(dateFormatter());
         sellDateField.setConverter(dateFormatter());
