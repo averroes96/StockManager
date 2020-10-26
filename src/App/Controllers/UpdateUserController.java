@@ -6,9 +6,9 @@ import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
-import Include.SMController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
+import Include.SMController;
 import animatefx.animation.BounceIn;
 import animatefx.animation.Tada;
 import com.jfoenix.controls.JFXButton;
@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -247,6 +248,9 @@ public class UpdateUserController extends SMController implements Initializable,
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);        
         
         fillFields(selectedEmployer);
         

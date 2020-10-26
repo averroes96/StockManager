@@ -47,7 +47,6 @@ public class LoginController extends SMController implements Initializable,Init 
     @FXML private JFXButton loginButton;
     @FXML private Label title;
     @FXML private HBox usernameHB, passwordHB;
-    @FXML private AnchorPane anchorPane;
 
     public User getUser(String username, String password)
     {

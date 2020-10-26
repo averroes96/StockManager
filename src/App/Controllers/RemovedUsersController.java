@@ -8,9 +8,9 @@ package App.Controllers;
 import Data.User;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
-import Include.SMController;
 import Include.Init;
 import static Include.Init.IMAGES_PATH;
+import Include.SMController;
 import animatefx.animation.FlipInX;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -42,7 +43,7 @@ import javafx.util.Callback;
  *
  * @author med
  */
-public class ExEmployersController extends SMController implements Initializable,Init {
+public class RemovedUsersController extends SMController implements Initializable,Init {
 
     @FXML TableView<User> exTable;
     @FXML TableColumn<User,String> fullname,username;
@@ -234,6 +235,9 @@ public class ExEmployersController extends SMController implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
         fillList();
         

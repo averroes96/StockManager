@@ -207,10 +207,7 @@ public class MainController extends SMController implements Initializable,Init {
     }
 
     public void getEmployer(User employer) {
-        
-        if(bundle.getLocale().getLanguage().equals("ar"))
-            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        
+                
         this.employer = employer ;
         
         if(employer.getAdmin() == 0)
@@ -261,7 +258,7 @@ public class MainController extends SMController implements Initializable,Init {
         
         if (!employersList.isEmpty()) {
             usersCB.getSelectionModel().select(this.employer.getUsername());
-            showEmployer(this.employer.getUsername());
+            showEmployer(employer.getUsername());
         }
 
     }        
@@ -1283,9 +1280,9 @@ public class MainController extends SMController implements Initializable,Init {
 
             try {
                 ((Node)Action.getSource()).getScene().getWindow().hide();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ExEmployers.fxml"), bundle);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "RemovedUsers.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
-                ExEmployersController ueControl = (ExEmployersController)loader.getController();
+                RemovedUsersController ueControl = (RemovedUsersController)loader.getController();
                 ueControl.getInfo(this.employer);                          
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
             } catch (IOException ex) {
@@ -1515,6 +1512,7 @@ public class MainController extends SMController implements Initializable,Init {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Settings.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
                 SettingsController sControl = (SettingsController)loader.getController();
+                sControl.employer = employer;
                 sControl.setParentController(this);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
@@ -1522,6 +1520,7 @@ public class MainController extends SMController implements Initializable,Init {
                 stage.showAndWait();
                 if(!stage.isShowing()){
                     bundle = ResourceBundle.getBundle(BUNDLES_PATH, new Locale(getAppLang()[0], getAppLang()[1]));
+                    getEmployer(employer);
                     initialize(null, bundle);
                 }
             } catch (IOException | SQLException ex) {

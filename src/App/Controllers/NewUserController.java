@@ -12,9 +12,9 @@ import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.saveSelectedImage;
 import static Include.Common.startStage;
-import Include.SMController;
 import Include.Init;
 import static Include.Init.ERROR_SMALL;
+import Include.SMController;
 import animatefx.animation.BounceIn;
 import animatefx.animation.Tada;
 import com.jfoenix.controls.JFXButton;
@@ -34,6 +34,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -151,13 +152,13 @@ public class NewUserController extends SMController implements Initializable,Ini
     @Override
     public void logOut(ActionEvent event) throws IOException {
 
-                        ((Node)event.getSource()).getScene().getWindow().hide();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Main.fxml"), bundle);
-                        AnchorPane root = (AnchorPane)loader.load();
-                        MainController mControl = (MainController)loader.getController();
-                        mControl.getEmployer(employer);
-                        mControl.returnMenu("employers");
-                        startStage(root, (int)root.getWidth(), (int)root.getHeight());
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Main.fxml"), bundle);
+        AnchorPane root = (AnchorPane)loader.load();
+        MainController mControl = (MainController)loader.getController();
+        mControl.getEmployer(employer);
+        mControl.returnMenu("employers");
+        startStage(root, (int)root.getWidth(), (int)root.getHeight());
     }
 
     private void insertEmployer() throws SQLException
@@ -247,6 +248,9 @@ public class NewUserController extends SMController implements Initializable,Ini
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
         userIV.setFill(new ImagePattern(new Image(
             ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),

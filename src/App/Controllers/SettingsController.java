@@ -257,7 +257,6 @@ public class SettingsController extends SMController implements Initializable, I
             defaultBtn.setDefaultButton(true);
             Label label = (Label)layout.getHeading().get(0);
             if(label.getText().equals(bundle.getString("settings_updated"))){
-                getParentController().bundle = bundle;
                 saveBtn.getScene().getWindow().hide();
             }
         });

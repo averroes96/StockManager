@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ExEmployersController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.RemovedUsersController">
    <children>
       <TableView fx:id="exTable" focusTraversable="false" layoutX="25.0" layoutY="78.0" prefHeight="340.0" prefWidth="568.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
         <columns>
@@ -34,19 +34,7 @@
       </TableView>
       <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/medium/icons8_left_3_48px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%ex_users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" text="%ex_users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -61,6 +49,18 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
             </Label>
+            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/medium/icons8_left_3_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <StackPane fx:id="stackPane" layoutX="38.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
@@ -70,16 +70,16 @@
       </StackPane>
       <HBox alignment="CENTER" layoutX="26.0" layoutY="75.0" prefHeight="60.0" prefWidth="668.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" minWidth="128.0" prefHeight="40.0" prefWidth="256.0" promptText="%search" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font name="Simplified Arabic Bold" size="18.0" />
-               </font>
-            </JFXTextField>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/medium/icons8_search_48px.png" />
                </image>
             </ImageView>
+            <JFXTextField fx:id="searchField" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" minWidth="128.0" prefHeight="40.0" prefWidth="256.0" promptText="%search" style="-fx-background-color: #eee; -fx-text-fiill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Simplified Arabic Bold" size="18.0" />
+               </font>
+            </JFXTextField>
          </children>
       </HBox>
    </children>
