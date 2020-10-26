@@ -79,7 +79,7 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
       </VBox>
-      <StackPane fx:id="stackPane" layoutX="-45.0" layoutY="-8.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane fx:id="stackPane" layoutX="-45.0" layoutY="-8.0" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXDialog fx:id="dialog" maxHeight="300.0" maxWidth="400.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="350.0" prefWidth="400.0" />
          </children>

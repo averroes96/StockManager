@@ -171,7 +171,7 @@
             </JFXButton>
          </children>
       </VBox>
-      <StackPane fx:id="stackPane" layoutX="-90.0" layoutY="59.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+      <StackPane fx:id="stackPane" layoutX="-90.0" layoutY="59.0" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
          <children>
             <JFXDialog fx:id="dialog" />
          </children>

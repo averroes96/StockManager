@@ -1255,7 +1255,7 @@ public class MainController extends SMController implements Initializable,Init {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateUser.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
                 UpdateUserController ueControl = (UpdateUserController)loader.getController();
-                ueControl.getInfo(this.employer, emp);
+                ueControl.getInfo(employer, emp);
                 ueControl.fillFields(emp);
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
 
@@ -1267,6 +1267,7 @@ public class MainController extends SMController implements Initializable,Init {
         deleteEmployer.setOnAction(Action -> {
 
             try {
+                System.out.println(bundle.getString("delete"));
                 User emp = User.getUserByName(usersCB.getSelectionModel().getSelectedItem());
                 confirmDialog(emp, "employer", bundle.getString("delete") + " " + emp.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
             } catch (SQLException ex) {
@@ -1296,12 +1297,13 @@ public class MainController extends SMController implements Initializable,Init {
             try {
                 User emp = User.getUserByName(usersCB.getSelectionModel().getSelectedItem());
                 Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePass.fxml"), bundle);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ChangePassword.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
-                ChangePassController erControl = (ChangePassController)loader.getController();
+                ChangePasswordController erControl = (ChangePasswordController)loader.getController();
                 erControl.getEmployer(emp);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
 
@@ -1516,10 +1518,12 @@ public class MainController extends SMController implements Initializable,Init {
                 sControl.setParentController(this);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
                 if(!stage.isShowing()){
                     bundle = ResourceBundle.getBundle(BUNDLES_PATH, new Locale(getAppLang()[0], getAppLang()[1]));
+                    System.out.println(bundle.getLocale().getLanguage());
                     getEmployer(employer);
                     initialize(null, bundle);
                 }
