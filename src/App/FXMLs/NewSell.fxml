@@ -20,23 +20,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewSellController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="1024.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewSellController">
    <children>
       <HBox fx:id="topBar" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="77.0" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: #3D4956; -fx-background-radius: 0 0 16 16;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/medium/icons8_left_3_48px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%new_sell" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" text="%new_sell" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -54,56 +42,22 @@
                   <Insets right="8.0" />
                </padding>
             </Label>
+            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/medium/icons8_left_3_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
       <HBox alignment="TOP_RIGHT" layoutX="16.0" layoutY="84.0" prefHeight="490.0" prefWidth="778.0" spacing="16.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="96.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="488.0" prefWidth="800.0" spacing="16.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <TableView fx:id="sellsTable" focusTraversable="false" prefHeight="504.0" prefWidth="675.0" style="-fx-background-color: white;">
-                     <columns>
-                        <TableColumn fx:id="prodCol" maxWidth="500.0" minWidth="150.0" prefWidth="150.0" text="%product" />
-                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%price" />
-                        <TableColumn fx:id="qteCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%quantity" />
-                        <TableColumn fx:id="actionCol" maxWidth="250.0" minWidth="100.0" prefWidth="150.0" text="%delete" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                     <effect>
-                        <DropShadow color="#000000b2" height="15.0" radius="7.0" width="15.0" />
-                     </effect>
-                  </TableView>
-                  <HBox alignment="CENTER" prefHeight="156.0" prefWidth="529.0" spacing="16.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <JFXButton fx:id="printBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3d4956;" text="%print" textFill="#eeeeee">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/small/icons8_print_32px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
-                        <JFXButton fx:id="deleteAll" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: red;" text="%delete_all" textFill="#eeeeee">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/medium/icons8_delete_node_48px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="488.0" prefWidth="450.0" spacing="16.0" HBox.hgrow="ALWAYS">
                <children>
                   <ChoiceBox fx:id="productCB" maxWidth="300.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
@@ -113,33 +67,33 @@
                   </ChoiceBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXTextField>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
                            </image>
                         </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
-                     <children>
-                        <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <JFXTextField fx:id="qteField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </JFXTextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                     <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/medium/icons8_price_tag_48px.png" />
                            </image>
                         </ImageView>
+                        <JFXTextField fx:id="priceField" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXTextField>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="addSell" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
+                  <JFXButton fx:id="addSell" buttonType="RAISED" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -159,9 +113,55 @@
                   <Insets top="16.0" />
                </padding>
             </VBox>
+            <VBox alignment="CENTER" prefHeight="488.0" prefWidth="800.0" spacing="16.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="sellsTable" focusTraversable="false" prefHeight="504.0" prefWidth="675.0" style="-fx-background-color: white;">
+                     <columns>
+                        <TableColumn fx:id="prodCol" maxWidth="500.0" minWidth="150.0" prefWidth="150.0" text="%product" />
+                        <TableColumn fx:id="priceCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%price" />
+                        <TableColumn fx:id="qteCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="%quantity" />
+                        <TableColumn fx:id="actionCol" maxWidth="250.0" minWidth="100.0" prefWidth="150.0" text="%delete" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <effect>
+                        <DropShadow color="#000000b2" height="15.0" radius="7.0" width="15.0" />
+                     </effect>
+                  </TableView>
+                  <HBox alignment="CENTER" prefHeight="156.0" prefWidth="529.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="printBtn" buttonType="RAISED" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3d4956;" text="%print" textFill="#eeeeee">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_print_32px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="deleteAll" buttonType="RAISED" defaultButton="true" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: red;" text="%delete_all" textFill="#eeeeee">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_delete_node_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <StackPane fx:id="stackPane" layoutX="-80.0" layoutY="69.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+      <StackPane fx:id="stackPane" layoutX="-80.0" layoutY="69.0" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
          <children>
             <JFXDialog fx:id="dialog" />
          </children>

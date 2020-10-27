@@ -1212,6 +1212,7 @@ public class MainController extends SMController implements Initializable,Init {
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
+                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
                 stage.showAndWait();
                 
             } catch (IOException ex) {

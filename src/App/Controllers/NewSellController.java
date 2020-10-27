@@ -13,9 +13,8 @@ import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
-import Include.CommonMethods;
-import Include.SMController;
 import Include.Init;
+import Include.SMController;
 import JR.JasperReporter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -35,6 +34,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -53,7 +53,7 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author med
  */
-public class NewSellController extends SMController implements Initializable,Init,CommonMethods {
+public class NewSellController extends SMController implements Initializable,Init {
     
     
     @FXML private TableView<Sell> sellsTable ;
@@ -219,6 +219,9 @@ public class NewSellController extends SMController implements Initializable,Ini
         
         try {
             bundle = rb;
+            
+            if(bundle.getLocale().getLanguage().equals("ar"))
+                anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);            
             
             prodList = Product.getActiveProducts();
             

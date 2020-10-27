@@ -25,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #3d4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.SellStatsController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #3d4956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.SellStatsController">
    <stylesheets>
       <URL value="@../Layout/custom.css" />
       <URL value="@../Layout/buttons.css" />
@@ -91,16 +91,16 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="288.0" spacing="8.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXTextField fx:id="filterSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" prefHeight="42.0" prefWidth="256.0" promptText="%search" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXTextField>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/medium/icons8_search_48px.png" />
                                  </image>
                               </ImageView>
+                              <JFXTextField fx:id="filterSearch" alignment="CENTER" focusColor="TOMATO" maxWidth="384.0" prefHeight="42.0" prefWidth="256.0" promptText="%search" style="-fx-background-color: #eee;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </JFXTextField>
                            </children>
                         </HBox>
                      </children>
