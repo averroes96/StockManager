@@ -1,4 +1,4 @@
-# GDP
+# Stock Manager
 This is JavaFX inventory manager app.
 
 ## Features:
