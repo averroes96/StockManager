@@ -12,8 +12,8 @@ import Include.Common;
 import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
-import Include.SMController;
 import Include.Init;
+import Include.SMController;
 import JR.JasperReporter;
 import animatefx.animation.Pulse;
 import com.jfoenix.controls.JFXButton;
@@ -32,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -187,6 +188,10 @@ public class NewBuyController extends SMController implements Initializable,Init
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+            
+        if(bundle.getLocale().getLanguage().equals("ar"))
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);         
         
         initTable();
         

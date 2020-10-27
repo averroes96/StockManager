@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="512.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.UpdateBuyController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="512.0" prefWidth="512.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.UpdateBuyController">
    <stylesheets>
       <URL value="@../Layout/buttons.css" />
       <URL value="@../Layout/custom.css" />
@@ -28,19 +28,7 @@
    <children>
       <HBox fx:id="topBar" alignment="CENTER_RIGHT" layoutX="30.0" layoutY="87.0" prefHeight="64.0" prefWidth="200.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/medium/icons8_left_3_48px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Label contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" style="-fx-alignment: center_right;" text="%edit_buy" textFill="#eeeeee" HBox.hgrow="ALWAYS">
+            <Label focusTraversable="false" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="131.0" text="%edit_buy" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -58,14 +46,26 @@
                   <Insets right="8.0" />
                </padding>
             </Label>
+            <Button id="menu-btn" fx:id="returnBtn" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="64.0" prefWidth="75.0" style="-fx-background-radius: 0 0 0 16;" stylesheets="@../Layout/buttons.css">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/medium/icons8_left_3_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <DropShadow color="#000000b2" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="456.0" prefWidth="455.0" spacing="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="393.0" prefWidth="448.0" spacing="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
          <children>
-            <ChoiceBox fx:id="productCB" maxWidth="384.0" prefHeight="50.0" prefWidth="256.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
+            <ChoiceBox fx:id="productCB" maxWidth="512.0" prefHeight="50.0" prefWidth="256.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -73,63 +73,67 @@
                   <Insets bottom="16.0" />
                </VBox.margin>
             </ChoiceBox>
-            <VBox alignment="CENTER" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0">
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                        <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" prefHeight="16.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد كمية منتوج صالحة" textFill="WHITE" visible="false">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
-                        </JFXTextField>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
-                           </image>
-                        </ImageView>
+                        </Label>
                      </children>
-                  </HBox>
-                  <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" prefHeight="16.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد كمية منتوج صالحة" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="10.0" layoutY="92.0" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="256.0" spacing="8.0">
+                  </VBox>
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
                      <children>
-                        <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="256.0" spacing="8.0">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/medium/icons8_price_tag_48px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                        <Label fx:id="priceStatus" alignment="CENTER" focusTraversable="false" prefHeight="21.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد سعر صالح" textFill="WHITE" visible="false">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
-                        </JFXTextField>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/medium/icons8_price_tag_48px.png" />
-                           </image>
-                        </ImageView>
+                        </Label>
                      </children>
-                  </HBox>
-                  <Label fx:id="priceStatus" alignment="CENTER" focusTraversable="false" prefHeight="21.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد سعر صالح" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="512.0" spacing="8.0">
                <children>
-                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="128.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
-                  <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="256.0" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
+                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="160.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
+                  <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="384.0" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXDatePicker>
                </children>
             </HBox>
-            <JFXButton fx:id="saveBtn" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
+            <JFXButton fx:id="saveBtn" buttonType="RAISED" defaultButton="true" prefHeight="48.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%save" textFill="#3d4956">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -149,7 +153,7 @@
             <Insets top="16.0" />
          </padding>
       </VBox>
-      <StackPane fx:id="stackPane" layoutX="-70.0" layoutY="79.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+      <StackPane fx:id="stackPane" layoutX="-70.0" layoutY="79.0" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
          <children>
             <JFXDialog fx:id="dialog" />
          </children>
