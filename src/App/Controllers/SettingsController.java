@@ -139,7 +139,6 @@ public class SettingsController extends SMController implements Initializable, I
         langsList.addAll(new String[]{ 
             bundle.getString("arabic"), 
             bundle.getString("english"), 
-            bundle.getString("french") 
         });
         
         languagesCB.setItems(langsList);
@@ -155,9 +154,6 @@ public class SettingsController extends SMController implements Initializable, I
                 break;
             case "en_DZ":
                 languagesCB.getSelectionModel().select(1);
-                break;
-            case "fr_DZ":
-                languagesCB.getSelectionModel().select(2);
                 break;
         }
         
@@ -230,8 +226,6 @@ public class SettingsController extends SMController implements Initializable, I
                 return "ar_DZ";
             case 1:
                 return "en_DZ";
-            case 2:
-                return "fr_DZ";
         }
         
         return "";
