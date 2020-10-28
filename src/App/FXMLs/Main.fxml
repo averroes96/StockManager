@@ -408,7 +408,7 @@
                                           <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
                                        </effect>
                                     </Label>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="517.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="306.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/small/icons8_user_24px.png" />
                                        </image>
@@ -421,7 +421,7 @@
                                           <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
                                        </effect>
                                     </Label>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="517.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="306.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/small/icons8_iphone_32px.png" />
                                        </image>
@@ -486,7 +486,7 @@
                                                          <children>
                                                             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                                                                <children>
-                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%product_management" textAlignment="CENTER" wrappingWidth="99.0">
+                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%product_management" textAlignment="CENTER" wrappingWidth="160.0">
                                                                      <font>
                                                                         <Font name="Arial Bold" size="14.0" />
                                                                      </font>
@@ -496,7 +496,7 @@
                                                             </HBox>
                                                             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                                                                <children>
-                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%user_management" textAlignment="CENTER" wrappingWidth="99.0">
+                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%user_management" textAlignment="CENTER" wrappingWidth="160.0">
                                                                      <font>
                                                                         <Font name="Arial Bold" size="14.0" />
                                                                      </font>
@@ -506,7 +506,7 @@
                                                             </HBox>
                                                             <HBox alignment="CENTER" layoutX="10.0" layoutY="159.0" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                                                                <children>
-                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%sell_management" textAlignment="CENTER" wrappingWidth="99.0">
+                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%sell_management" textAlignment="CENTER" wrappingWidth="160.0">
                                                                      <font>
                                                                         <Font name="Arial Bold" size="14.0" />
                                                                      </font>
@@ -516,7 +516,7 @@
                                                             </HBox>
                                                             <HBox alignment="CENTER" layoutX="10.0" layoutY="160.0" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                                                                <children>
-                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%buy_management" textAlignment="CENTER" wrappingWidth="99.0">
+                                                                  <Text fill="#3d4956" strokeType="OUTSIDE" strokeWidth="0.0" text="%buy_management" textAlignment="CENTER" wrappingWidth="160.0">
                                                                      <font>
                                                                         <Font name="Arial Bold" size="14.0" />
                                                                      </font>

@@ -9,12 +9,10 @@ import static Data.User.getUsers;
 import Include.Common;
 import static Include.Common.controlDigitField;
 import static Include.Common.dateFormatter;
-import static Include.Common.getAppLang;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
 import static Include.Common.startStage;
 import Include.Init;
-import static Include.Init.BUNDLES_PATH;
 import Include.SMController;
 import JR.JasperReporter;
 import animatefx.animation.AnimationFX;
@@ -38,7 +36,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -257,7 +254,7 @@ public class MainController extends SMController implements Initializable,Init {
 
         
         if (!employersList.isEmpty()) {
-            usersCB.getSelectionModel().select(this.employer.getUsername());
+            
             showEmployer(employer.getUsername());
         }
 
@@ -516,7 +513,7 @@ public class MainController extends SMController implements Initializable,Init {
         
     }
     
-    private void showEmployer(String username)
+    public void showEmployer(String username)
     {
         
         try {
@@ -589,6 +586,8 @@ public class MainController extends SMController implements Initializable,Init {
                 lastLogged.setText(choosen.getLastLogged());
             else
                 lastLogged.setText(bundle.getString("null_login"));
+            
+            usersCB.getSelectionModel().select(username);
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -1268,7 +1267,6 @@ public class MainController extends SMController implements Initializable,Init {
         deleteEmployer.setOnAction(Action -> {
 
             try {
-                System.out.println(bundle.getString("delete"));
                 User emp = User.getUserByName(usersCB.getSelectionModel().getSelectedItem());
                 confirmDialog(emp, "employer", bundle.getString("delete") + " " + emp.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
             } catch (SQLException ex) {
@@ -1511,24 +1509,13 @@ public class MainController extends SMController implements Initializable,Init {
         
         settingsBtn.setOnMouseClicked((event) -> {
             try {
-                Stage stage = new Stage();
+                ((Node)event.getSource()).getScene().getWindow().hide();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Settings.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
                 SettingsController sControl = (SettingsController)loader.getController();
                 sControl.employer = employer;
-                sControl.setParentController(this);
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-                if(!stage.isShowing()){
-                    bundle = ResourceBundle.getBundle(BUNDLES_PATH, new Locale(getAppLang()[0], getAppLang()[1]));
-                    System.out.println(bundle.getLocale().getLanguage());
-                    getEmployer(employer);
-                    initialize(null, bundle);
-                }
-            } catch (IOException | SQLException ex) {
+                Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
+            } catch (IOException ex) {
                 exceptionLayout(ex);
             }
         });

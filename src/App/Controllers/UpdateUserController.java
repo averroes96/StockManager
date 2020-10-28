@@ -220,18 +220,18 @@ public class UpdateUserController extends SMController implements Initializable,
 
                     customDialog(bundle.getString("user_updated"), bundle.getString("user_updated_msg"), INFO_SMALL, true, saveBtn);                
 
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
-                            AnchorPane root = (AnchorPane)loader.load();
-                            MainController mControl = (MainController)loader.getController();
-                            if(employer.getUsername().equals(selectedEmployer.getUsername())){
-                                mControl.getEmployer(selectedEmployer);
-                            }
-                            else{
-                                mControl.getEmployer(employer);    
-                            }
-                            mControl.returnMenu("employers");
-                            ((Node)event.getSource()).getScene().getWindow().hide();
-                            Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+                    AnchorPane root = (AnchorPane)loader.load();
+                    MainController mControl = (MainController)loader.getController();
+                    if(employer.getUsername().equals(selectedEmployer.getUsername())){
+                        mControl.getEmployer(selectedEmployer);
+                    }
+                    else{
+                        mControl.getEmployer(employer);    
+                    } 
+                    mControl.returnMenu("employers");
+                    ((Node)event.getSource()).getScene().getWindow().hide();
+                    Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
 
                 }
                 catch (IOException | NumberFormatException | SQLException e) {
@@ -281,6 +281,7 @@ public class UpdateUserController extends SMController implements Initializable,
                 MainController mControl = (MainController)loader.getController();
                 mControl.getEmployer(employer);
                 mControl.returnMenu("employers");
+                mControl.showEmployer(selectedEmployer.getUsername());
                 Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
                 
             } catch (IOException ex) {

@@ -42,6 +42,7 @@ package App.Controllers;
 import Include.Common;
 import static Include.Common.getAppLang;
 import Include.Init;
+import static Include.Init.FXMLS_PATH;
 import Include.SMController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -49,6 +50,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,12 +60,16 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -75,20 +81,12 @@ public class SettingsController extends SMController implements Initializable, I
     @FXML private JFXTextField appNameTF;
     @FXML private JFXSlider minQteSlider;
     @FXML private JFXButton saveBtn;
+    @FXML private Button returnBtn;
     @FXML private ChoiceBox<String> languagesCB;
     @FXML private JFXToggleButton animationsTB;
     @FXML private Label minQteValue;
     
-    ObservableList<String> langsList = FXCollections.observableArrayList();
-    MainController parentController;
-
-    public MainController getParentController() {
-        return parentController;
-    }
-
-    public void setParentController(MainController parentController) {
-        this.parentController = parentController;
-    }
+    ObservableList<String> langsList = FXCollections.observableArrayList();   
     
     /**
      * Initializes the controller class.
@@ -101,9 +99,24 @@ public class SettingsController extends SMController implements Initializable, I
         try {
             
             bundle = rb;
+
+            if(bundle.getLocale().getLanguage().equals("ar_DZ"))
+                anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);   
             
             initFields();
             initSlider(minQteSlider, minQteValue);
+            
+            saveBtn.setOnAction((event) -> {
+                updateSettings();
+            });
+            
+            returnBtn.setOnAction(value -> {
+                try {
+                    logOut(value);
+                } catch (IOException ex) {
+                    exceptionLayout(ex, saveBtn);
+                }
+            });
             
         } catch (SQLException ex) {
             exceptionLayout(ex, saveBtn);
@@ -148,9 +161,6 @@ public class SettingsController extends SMController implements Initializable, I
                 break;
         }
         
-        if(currentLang.equals("ar_DZ"))
-            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        
         return currentLang;
         
     }
@@ -169,10 +179,6 @@ public class SettingsController extends SMController implements Initializable, I
         initLanguagesList();
 
         getCurrentLanguage();
-        
-        saveBtn.setOnAction((event) -> {
-            updateSettings();
-        });
         
     }
 
@@ -257,7 +263,12 @@ public class SettingsController extends SMController implements Initializable, I
             defaultBtn.setDefaultButton(true);
             Label label = (Label)layout.getHeading().get(0);
             if(label.getText().equals(bundle.getString("settings_updated"))){
-                saveBtn.getScene().getWindow().hide();
+                try {
+                    saveBtn.getScene().getWindow().hide();
+                    logOut(Action);
+                } catch (IOException ex) {
+                    exceptionLayout(ex, defaultBtn);
+                }
             }
         });
         if(btnIncluded){
@@ -268,5 +279,17 @@ public class SettingsController extends SMController implements Initializable, I
         dialog.show();
         
     }
+    
+    @Override
+    public void logOut(ActionEvent event) throws IOException {
+
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+        AnchorPane root = (AnchorPane)loader.load();
+        MainController mControl = (MainController)loader.getController();
+        mControl.getEmployer(employer);
+        Common.startStage(root,(int)root.getWidth(), (int)root.getHeight());
+            
+    } 
     
 }
