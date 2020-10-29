@@ -68,6 +68,8 @@ public interface Init {
     
     int NOT_ACTIVE = 0;
     
+    final boolean ANIMATIONS = true;
+    
     
 
     

@@ -4,13 +4,17 @@ package Include;
 import Data.User;
 import static Include.Common.initLayout;
 import static Include.Init.ERROR_SMALL;
+import animatefx.animation.AnimationFX;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -19,7 +23,7 @@ import javafx.scene.layout.StackPane;
  *
  * @author user
  */
-public abstract class SMController {
+public abstract class SMController implements Initializable{
     
     @FXML public StackPane stackPane;
     @FXML public JFXDialog dialog;
@@ -27,6 +31,7 @@ public abstract class SMController {
     
     public User employer = new User();
     public ResourceBundle bundle;
+    public boolean isAnimated;
     
     public void loadDialog(JFXDialogLayout layout, boolean btnIncluded, Button defaultBtn){
         
@@ -75,6 +80,22 @@ public abstract class SMController {
 
     public void setBundle(ResourceBundle bundle) {
         this.bundle = bundle;
+    }
+    
+    public void isAnimated() throws SQLException{
+        isAnimated = Common.getSettingValue("animations").equals("true");
+    }
+    
+    public void AnimateNode(AnimationFX afx){
+        
+        if(isAnimated)
+            afx.play();
+        
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+       
     }
     
     

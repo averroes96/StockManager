@@ -22,12 +22,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -78,35 +75,6 @@ public class Common implements Init {
             }
         });
     }
-    
-    public static ObservableList<String> getAllProducts(int all) throws SQLException{
-        
-        ObservableList<String> names = FXCollections.observableArrayList();
-       
-        try (Connection con = getConnection()) {
-            String query = "SELECT name FROM product";
-            
-            if(all == 1){
-                names.add("الكل");
-            }else{
-                query += " WHERE on_hold = 0" ;
-            }
-            
-            Statement st;
-            ResultSet rs;
-            
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-
-                names.add(rs.getString("name"));
-            }
-        }
-        
-        return names;
-        
-    }
    
     public static void initLayout(JFXDialogLayout layout, String header, String body, String icon){
                 
@@ -121,14 +89,16 @@ public class Common implements Init {
     
     public static void animateBtn(JFXButton node){
         
-        AnimationFX btnAnim = new Shake(node);
+        if(Init.ANIMATIONS){
+            AnimationFX btnAnim = new Shake(node);
 
-        node.setOnMouseEntered(value -> {
-            btnAnim.play();
-        });
-        node.setOnMouseExited(value -> {
-            btnAnim.stop();
-        });  
+            node.setOnMouseEntered(value -> {
+                btnAnim.play();
+            });
+            node.setOnMouseExited(value -> {
+                btnAnim.stop();
+            });
+        }
         
     }
     

@@ -11,6 +11,7 @@ import Include.Init;
 import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -47,7 +48,7 @@ public class Main extends Application implements Init {
     }
 
     @Override
-    public void init() throws IOException {
+    public void init() throws IOException, SQLException {
         
         LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(0));
         
@@ -59,7 +60,7 @@ public class Main extends Application implements Init {
         
         if(!directory.exists()){
             directory.mkdir();
-        }      
+        }
 
         LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(100));
         // load all (database start, check update for application, ...and more)

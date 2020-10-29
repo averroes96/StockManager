@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2020 at 11:54 PM
+-- Generation Time: Oct 30, 2020 at 12:51 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -51,6 +51,15 @@ CREATE TABLE `privs` (
   `manage_buys` int(1) NOT NULL DEFAULT 0,
   `manage_sells` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `privs`
+--
+
+INSERT INTO `privs` (`user_id`, `manage_products`, `manage_users`, `manage_buys`, `manage_sells`) VALUES
+(1, 1, 1, 1, 1),
+(5, 1, 0, 1, 1),
+(14, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -141,8 +150,8 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`setting_id`, `setting_name`, `setting_value`) VALUES
 (3, 'animations', 'true'),
-(4, 'app_name', 'H.S.Fashion'),
-(5, 'app_language', 'ar_DZ'),
+(4, 'app_name', 'Inventory'),
+(5, 'app_language', 'en_DZ'),
 (6, 'min_qte', '10');
 
 -- --------------------------------------------------------
@@ -168,15 +177,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `fullname`, `telephone`, `admin`, `active`, `username`, `password`, `last_logged_in`, `image`) VALUES
-(1, 'admin account', '0553538880', 1, 1, 'admin', 'password', '2020-09-27 23:47:42', 'C:/gdp-uploads/2020-9-10-05-14-55.jpg'),
-(4, 'test', '0555555555', 0, 0, 'testing2', 'testtest', NULL, NULL),
-(5, 'adda', '0553792748', 0, 0, 'averroes96', 'password', '2020-09-12 19:41:59', 'C:/gdp-uploads/2020-3-14-10-52-17.jpg'),
-(8, 'أبيقور', '', 0, 1, 'epicurus', 'password', NULL, 'C:/gdp-uploads/2020-2-8-02-59-02.jpg'),
-(9, 'user one', '', 0, 0, 'user_one', 'password', NULL, ''),
-(10, 'user two', '', 0, 0, 'user2', 'password', NULL, NULL),
-(11, 'user host', '0666666666', 0, 0, 'userHost', '321321321', NULL, 'C:/gdp-uploads/2020-2-13-04-35-01.jpg'),
-(12, 'brain', '0556565875', 1, 1, 'brainy', 'password', NULL, 'C:/gdp-uploads/2020-9-12-06-39-16.jpg'),
-(13, 'illuminati', '0666666666', 1, 1, 'illuminati', 'password', '2020-09-12 19:14:23', 'C:/gdp-uploads/2020-9-12-07-13-55.png');
+(1, 'admin account', '0553538880', 1, 1, 'admin', 'password', '2020-10-30 00:47:45', 'C:/gdp-uploads/2020-10-26-06-25-22.png'),
+(5, 'ada meceffeuk', '0553792748', 0, 1, 'averroes96', 'password', '2020-09-12 19:41:59', 'C:/gdp-uploads/2020-3-14-10-52-17.jpg'),
+(14, 'illuminati', '0666666666', 0, 1, 'illuminati', 'illuminati', NULL, 'C:/gdp-uploads/2020-10-15-08-30-29.png');
 
 --
 -- Indexes for dumped tables
@@ -276,7 +279,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

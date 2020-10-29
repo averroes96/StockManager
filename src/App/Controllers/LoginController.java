@@ -12,8 +12,6 @@ import static Include.Common.startStage;
 import static Include.Common.updateLastLogged;
 import Include.Init;
 import Include.SMController;
-import animatefx.animation.AnimationFX;
-import animatefx.animation.Shake;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -126,20 +124,20 @@ public class LoginController extends SMController implements Initializable,Init 
     @FXML
     public void login(ActionEvent event) throws IOException, SQLException{
         
-            if(exists(username.getText().trim(),password.getText().trim())){
-                
-                updateLastLogged(username.getText().trim());                
-                ((Node)event.getSource()).getScene().getWindow().hide();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
-                AnchorPane root = (AnchorPane)loader.load();
-                MainController mControl = (MainController)loader.getController();
-                mControl.getEmployer(getUser(username.getText(), password.getText()));
-                startStage(root, 1000, 700);
-                
-            }
-            else{
-                customDialog(bundle.getString("user_info"), bundle.getString("user_info_msg"), ERROR_SMALL, true, loginButton);                                        
-            }
+        if(exists(username.getText().trim(),password.getText().trim())){
+
+            updateLastLogged(username.getText().trim());                
+            ((Node)event.getSource()).getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+            AnchorPane root = (AnchorPane)loader.load();
+            MainController mControl = (MainController)loader.getController();
+            mControl.getEmployer(getUser(username.getText(), password.getText()));
+            startStage(root, 1000, 700);
+
+        }
+        else{
+            customDialog(bundle.getString("user_info"), bundle.getString("user_info_msg"), ERROR_SMALL, true, loginButton);                                        
+        }
 
     }
     
@@ -150,30 +148,23 @@ public class LoginController extends SMController implements Initializable,Init 
         try {
             bundle = rb;
             
-            new ZoomIn(usernameHB).play();
-            new ZoomIn(passwordHB).play();
-            new ZoomIn(loginButton).play();
-            new ZoomIn(title).play();
+            isAnimated();
+            
+            AnimateNode(new ZoomIn(usernameHB));
+            AnimateNode(new ZoomIn(passwordHB));
+            AnimateNode(new ZoomIn(loginButton));
+            AnimateNode(new ZoomIn(title));
             
             title.setText(getSettingValue("app_name"));
             if(bundle.getLocale().getLanguage().equals("ar"))
                 anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            
-            AnimationFX loginBtnAnim = new Shake(loginButton);
-            
+                        
             loginButton.setOnAction(Action ->{
                 try {
                     login(Action);
                 } catch (IOException | SQLException ex) {
                     customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, loginButton);
                 }
-            });
-            
-            loginButton.setOnMouseEntered(value -> {
-                loginBtnAnim.play();
-            });
-            loginButton.setOnMouseExited(value -> {
-                loginBtnAnim.stop();
             });
             
         } catch (SQLException ex) {
