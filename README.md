@@ -3,19 +3,20 @@ This is JavaFX inventory manager app.
 
 ## Features:
 - [x] Consult/Add/Update/Delete products.
-- [x] Retreive deleted products.
-- [x] Follow all the updates done on products.
+- [x] Retreive freezed products.
+- [x] Follow all the updates done by users on products.
 - [x] Consult/Add/Update/Delete users and admins.
 - [x] Retreive deleted users.
-- [x] Check users last sign in.
+- [x] Check users information.
 - [x] Consult/Add/Update/Delete sells and buys.
-- [x] Filter sells and buys by date.
+- [x] Filter sells and buys by date and product name.
 - [x] Get the day outcome from sells and buys.
 - [x] Get stats about sells/buys with charts and filtering option.
 - [x] Print the list of products/users.
 - [x] Print the day's list of sells/buys.
 - [x] Print sell/buy information
-- [x] Print any bill of selected buys/sells
+- [x] Print any bill of any selected buys/sells
+- [x] Supports English and Arabic languages
 
 ## IDE
 [Netbeans](https://netbeans.org/)
