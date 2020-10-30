@@ -150,10 +150,10 @@ public class LoginController extends SMController implements Initializable,Init 
             
             isAnimated();
             
-            AnimateNode(new ZoomIn(usernameHB));
-            AnimateNode(new ZoomIn(passwordHB));
-            AnimateNode(new ZoomIn(loginButton));
-            AnimateNode(new ZoomIn(title));
+            animateNode(new ZoomIn(usernameHB));
+            animateNode(new ZoomIn(passwordHB));
+            animateNode(new ZoomIn(loginButton));
+            animateNode(new ZoomIn(title));
             
             title.setText(getSettingValue("app_name"));
             if(bundle.getLocale().getLanguage().equals("ar"))

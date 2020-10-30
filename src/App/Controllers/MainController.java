@@ -484,10 +484,8 @@ public class MainController extends SMController implements Initializable,Init {
     
     private void showProduct(int index)
     {
-        
-        
-        
-        new FadeIn(productHB).play();
+                
+        animateNode(new FadeIn(productHB));
         refField.setText(data.get(index).getName());
         quantityField.setText(String.valueOf(data.get(index).getProdQuantity()));
         dateField.getEditor().setText(data.get(index).getAddDate());
@@ -517,8 +515,8 @@ public class MainController extends SMController implements Initializable,Init {
     {
         
         try {
-            new ZoomOut(infoContainer).play();
-            new ZoomIn(infoContainer).play();
+            animateNode(new ZoomOut(infoContainer));
+            animateNode(new ZoomIn(infoContainer));
             User choosen = User.getUserByName(username);
             if(choosen != null){
                 fullnameLabel.setText(choosen.getFullname());
@@ -672,11 +670,11 @@ public class MainController extends SMController implements Initializable,Init {
     public void getSellStats(String selectedDate){
         
         try {
-            new FadeIn(revQte).play();
-            new FadeIn(revSum).play();
-            new FadeIn(revTotal).play();
+            animateNode(new FadeIn(revQte));
+            animateNode(new FadeIn(revSum));
+            animateNode(new FadeIn(revTotal));
             
-            new FadeIn(sellsTable).play();
+            animateNode(new FadeIn(sellsTable));
             
             ResultSet rs = Sell.getTodayStats(selectedDate);
 
@@ -698,11 +696,11 @@ public class MainController extends SMController implements Initializable,Init {
     public void getBuyStats(String selectedDate){
                 
         try {
-            new FadeIn(buyDayQte).play();
-            new FadeIn(buyDaySum).play();
-            new FadeIn(buyDayTotal).play();
+            animateNode(new FadeIn(buyDayQte));
+            animateNode(new FadeIn(buyDaySum));
+            animateNode(new FadeIn(buyDayTotal));
             
-            new FadeIn(buysTable).play();
+            animateNode(new FadeIn(buysTable));
             
             ResultSet rs = Buy.getTodayStats(selectedDate);
             
@@ -1040,7 +1038,7 @@ public class MainController extends SMController implements Initializable,Init {
         bundle = rb;
         
         try {
-            MIN_QUANTITY = Integer.parseInt(Common.getSettingValue("min_qte"));
+            isAnimated();
         } catch (SQLException ex) {
             exceptionLayout(ex);
         }
@@ -1535,9 +1533,9 @@ public class MainController extends SMController implements Initializable,Init {
         
         if(event.getTarget() == btn_products){
             if(!products.isVisible()){
-                new Tada(btn_products).play();
+                animateNode(new Tada(btn_products));
                 products.setVisible(true);
-                new FlipInY(products).play();
+                animateNode(new FlipInY(products));
                 btn_products.setEffect(new Glow());
                 sells.setVisible(false);
                 btn_sells.setEffect(null);
@@ -1550,11 +1548,11 @@ public class MainController extends SMController implements Initializable,Init {
         }
         else if(event.getTarget() == btn_sells){
             if(!sells.isVisible()){
-                new Tada(btn_sells).play();
+                animateNode(new Tada(btn_sells));
                 products.setVisible(false);
                 btn_products.setEffect(null);
                 sells.setVisible(true);
-                new FlipInY(sells).play();
+                animateNode(new FlipInY(sells));
                 btn_sells.setEffect(new Glow());
                 employers.setVisible(false);
                 btn_employers.setEffect(null);
@@ -1564,13 +1562,13 @@ public class MainController extends SMController implements Initializable,Init {
         }
         else if(event.getTarget() == btn_employers){
             if(!employers.isVisible()){
-                new Tada(btn_employers).play();
+                animateNode(new Tada(btn_employers));
                 products.setVisible(false);
                 btn_products.setEffect(null);
                 sells.setVisible(false);
                 btn_sells.setEffect(null);
                 employers.setVisible(true);
-                new FlipInY(employers).play();
+                animateNode(new FlipInY(employers));
                 btn_employers.setEffect(new Glow());
                 buys.setVisible(false);
                 btn_buys.setEffect(null);
@@ -1579,13 +1577,13 @@ public class MainController extends SMController implements Initializable,Init {
         }
         else if(event.getTarget() == btn_buys){
             if(!buys.isVisible()){
-                new Tada(btn_buys).play();
+                animateNode(new Tada(btn_buys));
                 products.setVisible(false);
                 btn_products.setEffect(null);
                 sells.setVisible(false);
                 btn_sells.setEffect(null);
                 buys.setVisible(true);
-                new FlipInY(buys).play();
+                animateNode(new FlipInY(buys));
                 btn_buys.setEffect(new Glow());
                 employers.setVisible(false);
                 btn_employers.setEffect(null);

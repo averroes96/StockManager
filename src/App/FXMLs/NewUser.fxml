@@ -163,42 +163,47 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox fx:id="privs" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="128.0" prefWidth="651.0">
+            <HBox alignment="CENTER" prefHeight="128.0" prefWidth="568.0" spacing="16.0">
                <children>
-                  <JFXToggleButton fx:id="admin" focusTraversable="false" prefHeight="42.0" prefWidth="120.0" text="%admin" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#dddddd" unToggleColor="#999999" unToggleLineColor="#dddddd">
+                  <JFXToggleButton fx:id="admin" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="120.0" text="%admin" textFill="#3d4956" toggleColor="TOMATO" toggleLineColor="#dddddd" unToggleColor="#999999" unToggleLineColor="#dddddd" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXToggleButton>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="privs" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="384.0">
                      <children>
-                        <JFXCheckBox fx:id="products" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="130.0" text="%product_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXCheckBox>
-                        <JFXCheckBox fx:id="users" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="130.0" text="%user_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXCheckBox>
-                        <JFXCheckBox fx:id="buys" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="130.0" text="%buy_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXCheckBox>
-                        <JFXCheckBox fx:id="sells" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" prefHeight="30.0" prefWidth="130.0" text="%sell_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXCheckBox>
+                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <JFXCheckBox fx:id="products" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="256.0" text="%product_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </JFXCheckBox>
+                              <JFXCheckBox fx:id="users" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="256.0" text="%user_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </JFXCheckBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="70.0" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="200.0">
+                           <children>
+                              <JFXCheckBox fx:id="buys" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="256.0" text="%buy_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </JFXCheckBox>
+                              <JFXCheckBox fx:id="sells" checkedColor="TOMATO" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="256.0" text="%sell_management" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </JFXCheckBox>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </VBox>
+            </HBox>
             <JFXButton fx:id="saveBtn" alignment="CENTER" buttonType="RAISED" defaultButton="true" prefHeight="50.0" prefWidth="192.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -215,7 +220,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <VBox.margin>
-                  <Insets top="16.0" />
+                  <Insets top="32.0" />
                </VBox.margin>         
             </JFXButton>
          </children>

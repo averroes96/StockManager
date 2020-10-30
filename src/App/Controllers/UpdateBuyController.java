@@ -14,9 +14,8 @@ import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
 import static Include.Common.getDate;
-import Include.SMController;
 import Include.Init;
-import animatefx.animation.Swing;
+import Include.SMController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
@@ -199,6 +198,12 @@ public class UpdateBuyController extends SMController implements Initializable,I
         
         bundle = rb;
         
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveBtn);
+        }        
+        
         getAllProducts();
                
         productCB.setItems(prodList);
@@ -221,10 +226,6 @@ public class UpdateBuyController extends SMController implements Initializable,I
 
         AnimateField(price,priceStatus,"^[1-9]?[0-9]{1,7}$");
         AnimateField(quantity,qteStatus,"^[1-9]?[0-9]{1,7}$");
-
-        date.setOnAction(value -> {
-            new Swing(date).play();
-        });
         
         Common.controlDigitField(price);
         Common.controlDigitField(quantity);

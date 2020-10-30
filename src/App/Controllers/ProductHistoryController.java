@@ -118,10 +118,10 @@ public class ProductHistoryController extends SMController implements Initializa
     
     public void setValues(ProdHistory selected){
         
-        new ZoomIn(nameVB).play();
-        new ZoomIn(dateVB).play();
-        new ZoomIn(priceVB).play();
-        new ZoomIn(qteVB).play();
+        animateNode(new ZoomIn(nameVB));
+        animateNode(new ZoomIn(dateVB));
+        animateNode(new ZoomIn(priceVB));
+        animateNode(new ZoomIn(qteVB));
         
         oldName.setText(selected.getOldName());
         oldPrice.setText(String.valueOf(selected.getOldPrice()));
@@ -191,6 +191,7 @@ public class ProductHistoryController extends SMController implements Initializa
         try {
             nameList = Product.getActiveProductNames();
             nameList.add(0, bundle.getString("all"));
+            isAnimated();
         } catch (SQLException ex) {
             exceptionLayout(ex, search);
         }
@@ -217,7 +218,7 @@ public class ProductHistoryController extends SMController implements Initializa
         
         search.setOnAction(Action ->{
             
-            new ZoomIn(historyTable).play();
+            animateNode(new ZoomIn(historyTable));
 
             if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
                 

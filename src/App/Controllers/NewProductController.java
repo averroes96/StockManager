@@ -219,6 +219,12 @@ public class NewProductController extends SMController implements Initializable,
         
         bundle = rb;
         
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addProduct);
+        }
+        
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
@@ -240,14 +246,7 @@ public class NewProductController extends SMController implements Initializable,
         AnimateField(qteField,qteStatus,"^[1-9]?[0-9]{1,7}$");
         
         controlDigitField(qteField);
-        controlDigitField(sellField);
-        
-        addProduct.setOnMouseEntered(value -> {
-            addBtnAnim.play();
-        });
-        addProduct.setOnMouseExited(value -> {
-            addBtnAnim.stop();
-        });        
+        controlDigitField(sellField);        
         
     }    
     

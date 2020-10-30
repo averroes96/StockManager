@@ -132,7 +132,7 @@ public class UpdateUserController extends SMController implements Initializable,
                 userIV.setFill(new ImagePattern(new Image(
                         selectedFile.toURI().toString(),
                         userIV.getCenterX(), userIV.getCenterY(), false, false)));
-                new BounceIn(userIV).play(); 
+                animateNode(new BounceIn(userIV)); 
 
             }
             catch (IOException ex) {
@@ -249,6 +249,12 @@ public class UpdateUserController extends SMController implements Initializable,
         
         bundle = rb;
         
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveBtn);
+        }        
+        
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);        
         
@@ -302,19 +308,19 @@ public class UpdateUserController extends SMController implements Initializable,
 
                 products.setSelected(true);
                 products.setDisable(true);
-                new Tada(products).play();
+                animateNode(new Tada(products));
 
                 users.setSelected(true);
                 users.setDisable(true);
-                new Tada(users).play();
+                animateNode(new Tada(users));
 
                 sells.setSelected(true);
                 sells.setDisable(true);
-                new Tada(sells).play();
+                animateNode(new Tada(sells));
 
                 buys.setSelected(true);
                 buys.setDisable(true);
-                new Tada(buys).play();
+                animateNode(new Tada(buys));
 
             }
             else{

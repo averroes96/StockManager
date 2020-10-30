@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -70,86 +72,92 @@ public class BuyStatsController extends SMController implements Initializable,In
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        bundle = rb;
-        
-        if(bundle.getLocale().getLanguage().equals("ar"))
-            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT); 
-
-        initTable();
-
-        startDate.setConverter(dateFormatter());
-        endDate.setConverter(dateFormatter());
-        startDate.getEditor().setText(String.valueOf(LocalDate.now().minusWeeks(1)));
-        endDate.getEditor().setText(String.valueOf(LocalDate.now()));
-        startDate.setValue(LocalDate.now().minusWeeks(1));
-        endDate.setValue(LocalDate.now());
-
-        prodField.setItems(nameList);
-        prodField.getSelectionModel().selectFirst();
-
-        getData(bundle.getString("all"), startDate.getEditor().getText(), endDate.getEditor().getText());
-
-        search.setOnAction(Action -> {
+        try {
+            bundle = rb;
             
-            new ZoomOut(filterPane).play();
-            filterPane.setVisible(false);
-            dialog2.close();
+            isAnimated();
             
-            if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+            if(bundle.getLocale().getLanguage().equals("ar"))
+                anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            
+            initTable();
+            
+            startDate.setConverter(dateFormatter());
+            endDate.setConverter(dateFormatter());
+            startDate.getEditor().setText(String.valueOf(LocalDate.now().minusWeeks(1)));
+            endDate.getEditor().setText(String.valueOf(LocalDate.now()));
+            startDate.setValue(LocalDate.now().minusWeeks(1));
+            endDate.setValue(LocalDate.now());
+            
+            prodField.setItems(nameList);
+            prodField.getSelectionModel().selectFirst();
+            
+            getData(bundle.getString("all"), startDate.getEditor().getText(), endDate.getEditor().getText());
+            
+            search.setOnAction(Action -> {
                 
-                int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
+                animateNode(new ZoomOut(filterPane));
+                filterPane.setVisible(false);
+                dialog2.close();
                 
-                if(startDate.getValue().compareTo(LocalDate.now()) <= 0  || endDate.getValue().compareTo(LocalDate.now()) <= 0){
-
-                    if(endDate.getValue().equals(LocalDate.now())){
-                        switch(interv){
-                            case 0:
-                                interval.setText(bundle.getString("last_day_buys"));
-                                break;
-                            case 7:
-                                interval.setText(bundle.getString("last_week_buys"));
-                                break;
-                            case 30:
-                                interval.setText(bundle.getString("last_month_buys"));
-                                break;
-                            case 365:
-                                interval.setText(bundle.getString("last_year_buys"));
-                                break;
-                            default:
-                                interval.setText(bundle.getString("buys_of_last") + interv + " " + bundle.getString("day"));
-                                break;
+                if(endDate.getValue().compareTo(startDate.getValue()) >= 0){
+                    
+                    int interv = endDate.getValue().getDayOfYear() - startDate.getValue().getDayOfYear();
+                    
+                    if(startDate.getValue().compareTo(LocalDate.now()) <= 0  || endDate.getValue().compareTo(LocalDate.now()) <= 0){
+                        
+                        if(endDate.getValue().equals(LocalDate.now())){
+                            switch(interv){
+                                case 0:
+                                    interval.setText(bundle.getString("last_day_buys"));
+                                    break;
+                                case 7:
+                                    interval.setText(bundle.getString("last_week_buys"));
+                                    break;
+                                case 30:
+                                    interval.setText(bundle.getString("last_month_buys"));
+                                    break;
+                                case 365:
+                                    interval.setText(bundle.getString("last_year_buys"));
+                                    break;
+                                default:
+                                    interval.setText(bundle.getString("buys_of_last") + interv + " " + bundle.getString("day"));
+                                    break;
+                            }
                         }
+                        else{
+                            interval.setText(bundle.getString("buys") + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                        }
+                        
                     }
                     else{
-                        interval.setText(bundle.getString("buys") + startDate.getValue().toString() + "  -----  " + endDate.getValue().toString());
+                        customDialog(bundle.getString("invalid_interval"), bundle.getString("invalid_interval_msg"), INFO_SMALL, true, search);
                     }
 
+                    buysTable.getItems().clear();
+                    getData(prodField.getValue(),startDate.getEditor().getText(),endDate.getEditor().getText());
+                    
                 }
-                else{
-                    customDialog(bundle.getString("invalid_interval"), bundle.getString("invalid_interval_msg"), INFO_SMALL, true, search);
+                else {
+                    customDialog(bundle.getString("illegal_interval"), bundle.getString("illegal_interval_msg") , INFO_SMALL, true);
                 }
-
-                buysTable.getItems().clear();
-                getData(prodField.getValue(),startDate.getEditor().getText(),endDate.getEditor().getText());
-
-            }
-            else {
-                customDialog(bundle.getString("illegal_interval"), bundle.getString("illegal_interval_msg") , INFO_SMALL, true);
-            }
-
-        });
-        
-        filterSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            search(filterSearch, buysList, buysTable);
-        });
-        
-        filterIV.setOnMouseClicked(value -> {
-            filterDialog();
-        });
-        
-        dialog2.overlayCloseProperty().addListener((observable) -> {
-            filterPane.setVisible(false);
-        });
+                
+            });
+            
+            filterSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+                search(filterSearch, buysList, buysTable);
+            });
+            
+            filterIV.setOnMouseClicked(value -> {
+                filterDialog();
+            });
+            
+            dialog2.overlayCloseProperty().addListener((observable) -> {
+                filterPane.setVisible(false);
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(BuyStatsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void initTable() {

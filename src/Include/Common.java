@@ -9,7 +9,6 @@ import Data.Product;
 import Data.Sell;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
@@ -84,21 +83,6 @@ public class Common implements Init {
         label.graphicProperty().setValue(imageView);
         layout.setHeading(label);
         layout.setBody(new Text(body));        
-        
-    }
-    
-    public static void animateBtn(JFXButton node){
-        
-        if(Init.ANIMATIONS){
-            AnimationFX btnAnim = new Shake(node);
-
-            node.setOnMouseEntered(value -> {
-                btnAnim.play();
-            });
-            node.setOnMouseExited(value -> {
-                btnAnim.stop();
-            });
-        }
         
     }
     

@@ -9,7 +9,6 @@ import Data.Product;
 import Data.Sell;
 import Data.User;
 import Include.Common;
-import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.initLayout;
@@ -315,7 +314,6 @@ public class NewSellController extends SMController implements Initializable,Ini
             controlDigitField(priceField);
             controlDigitField(qteField);
             
-            animateBtn(addSell);
         } catch (SQLException ex) {
             exceptionLayout(ex, addSell);
         }

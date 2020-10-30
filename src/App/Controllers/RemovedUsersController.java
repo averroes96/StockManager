@@ -158,7 +158,7 @@ public class RemovedUsersController extends SMController implements Initializabl
                         reassign.setOnAction(event -> {
                             User selected = getTableView().getItems().get(getIndex());
                             restore(selected);
-                            new FlipInX(exTable).play();
+                            animateNode(new FlipInX(exTable));
                         });
                         reassign.setStyle("-fx-background-color : #3d4956; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
                         setGraphic(reassign);
@@ -235,6 +235,12 @@ public class RemovedUsersController extends SMController implements Initializabl
     public void initialize(URL url, ResourceBundle rb) {
         
         bundle = rb;
+        
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, returnBtn);
+        }
         
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);

@@ -217,6 +217,12 @@ public class SellStatsController extends SMController implements Initializable,I
         
         bundle = rb;
         
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, search);
+        }
+        
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                 
@@ -308,7 +314,7 @@ public class SellStatsController extends SMController implements Initializable,I
         
         filterBtn.setOnMouseClicked(value -> {
             filterPane.setVisible(true);
-            new ZoomIn(filterPane).play();
+            animateNode(new ZoomIn(filterPane));
         });        
     }
     

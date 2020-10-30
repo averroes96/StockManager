@@ -86,7 +86,7 @@ public abstract class SMController implements Initializable{
         isAnimated = Common.getSettingValue("animations").equals("true");
     }
     
-    public void AnimateNode(AnimationFX afx){
+    public void animateNode(AnimationFX afx){
         
         if(isAnimated)
             afx.play();

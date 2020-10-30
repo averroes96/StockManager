@@ -7,7 +7,6 @@ package App.Controllers;
 
 import Data.User;
 import static Include.Common.AnimateField;
-import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import static Include.Common.saveSelectedImage;
@@ -82,7 +81,7 @@ public class NewUserController extends SMController implements Initializable,Ini
                 userIV.setFill(new ImagePattern(new Image(
                         selectedFile.toURI().toString(),
                         userIV.getCenterX(), userIV.getCenterY(), false, false)));
-                new BounceIn(userIV).play();                
+                animateNode(new BounceIn(userIV));                
             }
             catch (Exception e) {
                 exceptionLayout(e, saveBtn);
@@ -249,6 +248,12 @@ public class NewUserController extends SMController implements Initializable,Ini
         
         bundle = rb;
         
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, saveBtn);
+        }
+        
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
@@ -283,9 +288,7 @@ public class NewUserController extends SMController implements Initializable,Ini
             
         AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
         AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
-        
-        animateBtn(saveBtn);
-        
+                
         controlDigitField(phone);
         
     }    
@@ -296,19 +299,19 @@ public class NewUserController extends SMController implements Initializable,Ini
 
                 products.setSelected(true);
                 products.setDisable(true);
-                new Tada(products).play();
+                animateNode(new Tada(products));
 
                 users.setSelected(true);
                 users.setDisable(true);
-                new Tada(users).play();
+                animateNode(new Tada(users));
 
                 sells.setSelected(true);
                 sells.setDisable(true);
-                new Tada(sells).play();
+                animateNode(new Tada(sells));
 
                 buys.setSelected(true);
                 buys.setDisable(true);
-                new Tada(buys).play();
+                animateNode(new Tada(buys));
 
             }
             else{

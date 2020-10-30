@@ -9,7 +9,6 @@ import Data.Buy;
 import Data.Product;
 import Data.User;
 import Include.Common;
-import static Include.Common.animateBtn;
 import static Include.Common.controlDigitField;
 import static Include.Common.getConnection;
 import Include.Init;
@@ -143,7 +142,7 @@ public class NewBuyController extends SMController implements Initializable,Init
                 
                 resetWindow();
 
-                new Pulse(buysTable).play();
+                animateNode(new Pulse(buysTable));
                 
                 customDialog(bundle.getString("buy_added"), bundle.getString("buy_added_msg"), INFO_SMALL, true, addQteBtn);
 
@@ -189,6 +188,11 @@ public class NewBuyController extends SMController implements Initializable,Init
         
         bundle = rb;
         
+        try {
+            isAnimated();
+        } catch (SQLException ex) {
+            exceptionLayout(ex, addQteBtn);
+        }
             
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);         
@@ -243,7 +247,6 @@ public class NewBuyController extends SMController implements Initializable,Init
         controlDigitField(priceField);
         controlDigitField(qteField);
                 
-        animateBtn(addQteBtn);
     }    
 
     @Override
@@ -318,7 +321,7 @@ public class NewBuyController extends SMController implements Initializable,Init
                         delete.setOnAction(event -> {
                             Buy buy = getTableView().getItems().get(getIndex());
                             deleteBuy(buy);
-                            new Pulse(buysTable).play();
+                            animateNode(new Pulse(buysTable));
                         });
                         delete.setGraphic(new ImageView(new Image(IMAGES_PATH + "small/trash_small_white.png", 24, 24, false, false)));
                         delete.setStyle("-fx-background-color : red; -fx-text-fill: white; -fx-background-radius: 30;fx-background-insets: 0; -fx-cursor: hand;");                    
