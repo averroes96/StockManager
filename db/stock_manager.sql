@@ -177,9 +177,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `fullname`, `telephone`, `admin`, `active`, `username`, `password`, `last_logged_in`, `image`) VALUES
-(1, 'admin account', '0553538880', 1, 1, 'admin', 'password', '2020-10-30 00:47:45', 'C:/gdp-uploads/2020-10-26-06-25-22.png'),
-(5, 'ada meceffeuk', '0553792748', 0, 1, 'averroes96', 'password', '2020-09-12 19:41:59', 'C:/gdp-uploads/2020-3-14-10-52-17.jpg'),
-(14, 'illuminati', '0666666666', 0, 1, 'illuminati', 'illuminati', NULL, 'C:/gdp-uploads/2020-10-15-08-30-29.png');
+(1, 'admin account', '0553538880', 1, 1, 'admin', 'password', '2020-10-30 00:47:45', '');
 
 --
 -- Indexes for dumped tables
