@@ -286,8 +286,8 @@ public class NewUserController extends SMController implements Initializable,Ini
         });
          
             
-        AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
-        AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
+        AnimateField(fullname, fullnameStatus, "^[\\p{L} .'-]+$", isAnimated);
+        AnimateField(phone, phoneStatus, "^[5-7]?[0-9]{10}$", isAnimated);
                 
         controlDigitField(phone);
         

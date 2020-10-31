@@ -242,8 +242,8 @@ public class NewProductController extends SMController implements Initializable,
             insertProduct();
         });
         
-        AnimateField(sellField,sellStatus,"^[1-9]?[0-9]{1,7}$");
-        AnimateField(qteField,qteStatus,"^[1-9]?[0-9]{1,7}$");
+        AnimateField(sellField, sellStatus, "^[1-9]?[0-9]{1,7}$", isAnimated);
+        AnimateField(qteField, qteStatus, "^[1-9]?[0-9]{1,7}$", isAnimated);
         
         controlDigitField(qteField);
         controlDigitField(sellField);        

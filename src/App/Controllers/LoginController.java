@@ -9,7 +9,6 @@ import Data.User;
 import static Include.Common.getConnection;
 import static Include.Common.getSettingValue;
 import static Include.Common.startStage;
-import static Include.Common.updateLastLogged;
 import Include.Init;
 import Include.SMController;
 import animatefx.animation.ZoomIn;
@@ -46,49 +45,7 @@ public class LoginController extends SMController implements Initializable,Init 
     @FXML private Label title;
     @FXML private HBox usernameHB, passwordHB;
 
-    public User getUser(String username, String password)
-    {
-        try {
-            
-            try (Connection con = getConnection()) {
-                String query = "SELECT * FROM user INNER JOIN privs ON user.user_id = privs.user_id WHERE username = ? AND password = ?";
-                
-                PreparedStatement ps;
-                ResultSet rs;
-                
-                ps = con.prepareStatement(query);
-                ps.setString(1, username);
-                ps.setString(2, password);
-                
-                rs = ps.executeQuery();
-                               
-                User emp = new User();
-                
-                while (rs.next()) {
-                                        
-                    emp.setUserID(rs.getInt("user_id"));
-                    emp.setFullname(rs.getString("fullname"));
-                    emp.setAdmin(rs.getInt("admin"));
-                    emp.setBuyPrivs(rs.getInt("manage_buys"));
-                    emp.setProdPrivs(rs.getInt("manage_products"));
-                    emp.setSellPrivs(rs.getInt("manage_sells"));
-                    emp.setUserPrivs(rs.getInt("manage_users"));
-                    emp.setPassword(password);
-                    emp.setUsername(username);
-                    
-                    return emp;
-                }
-            }
-        }
-        catch (SQLException e) {
-            try {
-                Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqld.exe"); 
-            } catch (IOException ex) {
-                exceptionLayout(e, loginButton);
-            }
-        }
-        return null;
-    }    
+   
     
     
     public boolean exists(String username, String password) throws SQLException{
@@ -125,13 +82,14 @@ public class LoginController extends SMController implements Initializable,Init 
     public void login(ActionEvent event) throws IOException, SQLException{
         
         if(exists(username.getText().trim(),password.getText().trim())){
-
-            updateLastLogged(username.getText().trim());                
+            
+            User user = User.get(username.getText(), password.getText());
+            user.updateLastLogged();                
             ((Node)event.getSource()).getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
             AnchorPane root = (AnchorPane)loader.load();
             MainController mControl = (MainController)loader.getController();
-            mControl.getEmployer(getUser(username.getText(), password.getText()));
+            mControl.getEmployer(user);
             startStage(root, 1000, 700);
 
         }

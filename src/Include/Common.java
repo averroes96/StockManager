@@ -327,27 +327,6 @@ public class Common implements Init {
     return null;
     
     }    
-        
-    public static void updateLastLogged(String username) throws SQLException{
-        
-            String query = "UPDATE user SET last_logged_in = ? WHERE username = ?" ;
-            
-            try (Connection con = getConnection()) {
-                PreparedStatement ps = con.prepareStatement(query);
-                
-                java.util.Date date = new java.util.Date();
-                
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATETIME_FORMAT);
-                
-                String sqlDate = sdf.format(date);
-                
-                ps.setString(1, sqlDate);
-                ps.setString(2, username);
-                
-                ps.executeUpdate();
-            }
-        
-    }
     
     public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause, String ordering) throws SQLException{
         
@@ -362,50 +341,51 @@ public class Common implements Init {
 
     }
     
-    public static void AnimateField(JFXTextField field, Label status, String formula){
+    public static void AnimateField(JFXTextField field, Label status, String formula, boolean isAnimated){
         
-        AnimationFX animField = new Shake(field);
-        animField.setResetOnFinished(true);
-        
-        field.setOnKeyPressed(Action -> {
-            
-        if (!field.getText().matches(formula)) {
-            status.setVisible(true);
-            field.setFocusColor(Color.RED);
-            animField.play();
+        if(isAnimated){
+            AnimationFX animField = new Shake(field);
+            animField.setResetOnFinished(true);
+
+            field.setOnKeyPressed(Action -> {
+
+            if (!field.getText().matches(formula)) {
+                status.setVisible(true);
+                field.setFocusColor(Color.RED);
+                animField.play();
+            }
+            else{
+                status.setVisible(false);
+                field.setFocusColor(Color.GREEN);
+            }
+
+            });
+            field.setOnKeyTyped(Action -> {
+
+            if (!field.getText().matches(formula)) {
+                status.setVisible(true);
+                field.setFocusColor(Color.RED);
+                animField.play();
+            }
+            else{
+                status.setVisible(false);
+                field.setFocusColor(Color.GREEN);
+            }        
+
+            });
+            field.setOnKeyReleased(Action -> {
+
+            if (!field.getText().matches(formula)) {
+                status.setVisible(true);
+                field.setFocusColor(Color.RED);
+                animField.play();
+            }        
+            else{
+                status.setVisible(false);
+                field.setFocusColor(Color.GREEN);
+            }            
+            });
         }
-        else{
-            status.setVisible(false);
-            field.setFocusColor(Color.GREEN);
-        }
-            
-        });
-        field.setOnKeyTyped(Action -> {
-            
-        if (!field.getText().matches(formula)) {
-            status.setVisible(true);
-            field.setFocusColor(Color.RED);
-            animField.play();
-        }
-        else{
-            status.setVisible(false);
-            field.setFocusColor(Color.GREEN);
-        }        
-            
-        });
-        field.setOnKeyReleased(Action -> {
-            
-        if (!field.getText().matches(formula)) {
-            status.setVisible(true);
-            field.setFocusColor(Color.RED);
-            animField.play();
-        }        
-        else{
-            status.setVisible(false);
-            field.setFocusColor(Color.GREEN);
-        }            
-        });
-        
     }
     
     public static void startStage(Parent root, int minWidth, int minHeight){

@@ -7,6 +7,7 @@ package Data;
 
 import static Include.Common.getAllFrom;
 import static Include.Common.getConnection;
+import static Include.Init.DATETIME_FORMAT;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -251,6 +252,27 @@ public class User {
         
     }
     
+    public void updateLastLogged() throws SQLException{
+        
+            String query = "UPDATE user SET last_logged_in = ? WHERE username = ?" ;
+            
+            try (Connection con = getConnection()) {
+                PreparedStatement ps = con.prepareStatement(query);
+                
+                java.util.Date date = new java.util.Date();
+                
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATETIME_FORMAT);
+                
+                String sqlDate = sdf.format(date);
+                
+                ps.setString(1, sqlDate);
+                ps.setString(2, username);
+                
+                ps.executeUpdate();
+            }
+        
+    }
+    
     // Static methods
     
     public static boolean isLastAdmin() throws SQLException{
@@ -340,6 +362,42 @@ public class User {
                 return null;
             else
                 return employer;              
-    }    
+    }
+
+    public static User get(String username, String password) throws SQLException
+    {
+            
+            try (Connection con = getConnection()) {
+                String query = "SELECT * FROM user INNER JOIN privs ON user.user_id = privs.user_id WHERE username = ? AND password = ?";
+                
+                PreparedStatement ps;
+                ResultSet rs;
+                
+                ps = con.prepareStatement(query);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                
+                rs = ps.executeQuery();
+                               
+                User emp = new User();
+                
+                while (rs.next()) {
+                                        
+                    emp.setUserID(rs.getInt("user_id"));
+                    emp.setFullname(rs.getString("fullname"));
+                    emp.setAdmin(rs.getInt("admin"));
+                    emp.setBuyPrivs(rs.getInt("manage_buys"));
+                    emp.setProdPrivs(rs.getInt("manage_products"));
+                    emp.setSellPrivs(rs.getInt("manage_sells"));
+                    emp.setUserPrivs(rs.getInt("manage_users"));
+                    emp.setPassword(password);
+                    emp.setUsername(username);
+                    
+                    return emp;
+                }
+            }
+        
+        return null;
+    }     
     
 }

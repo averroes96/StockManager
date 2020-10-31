@@ -295,9 +295,8 @@ public class UpdateUserController extends SMController implements Initializable,
             }
         });
         
-        AnimateField(fullname,fullnameStatus,"^[\\p{L} .'-]+$");
-        
-        AnimateField(phone,phoneStatus,"^[5-7]?[0-9]{10}$");
+        AnimateField(fullname, fullnameStatus, "^[\\p{L} .'-]+$", isAnimated);
+        AnimateField(phone, phoneStatus, "^[5-7]?[0-9]{10}$", isAnimated);
         
 
     }    
@@ -324,12 +323,10 @@ public class UpdateUserController extends SMController implements Initializable,
 
             }
             else{
-
                 products.setDisable(false);
                 users.setDisable(false);
                 sells.setDisable(false);
                 buys.setDisable(false);
-
             }    
     }
 

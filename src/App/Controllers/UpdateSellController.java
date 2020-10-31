@@ -242,8 +242,8 @@ public class UpdateSellController extends SMController implements Initializable,
         
         date.setConverter(dateFormatter());
         
-        AnimateField(price,priceStatus,"^[1-9]?[0-9]{1,7}$");
-        AnimateField(quantity,qteStatus,"^[1-9]?[0-9]{1,7}$");
+        AnimateField(price,priceStatus,"^[1-9]?[0-9]{1,7}$", isAnimated);
+        AnimateField(quantity,qteStatus,"^[1-9]?[0-9]{1,7}$", isAnimated);
         
         Common.controlDigitField(price);
         Common.controlDigitField(quantity);
