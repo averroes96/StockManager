@@ -67,7 +67,7 @@ This is JavaFX inventory manager app.
 ## 2.5 Release : Internationalization
 English now is the main language (Arabic is still there with RTL support
 
-### Next release 3.0
+## Next release 3.0
 - Enhancing User interface
 - Code optimization
 - Adding new features
