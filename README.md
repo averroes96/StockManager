@@ -70,7 +70,7 @@ Please give a ⭐️ to this repo
 --------------------------------------------------------------------------------------------------------------------
 
 ### 2.5 Release : Internationalization
-- English now is the main language (Arabic is still there with RTL support
+English now is the main language (Arabic is still there with RTL support
 
 ### Next release 3.0
 - Enhancing User interface
