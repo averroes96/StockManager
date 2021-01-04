@@ -198,46 +198,69 @@ public class Sell {
     
     }
     
+    public String getDate() throws SQLException{
+
+        try (Connection con = getConnection()) {
+            String query = "SELECT date(sell_date) FROM sell WHERE sell_id = ?";
+
+            PreparedStatement st;
+            ResultSet rs;
+
+            st = con.prepareStatement(query);
+            st.setInt(1, getSellID());
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                return rs.getString("date(sell_date)");
+
+            }
+        }
+
+    return null;
+    
+    }    
+    
     public static ObservableList getSellsByDate(String selectedDate) throws SQLException{
         
-            ObservableList<Sell> data = FXCollections.observableArrayList();
-            try (Connection con = getConnection()) {
-                String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
-                
-                PreparedStatement st;
-                ResultSet rs; 
-                
-                st = con.prepareStatement(query);
-                st.setString(1,selectedDate);
-                rs = st.executeQuery();
-                
-                while (rs.next()) {
-                    Sell sell = new Sell();
-                    sell.setSellID(rs.getInt("sell_id"));
-                    sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
-                    sell.setTotalPrice(rs.getInt("sell.sell_price"));
-                    sell.setSellDate(rs.getTime("sell_date").toString());
-                    sell.setSellQuantity(rs.getInt("sell_quantity"));
-                    sell.setSeller(rs.getString("username"));
-                    
-                    Product product = new Product();
-                    product.setProdID(rs.getInt("prod_id"));
-                    product.setName(rs.getString("name"));
-                    product.setSellPrice(rs.getInt("product.sell_price"));
-                    product.setProdQuantity(rs.getInt("prod_quantity"));
-                    product.setAddDate(rs.getDate("add_date").toString());
-                    product.setNbrBuys(rs.getInt("nbrBuys"));
-                    product.setNbrSells(rs.getInt("nbrSells"));
-                    product.setImageURL(rs.getString("image_url"));
-                    
-                    sell.setProduct(product);
-                    sell.setSellName(rs.getString("name"));
-                    
-                    data.add(sell);
-                }
+        ObservableList<Sell> data = FXCollections.observableArrayList();
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
+
+            PreparedStatement st;
+            ResultSet rs; 
+
+            st = con.prepareStatement(query);
+            st.setString(1,selectedDate);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Sell sell = new Sell();
+                sell.setSellID(rs.getInt("sell_id"));
+                sell.setSellPrice(rs.getInt("sell.sell_price_unit"));
+                sell.setTotalPrice(rs.getInt("sell.sell_price"));
+                sell.setSellDate(rs.getTime("sell_date").toString());
+                sell.setSellQuantity(rs.getInt("sell_quantity"));
+                sell.setSeller(rs.getString("username"));
+
+                Product product = new Product();
+                product.setProdID(rs.getInt("prod_id"));
+                product.setName(rs.getString("name"));
+                product.setSellPrice(rs.getInt("product.sell_price"));
+                product.setProdQuantity(rs.getInt("prod_quantity"));
+                product.setAddDate(rs.getDate("add_date").toString());
+                product.setNbrBuys(rs.getInt("nbrBuys"));
+                product.setNbrSells(rs.getInt("nbrSells"));
+                product.setImageURL(rs.getString("image_url"));
+
+                sell.setProduct(product);
+                sell.setSellName(rs.getString("name"));
+
+                data.add(sell);
             }
-            
-            return data;
+        }
+
+        return data;
         
     }
     

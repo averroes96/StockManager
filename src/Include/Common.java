@@ -5,8 +5,6 @@
  */
 package Include;
 
-import Data.Product;
-import Data.Sell;
 import animatefx.animation.AnimationFX;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -30,7 +28,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -105,9 +102,7 @@ public class Common implements Init {
         String fileExtension = selectedFile.getName().substring(selectedFile.getName().lastIndexOf("."));
  
         return UPLOADED_FILE_PATH + sdf.format(date) + fileExtension;
-        
-        
-        
+                
     }
     
     
@@ -161,172 +156,7 @@ public class Common implements Init {
             }
         };
         return converter;
-    }   
-    
-    public static void minimize(MouseEvent event){
-        
-        ((Stage)((Label)event.getSource()).getScene().getWindow()).setIconified(true);
-        
-    }
-
-    public static int getPrice(String name) throws SQLException{
-        
-        int targetedPrice;
-        try (Connection con = getConnection()) {
-            String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
-            targetedPrice = 0;
-            PreparedStatement st;
-            ResultSet rs;
-            st = con.prepareStatement(query);
-            st.setString(1, name);
-            rs = st.executeQuery();
-            int count = 0;
-            while (rs.next()) {
-                
-                targetedPrice = rs.getInt("sell_price");
-                
-            }
-        }
-            
-            return targetedPrice;
-      
-        
-    }
-    
-    public static int getQuantity(String name) throws SQLException{
-        
-        int targetedPrice;
-        try (Connection con = getConnection()) {
-            String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
-            targetedPrice = 0;
-            PreparedStatement st;
-            ResultSet rs;
-            st = con.prepareStatement(query);
-            st.setString(1, name);
-            rs = st.executeQuery();
-            int count = 0;
-            while (rs.next()) {
-                
-                targetedPrice = rs.getInt("prod_quantity");
-                
-            }
-        }
-            
-            return targetedPrice;
-
-    }    
-
-    public static boolean refExist(String ref) throws SQLException{
-        
-        boolean found;
-        try (Connection con = getConnection()) {
-            String query = "SELECT * FROM product WHERE name = ? LIMIT 1";
-            found = false;
-            PreparedStatement st;
-            ResultSet rs;
-            st = con.prepareStatement(query);
-            st.setString(1, ref);
-            rs = st.executeQuery();
-            int count = 0;
-            if(rs.next()){
-                
-                found = true;
-            }
-        }
-            
-            return found;
-       
-        
-    }
-    
-    
-    public static Product getProductByID(int ID) throws SQLException{
-        
-        Product product = new Product();
-        int count;
-        try (Connection con = getConnection()) {
-            String query = "SELECT * FROM product WHERE prod_id = ?";
-            PreparedStatement st;
-            ResultSet rs;
-            st = con.prepareStatement(query);
-            st.setInt(1, ID);
-            rs = st.executeQuery();
-            count = 0;
-            while (rs.next()) {
-                product.setAddDate(rs.getDate("add_date").toString());
-                product.setName(rs.getString("name"));
-                product.setProdID(rs.getInt("prod_id"));
-                product.setProdQuantity(rs.getInt("prod_quantity"));
-                product.setSellPrice(rs.getInt("sell_price"));
-                product.setNbrBuys(rs.getInt("nbrBuys"));
-                product.setNbrSells(rs.getInt("nbrSells"));
-                ++count;
-                
-            }
-        }
-            if(count == 0)
-                return null;
-            else
-                return product;
-          
-    }    
-    
-    public  Sell getSell(int sellID) throws SQLException{
-        
-        Sell sell;
-        try (Connection con = getConnection()) {
-            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON user.user_id = sell.user_id WHERE sell.sell_id = ? ORDER BY sell.sell_date";
-            PreparedStatement st;
-            ResultSet rs;
-            sell = new Sell();
-            st = con.prepareStatement(query);
-            st.setInt(1,sellID);
-            rs = st.executeQuery();
-            while (rs.next()) {
-
-                sell.setSellID(rs.getInt("sell_id"));
-                sell.setSellPrice(rs.getInt("product.sell_price"));
-                sell.setSellDate(rs.getDate("sell_date").toString());
-                Product product = new Product();
-                product.setProdID(rs.getInt("prod_id"));
-                product.setName(rs.getString("name"));               
-                product.setProdQuantity(rs.getInt("prod_quantity"));
-                product.setSellPrice(rs.getInt("product.sell_price"));
-                product.setAddDate(rs.getDate("add_date").toString());
-                product.setImageURL(rs.getString("image"));
-                
-                sell.setProduct(product);
-                sell.setSellName(rs.getString("name"));
-
-            }
-        }
-            
-        return sell;
-        
-    }
-    
-    public static String getDate(int ID, String type) throws SQLException{
-
-    try (Connection con = getConnection()) {
-        String query = "SELECT date(" + type + "_date) FROM "+ type +" WHERE "+ type + "."+ type +"_id = ?";
-
-        PreparedStatement st;
-        ResultSet rs;
-
-        st = con.prepareStatement(query);
-        st.setInt(1,ID);
-        rs = st.executeQuery();
-
-        while (rs.next()) {
-
-            return rs.getString("date("+ type + "_date)");
-
-        }
-    }
-
-    return null;
-    
-    }    
+    }  
     
     public static ResultSet getAllFrom(String select, String tableName, String additions, String whereClause, String ordering) throws SQLException{
         

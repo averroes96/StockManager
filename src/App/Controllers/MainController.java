@@ -1,6 +1,7 @@
 package App.Controllers;
 
 import Data.Buy;
+import Data.Client;
 import Data.Product;
 import static Data.Product.getActiveProducts;
 import Data.Sell;
@@ -82,42 +83,66 @@ import net.sf.jasperreports.engine.JRException;
 public class MainController extends SMController implements Initializable,Init {
     
     
-    @FXML private Label btn_close,settingsBtn;
-    @FXML private AnchorPane products, sells, employers,buys;
-    @FXML private TableView<Product> productsTable ;
-    @FXML private TableView<Sell> sellsTable ;
-    @FXML private TableView<Buy> buysTable ;
-    @FXML private TableColumn<Buy, Integer> buyQteCol,buyPriceCol,buyTotalCol ;
-    @FXML private TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
-    @FXML private TableColumn<Product, String> prodName,addDate,lastChange ;
-    @FXML private TableColumn<Product, Integer> sellProd,prodQuantity,nbrSellsCol,nbrBuysCol ; 
-    @FXML private TableColumn<Sell, Integer> sellQuantity,sellTotalCol,sellPrice ;
-    @FXML private TableColumn<Sell, String> sellRef,seller,sellDateCol ;
-    @FXML private TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
-    @FXML public ChoiceBox<String> usersCB ;
-    @FXML private TextField searchBuy ;
-    @FXML private Label fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,lastLogged; 
-    @FXML public Button seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys;
-    @FXML private ImageView prodManager,userManager,sellManager,buyManager;
+    @FXML public Label btn_close,settingsBtn;
+    @FXML public AnchorPane products, sells, employers,buys,clients;
+    @FXML public TableView<Sell> sellsTable ;
+    @FXML public TableView<Buy> buysTable ;
+    @FXML public TableColumn<Buy, Integer> buyQteCol,buyPriceCol,buyTotalCol ;
+    @FXML public TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
+    @FXML public TableColumn<Sell, Integer> sellQuantity,sellTotalCol,sellPrice ;
+    @FXML public TableColumn<Sell, String> sellRef,seller,sellDateCol ;
+    @FXML public TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
+    @FXML public ChoiceBox<String> usersCB,clientsCB;
+    @FXML public TextField searchBuy ;
+    @FXML public Label fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,
+                        lastLogged,debtStatus,clientPhone,regCommerce,clientNIF,clientAI; 
+    @FXML public Button seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys,btn_clients;
+    @FXML public ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane,billPane1;
-    @FXML private JFXTextField searchField,refField,priceField2,quantityField,sellSearch ;
-    @FXML public JFXDatePicker dateField,sellDateField,buyDateField;
-    @FXML private JFXButton viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
+    @FXML public JFXTextField searchField,productNameTF,productPriceTF,productQteTF,sellSearch ;
+    @FXML public JFXDatePicker productDP,sellDateField,buyDateField;
+    @FXML public JFXButton viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
-                            exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn;
+                            exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn,addClientBtn,printClients,updateClientBtn,
+                            carryPayBtn,deleteClientBtn;
     
-    @FXML private VBox infoContainer;
-    @FXML private HBox productHB;
-    @FXML private Circle productIV,userIV;
+    @FXML public VBox infoContainer,productVB,clientBox;
+    @FXML public HBox productHB;
+    @FXML public Circle productIV,userIV,clientIV;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
     ObservableList<String> employersList = FXCollections.observableArrayList();
-    ObservableList<Buy> buysList = FXCollections.observableArrayList(); 
+    ObservableList<String> clientsList = FXCollections.observableArrayList();
+    ObservableList<Buy> buysList = FXCollections.observableArrayList();
+    
     
     File selectedFile = null;
     JasperReporter jr = new JasperReporter();
     int MIN_QUANTITY;
+    
+    public void loadProducts(ObservableList<Product> list){
+        
+        productVB.getChildren().clear();
+        
+        getAllProducts();
+        
+        list.forEach((product) -> {
+            try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Item.fxml"), bundle);
+            HBox root = (HBox)loader.load();
+            Node node = (Node)loader.getRoot();
+            ItemController iController = (ItemController)loader.getController();                
+            iController.setValues(product);
+            iController.setMainController(this);
+            //Node node = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "item.fxml"));
+            productVB.getChildren().add(node);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        });
+        
+    }
     
     public void customDialog(String title, String body, String icon, boolean btnIncluded){
         
@@ -260,7 +285,7 @@ public class MainController extends SMController implements Initializable,Init {
 
     }        
     
-    public void fillTheTable()
+    public void getAllProducts()
     {
         try {
             data = getActiveProducts();
@@ -293,7 +318,7 @@ public class MainController extends SMController implements Initializable,Init {
             String keyword = searchField.getText();
 
            if (keyword.trim().equals("")) {
-               productsTable.setItems(data);
+               loadProducts(data);
            }
 
            else {
@@ -301,7 +326,7 @@ public class MainController extends SMController implements Initializable,Init {
                data.stream().filter((product) -> (product.getName().toLowerCase().contains(keyword.toLowerCase()))).forEachOrdered((product) -> {
                    filteredData.add(product);
                 });
-               productsTable.setItems(filteredData);
+               loadProducts(filteredData);
            }           
         }
         
@@ -326,7 +351,7 @@ public class MainController extends SMController implements Initializable,Init {
     private void updateImage()
     {
 
-        if(productsTable.getSelectionModel().getSelectedItem() == null)
+        if(productVB.getChildren().isEmpty())
         {
             customDialog(bundle.getString("info_msg"),  bundle.getString("select_product_msg"), INFO_SMALL, true);           
             return;
@@ -357,16 +382,17 @@ public class MainController extends SMController implements Initializable,Init {
                     ps.executeUpdate();
                 }
 
-                Product selectedProduct = (Product) productsTable.getSelectionModel().getSelectedItem();
+                Product selectedProduct = Product.getProductByID(Integer.parseInt(idField.getText()));
 
                 Common.deleteImage(selectedProduct.getImageURL());
 
                 selectedProduct.setImageURL(createImagePath);
-
+                
                 productIV.setFill(new ImagePattern(new Image(
                     selectedFile.toURI().toString(), 150, 150, true, true)));
                 
-                productsTable.refresh();
+                loadProducts(data);
+                
             }
             catch (NumberFormatException | SQLException | IOException ex) {
                 exceptionLayout(ex);
@@ -378,15 +404,15 @@ public class MainController extends SMController implements Initializable,Init {
     @Override
     public boolean checkInputs()
     {
-        if (refField.getText().trim().equals("") || priceField2.getText().trim().equals("") || quantityField.getText().trim().equals("")) {
+        if (productNameTF.getText().trim().equals("") || productPriceTF.getText().trim().equals("") || productQteTF.getText().trim().equals("")) {
             customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true);
             return false;
         }     
         
         try {
-            Integer.parseInt(priceField2.getText());
-            if(priceField2.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(priceField2.getText()) > 0){
-                if(quantityField.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(priceField2.getText()) >= 0){
+            Integer.parseInt(productPriceTF.getText());
+            if(productPriceTF.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(productPriceTF.getText()) > 0){
+                if(productQteTF.getText().trim().matches("^[1-9]?[0-9]{1,7}$") && Integer.parseInt(productPriceTF.getText()) >= 0){
                     return true;
                 }
                 else{
@@ -408,9 +434,9 @@ public class MainController extends SMController implements Initializable,Init {
     private void updateProduct()
     {
 
-        if(productsTable.getSelectionModel().getSelectedItem() == null)
+        if(productVB.getChildren().isEmpty())
         {
-            customDialog(bundle.getString("invalid_price"), bundle.getString("invalid_price_msg"), ERROR_SMALL, true);              
+            customDialog(bundle.getString("info_msg"), bundle.getString("select_product_msg_2"), ERROR_SMALL, true);              
             return;
         }
         
@@ -418,9 +444,9 @@ public class MainController extends SMController implements Initializable,Init {
             return;
         }
 
-        Product selectedProduct = (Product) productsTable.getSelectionModel().getSelectedItem();
-
         try {
+            
+            Product selectedProduct = Product.getProductByID(Integer.parseInt(idField.getText()));
             String sqlDate = "";
             String javaDate = "";
             try (Connection con = getConnection()) {
@@ -429,10 +455,10 @@ public class MainController extends SMController implements Initializable,Init {
                 query = "UPDATE product SET name = ?, sell_price = ?, add_date = ?,prod_quantity = ?, last_change = ? WHERE prod_id = ?";
                 
                 PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1, refField.getText());
-                ps.setInt(2, Integer.valueOf(priceField2.getText()));
-                ps.setInt(4, Integer.valueOf(quantityField.getText()));
-                ps.setDate(3, Date.valueOf(dateField.getEditor().getText()));
+                ps.setString(1, productNameTF.getText());
+                ps.setInt(2, Integer.valueOf(productPriceTF.getText()));
+                ps.setInt(4, Integer.valueOf(productQteTF.getText()));
+                ps.setDate(3, Date.valueOf(productDP.getEditor().getText()));
                 
                 java.util.Date date = new java.util.Date();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -443,17 +469,17 @@ public class MainController extends SMController implements Initializable,Init {
                 ps.setInt(6, Integer.parseInt(idField.getText()));
                 ps.executeUpdate();
                 
-                if(!selectedProduct.getName().equals(refField.getText()) || !selectedProduct.getAddDate().equals(dateField.getEditor().getText()) || selectedProduct.getProdQuantity() != Integer.valueOf(quantityField.getText()) || selectedProduct.getSellPrice() != Integer.valueOf(priceField2.getText())){
+                if(!selectedProduct.getName().equals(productNameTF.getText()) || !selectedProduct.getAddDate().equals(productDP.getEditor().getText()) || selectedProduct.getProdQuantity() != Integer.valueOf(productQteTF.getText()) || selectedProduct.getSellPrice() != Integer.valueOf(productPriceTF.getText())){
                 query = "INSERT INTO product_history(prod_id, user_id, change_date, new_name, new_date, new_price, new_qte, old_name, old_date, old_price, old_qte) VALUES(?,?,?,?,?,?,?,?,?,?,?)" ;
                 
                 ps = con.prepareStatement(query);
                 ps.setInt(1, Integer.parseInt(idField.getText()));
                 ps.setInt(2, this.employer.getUserID());
                 ps.setString(3, sqlDate);                
-                ps.setString(4, refField.getText());
-                ps.setDate(5, Date.valueOf(dateField.getEditor().getText()));
-                ps.setInt(6, Integer.valueOf(priceField2.getText()));
-                ps.setInt(7, Integer.valueOf(quantityField.getText()));
+                ps.setString(4, productNameTF.getText());
+                ps.setDate(5, Date.valueOf(productDP.getEditor().getText()));
+                ps.setInt(6, Integer.valueOf(productPriceTF.getText()));
+                ps.setInt(7, Integer.valueOf(productQteTF.getText()));
                 ps.setString(8, selectedProduct.getName());
                 ps.setString(9, selectedProduct.getAddDate());
                 ps.setInt(10,selectedProduct.getSellPrice());
@@ -466,15 +492,17 @@ public class MainController extends SMController implements Initializable,Init {
                 con.close();
             }
 
-            selectedProduct.setName(refField.getText());
-            selectedProduct.setSellPrice(Integer.valueOf(priceField2.getText()));
-            selectedProduct.setProdQuantity(Integer.valueOf(quantityField.getText()));
-            selectedProduct.setAddDate(dateField.getEditor().getText());
+            selectedProduct.setName(productNameTF.getText());
+            selectedProduct.setSellPrice(Integer.valueOf(productPriceTF.getText()));
+            selectedProduct.setProdQuantity(Integer.valueOf(productQteTF.getText()));
+            selectedProduct.setAddDate(productDP.getEditor().getText());
             selectedProduct.setLastChange(javaDate);
-            
-            productsTable.refresh();
-            
+                                                
             customDialog(bundle.getString("product_updated"), bundle.getString("product_updated_msg"), INFO_SMALL, true);
+            
+            animateNode(new FadeIn(productVB));
+            
+            loadProducts(data);
 
         }
         catch (NumberFormatException | SQLException e) {
@@ -486,10 +514,10 @@ public class MainController extends SMController implements Initializable,Init {
     {
                 
         animateNode(new FadeIn(productHB));
-        refField.setText(data.get(index).getName());
-        quantityField.setText(String.valueOf(data.get(index).getProdQuantity()));
-        dateField.getEditor().setText(data.get(index).getAddDate());
-        priceField2.setText(String.valueOf(data.get(index).getSellPrice()));
+        productNameTF.setText(data.get(index).getName());
+        productQteTF.setText(String.valueOf(data.get(index).getProdQuantity()));
+        productDP.getEditor().setText(data.get(index).getAddDate());
+        productPriceTF.setText(String.valueOf(data.get(index).getSellPrice()));
         idField.setText(String.valueOf(data.get(index).getProdID()));        
 
         if (data.get(index).getImageURL() == null) {
@@ -590,49 +618,97 @@ public class MainController extends SMController implements Initializable,Init {
             exceptionLayout(ex);
         }
   
+    }
+
+    private void showClient(String selectedItem) {
+        try {
+            
+            animateNode(new ZoomOut(clientBox));
+            animateNode(new ZoomIn(clientBox));
+            
+            Client choosen = Client.getClientByName(selectedItem);
+            if(choosen != null){
+                
+            if(!choosen.getPhone().trim().equals(""))
+                clientPhone.setText(choosen.getPhone()) ;
+            else
+                clientPhone.setText(bundle.getString("not_specified"));
+            
+            if(!choosen.getRegCom().trim().equals(""))
+                regCommerce.setText(choosen.getRegCom()) ;
+            else
+                regCommerce.setText(bundle.getString("not_specified"));
+            
+            if(!choosen.getAi().trim().equals(""))
+                clientAI.setText(choosen.getAi()) ;
+            else
+                clientAI.setText(bundle.getString("not_specified"));
+            
+            if(!choosen.getNif().trim().equals(""))
+                clientNIF.setText(choosen.getNif()) ;
+            else
+                clientNIF.setText(bundle.getString("not_specified"));
+            
+            if (choosen.getImage().trim().equals("")) {
+                clientIV.setFill(new ImagePattern(new Image(
+                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+                        clientIV.getCenterX(), clientIV.getCenterY(), false, false)));
+            }
+            else {
+                clientIV.setFill(new ImagePattern(new Image(
+                        new File(choosen.getImage()).toURI().toString(),
+                        clientIV.getCenterX(), clientIV.getCenterX(), false, false)));
+            }
+            
+            clientsCB.getSelectionModel().select(selectedItem);
+                
+            }
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
     }    
        
 
-    private void showNextProduct()
+    /*private void showNextProduct()
     {
         if (productsTable.getSelectionModel().getSelectedIndex() < data.size() - 1) {
             int currentSelectedRow = productsTable.getSelectionModel().getSelectedIndex() + 1;
             productsTable.getSelectionModel().select(currentSelectedRow);
             showProduct(currentSelectedRow);
         }
-    }    
+    }*/    
 
     private void deleteProduct()
     {
 
-        if(productsTable.getSelectionModel().getSelectedItem() == null)
+        if(productVB.getChildren().isEmpty())
         {
             customDialog(bundle.getString("info_msg"), bundle.getString("select_product_msg_3"), INFO_SMALL, true);       
             return;
         }
-
-        Product selectedProduct = (Product) productsTable.getSelectionModel().getSelectedItem();
         
         try {
+            
+            Product selectedProduct = Product.getProductByID(Integer.parseInt(idField.getText()));
             
             selectedProduct.toTrash();
             
             data.remove(selectedProduct);
             
-            productsTable.refresh();
+            loadProducts(data);
             
             customDialog(bundle.getString("product_deleted"), bundle.getString("product_deleted_msg"), INFO_SMALL, true);
             
             if(data.size() > 0) {
-                showNextProduct();
+                //showNextProduct();
             }
             else
             {
                 idField.setText("");
-                refField.setText("");
-                priceField2.setText("");
-                quantityField.setText("");
-                dateField.getEditor().setText("");
+                productNameTF.setText("");
+                productPriceTF.setText("");
+                productQteTF.setText("");
+                productDP.getEditor().setText("");
                 productIV.setFill(new ImagePattern(new Image(
                         ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/large_product_primary.png"),
                         60, 60, true, true)));
@@ -680,9 +756,9 @@ public class MainController extends SMController implements Initializable,Init {
 
             while (rs.next()) {
                 
-                revSum.setText(String.valueOf(rs.getInt("SUM(sell_price)")) + " دج");
-                revTotal.setText(String.valueOf(rs.getInt("count(*)")) + " بيع");
-                revQte.setText(String.valueOf(rs.getInt("SUM(sell_quantity)")) + " قطعة");
+                revSum.setText(String.valueOf(rs.getInt("SUM(sell_price)")) + " " + bundle.getString("currency"));
+                revTotal.setText(String.valueOf(rs.getInt("count(*)")) + " " + bundle.getString("buy"));
+                revQte.setText(String.valueOf(rs.getInt("SUM(sell_quantity)")) + " " + bundle.getString("pieces"));
                 
             }
             
@@ -725,9 +801,8 @@ public class MainController extends SMController implements Initializable,Init {
 
             selectedSell.delete();
             
-            data.clear();
-            fillTheTable();
-            productsTable.setItems(data);
+            getAllProducts();
+            loadProducts(data);
             sellsList.remove(selectedSell);
             sellsTable.refresh();
             
@@ -746,9 +821,7 @@ public class MainController extends SMController implements Initializable,Init {
 
             buy.delete();
 
-            data.clear();
-            fillTheTable();
-            productsTable.setItems(data);
+            loadProducts(data);
 
             buysList.remove(buy);
 
@@ -769,6 +842,17 @@ public class MainController extends SMController implements Initializable,Init {
 
         try {
             employersList = getUsers(ACTIVE);
+        }
+        catch (SQLException e) {          
+            exceptionLayout(e);
+        }
+    }
+    
+    private void getClientsNames()
+    {
+
+        try {
+            clientsList = Client.getClientNames();
         }
         catch (SQLException e) {          
             exceptionLayout(e);
@@ -822,7 +906,7 @@ public class MainController extends SMController implements Initializable,Init {
         System.exit(0);
     }
     
-    private void initProductsTable(){ 
+    /*private void initProductsTable(){ 
         
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodQuantity.setCellValueFactory(new PropertyValueFactory<>("prodQuantity"));
@@ -832,7 +916,7 @@ public class MainController extends SMController implements Initializable,Init {
 
         productsTable.setItems(data);        
         
-    }
+    }*/
     
     private void delete(String item, boolean empty){
         
@@ -946,8 +1030,6 @@ public class MainController extends SMController implements Initializable,Init {
         buyProdCol.setCellValueFactory(new PropertyValueFactory<>("product"));
         buyDateCol.setCellValueFactory(new PropertyValueFactory<>("buyDate"));
         buyAction1.setCellValueFactory(new PropertyValueFactory<>("buyAction1"));
-        nbrBuysCol.setCellValueFactory(new PropertyValueFactory<>("nbrBuys"));
-        nbrSellsCol.setCellValueFactory(new PropertyValueFactory<>("nbrSells"));
         Callback<TableColumn<Buy, String>, TableCell<Buy, String>> cellFactoryBuy1
                 =                 //
             (final TableColumn<Buy, String> param) -> {
@@ -1048,32 +1130,33 @@ public class MainController extends SMController implements Initializable,Init {
         else
             anchorPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         
-        dateField.setConverter(dateFormatter());
+        productDP.setConverter(dateFormatter());
         sellDateField.setConverter(dateFormatter());
         buyDateField.setConverter(dateFormatter()); 
         sellDateField.getEditor().setText(String.valueOf(LocalDate.now()));
         buyDateField.getEditor().setText(String.valueOf(LocalDate.now())); 
         
-        fillTheTable();
-        initProductsTable();
+        getAllProducts();
+        //initProductsTable();
         
-        controlDigitField(priceField2);
-        controlDigitField(quantityField);
+        loadProducts(data);
+        
+        controlDigitField(productPriceTF);
+        controlDigitField(productQteTF);
         
         searchField.textProperty().addListener((obs, oldText, newText) -> {
             search("products");
         });
         
         if (!data.isEmpty()) {
-            productsTable.getSelectionModel().select(0);
             showProduct(0);
         }
-        
+        /*
         productsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 showProduct(productsTable.getSelectionModel().getSelectedIndex());
             }
-        });
+        });*/
         
         productIV.setOnMouseClicked(value -> {
             updateImage();
@@ -1120,7 +1203,7 @@ public class MainController extends SMController implements Initializable,Init {
         });
 
         productStats.setOnAction(Action -> {
-            
+            /*
             try {
 
                 Product product = productsTable.getSelectionModel().getSelectedItem();
@@ -1138,13 +1221,13 @@ public class MainController extends SMController implements Initializable,Init {
             } catch (IOException ex) {
                 exceptionLayout(ex);
             }
+*/
         });
 
         viewHistory.setOnAction(Action ->{
             
             try {
-
-                Product product = productsTable.getSelectionModel().getSelectedItem();
+                Product product = Product.getProductByID(Integer.parseInt(idField.getText()));
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductHistory.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
@@ -1154,7 +1237,7 @@ public class MainController extends SMController implements Initializable,Init {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
                 stage.showAndWait();
-            } catch (IOException ex) {
+            } catch (IOException | SQLException ex) {
                 exceptionLayout(ex);
             }            
             
@@ -1168,7 +1251,7 @@ public class MainController extends SMController implements Initializable,Init {
                 
         newSellButton.setOnAction(Action -> {
             
-            if(productsTable.getItems().size() > 0){
+            if(!productVB.getChildren().isEmpty()){
             
             try {                
                 ((Node)Action.getSource()).getScene().getWindow().hide();
@@ -1308,6 +1391,18 @@ public class MainController extends SMController implements Initializable,Init {
                 exceptionLayout(ex);
             }
         });
+        
+        // Clients TAB
+        
+        getClientsNames();
+        clientsCB.setItems(clientsList);
+        clientsCB.getSelectionModel().select(0);
+        
+        clientsCB.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                showClient(clientsCB.getSelectionModel().getSelectedItem());
+            }
+        }); 
 
 
         // Buys TAB
@@ -1360,7 +1455,7 @@ public class MainController extends SMController implements Initializable,Init {
   
         printBuy.disableProperty().bind(Bindings.size(buysTable.getSelectionModel().getSelectedIndices()).isEqualTo(0));
         
-        printProducts.disableProperty().bind(Bindings.size(productsTable.getItems()).isEqualTo(0));
+        printProducts.disableProperty().bind(Bindings.size(productVB.getChildren()).isEqualTo(0));
         
         printEmployers.disableProperty().bind(Bindings.size(usersCB.getItems()).isEqualTo(0));
 
@@ -1369,6 +1464,8 @@ public class MainController extends SMController implements Initializable,Init {
         newBillBtn.disableProperty().bind(Bindings.size(sellsTable.getSelectionModel().getSelectedItems()).isEqualTo(0));
         
         printBuys.disableProperty().bind(Bindings.size(buysTable.getItems()).isEqualTo(0));
+        
+        updateProduct.disableProperty().bind(Bindings.size(productVB.getChildren()).isEqualTo(0));
         
         Tooltip.install(
                 billPane, 
@@ -1543,6 +1640,13 @@ public class MainController extends SMController implements Initializable,Init {
                 btn_employers.setEffect(null);
                 buys.setVisible(false);
                 btn_buys.setEffect(null);
+                clients.setVisible(false);
+                btn_clients.setEffect(null);
+                btn_clients.setStyle("-fx-background-color: transparent");
+                btn_products.setStyle("-fx-background-color: tomato");
+                btn_employers.setStyle("-fx-background-color: transparent");
+                btn_buys.setStyle("-fx-background-color: transparent");
+                btn_sells.setStyle("-fx-background-color: transparent");
             }            
             
         }
@@ -1558,6 +1662,13 @@ public class MainController extends SMController implements Initializable,Init {
                 btn_employers.setEffect(null);
                 buys.setVisible(false);
                 btn_buys.setEffect(null);
+                clients.setVisible(false);
+                btn_clients.setEffect(null);
+                btn_clients.setStyle("-fx-background-color: transparent");
+                btn_products.setStyle("-fx-background-color: transparent");
+                btn_employers.setStyle("-fx-background-color: transparent");
+                btn_buys.setStyle("-fx-background-color: transparent");
+                btn_sells.setStyle("-fx-background-color: tomato");
             }
         }
         else if(event.getTarget() == btn_employers){
@@ -1572,7 +1683,13 @@ public class MainController extends SMController implements Initializable,Init {
                 btn_employers.setEffect(new Glow());
                 buys.setVisible(false);
                 btn_buys.setEffect(null);
-                 
+                clients.setVisible(false);
+                btn_clients.setEffect(null);
+                btn_clients.setStyle("-fx-background-color: transparent");
+                btn_products.setStyle("-fx-background-color: transparent");
+                btn_employers.setStyle("-fx-background-color: tomato");
+                btn_buys.setStyle("-fx-background-color: transparent");
+                btn_sells.setStyle("-fx-background-color: transparent"); 
             }
         }
         else if(event.getTarget() == btn_buys){
@@ -1587,6 +1704,34 @@ public class MainController extends SMController implements Initializable,Init {
                 btn_buys.setEffect(new Glow());
                 employers.setVisible(false);
                 btn_employers.setEffect(null);
+                clients.setVisible(false);
+                btn_clients.setEffect(null);
+                btn_clients.setStyle("-fx-background-color: transparent");
+                btn_products.setStyle("-fx-background-color: transparent");
+                btn_employers.setStyle("-fx-background-color: transparent");
+                btn_buys.setStyle("-fx-background-color: tomato");
+                btn_sells.setStyle("-fx-background-color: transparent");
+            }
+        }
+        else if(event.getTarget() == btn_clients){
+            if(!clients.isVisible()){
+                animateNode(new Tada(btn_clients));
+                products.setVisible(false);
+                btn_products.setEffect(null);
+                sells.setVisible(false);
+                btn_sells.setEffect(null);
+                buys.setVisible(false);
+                btn_buys.setEffect(null);
+                employers.setVisible(false);
+                btn_employers.setEffect(null);
+                clients.setVisible(true);
+                btn_clients.setEffect(new Glow());
+                animateNode(new FlipInY(clients));
+                btn_products.setStyle("-fx-background-color: transparent");
+                btn_employers.setStyle("-fx-background-color: transparent");
+                btn_buys.setStyle("-fx-background-color: transparent");
+                btn_sells.setStyle("-fx-background-color: transparent");
+                btn_clients.setStyle("-fx-background-color: tomato");
             }
         }        
         else if(event.getTarget() == btn_close){
@@ -1724,5 +1869,5 @@ public class MainController extends SMController implements Initializable,Init {
         });        
         
     }
-    
+
 }

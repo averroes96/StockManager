@@ -10,6 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -25,16 +26,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="720.0" maxWidth="1000.0" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
    <children>
-      <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="128.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
-            <TableView fx:id="productsTable" layoutX="15.0" layoutY="70.0" maxWidth="1.7976931348623157E308" prefHeight="312.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <TableView fx:id="productsTable" layoutX="15.0" layoutY="318.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="970.0" style="-fx-background-color: white;" visible="false" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
                 <TableColumn fx:id="prodName" maxWidth="300.0" minWidth="175.0" prefWidth="-1.0" text="%product" />
                   <TableColumn fx:id="prodQuantity" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="%quantity" />
@@ -150,7 +151,7 @@
                                           <Image url="@../images/medium/icons8_product_48px.png" />
                                        </image>
                                     </ImageView>
-                                    <JFXTextField fx:id="refField" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="%product" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="productNameTF" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="220.0" promptText="%product" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -167,7 +168,7 @@
                                           <Image url="@../images/medium/icons8_price_tag_48px.png" />
                                        </image>
                                     </ImageView>
-                                    <JFXTextField fx:id="priceField2" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="productPriceTF" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%sell_price" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -184,7 +185,7 @@
                                           <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
                                        </image>
                                     </ImageView>
-                                    <JFXTextField fx:id="quantityField" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="productQteTF" alignment="CENTER" focusColor="TOMATO" prefHeight="40.0" prefWidth="220.0" promptText="%quantity" style="-fx-background-color: #eee; -fx-padding: 0; -fx-text-fill: #3d4956;" unFocusColor="#3d4956" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -196,7 +197,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="134.0" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <JFXDatePicker fx:id="dateField" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="257.0" HBox.hgrow="ALWAYS">
+                                    <JFXDatePicker fx:id="productDP" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="257.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -220,7 +221,7 @@
                   </Label>
                   <VBox alignment="CENTER" prefHeight="230.0" prefWidth="326.0" spacing="16.0">
                      <children>
-                        <JFXButton fx:id="updateProduct" buttonType="RAISED" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #3d4956;" text="%confirm" textFill="#dddddd">
+                        <JFXButton fx:id="updateProduct" buttonType="RAISED" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" styleClass="default-btn" text="%confirm" textFill="#dddddd">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -250,14 +251,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton fx:id="deleteProduct" buttonType="RAISED" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: red;" text="%delete" textFill="WHITE">
+                        <JFXButton fx:id="deleteProduct" buttonType="RAISED" layoutX="35.0" layoutY="75.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" styleClass="cancel-btn" text="%delete" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/small/icons8_delete_32px_1.png" />
+                                    <Image url="@../images/medium/icons8_delete_48px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -277,9 +278,53 @@
                   </VBox>
                </children>
             </HBox>
+            <HBox alignment="CENTER" layoutX="16.0" layoutY="72.0" prefHeight="64.0" prefWidth="968.0" style="-fx-border-color: #aaa; -fx-border-width: 2 0; -fx-background-radius: 16 16 0 0;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%product" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="430.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%quantity" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="494.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="128.0" text="%sell_price" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="558.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%add_date" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="622.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%last_edit" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="686.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%buys" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="750.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%sells" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="261.0" layoutY="139.0" prefHeight="250.0" prefWidth="968.0" style="-fx-background-insets: 0; -fx-background-color: #eee; -fx-border-color: #aaa; -fx-border-width: 0 0 2;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+               <content>
+                  <VBox fx:id="productVB" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="153.0" prefWidth="955.0" style="-fx-background-color: #eee;" />
+               </content>
+            </ScrollPane>
          </children>
          <effect>
-            <DropShadow color="#00000099" />
+            <DropShadow color="#00000099" height="16.0" radius="7.5" width="16.0" />
          </effect>
          <stylesheets>
             <URL value="@../Layout/buttons.css" />
@@ -304,6 +349,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="menu-btn" fx:id="btn_sells" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%sells" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
@@ -316,6 +364,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="menu-btn" fx:id="btn_buys" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%buys" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
@@ -328,6 +379,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="menu-btn" fx:id="btn_employers" graphicTextGap="12.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%users" textFill="#eeeeee" HBox.hgrow="ALWAYS">
                      <font>
@@ -340,6 +394,24 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="menu-btn" fx:id="btn_clients" graphicTextGap="12.0" layoutX="664.0" layoutY="14.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectMenu" prefHeight="72.0" prefWidth="256.0" text="%clients" textFill="#eeeeee">
+                     <font>
+                        <Font name="Simplified Arabic Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/large/user_large_filled_grey.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="150.0" spacing="8.0">
                      <children>
@@ -1063,6 +1135,230 @@
                </padding>
             </HBox>
          </children>
+         <effect>
+            <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+         <children>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="768.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/small/icons8_sort_up_24px.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="TOP_CENTER" layoutX="50.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" spacing="32.0" visible="false" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <VBox fx:id="clientBox" prefHeight="550.0" prefWidth="756.0" styleClass="box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" focusTraversable="false" graphicTextGap="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="715.0" style="-fx-background-color: #3d4956; -fx-background-radius: 20 20 0 0;" text="%client_tab" textFill="#eeeeee">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_user_menu_female_32px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="600.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox prefHeight="480.0" prefWidth="1002.0" spacing="16.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" maxWidth="384.0" prefHeight="464.0" prefWidth="128.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Circle fx:id="clientIV" fill="WHITE" radius="100.0" stroke="#3d4956" strokeType="INSIDE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <VBox.margin>
+                                                <Insets bottom="16.0" />
+                                             </VBox.margin>
+                                          </Circle>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                                             <children>
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="96.0" prefWidth="96.0" text="%phone" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="clientPhone" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="242.0" prefWidth="200.0">
+                                             <children>
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="96.0" prefWidth="96.0" text="%reg_com" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="regCommerce" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="372.0" prefWidth="200.0">
+                                             <children>
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="96.0" prefWidth="96.0" text="%nif" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="clientNIF" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="399.0" prefWidth="200.0">
+                                             <children>
+                                                <Label maxWidth="1.7976931348623157E308" minWidth="96.0" prefWidth="96.0" text="%ai" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="clientAI" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="64.0" prefWidth="267.0" spacing="16.0">
+                                             <children>
+                                                <JFXButton fx:id="updateClientBtn" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" prefHeight="39.0" prefWidth="40.0" ripplerFill="TOMATO" styleClass="circle-primary-btn" text="%new_client" textFill="#3d4956">
+                                                   <graphic>
+                                                      <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/small/icons8_edit_32px.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </JFXButton>
+                                                <JFXButton fx:id="deleteClientBtn" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="50.0" layoutY="10.0" prefHeight="39.0" prefWidth="40.0" ripplerFill="RED" styleClass="circle-red-btn" text="%new_client" textFill="#3d4956">
+                                                   <graphic>
+                                                      <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/small/icons8_delete_32px_1.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <TableView prefHeight="403.0" prefWidth="490.0" style="-fx-background-color: white;">
+                                             <columns>
+                                                <TableColumn prefWidth="75.0" text="C1" />
+                                                <TableColumn prefWidth="75.0" text="C2" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
+                                             </effect>
+                                          </TableView>
+                                          <Label fx:id="debtStatus" alignment="CENTER" focusTraversable="false" prefHeight="20.0" prefWidth="600.0" text="%debt_on" textAlignment="CENTER" textFill="RED">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" layoutX="100.0" prefHeight="67.0" prefWidth="800.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="600.0" spacing="8.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ChoiceBox fx:id="clientsCB" focusTraversable="false" maxWidth="256.0" prefHeight="48.0" prefWidth="256.0" style="-fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                           <effect>
+                              <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
+                           </effect>
+                        </ChoiceBox>
+                        <JFXButton id="menu-btn" fx:id="addClientBtn" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="%new_client" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_user_24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton id="menu-btn" fx:id="carryPayBtn" focusTraversable="false" layoutX="10.0" layoutY="13.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="%carry_payment" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_user_24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton id="menu-btn" fx:id="printClients" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_print_file_24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="8.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="23.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/large/icons8_User_Not_Found_96px.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#aaaaaa" strokeType="OUTSIDE" strokeWidth="0.0" text="%no_client_found">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+         <stylesheets>
+            <URL value="@../Layout/custom.css" />
+            <URL value="@../Layout/buttons.css" />
+         </stylesheets>
          <effect>
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>

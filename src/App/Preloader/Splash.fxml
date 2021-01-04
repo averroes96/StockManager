@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #3d4956;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Preloader.SplashController">
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #eee;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Preloader.SplashController">
     <stylesheets>
         <URL value="@splash.css" />
     </stylesheets>
    <children>
-      <Label fx:id="text" alignment="CENTER" focusTraversable="false" layoutX="16.0" layoutY="95.0" prefHeight="23.0" prefWidth="289.0" text="الرجاء الإنتظار..." textFill="#eeeeee" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-         <font>
-            <Font name="Tahoma Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXSpinner fx:id="progress" focusTraversable="false" layoutX="175.0" layoutY="147.0" style="-fx-text-fill: tomato;" />
+      <JFXSpinner fx:id="progress" focusTraversable="false" layoutX="175.0" layoutY="125.0" style="-fx-text-fill: tomato;" />
+      <StackPane fx:id="stackPane" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog fx:id="dialog" nodeOrientation="RIGHT_TO_LEFT" />
+         </children>
+      </StackPane>
    </children>
    <effect>
-      <InnerShadow height="15.0" radius="7.0" width="15.0" />
+      <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
    </effect>
 </AnchorPane>

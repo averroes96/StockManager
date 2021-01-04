@@ -70,9 +70,8 @@ public class Main extends Application implements Init {
     public void start(Stage stage) throws Exception {
         
         init();
-
+        
         loadView(new Locale(getAppLang()[0], getAppLang()[1]), stage);
-
     }
 
     /**

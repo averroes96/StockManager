@@ -96,7 +96,7 @@ TextArea{
 
 }
 
-#return-btn:hover,#menu-btn:hover{
+#return-btn:hover, #menu-btn:hover{
 
     -fx-background-color: tomato;
     -fx-cursor: hand;
@@ -181,7 +181,8 @@ ListView {
 
 #pane-title {
     -fx-alignment: CENTER;
-    -fx-background-color: tomato;
+    -fx-background-color: #3d4956;
+    -fx-text-fill: #eee
 }
 
 .jfx-text-field,.jfx-password-field {
@@ -220,7 +221,6 @@ ListView {
 
 .box:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 0, 0);
-    -fx-cursor: hand
 }
 
 .box-top-pane {
@@ -257,4 +257,63 @@ ListView {
 /* Styling the animated thumb */
 .jfx-slider > .animated-thumb {
      -fx-background-color: tomato;
+}
+
+.scroll-pane {
+    -fx-background-color: #02030A;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #3D4956;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}
+
+
+.default-btn{
+    -fx-text-fill: #eee;
+    -fx-background-color: #3D4956
+}
+
+.cancel-btn{
+    -fx-text-fill: #3D4956;
+    -fx-background-color: tomato;
+}
+
+.circle-primary-btn{
+    -fx-background-radius: 16;
+    -fx-background-color: #3D4956;
+    -fx-cursor: hand
+}
+
+.circle-tomato-btn{
+    -fx-background-radius: 16;
+    -fx-background-color: tomato;
+    -fx-cursor: hand
+}
+
+.circle-red-btn{
+    -fx-background-radius: 16;
+    -fx-background-color: red;
+    -fx-cursor: hand
 }

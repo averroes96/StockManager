@@ -13,7 +13,6 @@ import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
-import static Include.Common.getDate;
 import Include.Init;
 import Include.SMController;
 import com.jfoenix.controls.JFXButton;
@@ -87,7 +86,7 @@ public class UpdateBuyController extends SMController implements Initializable,I
             select(buy.getProduct());
             quantity.setText(String.valueOf(buy.getBuyQte()));
             price.setText(String.valueOf(buy.getBuyPrice()));
-            date.getEditor().setText(getDate(buy.getBuyID(), "buy"));
+            date.getEditor().setText(buy.getDate());
             time.getEditor().setText(buy.getTime());
         } catch (SQLException ex) {
             exceptionLayout(ex, saveBtn);

@@ -8,7 +8,6 @@ import Include.Common;
 import static Include.Common.AnimateField;
 import static Include.Common.dateFormatter;
 import static Include.Common.getConnection;
-import static Include.Common.getDate;
 import Include.CommonMethods;
 import Include.Init;
 import static Include.Init.FXMLS_PATH;
@@ -63,7 +62,7 @@ public class UpdateSellController extends SMController implements Initializable,
             select(sell.getProduct().getName());
             quantity.setText(String.valueOf(selectedSell.getSellQuantity()));
             price.setText(String.valueOf(selectedSell.getTotalPrice() / selectedSell.getSellQuantity()));
-            date.getEditor().setText(getDate(selectedSell.getSellID(),"sell"));
+            date.getEditor().setText(selectedSell.getDate());
             time.getEditor().setText(sell.getTime());
         } catch (SQLException ex) {
             exceptionLayout(ex, saveButton);

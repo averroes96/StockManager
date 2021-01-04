@@ -54,7 +54,7 @@
                   </JFXPasswordField>
                </children>
             </HBox>
-            <JFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" prefHeight="42.0" prefWidth="150.0" ripplerFill="RED" style="-fx-background-color: tomato; -fx-background-radius: 20;" text="%enter" textFill="#3d4956">
+            <JFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" prefHeight="42.0" prefWidth="150.0" ripplerFill="RED" styleClass="default-btn" text="%enter" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -65,7 +65,7 @@
                          
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/small/icons8_login_rounded_24px.png" />
+                              <Image url="@../images/small/icons8_login_32px_1.png" />
                            </image>
                         </ImageView>             
                          
