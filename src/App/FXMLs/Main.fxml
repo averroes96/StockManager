@@ -26,9 +26,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
    <children>
-      <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="128.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -405,7 +405,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/large/user_large_filled_grey.png" />
+                              <Image url="@../images/medium/icons8_human_head_48px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -413,11 +413,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="150.0" spacing="8.0">
+                  <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="160.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="settingsBtn" layoutX="82.0" layoutY="26.0" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
+                        <Label fx:id="settingsBtn" layoutX="82.0" layoutY="26.0" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 16;" styleClass="topbar">
                            <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/medium/icons8_settings_48px_1.png" />
                                  </image>
@@ -426,7 +426,7 @@
                         </Label>
                         <Label fx:id="btn_close" onDragDetected="#selectMenu" onMouseClicked="#selectMenu" prefHeight="42.0" prefWidth="42.0" style="-fx-alignment: center; -fx-background-radius: 20;" styleClass="topbar">
                            <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/medium/icons8_shutdown_48px.png" />
                                  </image>
@@ -443,7 +443,7 @@
          </children></AnchorPane>
       <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="768.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="656.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -669,7 +669,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="100.0" spacing="8.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="%options" textFill="#3d4956">
+                                    <Label alignment="CENTER" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="268.0" style="-fx-background-color: tomato; -fx-background-radius: 20 20 0 0;" text="%options" textFill="#3d4956">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -796,7 +796,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="544.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="457.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -977,7 +977,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>               
             </TableView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="336.0" layoutY="-18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="259.0" layoutY="-18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -1139,16 +1139,16 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="768.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="856.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
-            <HBox alignment="TOP_CENTER" layoutX="50.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" spacing="32.0" visible="false" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+            <HBox fx:id="clientTabBox" alignment="TOP_CENTER" layoutX="50.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" spacing="32.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                <children>
-                  <VBox fx:id="clientBox" prefHeight="550.0" prefWidth="756.0" styleClass="box" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="clientBox" prefHeight="550.0" prefWidth="384.0" styleClass="box">
                      <children>
                         <Label alignment="CENTER" focusTraversable="false" graphicTextGap="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="715.0" style="-fx-background-color: #3d4956; -fx-background-radius: 20 20 0 0;" text="%client_tab" textFill="#eeeeee">
                            <font>
@@ -1164,13 +1164,13 @@
                         </Label>
                         <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="600.0" spacing="16.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <HBox prefHeight="480.0" prefWidth="1002.0" spacing="16.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="1002.0" spacing="16.0">
                                  <children>
                                     <VBox alignment="TOP_CENTER" maxWidth="384.0" prefHeight="464.0" prefWidth="128.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Circle fx:id="clientIV" fill="WHITE" radius="100.0" stroke="#3d4956" strokeType="INSIDE">
+                                          <Circle fx:id="clientIV" fill="WHITE" radius="80.0" stroke="#3d4956" strokeType="INSIDE">
                                              <cursor>
-                                                <Cursor fx:constant="HAND" />
+                                                <Cursor fx:constant="DEFAULT" />
                                              </cursor>
                                              <VBox.margin>
                                                 <Insets bottom="16.0" />
@@ -1268,24 +1268,6 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <TableView prefHeight="403.0" prefWidth="490.0" style="-fx-background-color: white;">
-                                             <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
-                                             </columns>
-                                             <effect>
-                                                <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
-                                             </effect>
-                                          </TableView>
-                                          <Label fx:id="debtStatus" alignment="CENTER" focusTraversable="false" prefHeight="20.0" prefWidth="600.0" text="%debt_on" textAlignment="CENTER" textFill="RED">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
                                  </children>
                               </HBox>
                            </children>
@@ -1295,44 +1277,139 @@
                         </VBox>
                      </children>
                   </VBox>
+                  <VBox fx:id="paymentsBox" maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="768.0" styleClass="box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" focusTraversable="false" graphicTextGap="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="715.0" style="-fx-background-color: #3d4956; -fx-background-radius: 20 20 0 0;" text="%client_payments" textFill="#eeeeee">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/small/icons8_user_menu_female_32px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="600.0" spacing="16.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="1002.0" spacing="16.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="464.0" prefWidth="128.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <TableView prefHeight="350.0" prefWidth="624.0" style="-fx-background-color: white;">
+                                             <columns>
+                                                <TableColumn maxWidth="160.0" minWidth="128.0" prefWidth="128.0" text="%payment_id" />
+                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="payment_date" />
+                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="payment_sum" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
+                                             </effect>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                                             <children>
+                                                <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="8.0" style="-fx-background-color: #eee;" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets top="8.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="96.0" prefWidth="96.0" text="%paid" textFill="#3d4956">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="paidLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <effect>
+                                                      <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
+                                                   </effect>
+                                                </VBox>
+                                                <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="8.0" style="-fx-background-color: #eee;" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets top="8.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="96.0" prefWidth="96.0" text="%remain" textFill="#3d4956">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="remainLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <effect>
+                                                      <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
+                                                   </effect>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <VBox alignment="CENTER" layoutX="100.0" prefHeight="67.0" prefWidth="800.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="600.0" spacing="8.0" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ChoiceBox fx:id="clientsCB" focusTraversable="false" maxWidth="256.0" prefHeight="48.0" prefWidth="256.0" style="-fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                        <ChoiceBox fx:id="clientsCB" focusTraversable="false" maxWidth="256.0" prefHeight="48.0" prefWidth="512.0" style="-fx-cursor: hand;" HBox.hgrow="ALWAYS">
                            <effect>
                               <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
                            </effect>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
                         </ChoiceBox>
-                        <JFXButton id="menu-btn" fx:id="addClientBtn" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="%new_client" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/small/icons8_user_24px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton id="menu-btn" fx:id="carryPayBtn" focusTraversable="false" layoutX="10.0" layoutY="13.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" text="%carry_payment" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/small/icons8_user_24px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton id="menu-btn" fx:id="printClients" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/small/icons8_print_file_24px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
+                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXButton id="menu-btn" fx:id="addClientBtn" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" styleClass="bottom-border" text="%new_client" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/small/icons8_user_24px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton id="menu-btn" fx:id="carryPayBtn" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" ripplerFill="RED" styleClass="bottom-border" text="%carry_payment" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/small/icons8_user_24px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton id="menu-btn" fx:id="printClients" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="200.0" styleClass="bottom-border" text="%print" textFill="#3d4956" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/small/icons8_print_file_24px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets left="8.0" />
@@ -1340,7 +1417,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" layoutX="23.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+            <VBox fx:id="noUsersBox" alignment="CENTER" layoutX="23.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" visible="false" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                <children>
                   <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
                      <image>

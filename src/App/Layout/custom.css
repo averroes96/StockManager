@@ -103,6 +103,11 @@ TextArea{
 
 }
 
+.bottom-border{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #c9c9c9;
+}
+
 #top-btn:hover{
     
     -fx-border-color: #dddddd;

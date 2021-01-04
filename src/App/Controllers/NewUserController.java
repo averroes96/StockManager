@@ -114,7 +114,7 @@ public class NewUserController extends SMController implements Initializable,Ini
             customDialog(bundle.getString("invalid_password"), bundle.getString("invalid_password_msg"), ERROR_SMALL, true, saveBtn);
             return false;              
         }
-        else if(!phone.getText().trim().matches("^[5-7]?[0-9]{10}$") && !phone.getText().equals("")){
+        else if(!phone.getText().trim().matches("^0[5-7][0-9]{8}$") && !phone.getText().equals("")){
             customDialog(bundle.getString("invalid_phone"), bundle.getString("invalid_phone_msg"), ERROR_SMALL, true, saveBtn);
             return false;              
         }
@@ -287,7 +287,7 @@ public class NewUserController extends SMController implements Initializable,Ini
          
             
         AnimateField(fullname, fullnameStatus, "^[\\p{L} .'-]+$", isAnimated);
-        AnimateField(phone, phoneStatus, "^[5-7]?[0-9]{10}$", isAnimated);
+        AnimateField(phone, phoneStatus, "^0[5-7]?[0-9]{8}$", isAnimated);
                 
         controlDigitField(phone);
         

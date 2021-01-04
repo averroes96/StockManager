@@ -54,11 +54,13 @@ import javafx.collections.ObservableList;
  */
 public class Client {
     
-    private int ID;
+    private int ID,paid,remain;
     private String fullname,phone,regCom,nif,ai,image;
 
     public Client() {
         this.ID = 0;
+        this.paid = 0;
+        this.remain = 0;
         this.fullname = "";
         this.phone = "";
         this.regCom = "";
@@ -67,8 +69,10 @@ public class Client {
         this.image = "";
     }
 
-    public Client(int ID, String fullname, String phone, String regCom, String nif, String ai, String image) {
+    public Client(int ID, int paid, int remain, String fullname, String phone, String regCom, String nif, String ai, String image) {
         this.ID = ID;
+        this.paid = paid;
+        this.remain = remain;
         this.fullname = fullname;
         this.phone = phone;
         this.regCom = regCom;
@@ -76,6 +80,24 @@ public class Client {
         this.ai = ai;
         this.image = image;
     }
+
+    public int getPaid() {
+        return paid;
+    }
+
+    public void setPaid(int paid) {
+        this.paid = paid;
+    }
+
+    public int getRemain() {
+        return remain;
+    }
+
+    public void setRemain(int remain) {
+        this.remain = remain;
+    }
+    
+    
 
     public int getID() {
         return ID;
@@ -133,8 +155,6 @@ public class Client {
         this.image = image;
     }
     
-    
-    
     public static ObservableList getClientNames() throws SQLException{
         
         ObservableList<String> data = FXCollections.observableArrayList();
@@ -157,7 +177,7 @@ public class Client {
         Client client = new Client();
         int count;
         try (Connection con = getConnection()) {
-            String query = "SELECT * FROM client INNER join payment ON client.client_id = payment.client_id WHERE fullname = ?";
+            String query = "SELECT * FROM client WHERE fullname = ?";
             PreparedStatement st;
             ResultSet rs;
             st = con.prepareStatement(query);
@@ -175,6 +195,8 @@ public class Client {
                 client.setPhone(rs.getString("tel"));
                 client.setNif(rs.getString("nif"));
                 client.setAi(rs.getString("ai"));
+                client.setPaid(rs.getInt("paid"));
+                client.setRemain(rs.getInt("remain"));
                 ++count;
                 
             }
@@ -184,5 +206,35 @@ public class Client {
             else
                 return client;              
     }
+    
+        public void delete() throws SQLException{
+        
+        try (Connection con = getConnection()) {
+            String query = "DELETE FROM client WHERE client_id = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, this.getID());
+
+            ps.executeUpdate();
+        }        
+        
+    }
+        
+    public static boolean nameExist(String text) throws SQLException {
+        try (Connection con = getConnection()) {
+            String query = "SELECT * FROM client WHERE fullname = ?";
+            PreparedStatement st;
+            ResultSet rs;
+            st = con.prepareStatement(query);
+            st.setString(1, text);
+            rs = st.executeQuery();
+            while(rs.next())
+                return true;
+        }
+
+        return false;
+    }
+       
     
 }

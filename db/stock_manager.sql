@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2020 at 12:51 AM
+-- Generation Time: Jan 05, 2021 at 12:03 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -36,6 +36,37 @@ CREATE TABLE `buy` (
   `buy_date` datetime NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) NOT NULL,
   `prod_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+CREATE TABLE `client` (
+  `client_id` int(11) NOT NULL,
+  `fullname` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `tel` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `rc` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `nif` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `ai` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `image` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `paid` int(11) NOT NULL DEFAULT 0,
+  `remain` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `pay_id` int(11) NOT NULL,
+  `pay_sum` int(11) NOT NULL,
+  `pay_date` date NOT NULL,
+  `client_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -129,7 +160,8 @@ CREATE TABLE `sell` (
   `sell_quantity` int(11) NOT NULL,
   `sell_date` datetime NOT NULL,
   `prod_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `client_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -177,7 +209,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `fullname`, `telephone`, `admin`, `active`, `username`, `password`, `last_logged_in`, `image`) VALUES
-(1, 'admin account', '0553538880', 1, 1, 'admin', 'password', '2020-10-30 00:47:45', '');
+(1, 'admin account', '0553538880', 1, 1, 'admin', 'password', '2021-01-04 23:53:18', 'C:/gdp-uploads/2020-10-26-06-25-22.png'),
+(5, 'ada meceffeuk', '0553792748', 0, 1, 'averroes96', 'password', '2020-09-12 19:41:59', 'C:/gdp-uploads/2020-3-14-10-52-17.jpg'),
+(14, 'illuminati', '0666666666', 0, 1, 'illuminati', 'illuminati', NULL, 'C:/gdp-uploads/2020-10-15-08-30-29.png');
 
 --
 -- Indexes for dumped tables
@@ -190,6 +224,18 @@ ALTER TABLE `buy`
   ADD PRIMARY KEY (`buy_id`),
   ADD KEY `fk_buyProd` (`prod_id`),
   ADD KEY `fk_buyuser` (`user_id`);
+
+--
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`pay_id`);
 
 --
 -- Indexes for table `privs`
@@ -248,6 +294,18 @@ ALTER TABLE `user`
 --
 ALTER TABLE `buy`
   MODIFY `buy_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -313,6 +371,7 @@ ALTER TABLE `product_stats`
 -- Constraints for table `sell`
 --
 ALTER TABLE `sell`
+  ADD CONSTRAINT `fk_sell_client` FOREIGN KEY (`user_id`) REFERENCES `client` (`client_id`) ON DELETE SET NULL ON UPDATE SET NULL,
   ADD CONSTRAINT `fk_sellprod` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`) ON DELETE SET NULL ON UPDATE SET NULL,
   ADD CONSTRAINT `fk_selluser` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 COMMIT;

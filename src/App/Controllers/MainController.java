@@ -95,7 +95,7 @@ public class MainController extends SMController implements Initializable,Init {
     @FXML public ChoiceBox<String> usersCB,clientsCB;
     @FXML public TextField searchBuy ;
     @FXML public Label fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,
-                        lastLogged,debtStatus,clientPhone,regCommerce,clientNIF,clientAI; 
+                        lastLogged,debtStatus,clientPhone,regCommerce,clientNIF,clientAI,paidLabel,remainLabel; 
     @FXML public Button seeRecords,day,week,month,total,btn_products, btn_sells, btn_employers,btn_buys,btn_clients;
     @FXML public ImageView prodManager,userManager,sellManager,buyManager;
     @FXML public Pane billPane,billPane1;
@@ -106,8 +106,8 @@ public class MainController extends SMController implements Initializable,Init {
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn,addClientBtn,printClients,updateClientBtn,
                             carryPayBtn,deleteClientBtn;
     
-    @FXML public VBox infoContainer,productVB,clientBox;
-    @FXML public HBox productHB;
+    @FXML public VBox infoContainer,productVB,clientBox,noUsersBox,paymentsBox;
+    @FXML public HBox productHB,clientTabBox;
     @FXML public Circle productIV,userIV,clientIV;
     
     ObservableList<Product> data = FXCollections.observableArrayList();
@@ -178,6 +178,8 @@ public class MainController extends SMController implements Initializable,Init {
                 case "product":
                     deleteProduct();
                     break;
+                case "client":
+                    deleteClient((Client) object);
                 default:
                     break;
             }
@@ -279,7 +281,6 @@ public class MainController extends SMController implements Initializable,Init {
 
         
         if (!employersList.isEmpty()) {
-            
             showEmployer(employer.getUsername());
         }
 
@@ -625,6 +626,8 @@ public class MainController extends SMController implements Initializable,Init {
             
             animateNode(new ZoomOut(clientBox));
             animateNode(new ZoomIn(clientBox));
+            animateNode(new ZoomOut(paymentsBox));
+            animateNode(new ZoomIn(paymentsBox));
             
             Client choosen = Client.getClientByName(selectedItem);
             if(choosen != null){
@@ -659,6 +662,10 @@ public class MainController extends SMController implements Initializable,Init {
                         new File(choosen.getImage()).toURI().toString(),
                         clientIV.getCenterX(), clientIV.getCenterX(), false, false)));
             }
+            
+            paidLabel.setText(String.valueOf(choosen.getPaid()) + " " + bundle.getString("currency"));
+            remainLabel.setText(String.valueOf(choosen.getRemain()) + " " + bundle.getString("currency"));
+            
             
             clientsCB.getSelectionModel().select(selectedItem);
                 
@@ -896,6 +903,33 @@ public class MainController extends SMController implements Initializable,Init {
             
         }
         catch (IOException | SQLException e) {
+            exceptionLayout(e);
+        }
+    }
+    
+    private void deleteClient(Client selected)
+    {
+
+        try {           
+                
+                selected.delete();
+                clientsCB.getItems().clear();
+                getClientsNames();
+                clientsCB.setItems(clientsList);
+
+                if (!clientsList.isEmpty()) {
+                    clientsCB.getSelectionModel().select(0);
+                    showClient(clientsCB.getItems().get(0));
+                }
+                else{
+                    clientTabBox.setVisible(false);
+                    noUsersBox.setVisible(true);
+                }
+
+                customDialog(bundle.getString("client_deleted"), bundle.getString("client_deleted_msg"), INFO_SMALL, true);
+            
+        }
+        catch (SQLException e) {
             exceptionLayout(e);
         }
     }
@@ -1396,13 +1430,45 @@ public class MainController extends SMController implements Initializable,Init {
         
         getClientsNames();
         clientsCB.setItems(clientsList);
-        clientsCB.getSelectionModel().select(0);
-        
+        if(clientsList.size() > 0){
+            clientsCB.getSelectionModel().select(0);
+            showClient(clientsList.get(0));
+        }
+        else{
+            clientTabBox.setVisible(false);
+            noUsersBox.setVisible(true);
+        }
         clientsCB.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 showClient(clientsCB.getSelectionModel().getSelectedItem());
             }
-        }); 
+        });
+        
+        deleteClientBtn.setOnAction(Action -> {
+
+            try {
+                Client client = Client.getClientByName(clientsCB.getSelectionModel().getSelectedItem());
+                confirmDialog(client, "client", bundle.getString("delete") + " " + client.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
+            } catch (SQLException ex) {
+                exceptionLayout(ex);
+            }
+
+        });
+        
+        addClientBtn.setOnAction(Action -> {
+            
+            try {
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewClient.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                NewClientController ncControl = (NewClientController)loader.getController();
+                ncControl.getEmployer(employer);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
+            } catch (IOException ex) {
+                exceptionLayout(ex);
+            }
+
+        });
 
 
         // Buys TAB
@@ -1803,24 +1869,35 @@ public class MainController extends SMController implements Initializable,Init {
                 sells.setVisible(false);
                 employers.setVisible(false);
                 buys.setVisible(false);
+                clients.setVisible(false);
                 break;
             case "sells":
                 products.setVisible(false);
                 sells.setVisible(true);
                 employers.setVisible(false);
                 buys.setVisible(false);
+                clients.setVisible(false);
                 break;
             case "employers":
                 products.setVisible(false);
                 sells.setVisible(false);
                 employers.setVisible(true);
                 buys.setVisible(false);
+                clients.setVisible(false);
                 break;
             case "buys":
                 products.setVisible(false);
                 sells.setVisible(false);
                 employers.setVisible(false);
                 buys.setVisible(true);
+                clients.setVisible(false);
+                break;
+            case "clients":
+                products.setVisible(false);
+                sells.setVisible(false);
+                employers.setVisible(false);
+                buys.setVisible(false);
+                clients.setVisible(true);
                 break;
             default:
                 break;
