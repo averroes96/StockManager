@@ -35,23 +35,6 @@
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
             </ImageView>
-            <TableView fx:id="productsTable" layoutX="15.0" layoutY="318.0" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="970.0" style="-fx-background-color: white;" visible="false" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-              <columns>
-                <TableColumn fx:id="prodName" maxWidth="300.0" minWidth="175.0" prefWidth="-1.0" text="%product" />
-                  <TableColumn fx:id="prodQuantity" maxWidth="100.0" minWidth="75.0" prefWidth="-1.0" text="%quantity" />
-                  <TableColumn fx:id="sellProd" maxWidth="150.0" minWidth="100.0" prefWidth="-1.0" text="%sell_price" />
-                  <TableColumn fx:id="addDate" maxWidth="200.0" minWidth="150.0" prefWidth="-1.0" text="%add_date" />
-                  <TableColumn fx:id="lastChange" maxWidth="250.0" minWidth="200.0" prefWidth="-1.0" text="%last_edit" />
-                  <TableColumn fx:id="nbrBuysCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="%buys" />
-                  <TableColumn fx:id="nbrSellsCol" maxWidth="150.0" minWidth="110.0" prefWidth="-1.0" text="%sells" />
-              </columns>
-               <effect>
-                  <DropShadow color="#00000099" height="16.0" radius="7.5" width="16.0" />
-               </effect>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
             <Label fx:id="idField" layoutX="726.0" layoutY="412.0" prefHeight="17.0" prefWidth="27.0" visible="false" />
             <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="4.0" prefHeight="61.0" prefWidth="970.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
@@ -322,6 +305,20 @@
                   <VBox fx:id="productVB" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="153.0" prefWidth="955.0" style="-fx-background-color: #eee;" />
                </content>
             </ScrollPane>
+            <VBox fx:id="noProductsBox" alignment="CENTER" layoutY="136.0" prefHeight="250.0" prefWidth="1088.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/large/icons8_nothing_found_96px_1.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#aaaaaa" strokeType="OUTSIDE" strokeWidth="0.0" text="%no_products_found">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
          </children>
          <effect>
             <DropShadow color="#00000099" height="16.0" radius="7.5" width="16.0" />
@@ -1139,7 +1136,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="856.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -1188,7 +1185,7 @@
                                                 </Label>
                                                 <Label fx:id="clientPhone" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -1205,7 +1202,7 @@
                                                 </Label>
                                                 <Label fx:id="regCommerce" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -1222,7 +1219,7 @@
                                                 </Label>
                                                 <Label fx:id="clientNIF" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -1239,7 +1236,7 @@
                                                 </Label>
                                                 <Label fx:id="clientAI" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO" HBox.hgrow="ALWAYS">
                                                    <font>
-                                                      <Font size="14.0" />
+                                                      <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -1324,7 +1321,7 @@
                                                       </Label>
                                                       <Label fx:id="paidLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO">
                                                          <font>
-                                                            <Font size="24.0" />
+                                                            <Font name="System Bold" size="24.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
@@ -1344,7 +1341,7 @@
                                                       </Label>
                                                       <Label fx:id="remainLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="171.0" textFill="TOMATO">
                                                          <font>
-                                                            <Font size="24.0" />
+                                                            <Font name="System Bold" size="24.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
@@ -1373,7 +1370,7 @@
                      <children>
                         <ChoiceBox fx:id="clientsCB" focusTraversable="false" maxWidth="256.0" prefHeight="48.0" prefWidth="512.0" style="-fx-cursor: hand;" HBox.hgrow="ALWAYS">
                            <effect>
-                              <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
+                              <DropShadow color="#000000b2" height="8.0" radius="3.5" width="8.0" />
                            </effect>
                            <HBox.margin>
                               <Insets right="8.0" />
@@ -1419,7 +1416,7 @@
             </VBox>
             <VBox fx:id="noUsersBox" alignment="CENTER" layoutX="23.0" layoutY="75.0" prefHeight="530.0" prefWidth="1018.0" visible="false" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                <children>
-                  <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/large/icons8_User_Not_Found_96px.png" />
                      </image>

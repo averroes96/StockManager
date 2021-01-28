@@ -189,7 +189,7 @@
                   </VBox>
                </children>
             </HBox>
-            <JFXButton fx:id="addBtn" alignment="CENTER" buttonType="RAISED" defaultButton="true" prefHeight="50.0" prefWidth="192.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
+            <JFXButton fx:id="addBtn" alignment="CENTER" buttonType="RAISED" defaultButton="true" prefHeight="48.0" prefWidth="192.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

@@ -106,7 +106,7 @@ public class MainController extends SMController implements Initializable,Init {
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn,addClientBtn,printClients,updateClientBtn,
                             carryPayBtn,deleteClientBtn;
     
-    @FXML public VBox infoContainer,productVB,clientBox,noUsersBox,paymentsBox;
+    @FXML public VBox infoContainer,productVB,clientBox,noUsersBox,noProductsBox,paymentsBox;
     @FXML public HBox productHB,clientTabBox;
     @FXML public Circle productIV,userIV,clientIV;
     
@@ -126,21 +126,22 @@ public class MainController extends SMController implements Initializable,Init {
         productVB.getChildren().clear();
         
         getAllProducts();
-        
-        list.forEach((product) -> {
-            try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Item.fxml"), bundle);
-            HBox root = (HBox)loader.load();
-            Node node = (Node)loader.getRoot();
-            ItemController iController = (ItemController)loader.getController();                
-            iController.setValues(product);
-            iController.setMainController(this);
-            //Node node = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "item.fxml"));
-            productVB.getChildren().add(node);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        });
+       
+        if(!list.isEmpty()){
+            list.forEach((product) -> {
+                try{
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "Item.fxml"), bundle);
+                    HBox root = (HBox)loader.load();
+                    Node node = (Node)loader.getRoot();
+                    ItemController iController = (ItemController)loader.getController();                
+                    iController.setValues(product);
+                    iController.setMainController(this);
+                    productVB.getChildren().add(node);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            });
+        }
         
     }
     
@@ -1185,6 +1186,7 @@ public class MainController extends SMController implements Initializable,Init {
         if (!data.isEmpty()) {
             showProduct(0);
         }
+        
         /*
         productsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -1261,7 +1263,6 @@ public class MainController extends SMController implements Initializable,Init {
         viewHistory.setOnAction(Action ->{
             
             try {
-                Product product = Product.getProductByID(Integer.parseInt(idField.getText()));
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductHistory.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
@@ -1271,7 +1272,7 @@ public class MainController extends SMController implements Initializable,Init {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
                 stage.showAndWait();
-            } catch (IOException | SQLException ex) {
+            } catch (IOException ex) {
                 exceptionLayout(ex);
             }            
             
@@ -1469,6 +1470,23 @@ public class MainController extends SMController implements Initializable,Init {
             }
 
         });
+        
+        updateClientBtn.setOnAction(Action -> {
+            
+            try {
+                Client client = Client.getClientByName(clientsCB.getValue());
+                ((Node)Action.getSource()).getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateClient.fxml"), bundle);
+                AnchorPane root = (AnchorPane)loader.load();
+                UpdateClientController ucControl = (UpdateClientController)loader.getController();
+                ucControl.setInfo(employer, client);
+                ucControl.fillFields(client);
+                startStage(root, (int)root.getWidth(), (int)root.getHeight());
+
+            } catch (IOException | SQLException ex) {
+                exceptionLayout(ex);
+            }
+        });
 
 
         // Buys TAB
@@ -1532,6 +1550,8 @@ public class MainController extends SMController implements Initializable,Init {
         printBuys.disableProperty().bind(Bindings.size(buysTable.getItems()).isEqualTo(0));
         
         updateProduct.disableProperty().bind(Bindings.size(productVB.getChildren()).isEqualTo(0));
+        
+        noProductsBox.visibleProperty().bind(Bindings.size(productVB.getChildren()).isEqualTo(0));
         
         Tooltip.install(
                 billPane, 

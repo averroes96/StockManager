@@ -87,7 +87,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <Label fx:id="fullnameStatus" focusTraversable="false" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال إسم كامل صالح !" textFill="WHITE" visible="false">
+                        <Label fx:id="fullnameStatus" focusTraversable="false" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="%fullname_error" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -109,7 +109,7 @@
                               </JFXTextField>
                            </children>
                         </HBox>
-                        <Label fx:id="phoneStatus" focusTraversable="false" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال رقم هاتف صالح !" textFill="WHITE" visible="false">
+                        <Label fx:id="phoneStatus" focusTraversable="false" prefHeight="17.0" prefWidth="240.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="%phone_error" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
