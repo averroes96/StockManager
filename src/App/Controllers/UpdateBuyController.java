@@ -48,7 +48,7 @@ public class UpdateBuyController extends SMController implements Initializable,I
 
     @FXML private JFXButton saveBtn;
     @FXML private Button returnBtn;
-    @FXML private JFXTextField price,quantity;
+    @FXML private JFXTextField price,quantity,supplierTF;
     @FXML private JFXDatePicker date;
     @FXML private JFXTimePicker time;
     @FXML private Label priceStatus,qteStatus;
@@ -86,6 +86,7 @@ public class UpdateBuyController extends SMController implements Initializable,I
             select(buy.getProduct());
             quantity.setText(String.valueOf(buy.getBuyQte()));
             price.setText(String.valueOf(buy.getBuyPrice()));
+            supplierTF.setText(buy.getSupplier());
             date.getEditor().setText(buy.getDate());
             time.getEditor().setText(buy.getTime());
         } catch (SQLException ex) {
@@ -144,16 +145,17 @@ public class UpdateBuyController extends SMController implements Initializable,I
                     Product oldProduct = getProductByName(buy.getProduct());
                     Product newProduct = productCB.getSelectionModel().getSelectedItem();
                     
-                    ps = con.prepareStatement("UPDATE buy SET buy_qte = ?, buy_unit_price = ?, buy_price = ?, buy_date = concat(?,?), user_id = ?, prod_id = ? WHERE buy_id = ?");
+                    ps = con.prepareStatement("UPDATE buy SET buy_qte = ?, buy_unit_price = ?, buy_price = ?, buy_date = concat(?,?), buy_supplier = ?, user_id = ?, prod_id = ? WHERE buy_id = ?");
                     
-                    ps.setInt(6, employer.getUserID());
+                    ps.setInt(7, employer.getUserID());
                     ps.setInt(1, Integer.parseInt(quantity.getText()));
                     ps.setInt(2, Integer.parseInt(price.getText()));
                     ps.setInt(3, Integer.parseInt(price.getText()) * Integer.parseInt(quantity.getText()));
-                    ps.setInt(7, newProduct.getProdID());
+                    ps.setInt(8, newProduct.getProdID());
                     ps.setString(4, date.getEditor().getText() + " ");
                     ps.setString(5, time.getEditor().getText());
-                    ps.setInt(8, buy.getBuyID());
+                    ps.setString(6, supplierTF.getText().trim());
+                    ps.setInt(9, buy.getBuyID());
                     ps.executeUpdate();
                     
                     if(oldProduct.getProdID() == newProduct.getProdID()){
@@ -165,7 +167,6 @@ public class UpdateBuyController extends SMController implements Initializable,I
                     }
                 }
                 customDialog(bundle.getString("buy_updated"), bundle.getString("buy_updated_msg"), INFO_SMALL, true, saveBtn);                
-
 
             }
             catch (NumberFormatException | SQLException e) {

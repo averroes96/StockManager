@@ -88,7 +88,7 @@ public class MainController extends SMController implements Initializable,Init {
     @FXML public TableView<Sell> sellsTable ;
     @FXML public TableView<Buy> buysTable ;
     @FXML public TableColumn<Buy, Integer> buyQteCol,buyPriceCol,buyTotalCol ;
-    @FXML public TableColumn<Buy, String> buyProdCol,buyUserCol,buyDateCol ;
+    @FXML public TableColumn<Buy, String> buyProdCol,buySupplierCol,buyDateCol ;
     @FXML public TableColumn<Sell, Integer> sellQuantity,sellTotalCol,sellPrice ;
     @FXML public TableColumn<Sell, String> sellRef,seller,sellDateCol ;
     @FXML public TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
@@ -101,7 +101,7 @@ public class MainController extends SMController implements Initializable,Init {
     @FXML public Pane billPane,billPane1;
     @FXML public JFXTextField searchField,productNameTF,productPriceTF,productQteTF,sellSearch ;
     @FXML public JFXDatePicker productDP,sellDateField,buyDateField;
-    @FXML public JFXButton viewHistory,addProd,printProducts,removedProduct,productStats,deleteProduct,updateProduct,
+    @FXML public JFXButton viewHistory,addProd,printProducts,removedProduct,deleteProduct,updateProduct,
                             updateEmployer,deleteEmployer,changePass,printSells,sellStats,newBillBtn,newSellButton,printEmployers,
                             exBtn,addEmployerButton,printBuy,printBuys,newBuyBtn,buyStatBtn,addClientBtn,printClients,updateClientBtn,
                             carryPayBtn,deleteClientBtn;
@@ -707,6 +707,8 @@ public class MainController extends SMController implements Initializable,Init {
             
             customDialog(bundle.getString("product_deleted"), bundle.getString("product_deleted_msg"), INFO_SMALL, true);
             
+            System.out.println(data.size());
+            
             if(data.size() > 0) {
                 //showNextProduct();
             }
@@ -1060,7 +1062,7 @@ public class MainController extends SMController implements Initializable,Init {
         
         buyTotalCol.setCellValueFactory(new PropertyValueFactory<>("buyTotalPrice"));
         buyQteCol.setCellValueFactory(new PropertyValueFactory<>("buyQte"));
-        buyUserCol.setCellValueFactory(new PropertyValueFactory<>("user"));
+        buySupplierCol.setCellValueFactory(new PropertyValueFactory<>("supplier"));
         buyPriceCol.setCellValueFactory(new PropertyValueFactory<>("buyPrice"));
         buyProdCol.setCellValueFactory(new PropertyValueFactory<>("product"));
         buyDateCol.setCellValueFactory(new PropertyValueFactory<>("buyDate"));
@@ -1238,28 +1240,6 @@ public class MainController extends SMController implements Initializable,Init {
         
         });
 
-        productStats.setOnAction(Action -> {
-            /*
-            try {
-
-                Product product = productsTable.getSelectionModel().getSelectedItem();
-                Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "ProductStats.fxml"));
-                AnchorPane root = (AnchorPane)loader.load();
-                ProdStatController psControl = (ProdStatController)loader.getController();
-                psControl.setProduct(product);
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.getIcons().add(new Image(Common.class.getResourceAsStream(APP_ICON)));
-                stage.setResizable(false);
-                stage.showAndWait();
-            } catch (IOException ex) {
-                exceptionLayout(ex);
-            }
-*/
-        });
-
         viewHistory.setOnAction(Action ->{
             
             try {
@@ -1286,7 +1266,7 @@ public class MainController extends SMController implements Initializable,Init {
                 
         newSellButton.setOnAction(Action -> {
             
-            if(!productVB.getChildren().isEmpty()){
+            if(!data.isEmpty()){
             
             try {                
                 ((Node)Action.getSource()).getScene().getWindow().hide();
@@ -1496,18 +1476,22 @@ public class MainController extends SMController implements Initializable,Init {
         getBuyStats(buyDateField.getEditor().getText());
                         
         newBuyBtn.setOnAction(Action -> {
+            
+            if(!data.isEmpty()){
+                try {
+                    ((Node)Action.getSource()).getScene().getWindow().hide();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewBuy.fxml"), bundle);
+                    Pane root = (Pane)loader.load();
+                    NewBuyController npControl = (NewBuyController)loader.getController();
+                    npControl.getEmployer(this.employer);
+                    startStage(root, (int)root.getWidth(), (int)root.getHeight());
 
-            try {
-
-                ((Node)Action.getSource()).getScene().getWindow().hide();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "NewBuy.fxml"), bundle);
-                Pane root = (Pane)loader.load();
-                NewBuyController npControl = (NewBuyController)loader.getController();
-                npControl.getEmployer(this.employer);
-                startStage(root, (int)root.getWidth(), (int)root.getHeight());
-
-            } catch (IOException ex) {
-                exceptionLayout(ex);
+                } catch (IOException ex) {
+                    exceptionLayout(ex);
+                }
+            }
+            else{
+                customDialog(bundle.getString("no_products_found"), bundle.getString("no_products_found_msg"), ERROR_SMALL, true);
             }
 
         });
@@ -1553,7 +1537,8 @@ public class MainController extends SMController implements Initializable,Init {
         
         noProductsBox.visibleProperty().bind(Bindings.size(productVB.getChildren()).isEqualTo(0));
         
-        Tooltip.install(
+        
+                Tooltip.install(
                 billPane, 
                 new Tooltip(bundle.getString("disabled_sell_bill_msg")));
         
@@ -1563,7 +1548,6 @@ public class MainController extends SMController implements Initializable,Init {
         
 
         printSells.setOnAction(Action -> {
-            
             
             onJasperReportLoading();
             

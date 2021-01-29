@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="512.0" prefWidth="512.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.UpdateBuyController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="512.0" prefWidth="576.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.UpdateBuyController">
    <stylesheets>
       <URL value="@../Layout/buttons.css" />
       <URL value="@../Layout/custom.css" />
@@ -63,19 +63,34 @@
             <DropShadow color="#000000b2" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="393.0" prefWidth="448.0" spacing="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="94.0" prefHeight="393.0" prefWidth="448.0" spacing="16.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="96.0">
          <children>
-            <ChoiceBox fx:id="productCB" maxWidth="512.0" prefHeight="50.0" prefWidth="256.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" VBox.vgrow="ALWAYS">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <VBox.margin>
-                  <Insets bottom="16.0" />
-               </VBox.margin>
-            </ChoiceBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="224.0" prefHeight="64.0" prefWidth="512.0" spacing="8.0">
+               <children>
+                  <ChoiceBox fx:id="productCB" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="344.0" style="-fx-border-color: #ddd; -fx-border-width: 0 0 1; -fx-background-color: #eee;" HBox.hgrow="ALWAYS">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ChoiceBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
+                           </image>
+                        </ImageView>
+                        <JFXTextField fx:id="supplierTF" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="256.0" promptText="%supplier" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="256.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="341.0" spacing="8.0">
                            <children>
@@ -84,21 +99,21 @@
                                     <Image url="@../images/medium/icons8_shopping_cart_48px.png" />
                                  </image>
                               </ImageView>
-                              <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="quantity" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="256.0" promptText="%quantity" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </JFXTextField>
                            </children>
                         </HBox>
-                        <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" prefHeight="16.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد كمية منتوج صالحة" textFill="WHITE" visible="false">
+                        <Label fx:id="qteStatus" alignment="CENTER" focusTraversable="false" prefHeight="16.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="%invalid_qte_msg" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="256.0" spacing="8.0">
+                  <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="256.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="256.0" spacing="8.0">
                            <children>
@@ -107,14 +122,14 @@
                                     <Image url="@../images/medium/icons8_price_tag_48px.png" />
                                  </image>
                               </ImageView>
-                              <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="360.0" prefHeight="50.0" prefWidth="256.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="price" alignment="CENTER" focusColor="TOMATO" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="256.0" promptText="%price" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </JFXTextField>
                            </children>
                         </HBox>
-                        <Label fx:id="priceStatus" alignment="CENTER" focusTraversable="false" prefHeight="21.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="من فضلك قم بتحديد سعر صالح" textFill="WHITE" visible="false">
+                        <Label fx:id="priceStatus" alignment="CENTER" focusTraversable="false" prefHeight="21.0" prefWidth="200.0" style="-fx-background-color: red; -fx-alignment: center; -fx-background-radius: 10;" text="%invalid_price_msg" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -125,8 +140,8 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="512.0" spacing="8.0">
                <children>
-                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="160.0" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
-                  <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="384.0" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
+                  <JFXTimePicker fx:id="time" defaultColor="#3d4956" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS" />
+                  <JFXDatePicker fx:id="date" defaultColor="#3d4956" editable="false" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="256.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

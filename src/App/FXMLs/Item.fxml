@@ -7,39 +7,39 @@
 
 <HBox fx:id="parent" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.ItemController">
    <children>
-      <Label fx:id="productLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%product" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="productLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%product" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="qteLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%quantity" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="qteLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%quantity" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="priceLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="128.0" text="%sell_price" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="priceLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="128.0" text="%sell_price" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="dateLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%add_date" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="dateLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%add_date" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="editLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%last_edit" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="editLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="160.0" text="%last_edit" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="buysLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%buys" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="buysLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%buys" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="sellsLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%sells" textFill="#3d4956" HBox.hgrow="ALWAYS">
+      <Label fx:id="sellsLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="96.0" text="%sells" textFill="TOMATO" HBox.hgrow="ALWAYS">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Consolas Bold" size="16.0" />
          </font>
       </Label>
    </children>

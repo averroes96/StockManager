@@ -202,7 +202,7 @@ public class UpdateClientController extends SMController implements Initializabl
         
         if (checkInputs()) {
             try {
-                if(!Client.nameExist(fullnameTF.getText())){
+                if(!Client.nameExist(fullnameTF.getText()) || selectedClient.getFullname().equals(fullnameTF.getText())){
                     try (Connection con = getConnection()) {
                         if(con == null) {
                             customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, saveBtn);

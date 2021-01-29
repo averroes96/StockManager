@@ -63,7 +63,7 @@ public class NewBuyController extends SMController implements Initializable,Init
     @FXML private JFXButton addQteBtn,printBtn;
     @FXML private ChoiceBox<Product> productCB;
     @FXML private Label sum, total, qte;
-    @FXML private JFXTextField qteField,priceField;
+    @FXML private JFXTextField qteField,priceField,supplierTF;
     @FXML private HBox topBar;
     
     private final ObservableList<Buy> buysList = FXCollections.observableArrayList();  
@@ -98,18 +98,19 @@ public class NewBuyController extends SMController implements Initializable,Init
                         customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, addQteBtn);
                     }
                     PreparedStatement ps;
-                    ps = con.prepareStatement("INSERT INTO buy(buy_qte, buy_unit_price, buy_price, buy_date, user_id, prod_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-                    ps.setInt(5, employer.getUserID());
+                    ps = con.prepareStatement("INSERT INTO buy(buy_qte, buy_unit_price, buy_price, buy_date, buy_supplier, user_id, prod_id) values(?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+                    ps.setInt(6, employer.getUserID());
                     ps.setInt(3, Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
                     java.util.Date date = new java.util.Date();
 
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                    String sqlDate = sdf.format(date);                    
+                    String sqlDate = sdf.format(date);
+                    ps.setString(5, supplierTF.getText().trim());
                     ps.setString(4, sqlDate);           
                     ps.setInt(1, Integer.parseInt(qteField.getText()));
                     ps.setInt(2, Integer.parseInt(priceField.getText()));
-                    ps.setInt(6, productCB.getSelectionModel().getSelectedItem().getProdID());
+                    ps.setInt(7, productCB.getSelectionModel().getSelectedItem().getProdID());
                     ps.executeUpdate();
                     
                     try (ResultSet generatedKeys = ps.getGeneratedKeys()) {

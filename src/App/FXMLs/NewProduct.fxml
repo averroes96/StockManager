@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="675.0" prefWidth="600.0" style="-fx-background-color: #EEE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewProductController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="630.0" prefWidth="600.0" style="-fx-background-color: #EEE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.NewProductController">
    <effect>
       <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
    </effect>
@@ -59,14 +59,14 @@
             </Button>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="86.0" prefHeight="575.0" prefWidth="568.0" spacing="24.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="86.0" prefHeight="540.0" prefWidth="568.0" spacing="24.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
          <children>
             <Text fill="TOMATO" strokeType="OUTSIDE" strokeWidth="0.0" text="%no_qte_selected_note" textAlignment="CENTER" wrappingWidth="600.0000007152557">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <Circle fx:id="productIV" fill="WHITE" radius="96.0" stroke="#3d4956" strokeType="INSIDE">
+            <Circle fx:id="productIV" fill="WHITE" radius="80.0" stroke="#3d4956" strokeType="INSIDE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -109,7 +109,7 @@
                               </JFXTextField>
                            </children>
                         </HBox>
-                        <Label fx:id="sellStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال سعر بيع صالح" textFill="WHITE" visible="false">
+                        <Label fx:id="sellStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="%invalid_price_msg" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -135,7 +135,7 @@
                               </JFXTextField>
                            </children>
                         </HBox>
-                        <Label fx:id="qteStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="من فضلك قم بإدخال كمية صالحة " textFill="WHITE" visible="false">
+                        <Label fx:id="qteStatus" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="220.0" style="-fx-alignment: center; -fx-background-color: red; -fx-background-radius: 10;" text="%invalid_qte_msg" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

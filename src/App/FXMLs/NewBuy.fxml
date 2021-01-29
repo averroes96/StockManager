@@ -93,6 +93,20 @@
                         </JFXTextField>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="208.0" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/small/icons8_supplier_32px.png" />
+                           </image>
+                        </ImageView>
+                        <JFXTextField fx:id="supplierTF" alignment="CENTER" focusColor="TOMATO" maxWidth="275.0" prefHeight="50.0" prefWidth="200.0" promptText="%supplier" style="-fx-padding: 0; -fx-background-color: #eee; -fx-text-fill: #3d4956;" unFocusColor="#dddddd" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
                   <JFXButton fx:id="addQteBtn" buttonType="RAISED" defaultButton="true" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: tomato;" text="%add" textFill="#3d4956">
                      <cursor>
                         <Cursor fx:constant="HAND" />

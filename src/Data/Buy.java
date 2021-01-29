@@ -28,6 +28,7 @@ public class Buy {
     private SimpleIntegerProperty buyTotalPrice;
     private SimpleStringProperty buyDate ;
     private SimpleStringProperty product ;
+    private SimpleStringProperty supplier;
     private SimpleStringProperty user;
 
     public Buy() {
@@ -96,6 +97,16 @@ public class Buy {
     public void setBuyTotalPrice(int buyTotalPrice) {
         this.buyTotalPrice = new SimpleIntegerProperty(buyTotalPrice);
     }
+
+    public String getSupplier() {
+        return supplier.getValue();
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = new SimpleStringProperty(supplier);
+    }
+    
+    
     
     public void delete() throws SQLException{
         
@@ -191,6 +202,7 @@ public class Buy {
                 buy.setBuyQte(rs.getInt("buy_qte"));
                 buy.setProduct(rs.getString("name"));
                 buy.setUser(rs.getString("username"));
+                buy.setSupplier(rs.getString("buy_supplier"));
                 
                 data.add(buy);
             }

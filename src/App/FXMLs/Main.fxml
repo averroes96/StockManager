@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
@@ -212,21 +212,6 @@
                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/small/icons8_checkmark_32px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
-                        <JFXButton fx:id="productStats" buttonType="RAISED" disable="true" layoutX="35.0" layoutY="20.0" prefHeight="40.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="%statistics" textFill="#3d4956">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/small/icons8_statistics_32px_1.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -773,7 +758,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="buys" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="buysTable" focusTraversable="false" layoutX="15.0" layoutY="74.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
@@ -782,7 +767,7 @@
                   <TableColumn fx:id="buyPriceCol" maxWidth="120.0" minWidth="75.0" prefWidth="100.0" text="%price" />
                   <TableColumn fx:id="buyQteCol" maxWidth="100.0" minWidth="50.0" prefWidth="75.0" text="%quantity" />
                   <TableColumn fx:id="buyTotalCol" maxWidth="200.0" minWidth="100.0" prefWidth="120.0" text="%total" />
-                  <TableColumn fx:id="buyUserCol" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="%user" />
+                  <TableColumn fx:id="buySupplierCol" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="%supplier" />
                   <TableColumn fx:id="buyAction1" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="%edit" />
                   <TableColumn fx:id="buyAction2" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="%delete" />
               </columns>
@@ -1136,7 +1121,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="856.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -1297,8 +1282,8 @@
                                           <TableView prefHeight="350.0" prefWidth="624.0" style="-fx-background-color: white;">
                                              <columns>
                                                 <TableColumn maxWidth="160.0" minWidth="128.0" prefWidth="128.0" text="%payment_id" />
-                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="payment_date" />
-                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="payment_sum" />
+                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="%payment_date" />
+                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="%payment_sum" />
                                              </columns>
                                              <effect>
                                                 <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />
