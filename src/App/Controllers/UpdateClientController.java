@@ -42,16 +42,23 @@ package App.Controllers;
 import Data.Client;
 import Data.User;
 import Include.Common;
+import static Include.Common.getConnection;
+import static Include.Init.ERROR_SMALL;
 import static Include.Init.FXMLS_PATH;
 import static Include.Init.IMAGES_PATH;
+import static Include.Init.INFO_SMALL;
 import Include.SMController;
+import animatefx.animation.BounceIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,6 +69,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -120,6 +128,14 @@ public class UpdateClientController extends SMController implements Initializabl
             }
         });
         
+        clientIV.setOnMouseClicked(Action -> {
+            updateImage();
+        });
+        
+        saveBtn.setOnAction(action -> {
+            updateClient(action);
+        });
+        
         Common.controlDigitField(phoneTF);
     }    
     
@@ -148,5 +164,109 @@ public class UpdateClientController extends SMController implements Initializabl
                     new File(client.getImage()).toURI().toString(),
                     96, 96, false, false)));
         }
+    }
+
+    private void updateImage() {
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Select a .JPG .PNG .GIF image", "*.jpg", "*.png", "*.gif")
+        );
+       
+        selectedFile = fileChooser.showOpenDialog(saveBtn.getScene().getWindow());
+       
+        if (selectedFile != null) {
+            
+            try {
+               
+                String createImagePath = Common.saveSelectedImage(selectedFile);
+                
+                currentImage = selectedClient.getImage();
+
+                selectedClient.setImage(createImagePath);
+
+                clientIV.setFill(new ImagePattern(new Image(
+                        selectedFile.toURI().toString(),
+                        clientIV.getCenterX(), clientIV.getCenterY(), false, false)));
+                animateNode(new BounceIn(clientIV)); 
+
+            }
+            catch (IOException ex) {
+                exceptionLayout(ex, saveBtn);
+            }
+        }    
+    }
+
+    private void updateClient(ActionEvent action) {
+        
+        if (checkInputs()) {
+            try {
+                if(!Client.nameExist(fullnameTF.getText())){
+                    try (Connection con = getConnection()) {
+                        if(con == null) {
+                            customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, saveBtn);
+                        }
+
+                        PreparedStatement ps;
+
+                        ps = con.prepareStatement("UPDATE client SET fullname = ?, tel = ?, rc = ?, nif = ?, ai = ?, image = ? WHERE client_id = ?");
+
+                        ps.setString(1, fullnameTF.getText());
+                        ps.setString(2,phoneTF.getText());
+                        ps.setString(3, regcomTF.getText());
+                        ps.setString(4, nifTF.getText());
+                        ps.setString(5, aiTF.getText());
+                        ps.setString(6, selectedClient.getImage());
+                        ps.setInt(7, selectedClient.getID());
+                        ps.executeUpdate();
+
+                        con.close();
+                    }
+
+                    if(!currentImage.equals(selectedClient.getImage())){
+                        Common.deleteImage(currentImage);
+                    }
+
+                    customDialog(bundle.getString("client_updated"), bundle.getString("client_updated_msg"), INFO_SMALL, true, saveBtn);
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+                    AnchorPane root = (AnchorPane)loader.load();
+                    MainController mControl = (MainController)loader.getController();
+                    mControl.getEmployer(employer);
+                    mControl.showClient(fullnameTF.getText());
+                    mControl.returnMenu("clients");
+                    ((Node)action.getSource()).getScene().getWindow().hide();
+                    Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
+                
+            }
+            else{
+                customDialog(bundle.getString("fullname_exist"), bundle.getString("fullname_exist_msg"), INFO_SMALL, true, saveBtn);
+            }
+            }
+            catch (IOException | NumberFormatException | SQLException e) {
+                exceptionLayout(e, saveBtn);
+            }
+
+        }  
+    }
+    
+    @Override
+    public boolean checkInputs()
+    {
+        if (fullnameTF.getText().trim().equals("")){
+            customDialog(bundle.getString("missing_fields"), bundle.getString("missing_fields_msg"), ERROR_SMALL, true, saveBtn);
+            return false;
+        }
+        else if(!fullnameTF.getText().matches("^[\\p{L} .'-]+$")){
+            customDialog(bundle.getString("invalid_name"), bundle.getString("invalid_name_msg"), ERROR_SMALL, true, saveBtn);
+            return false;              
+        }
+        else if(!phoneTF.getText().trim().matches("^[5-7]?[0-9]{10}$") && !phoneTF.getText().equals("")){
+            customDialog(bundle.getString("invalid_phone"), bundle.getString("invalid_phone"), ERROR_SMALL, true, saveBtn);
+            return false;              
+        }        
+       
+        return true;
     }
 }

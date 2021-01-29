@@ -161,82 +161,86 @@ public class UpdateUserController extends SMController implements Initializable,
         return true;
     }    
 
-    public void updateEmployer(ActionEvent event) throws SQLException {
+    public void updateEmployer(ActionEvent event){
 
         if (checkInputs()) {
-            if(!admin.isSelected() && User.isLastAdmin() && selectedEmployer.getAdmin() == 1){
-                customDialog(bundle.getString("last_admin"), bundle.getString("last_admin_msg"), INFO_SMALL, true, saveBtn);                
-            }
-            else{
-                try {
-
-                    try (Connection con = getConnection()) {
-                        if(con == null) {
-                            customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, saveBtn); 
+            try {
+                if(!admin.isSelected() && User.isLastAdmin() && selectedEmployer.getAdmin() == 1){
+                    customDialog(bundle.getString("last_admin"), bundle.getString("last_admin_msg"), INFO_SMALL, true, saveBtn);
+                }
+                else{
+                    try {
+                        
+                        try (Connection con = getConnection()) {
+                            if(con == null) { 
+                                customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), ERROR_SMALL, true, saveBtn);
+                            }
+                            
+                            PreparedStatement ps;
+                            
+                            ps = con.prepareStatement("UPDATE user SET telephone = ?, admin = ?, fullname = ?, image = ? WHERE user_id = ?");
+                            
+                            ps.setString(1, phone.getText());
+                            if(admin.isSelected()){
+                                ps.setInt(2, 1);
+                                selectedEmployer.setAdmin(1);
+                            }
+                            else{
+                                ps.setInt(2, 0);
+                                selectedEmployer.setAdmin(0);
+                            }
+                            ps.setString(4, selectedEmployer.getImage());
+                            ps.setString(3, fullname.getText());
+                            ps.setInt(5, selectedEmployer.getUserID());
+                            ps.executeUpdate();
+                            
+                            ps = con.prepareStatement("UPDATE privs SET manage_products = ?, manage_users = ?, manage_buys = ?, manage_sells = ? WHERE user_id = ?");
+                            
+                            ps.setInt(5, this.selectedEmployer.getUserID());
+                            ps.setInt(1, products.isSelected()? 1 : 0);
+                            ps.setInt(2, users.isSelected()? 1 : 0);
+                            ps.setInt(3, buys.isSelected()? 1 : 0);
+                            ps.setInt(4, sells.isSelected()? 1 : 0);
+                            
+                            ps.executeUpdate();
+                            
+                            if(products.isSelected() || buys.isSelected() || sells.isSelected() || users.isSelected()){
+                                selectedEmployer.activate();
+                            }
+                            if(!products.isSelected() && !buys.isSelected() && !sells.isSelected() && !users.isSelected())
+                            {
+                                selectedEmployer.unauthorize();
+                            }
+                            
+                            con.close();
                         }
-
-                        PreparedStatement ps;
-
-                        ps = con.prepareStatement("UPDATE user SET telephone = ?, admin = ?, fullname = ?, image = ? WHERE user_id = ?");
-
-                        ps.setString(1, phone.getText());
-                        if(admin.isSelected()){
-                            ps.setInt(2, 1);
-                            selectedEmployer.setAdmin(1);
+                        
+                        if(!currentImage.equals(selectedEmployer.getImage())){
+                            Common.deleteImage(currentImage);
+                        }
+                        
+                        customDialog(bundle.getString("user_updated"), bundle.getString("user_updated_msg"), INFO_SMALL, true, saveBtn);
+                        
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
+                        AnchorPane root = (AnchorPane)loader.load();
+                        MainController mControl = (MainController)loader.getController();
+                        if(employer.getUsername().equals(selectedEmployer.getUsername())){
+                            mControl.getEmployer(selectedEmployer);
                         }
                         else{
-                            ps.setInt(2, 0);
-                            selectedEmployer.setAdmin(0);
+                            mControl.getEmployer(employer);
                         }
-                        ps.setString(4, this.selectedEmployer.getImage());
-                        ps.setString(3, fullname.getText());
-                        ps.setInt(5, this.selectedEmployer.getUserID());
-                        ps.executeUpdate();
-
-                        ps = con.prepareStatement("UPDATE privs SET manage_products = ?, manage_users = ?, manage_buys = ?, manage_sells = ? WHERE user_id = ?");
-
-                        ps.setInt(5, this.selectedEmployer.getUserID());
-                        ps.setInt(1, products.isSelected()? 1 : 0);
-                        ps.setInt(2, users.isSelected()? 1 : 0);
-                        ps.setInt(3, buys.isSelected()? 1 : 0);
-                        ps.setInt(4, sells.isSelected()? 1 : 0);
-
-                        ps.executeUpdate();
-
-                        if(products.isSelected() || buys.isSelected() || sells.isSelected() || users.isSelected()){
-                            selectedEmployer.activate();
-                        }
-                        if(!products.isSelected() && !buys.isSelected() && !sells.isSelected() && !users.isSelected())
-                        {
-                            selectedEmployer.unauthorize();
-                        }                            
-
-                        con.close();
+                        mControl.returnMenu("employers");
+                        ((Node)event.getSource()).getScene().getWindow().hide();
+                        Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
+                        
                     }
-
-                    if(!currentImage.equals(selectedEmployer.getImage())){
-                        Common.deleteImage(currentImage);
+                    catch (IOException | NumberFormatException | SQLException e) {
+                        exceptionLayout(e, saveBtn);
                     }
-
-                    customDialog(bundle.getString("user_updated"), bundle.getString("user_updated_msg"), INFO_SMALL, true, saveBtn);                
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLS_PATH + "Main.fxml"), bundle);
-                    AnchorPane root = (AnchorPane)loader.load();
-                    MainController mControl = (MainController)loader.getController();
-                    if(employer.getUsername().equals(selectedEmployer.getUsername())){
-                        mControl.getEmployer(selectedEmployer);
-                    }
-                    else{
-                        mControl.getEmployer(employer);    
-                    } 
-                    mControl.returnMenu("employers");
-                    ((Node)event.getSource()).getScene().getWindow().hide();
-                    Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
-
                 }
-                catch (IOException | NumberFormatException | SQLException e) {
-                    exceptionLayout(e, saveBtn);
-                }
+            } catch (SQLException ex) {
+                exceptionLayout(ex, saveBtn);
             }
 
         }        
@@ -271,11 +275,7 @@ public class UpdateUserController extends SMController implements Initializable,
         });        
         
         saveBtn.setOnAction(Action -> {
-            try {
-                updateEmployer(Action);
-            } catch (SQLException ex) {
-                exceptionLayout(ex, saveBtn);
-            }
+            updateEmployer(Action);
         });
         
         returnBtn.setOnAction(Action -> {

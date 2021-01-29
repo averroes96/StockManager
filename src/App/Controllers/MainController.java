@@ -622,7 +622,7 @@ public class MainController extends SMController implements Initializable,Init {
   
     }
 
-    private void showClient(String selectedItem) {
+    public void showClient(String selectedItem) {
         try {
             
             animateNode(new ZoomOut(clientBox));
