@@ -45,6 +45,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -154,6 +155,13 @@ public class Client {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public String toString() {
+        return fullname; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
     public static ObservableList getClientNames() throws SQLException{
         
@@ -172,6 +180,39 @@ public class Client {
         
     }
     
+    public static ObservableList<Client> getClients(ResourceBundle rb) throws SQLException{
+        
+        ObservableList<Client> data = FXCollections.observableArrayList();
+        
+        ResultSet rs;
+        
+        rs = getAllFrom("*","client","","","");
+        
+        while (rs.next()) {
+            
+            Client client = new Client();
+            
+            client.setID(rs.getInt("client_id"));
+            client.setFullname(rs.getString("fullname"));
+            if(rs.getString("image") != null){
+                client.setImage(rs.getString("image"));
+            }
+            client.setRegCom(rs.getString("rc"));
+            client.setPhone(rs.getString("tel"));
+            client.setNif(rs.getString("nif"));
+            client.setAi(rs.getString("ai"));
+            client.setPaid(rs.getInt("paid"));
+            client.setRemain(rs.getInt("remain"));
+            
+            data.add(client);
+        }
+        
+        data.get(0).setFullname(rb.getString("other"));
+        
+        return data;
+        
+    }
+    
     public static Client getClientByName(String name) throws SQLException{
         
         Client client = new Client();
@@ -185,7 +226,7 @@ public class Client {
             rs = st.executeQuery();
             count = 0;
             while (rs.next()) {
-                
+
                 client.setID(rs.getInt("client.client_id"));
                 client.setFullname(rs.getString("fullname"));
                 if(rs.getString("image") != null){
@@ -198,7 +239,6 @@ public class Client {
                 client.setPaid(rs.getInt("paid"));
                 client.setRemain(rs.getInt("remain"));
                 ++count;
-                
             }
         }
             if(count == 0)

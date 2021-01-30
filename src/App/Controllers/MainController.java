@@ -90,7 +90,7 @@ public class MainController extends SMController implements Initializable,Init {
     @FXML public TableColumn<Buy, Integer> buyQteCol,buyPriceCol,buyTotalCol ;
     @FXML public TableColumn<Buy, String> buyProdCol,buySupplierCol,buyDateCol ;
     @FXML public TableColumn<Sell, Integer> sellQuantity,sellTotalCol,sellPrice ;
-    @FXML public TableColumn<Sell, String> sellRef,seller,sellDateCol ;
+    @FXML public TableColumn<Sell, String> sellRef,clientCol,sellDateCol ;
     @FXML public TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
     @FXML public ChoiceBox<String> usersCB,clientsCB;
     @FXML public TextField searchBuy ;
@@ -735,7 +735,7 @@ public class MainController extends SMController implements Initializable,Init {
     public void getAllSells(String selectedDate)
     {
         try {
-            sellsList = Sell.getSellsByDate(selectedDate);
+            sellsList = Sell.getSellsByDate(selectedDate, bundle);
             initSellsTable();
         } catch (SQLException ex) {
             exceptionLayout(ex);
@@ -966,7 +966,7 @@ public class MainController extends SMController implements Initializable,Init {
         sellQuantity.setCellValueFactory(new PropertyValueFactory<>("sellQuantity"));
         sellRef.setCellValueFactory(new PropertyValueFactory<>("sellName"));
         sellPrice.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        seller.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        clientCol.setCellValueFactory(new PropertyValueFactory<>("client"));
         sellDateCol.setCellValueFactory(new PropertyValueFactory<>("sellDate"));
         sellTotalCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         sellActions.setCellValueFactory(new PropertyValueFactory<>("sellActions"));

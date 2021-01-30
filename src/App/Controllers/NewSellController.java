@@ -5,6 +5,7 @@
  */
 package App.Controllers;
 
+import Data.Client;
 import Data.Product;
 import Data.Sell;
 import Data.User;
@@ -62,11 +63,14 @@ public class NewSellController extends SMController implements Initializable,Ini
     @FXML private JFXTextField priceField,qteField;
     @FXML private JFXButton addSell,deleteAll,printBtn;
     @FXML private ChoiceBox<Product> productCB;
+    @FXML private ChoiceBox<Client> clientCB;
     @FXML private Button returnBtn;
     
     private final ObservableList<Sell> sellsList = FXCollections.observableArrayList();
     
-    private ObservableList<Product> prodList = null;        
+    private ObservableList<Product> prodList = null;
+    
+    private ObservableList<Client> clientsList = null;
 
     public void getEmployer(User user){
         this.employer = user; 
@@ -125,8 +129,9 @@ public class NewSellController extends SMController implements Initializable,Ini
                         customDialog(bundle.getString("connection_error"), bundle.getString("connection_error_msg"), INFO_SMALL, true, addSell);
                     }
                     PreparedStatement ps;
-                    ps = con.prepareStatement("INSERT INTO sell(sell_price_unit, sell_price, sell_quantity, sell_date, prod_id, user_id) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+                    ps = con.prepareStatement("INSERT INTO sell(sell_price_unit, sell_price, sell_quantity, sell_date, prod_id, user_id, client_id) values(?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
                     ps.setInt(6, employer.getUserID());
+                    ps.setInt(7, clientCB.getValue().getID());
                     ps.setInt(1, Integer.parseInt(priceField.getText()));
                     ps.setInt(2, Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
                     ps.setInt(3, Integer.parseInt(qteField.getText()) );
@@ -223,6 +228,7 @@ public class NewSellController extends SMController implements Initializable,Ini
                 anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);            
             
             prodList = Product.getActiveProducts();
+            clientsList = Client.getClients(bundle);
             
             initTable();
             
@@ -231,8 +237,9 @@ public class NewSellController extends SMController implements Initializable,Ini
             });
             
             productCB.setItems(prodList);
-            
+            clientCB.setItems(clientsList);
             productCB.getSelectionModel().select(0);
+            clientCB.getSelectionModel().select(0);
             
             priceField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getSellPrice()));
             qteField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity()));
@@ -243,7 +250,6 @@ public class NewSellController extends SMController implements Initializable,Ini
                     if(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity() == 0){
                         customDialog(bundle.getString("zero_quantity"), bundle.getString("zero_quantity_msg"), INFO_SMALL, true, addSell);
                     }
-                    
                     priceField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getSellPrice()));
                     qteField.setText(String.valueOf(productCB.getSelectionModel().getSelectedItem().getCurrentQuantity()));
                 } catch (SQLException ex) {

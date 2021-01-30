@@ -1,6 +1,7 @@
 
 package App.Controllers;
 
+import Data.Client;
 import Data.Product;
 import Data.Sell;
 import Data.User;
@@ -51,8 +52,10 @@ public class UpdateSellController extends SMController implements Initializable,
     @FXML private JFXTimePicker time;
     @FXML private Label priceStatus,qteStatus;
     @FXML private ChoiceBox<Product> productCB;
+    @FXML private ChoiceBox<Client> clientCB;
     
     ObservableList<Product> prodList = null;
+    ObservableList<Client> clientsList = null;
     
     Sell sell = new Sell();        
 
@@ -60,6 +63,7 @@ public class UpdateSellController extends SMController implements Initializable,
         
         try {
             select(sell.getProduct().getName());
+            selectClient(sell.getClient());
             quantity.setText(String.valueOf(selectedSell.getSellQuantity()));
             price.setText(String.valueOf(selectedSell.getTotalPrice() / selectedSell.getSellQuantity()));
             date.getEditor().setText(selectedSell.getDate());
@@ -96,10 +100,11 @@ public class UpdateSellController extends SMController implements Initializable,
         fillFields(sell);        
     }
     
-    public void getAllProducts(){
+    public void getInformation(){
         
         try {
             prodList = Product.getActiveProducts();
+            clientsList = Client.getClients(bundle);
         }
         catch (SQLException e) {
             exceptionLayout(e, saveButton);
@@ -171,7 +176,7 @@ public class UpdateSellController extends SMController implements Initializable,
                     Product newProduct = productCB.getValue();
                     PreparedStatement ps;
                     
-                    ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = concat(?,?), user_id = ?, prod_id = ? WHERE sell_id = ?");
+                    ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = concat(?,?), user_id = ?, prod_id = ?, client_id = ? WHERE sell_id = ?");
                     
                     ps.setInt(6, employer.getUserID());
                     ps.setInt(1, Integer.parseInt(quantity.getText()));
@@ -180,7 +185,8 @@ public class UpdateSellController extends SMController implements Initializable,
                     ps.setInt(7, newProduct.getProdID());
                     ps.setString(4, date.getEditor().getText() + " ");
                     ps.setString(5, time.getEditor().getText());
-                    ps.setInt(8, this.sell.getSellID());
+                    ps.setInt(8, clientCB.getValue().getID());
+                    ps.setInt(9, sell.getSellID());
                     ps.executeUpdate();
                     
                     if(oldProduct.getProdID() == newProduct.getProdID()){
@@ -211,9 +217,10 @@ public class UpdateSellController extends SMController implements Initializable,
         if(bundle.getLocale().getLanguage().equals("ar"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         
-        getAllProducts();
+        getInformation();
                
         productCB.setItems(prodList);
+        clientCB.setItems(clientsList);
         
         productCB.setOnAction(event -> {
             
@@ -295,6 +302,14 @@ public class UpdateSellController extends SMController implements Initializable,
         
         productCB.getItems().stream().filter((product) -> (product.getName().equals(name))).forEachOrdered((product) -> {
             productCB.getSelectionModel().select(product);
+        });
+        
+    }
+    
+    private void selectClient(String name){
+        
+        clientCB.getItems().stream().filter((client) -> (client.getFullname().equals(name))).forEachOrdered((client) -> {
+            clientCB.getSelectionModel().select(client);
         });
         
     }

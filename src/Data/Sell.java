@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -29,6 +30,7 @@ public class Sell {
     private SimpleStringProperty sellName;
     private SimpleIntegerProperty sellQuantity;
     private SimpleStringProperty seller;
+    private SimpleStringProperty client;
     private Product product ;
 
     public Sell() {
@@ -41,6 +43,7 @@ public class Sell {
         this.product = new Product();
         this.sellName = new SimpleStringProperty("");
         this.seller = new SimpleStringProperty("");
+        this.client = new SimpleStringProperty("");
         
     }
 
@@ -52,7 +55,6 @@ public class Sell {
         this.sellQuantity = new SimpleIntegerProperty(sellQuantity);
         this.product = product;
     }
-    
     
 
     public int getSellID() {
@@ -117,6 +119,14 @@ public class Sell {
 
     public void setSeller(String seller) {
         this.seller = new SimpleStringProperty(seller);
+    }
+
+    public String getClient() {
+        return client.getValue();
+    }
+
+    public void setClient(String client) {
+        this.client = new SimpleStringProperty(client);
     }
     
 
@@ -221,11 +231,11 @@ public class Sell {
     
     }    
     
-    public static ObservableList getSellsByDate(String selectedDate) throws SQLException{
+    public static ObservableList<Sell> getSellsByDate(String selectedDate, ResourceBundle rb) throws SQLException{
         
         ObservableList<Sell> data = FXCollections.observableArrayList();
         try (Connection con = getConnection()) {
-            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
+            String query = "SELECT * FROM sell INNER JOIN product ON sell.prod_id = product.prod_id INNER JOIN user ON sell.user_id = user.user_id INNER JOIN client ON sell.client_id = client.client_id WHERE date(sell_date) = ? ORDER BY time(sell_date) ASC";
 
             PreparedStatement st;
             ResultSet rs; 
@@ -242,6 +252,10 @@ public class Sell {
                 sell.setSellDate(rs.getTime("sell_date").toString());
                 sell.setSellQuantity(rs.getInt("sell_quantity"));
                 sell.setSeller(rs.getString("username"));
+                if(rs.getString("client.fullname").equals(""))
+                    sell.setClient(rb.getString("other"));
+                else
+                    sell.setClient(rs.getString("client.fullname"));
 
                 Product product = new Product();
                 product.setProdID(rs.getInt("prod_id"));
@@ -259,7 +273,7 @@ public class Sell {
                 data.add(sell);
             }
         }
-
+        
         return data;
         
     }

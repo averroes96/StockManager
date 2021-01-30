@@ -71,7 +71,7 @@ public class ItemController implements Initializable, Init {
         // TODO
                 
         parent.setOnMouseEntered((event) -> {
-            parent.setStyle("-fx-background-color : #aaa");
+            parent.setStyle("-fx-background-color : #bbb");
         });
         parent.setOnMouseExited((event) -> {
             parent.setStyle("-fx-background-color : #eee");
