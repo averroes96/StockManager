@@ -30,20 +30,20 @@ public class Main extends Application implements Init {
     
     private void loadView(Locale locale, Stage stage) throws IOException {
 
-            ResourceBundle bundle = ResourceBundle.getBundle(BUNDLES_PATH, locale);
-            //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"), bundle);
-            
-            // replace the content
-            Scene scene = new Scene(root);
-            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        ResourceBundle bundle = ResourceBundle.getBundle(BUNDLES_PATH, locale);
+        //Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(FXMLS_PATH + "Login.fxml"), bundle);
 
-            stage.setScene(scene);
-            stage.setMinHeight(350);
-            stage.setMinWidth(450);
-            stage.getIcons().add(new Image(Main.class.getResourceAsStream(APP_ICON)));
-            
-            stage.show();
+        // replace the content
+        Scene scene = new Scene(root);
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+
+        stage.setScene(scene);
+        stage.setMinHeight(350);
+        stage.setMinWidth(450);
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream(APP_ICON)));
+
+        stage.show();
             
     }
 

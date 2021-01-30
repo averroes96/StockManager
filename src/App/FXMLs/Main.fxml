@@ -26,11 +26,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="719.0" maxWidth="1152.0" minHeight="700.0" minWidth="900.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="719.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controllers.MainController">
    <children>
       <AnchorPane fx:id="products" layoutY="85.0" prefHeight="614.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="128.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="36.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -425,7 +425,7 @@
          </children></AnchorPane>
       <AnchorPane fx:id="employers" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="656.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="669.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -778,7 +778,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="457.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="467.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -937,7 +937,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="sells" layoutY="85.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <TableView fx:id="sellsTable" focusTraversable="false" layoutX="15.0" layoutY="73.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
               <columns>
@@ -959,7 +959,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>               
             </TableView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="259.0" layoutY="-18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="265.0" layoutY="-18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>
@@ -1123,7 +1123,7 @@
       </AnchorPane>
       <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="856.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="871.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/small/icons8_sort_up_24px.png" />
                </image>

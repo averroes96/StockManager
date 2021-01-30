@@ -163,23 +163,26 @@ public class Sell {
                 
                 PreparedStatement ps = con.prepareStatement(query);
                 
-                ps.setInt(1, this.getSellID());
+                ps.setInt(1, getSellID());
                 
                 ps.executeUpdate();
                 
-                query = "UPDATE product SET prod_quantity = prod_quantity + ? WHERE prod_id = ?";
+                query = "UPDATE product SET prod_quantity = prod_quantity + ?, nbrSells = nbrSells - 1 WHERE prod_id = ?";
                 
                 ps = con.prepareStatement(query);
                 
-                ps.setInt(2, this.getProduct().getProdID());
-                ps.setInt(1, this.getSellQuantity());
+                ps.setInt(2, getProduct().getProdID());
+                ps.setInt(1, getSellQuantity());
                 
                 ps.executeUpdate();
                 
-                query = "UPDATE product SET nbrSells = nbrSells - 1 WHERE prod_id = ?";
-
+                query = "UPDATE client SET remain = remain - ?, sells_count = sells_count - 1 WHERE fullname = ?";
+                
                 ps = con.prepareStatement(query);
-                ps.setInt(1, this.getProduct().getProdID());
+                
+                ps.setString(2, getClient());
+                ps.setInt(1, getTotalPrice());
+                
                 ps.executeUpdate();
             
             }        

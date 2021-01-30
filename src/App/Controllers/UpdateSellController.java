@@ -174,6 +174,9 @@ public class UpdateSellController extends SMController implements Initializable,
                     }
                     Product oldProduct = sell.getProduct();
                     Product newProduct = productCB.getValue();
+                    Client oldClient = Client.getClientByName(sell.getClient());
+                    Client newClient = clientCB.getValue();
+                    int sumTot = Integer.parseInt(price.getText()) * Integer.parseInt(quantity.getText());
                     PreparedStatement ps;
                     
                     ps = con.prepareStatement("UPDATE sell SET sell_quantity = ?, sell_price_unit = ?, sell_price = ?, sell_date = concat(?,?), user_id = ?, prod_id = ?, client_id = ? WHERE sell_id = ?");
@@ -195,6 +198,14 @@ public class UpdateSellController extends SMController implements Initializable,
                     else{
                         oldProduct.onSell(sell.getSellQuantity(), "+", true);
                         newProduct.onSell(Integer.parseInt(quantity.getText()), "-", true);                        
+                    }
+                    
+                    if(oldClient.getID() == newClient.getID()){
+                        oldClient.onSell(sumTot - sell.getTotalPrice(), "+", false);
+                    }
+                    else{
+                        oldClient.onSell(sell.getTotalPrice(), "-", true);
+                        newClient.onSell(sumTot, "+", true);
                     }
                 }
                 

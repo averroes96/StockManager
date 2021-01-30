@@ -163,18 +163,18 @@ public class Client {
     
     
     
-    public static ObservableList getClientNames() throws SQLException{
+    public static ObservableList getClientNames(ResourceBundle rb) throws SQLException{
         
         ObservableList<String> data = FXCollections.observableArrayList();
         
         ResultSet rs;
         
-            rs = getAllFrom("fullname","client","","","");
-        
+        rs = getAllFrom("fullname","client","","WHERE fullname != ''","");
         while (rs.next()) {
             String emp = rs.getString("fullname");
             data.add(emp);
         }
+        
         
         return data;
         
@@ -274,6 +274,38 @@ public class Client {
         }
 
         return false;
+    }
+
+    public void onSell(int val, String operator, boolean include) throws SQLException {
+                
+        try (Connection con = getConnection()) {
+        
+            if(include){
+
+                String query = "UPDATE client SET remain = remain " + operator + " ?, sells_count = sells_count " + operator + " 1 WHERE client_id = ?";
+
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, val);
+                ps.setInt(2, getID());
+
+                ps.executeUpdate();
+
+            }
+            else{
+                
+                String query = "UPDATE client SET remain = remain " + operator + " ? WHERE client_id = ?";
+
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, val);
+                ps.setInt(2, getID());
+
+                ps.executeUpdate();
+
+            }
+        
+        }    
     }
        
     

@@ -152,6 +152,11 @@ public class NewSellController extends SMController implements Initializable,Ini
                         }
                     }
                     product.hasSold(Integer.parseInt(qteField.getText()));
+                    
+                    ps = con.prepareStatement("UPDATE client SET remain = remain + ?, sells_count = sells_count + 1 WHERE client_id = ?");
+                    ps.setInt(1, Integer.parseInt(priceField.getText()) * Integer.parseInt(qteField.getText()));
+                    ps.setInt(2, clientCB.getValue().getID());
+                    ps.executeUpdate();
                 }
 
                 Sell addedSell = new Sell(
@@ -168,6 +173,7 @@ public class NewSellController extends SMController implements Initializable,Ini
                 resetWindow();                
                 
                 customDialog(bundle.getString("sell_added"), bundle.getString("sell_added_msg"), INFO_SMALL, true, addSell);
+              
             }
             catch (NumberFormatException | SQLException e) {
                 exceptionLayout(e, addSell);

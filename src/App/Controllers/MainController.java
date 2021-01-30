@@ -38,8 +38,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -862,7 +860,7 @@ public class MainController extends SMController implements Initializable,Init {
     {
 
         try {
-            clientsList = Client.getClientNames();
+            clientsList = Client.getClientNames(bundle);
         }
         catch (SQLException e) {          
             exceptionLayout(e);
@@ -1311,7 +1309,7 @@ public class MainController extends SMController implements Initializable,Init {
                 stage.showAndWait();
                 
             } catch (IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                exceptionLayout(ex);
             }
             
         });        
