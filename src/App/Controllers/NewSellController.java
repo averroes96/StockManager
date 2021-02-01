@@ -234,7 +234,7 @@ public class NewSellController extends SMController implements Initializable,Ini
                 anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);            
             
             prodList = Product.getActiveProducts();
-            clientsList = Client.getClients(bundle);
+            clientsList = Client.getClients(bundle, false);
             
             initTable();
             

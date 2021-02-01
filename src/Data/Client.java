@@ -180,13 +180,13 @@ public class Client {
         
     }
     
-    public static ObservableList<Client> getClients(ResourceBundle rb) throws SQLException{
+    public static ObservableList<Client> getClients(ResourceBundle rb, boolean other) throws SQLException{
         
         ObservableList<Client> data = FXCollections.observableArrayList();
         
         ResultSet rs;
         
-        rs = getAllFrom("*","client","","","");
+        rs = getAllFrom("*","client","", other? "WHERE fullname != ''": "","");
         
         while (rs.next()) {
             
@@ -207,7 +207,8 @@ public class Client {
             data.add(client);
         }
         
-        data.get(0).setFullname(rb.getString("other"));
+        if(!other)
+            data.get(0).setFullname(rb.getString("other"));
         
         return data;
         

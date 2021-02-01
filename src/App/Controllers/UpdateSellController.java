@@ -104,7 +104,7 @@ public class UpdateSellController extends SMController implements Initializable,
         
         try {
             prodList = Product.getActiveProducts();
-            clientsList = Client.getClients(bundle);
+            clientsList = Client.getClients(bundle, false);
         }
         catch (SQLException e) {
             exceptionLayout(e, saveButton);

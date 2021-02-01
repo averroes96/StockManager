@@ -2,6 +2,7 @@ package App.Controllers;
 
 import Data.Buy;
 import Data.Client;
+import Data.Payment;
 import Data.Product;
 import static Data.Product.getActiveProducts;
 import Data.Sell;
@@ -84,13 +85,17 @@ public class MainController extends SMController implements Initializable,Init {
     @FXML public Label btn_close,settingsBtn;
     @FXML public AnchorPane products, sells, employers,buys,clients;
     @FXML public TableView<Sell> sellsTable ;
-    @FXML public TableView<Buy> buysTable ;
+    @FXML public TableView<Buy> buysTable;
+    @FXML public TableView<Payment> paymentsTable;
+    @FXML public TableColumn<Payment, String> payDateCol;
+    @FXML public TableColumn<Payment, Integer> paySumCol;
     @FXML public TableColumn<Buy, Integer> buyQteCol,buyPriceCol,buyTotalCol ;
     @FXML public TableColumn<Buy, String> buyProdCol,buySupplierCol,buyDateCol ;
     @FXML public TableColumn<Sell, Integer> sellQuantity,sellTotalCol,sellPrice ;
     @FXML public TableColumn<Sell, String> sellRef,clientCol,sellDateCol ;
-    @FXML public TableColumn sellActions,sellActions2,buyAction1,buyAction2 ;   
-    @FXML public ChoiceBox<String> usersCB,clientsCB;
+    @FXML public TableColumn sellActions,sellActions2,buyAction1,buyAction2,editPaymentCol,deletePaymentCol ;   
+    @FXML public ChoiceBox<String> usersCB;
+    @FXML public ChoiceBox<Client> clientsCB;
     @FXML public TextField searchBuy ;
     @FXML public Label fullnameLabel,phoneLabel,emptyQte,idField,revSum,revTotal,revQte,buyDayTotal,buyDayQte,buyDaySum,userStatus,
                         lastLogged,debtStatus,clientPhone,regCommerce,clientNIF,clientAI,paidLabel,remainLabel; 
@@ -111,7 +116,8 @@ public class MainController extends SMController implements Initializable,Init {
     ObservableList<Product> data = FXCollections.observableArrayList();
     ObservableList<Sell> sellsList = FXCollections.observableArrayList(); 
     ObservableList<String> employersList = FXCollections.observableArrayList();
-    ObservableList<String> clientsList = FXCollections.observableArrayList();
+    ObservableList<Client> clientsList = FXCollections.observableArrayList();
+    ObservableList<Payment> paymentsList = FXCollections.observableArrayList();
     ObservableList<Buy> buysList = FXCollections.observableArrayList();
     
     
@@ -620,57 +626,55 @@ public class MainController extends SMController implements Initializable,Init {
   
     }
 
-    public void showClient(String selectedItem) {
-        try {
+    public void showClient(Client choosen) {
             
-            animateNode(new ZoomOut(clientBox));
-            animateNode(new ZoomIn(clientBox));
-            animateNode(new ZoomOut(paymentsBox));
-            animateNode(new ZoomIn(paymentsBox));
-            
-            Client choosen = Client.getClientByName(selectedItem);
-            if(choosen != null){
-                
-            if(!choosen.getPhone().trim().equals(""))
-                clientPhone.setText(choosen.getPhone()) ;
-            else
-                clientPhone.setText(bundle.getString("not_specified"));
-            
-            if(!choosen.getRegCom().trim().equals(""))
-                regCommerce.setText(choosen.getRegCom()) ;
-            else
-                regCommerce.setText(bundle.getString("not_specified"));
-            
-            if(!choosen.getAi().trim().equals(""))
-                clientAI.setText(choosen.getAi()) ;
-            else
-                clientAI.setText(bundle.getString("not_specified"));
-            
-            if(!choosen.getNif().trim().equals(""))
-                clientNIF.setText(choosen.getNif()) ;
-            else
-                clientNIF.setText(bundle.getString("not_specified"));
-            
-            if (choosen.getImage().trim().equals("")) {
-                clientIV.setFill(new ImagePattern(new Image(
-                        ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
-                        clientIV.getCenterX(), clientIV.getCenterY(), false, false)));
-            }
-            else {
-                clientIV.setFill(new ImagePattern(new Image(
-                        new File(choosen.getImage()).toURI().toString(),
-                        clientIV.getCenterX(), clientIV.getCenterX(), false, false)));
-            }
-            
-            paidLabel.setText(String.valueOf(choosen.getPaid()) + " " + bundle.getString("currency"));
-            remainLabel.setText(String.valueOf(choosen.getRemain()) + " " + bundle.getString("currency"));
-            
-            
-            clientsCB.getSelectionModel().select(selectedItem);
-                
-            }
-        } catch (SQLException ex) {
-            exceptionLayout(ex);
+        animateNode(new ZoomOut(clientBox));
+        animateNode(new ZoomIn(clientBox));
+        animateNode(new ZoomOut(paymentsBox));
+        animateNode(new ZoomIn(paymentsBox));
+
+        if(choosen != null){
+
+        if(!choosen.getPhone().trim().equals(""))
+            clientPhone.setText(choosen.getPhone()) ;
+        else
+            clientPhone.setText(bundle.getString("not_specified"));
+
+        if(!choosen.getRegCom().trim().equals(""))
+            regCommerce.setText(choosen.getRegCom()) ;
+        else
+            regCommerce.setText(bundle.getString("not_specified"));
+
+        if(!choosen.getAi().trim().equals(""))
+            clientAI.setText(choosen.getAi()) ;
+        else
+            clientAI.setText(bundle.getString("not_specified"));
+
+        if(!choosen.getNif().trim().equals(""))
+            clientNIF.setText(choosen.getNif()) ;
+        else
+            clientNIF.setText(bundle.getString("not_specified"));
+
+        if (choosen.getImage().trim().equals("")) {
+            clientIV.setFill(new ImagePattern(new Image(
+                    ClassLoader.class.getResourceAsStream(IMAGES_PATH + "large/user.png"),
+                    clientIV.getCenterX(), clientIV.getCenterY(), false, false)));
+        }
+        else {
+            clientIV.setFill(new ImagePattern(new Image(
+                    new File(choosen.getImage()).toURI().toString(),
+                    clientIV.getCenterX(), clientIV.getCenterX(), false, false)));
+        }
+
+        paidLabel.setText(String.valueOf(choosen.getPaid()) + " " + bundle.getString("currency"));
+        remainLabel.setText(String.valueOf(choosen.getRemain()) + " " + bundle.getString("currency"));
+
+
+        clientsCB.setValue(choosen);
+        clientsCB.getSelectionModel().select(choosen);
+
+        initPaymentsTable();
+
         }
     }    
        
@@ -860,7 +864,7 @@ public class MainController extends SMController implements Initializable,Init {
     {
 
         try {
-            clientsList = Client.getClientNames(bundle);
+            clientsList = Client.getClients(bundle, true);
         }
         catch (SQLException e) {          
             exceptionLayout(e);
@@ -1141,7 +1145,6 @@ public class MainController extends SMController implements Initializable,Init {
         buyAction2.setCellFactory(cellFactoryBuy2);        
         
         buysTable.setItems(buysList);
-
         buysTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         
         printBuys.disableProperty().bind(Bindings.size(buysTable.getItems()).isEqualTo(0));
@@ -1425,12 +1428,8 @@ public class MainController extends SMController implements Initializable,Init {
         
         deleteClientBtn.setOnAction(Action -> {
 
-            try {
-                Client client = Client.getClientByName(clientsCB.getSelectionModel().getSelectedItem());
-                confirmDialog(client, "client", bundle.getString("delete") + " " + client.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
-            } catch (SQLException ex) {
-                exceptionLayout(ex);
-            }
+            Client client = clientsCB.getSelectionModel().getSelectedItem();
+            confirmDialog(client, "client", bundle.getString("delete") + " " + client.getFullname(), bundle.getString("are_u_sure"), INFO_SMALL);
 
         });
         
@@ -1452,7 +1451,7 @@ public class MainController extends SMController implements Initializable,Init {
         updateClientBtn.setOnAction(Action -> {
             
             try {
-                Client client = Client.getClientByName(clientsCB.getValue());
+                Client client = clientsCB.getValue();
                 ((Node)Action.getSource()).getScene().getWindow().hide();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH + "UpdateClient.fxml"), bundle);
                 AnchorPane root = (AnchorPane)loader.load();
@@ -1461,7 +1460,7 @@ public class MainController extends SMController implements Initializable,Init {
                 ucControl.fillFields(client);
                 startStage(root, (int)root.getWidth(), (int)root.getHeight());
 
-            } catch (IOException | SQLException ex) {
+            } catch (IOException ex){
                 exceptionLayout(ex);
             }
         });
@@ -1946,6 +1945,19 @@ public class MainController extends SMController implements Initializable,Init {
         btn_sells.setOnMouseExited(value -> {
             animeSells.stop();
         });        
+        
+    }
+
+    private void initPaymentsTable() {
+        
+        try {
+            paymentsList = Payment.getClientPayments(clientsCB.getValue());
+            payDateCol.setCellValueFactory(new PropertyValueFactory<>("payDate"));
+            paySumCol.setCellValueFactory(new PropertyValueFactory<>("paySum"));
+            paymentsTable.setItems(paymentsList);
+        } catch (SQLException ex) {
+            exceptionLayout(ex);
+        }
         
     }
 

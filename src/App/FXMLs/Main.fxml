@@ -1121,7 +1121,7 @@
             <DropShadow color="#00000099" height="15.0" radius="7.0" width="15.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <AnchorPane fx:id="clients" layoutX="10.0" layoutY="95.0" prefHeight="634.0" prefWidth="950.0" style="-fx-background-color: #eee;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="871.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -1279,11 +1279,12 @@
                                  <children>
                                     <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="464.0" prefWidth="128.0" spacing="8.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <TableView prefHeight="350.0" prefWidth="624.0" style="-fx-background-color: white;">
+                                          <TableView fx:id="paymentsTable" prefHeight="350.0" prefWidth="624.0" style="-fx-background-color: white;">
                                              <columns>
-                                                <TableColumn maxWidth="160.0" minWidth="128.0" prefWidth="128.0" text="%payment_id" />
-                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="%payment_date" />
-                                                <TableColumn maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="%payment_sum" />
+                                                <TableColumn fx:id="payDateCol" maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="%payment_date" />
+                                                <TableColumn fx:id="paySumCol" maxWidth="384.0" minWidth="128.0" prefWidth="256.0" text="%payment_sum" />
+                                                <TableColumn fx:id="editPaymentCol" maxWidth="160.0" minWidth="128.0" prefWidth="160.0" text="%edit" />
+                                                <TableColumn fx:id="deletePaymentCol" maxWidth="160.0" minWidth="128.0" prefWidth="160.0" text="%delete" />
                                              </columns>
                                              <effect>
                                                 <DropShadow color="#000000b2" height="16.0" radius="7.5" width="16.0" />

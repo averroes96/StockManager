@@ -212,11 +212,11 @@ public class UpdateClientController extends SMController implements Initializabl
 
                         ps = con.prepareStatement("UPDATE client SET fullname = ?, tel = ?, rc = ?, nif = ?, ai = ?, image = ? WHERE client_id = ?");
 
-                        ps.setString(1, fullnameTF.getText());
-                        ps.setString(2,phoneTF.getText());
-                        ps.setString(3, regcomTF.getText());
-                        ps.setString(4, nifTF.getText());
-                        ps.setString(5, aiTF.getText());
+                        ps.setString(1, fullnameTF.getText().trim());
+                        ps.setString(2,phoneTF.getText().trim());
+                        ps.setString(3, regcomTF.getText().trim());
+                        ps.setString(4, nifTF.getText().trim());
+                        ps.setString(5, aiTF.getText().trim());
                         ps.setString(6, selectedClient.getImage());
                         ps.setInt(7, selectedClient.getID());
                         ps.executeUpdate();
@@ -227,6 +227,12 @@ public class UpdateClientController extends SMController implements Initializabl
                     if(!currentImage.equals(selectedClient.getImage())){
                         Common.deleteImage(currentImage);
                     }
+                    
+                    selectedClient.setFullname(fullnameTF.getText().trim());
+                    selectedClient.setPhone(phoneTF.getText().trim());
+                    selectedClient.setRegCom(regcomTF.getText().trim());
+                    selectedClient.setNif(nifTF.getText().trim());
+                    selectedClient.setAi(aiTF.getText().trim());
 
                     customDialog(bundle.getString("client_updated"), bundle.getString("client_updated_msg"), INFO_SMALL, true, saveBtn);
 
@@ -234,7 +240,7 @@ public class UpdateClientController extends SMController implements Initializabl
                     AnchorPane root = (AnchorPane)loader.load();
                     MainController mControl = (MainController)loader.getController();
                     mControl.getEmployer(employer);
-                    mControl.showClient(fullnameTF.getText());
+                    mControl.showClient(selectedClient);
                     mControl.returnMenu("clients");
                     ((Node)action.getSource()).getScene().getWindow().hide();
                     Common.startStage(root, (int)root.getWidth(), (int)root.getHeight());
