@@ -1,5 +1,5 @@
 # Stock Manager
-This is JavaFX inventory manager app.
+This is an inventory manager app i realised just for fun while learning JavaFX
 
 ## Features:
 - [x] Consult/Add/Update/Delete products.
